@@ -23,12 +23,19 @@
   --g-line-soft: #EEECE6;
   --g-line-dashed: #C8C5BA;
 
-  /* Accent: cobalt */
-  --g-accent: #2B36D9;
-  --g-accent-hover: #1A238F;
-  --g-accent-soft: #E9EAFB;
-  --g-accent-tint: #C9CCF9;
-  --g-accent-mid: #8E95F0;
+  /* Accent: oxblood, with one ember step.
+     The drama is value, not chroma. Oxblood is near-ink, so it lands like a
+     second printing plate rather than a highlight, and it clears 4.5:1 with
+     roughly double the margin at the 11px and 12px sizes this design lives at.
+     The one hot colour is structurally confined to the dark band: ember scores
+     1.8:1 on paper, so putting it there is both illegal and off brand. Red as
+     alarm is neutralised by dropping the value; orange as notification is
+     neutralised by never rendering it on ivory. */
+  --g-accent: #8C1D18;        /* 8.4:1 on paper, 9.1:1 on white. All small text and fills */
+  --g-accent-hover: #6E1613;  /* 10.8:1 on paper */
+  --g-accent-soft: #F8E8E4;   /* chip ground. accent on it is 7.7:1 */
+  --g-accent-tint: #F0A94C;   /* EMBER. Dark band only, 9.4:1 there. Never on paper */
+  --g-accent-mid: #C2452E;    /* brick, 4.6:1 on paper. Large display and non-text only */
 
   /* Status */
   --g-good: #0B6E57;
@@ -54,7 +61,7 @@
   --g-shadow-hover: 0 24px 48px -24px rgba(15,17,21,.22);
   --g-shadow-float: 0 30px 60px -24px rgba(15,17,21,.30);
   --g-shadow-hero: 0 60px 120px -50px rgba(15,17,21,.35);
-  --g-shadow-btn: 0 12px 26px -10px rgba(43,54,217,.60);
+  --g-shadow-btn: 0 12px 26px -10px rgba(140,29,24,.55);
 
   /* Motion */
   --g-ease: cubic-bezier(.2,.7,.2,1);
@@ -182,7 +189,7 @@ code { font-family: var(--font-mono); font-size: .88em; }
   text-transform: uppercase;
   color: var(--g-accent);
 }
-.band .eyebrow { color: var(--g-accent-mid); }
+.band .eyebrow { color: var(--g-accent-tint); }
 
 .lead {
   margin: 0;

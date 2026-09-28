@@ -20,10 +20,40 @@ not covered, match what is already on the page.
 
 ### Ground
 
-Warm ivory paper `#F6F5F1`, white surfaces, ink `#0F1115`. One accent, cobalt `#2B36D9`,
-and it has a job: it marks the thing being pointed at. Everything else is ink, paper and
-a grey ramp. Dark bands use `#0F1115` with `#1A1D24` panels. Full token set at the top of
-`assets/site.css`.
+Warm ivory paper `#F6F5F1`, white surfaces, ink `#0F1115`. Everything else is ink, paper
+and a grey ramp. Dark bands use `#0F1115` with `#1A1D24` panels. Full token set at the top
+of `assets/site.css`.
+
+The accent is **oxblood `#8C1D18`** with one **ember `#F0A94C`** step, and the split is a
+rule rather than a convenience:
+
+| Token | Hex | Where it may appear |
+|---|---|---|
+| `--g-accent` | `#8C1D18` | Everything on paper: 12px eyebrows, 11px chips, links, pill fills, rules |
+| `--g-accent-hover` | `#6E1613` | Hover only |
+| `--g-accent-soft` | `#F8E8E4` | Chip ground on paper |
+| `--g-accent-tint` | `#F0A94C` | **Dark band only.** Eyebrows and the serif italic on `#0F1115` |
+| `--g-accent-mid` | `#C2452E` | Large display and non-text only. Never small text |
+
+**The hot colour only appears in the dark.** Ember scores 1.8:1 on ivory, so putting it on
+paper is both an accessibility failure and off brand. Oxblood carries the drama through
+value instead of chroma: it is near-ink, so it lands like a second printing plate rather
+than a highlight, and it clears 4.5:1 with roughly double the margin at the sizes this
+page actually lives at.
+
+| Pair | Ratio |
+|---|---|
+| accent on paper | 8.4:1 |
+| accent on white | 9.1:1 |
+| white on accent fill | 9.1:1 |
+| ember on `#0F1115` | 9.4:1 |
+| accent on accent-soft | 7.7:1 |
+| brick on paper | 4.6:1 |
+
+Red reads as alarm only at high value; dropping it to near-ink removes that. This matters
+because the brand's own principle is convergence over alerts, so an alarm-coloured brand
+would contradict the copy. Check any new accent value against both `#F6F5F1` and `#FFFFFF`
+before using it on text.
 
 ### Type
 
