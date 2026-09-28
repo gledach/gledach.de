@@ -27,17 +27,42 @@ server.
 
 ## Deploy
 
-Upload the repository root as-is. Host-agnostic on purpose: no `_headers`, no workflow, no
-adapter, so Cloudflare Pages, Netlify, GitHub Pages, S3 or any static host takes it unchanged.
+Cloudflare Workers with static assets. `wrangler.jsonc` is the whole configuration and
+there is no Worker script, because nothing here runs server side.
 
-| Setting | Value |
+| Worker Builds setting | Value |
 |---|---|
-| Build command | none |
-| Output directory | `/` (repository root) |
-| 404 page | `404.html` |
+| Build command | *(leave empty)* |
+| Deploy command | `npx wrangler deploy` |
+| Root directory | `/` |
 
-If you add a host-specific file later, note it here so the next person knows the page is no
-longer portable.
+Nothing is compiled, so an empty build command is correct rather than lazy. Every file in
+the repository is already the artifact.
+
+`wrangler.jsonc` sets `not_found_handling` to `404-page`, so an unmatched path serves
+`404.html` with a real 404 status. Do not change it to `single-page-application`: this is a
+multi-page static site and that setting would answer every bad URL with a 200 and the
+homepage.
+
+`.assetsignore` keeps documentation out of the deployed site. It also excludes `DESIGN.md`,
+which is gitignored but does sit in this directory on a maintainer's machine, so a local
+`wrangler deploy` cannot publish it by accident.
+
+**The Worker name must match.** `wrangler.jsonc` says `gledach-de`. If the Worker in your
+Cloudflare dashboard is called something else, change the name here or wrangler will create
+a second Worker next to the first.
+
+**Wrangler is not pinned.** With no `package.json`, `npx` fetches whatever wrangler is
+current at build time. That keeps the repository dependency-free, and accepts that a
+wrangler release could change behaviour without a commit here. Add a `package.json` with
+wrangler as a devDependency if you would rather have reproducible builds.
+
+### Other hosts
+
+The site itself is host-agnostic: static files, absolute paths, no server. Any static host
+serves the repository root unchanged, with `404.html` as the not-found page.
+`wrangler.jsonc` and `.assetsignore` are the only Cloudflare-specific files and they are
+inert everywhere else.
 
 ## Add a tool
 

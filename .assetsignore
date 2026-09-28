@@ -1,0 +1,27 @@
+# Files in this directory that are not the website.
+# Same format as .gitignore. Wrangler will not upload anything matching.
+
+# Repository documentation and tooling.
+README.md
+CLAUDE.md
+LICENSE
+.gitignore
+.assetsignore
+wrangler.jsonc
+
+# The design system is held outside the repository, but it does sit in this
+# directory on a maintainer's machine. Deploying from there must not publish it.
+DESIGN.md
+
+# Never.
+**/.git
+**/node_modules
+**/.wrangler
+**/.DS_Store
+**/Thumbs.db
+
+# Deliberately NOT ignored, because they are part of the site:
+#   index.md     the markdown twin, linked from the footer
+#   llms.txt     the agent-readable summary
+#   robots.txt   points crawlers at both of the above
+#   sitemap.xml

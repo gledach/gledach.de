@@ -1,0 +1,25 @@
+{
+  // Static assets only. There is no Worker script and no "main" entrypoint,
+  // because nothing on this site runs server side.
+  //
+  // IMPORTANT: "name" must match the Worker that already exists in the
+  // Cloudflare dashboard. If yours is called something else, change it here or
+  // wrangler will create a second Worker beside the first one.
+  "name": "gledach-de",
+
+  "compatibility_date": "2026-09-28",
+
+  "assets": {
+    // The site is the repository root. Files that are documentation rather than
+    // site content are excluded in .assetsignore, next to this file.
+    "directory": "./",
+
+    // /about and /about/ both resolve, and .html is dropped from URLs.
+    "html_handling": "auto-trailing-slash",
+
+    // Unmatched paths serve 404.html with a 404 status. This is a multi-page
+    // static site, so "single-page-application" would be wrong: it would answer
+    // every bad URL with a 200 and the homepage.
+    "not_found_handling": "404-page"
+  }
+}
