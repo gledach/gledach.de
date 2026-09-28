@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gledach — tools that turn public noise into structured signal</title>
+<meta name="description" content="Free, installable tools that watch public sources, score what comes back, and hand the result to an AI agent rather than a dashboard. MIT, no account, no build step.">
+<link rel="canonical" href="https://gledach.de/">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0a0c11">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gledach.de/">
+<meta property="og:site_name" content="gledach">
+<meta property="og:title" content="gledach — public noise into structured signal">
+<meta property="og:description" content="Free tools that watch public sources, score what comes back, and hand the result to an agent rather than a dashboard.">
+<!-- Crawler-only request. The page itself loads nothing third-party. -->
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/277326509">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+
+<!-- Applies a stored theme choice before first paint, so a visitor who picked
+     light does not get a dark flash. Dark stays the default. -->
+<script>try{var t=localStorage.getItem('gledach-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#tools">Skip to the tools</a>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="mark" href="/" aria-label="gledach, home">
+      <span class="mark-glyph" aria-hidden="true"></span>gledach
+    </a>
+    <nav class="bar-nav" aria-label="Sections">
+      <a href="#tools">tools</a>
+      <a href="#previews">previews</a>
+      <a href="#principles">principles</a>
+      <a href="https://github.com/gledach" rel="noopener">github</a>
+    </nav>
+    <button class="theme" type="button" data-theme-toggle aria-label="Switch to light theme">
+      <span data-theme-label>dark</span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ─────────────────────────── hero ─────────────────────────── -->
+  <section class="hero">
+    <div class="wrap">
+      <pre class="ascii" role="img" aria-label="gledach">            __          __           __
+    ____ _ / /___  ____/ /___ ______/ /_
+   / __ `// // _ \/ __  // __ `/ ___/ __ \
+  / /_/ // //  __// /_/ // /_/ / /__/ / / /
+  \__, //_/ \___/ \__,_/ \__,_/\___/_/ /_/
+ /____/</pre>
+
+      <p class="etym"><em>gledati</em> (slav.) — to watch. What a good analyst does before speaking.</p>
+
+      <h1 class="lede">
+        Free tools that turn <span class="hl">public noise</span> into
+        <span class="hl">structured signal</span> — and hand it to an agent
+        rather than to a dashboard nobody opens.
+      </h1>
+
+      <p class="sub">
+        Each one is a real project, not a demo: you clone it, run it on your own machine,
+        point it at your own subject, and keep the data. Same shape every time — watch a set
+        of sources continuously, score and attribute what comes back, notice when several
+        independent sources say the same thing, expose the result as something else can query.
+      </p>
+
+      <div class="cta">
+        <div class="cmd" data-copy>
+          <code>git clone https://github.com/gledach/signals</code>
+          <button type="button" class="copy" aria-label="Copy clone command">copy</button>
+        </div>
+        <a class="btn btn-primary" href="https://signal-v1.gledach.de" rel="noopener">
+          see one running <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <ul class="strip" aria-label="What is true of everything here">
+        <li><b>MIT</b> licensed</li>
+        <li><b>no account</b> to start</li>
+        <li><b>no API key</b> to start</li>
+        <li><b>no build step</b></li>
+        <li><b>your machine</b> is the runtime</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── 01 shape ─────────────────────────── -->
+  <section class="sect" id="shape">
+    <div class="wrap">
+      <h2 class="sect-h"><span class="num">01</span> the shape</h2>
+      <p class="sect-intro">
+        Four moves, in this order. Every tool here is that pipeline pointed at a different subject.
+      </p>
+
+      <ol class="flow">
+        <li>
+          <span class="flow-n">watch</span>
+          <p>Public sources, on a cadence that fits how fast each one actually moves. Certificate
+          logs and sitemaps, not just press releases.</p>
+        </li>
+        <li>
+          <span class="flow-n">score</span>
+          <p>Classify and weight each item, and record where it came from. An unattributed claim
+          is not evidence.</p>
+        </li>
+        <li>
+          <span class="flow-n">converge</span>
+          <p>Find the patterns several independent sources corroborate. Ten mentions of one press
+          release are one event, not ten.</p>
+        </li>
+        <li>
+          <span class="flow-n">expose</span>
+          <p>Serve it as structured data an agent can query — with a coverage block, so
+          "nothing happened" reads differently from "we stopped looking".</p>
+        </li>
+      </ol>
+
+      <figure class="ladder">
+        <figcaption>Where a move shows up first, and how long before it reaches the news:</figcaption>
+        <pre>infrastructure  →  hiring  →  documentation  →  changelog  →  marketing  →  press
+   (weeks)        (months,        (hours)          (hours)      (at launch)   (after)
+                   vague)</pre>
+        <p class="note">
+          Most tools start at the right-hand end. That is the last place anything appears, and
+          where everyone is already looking. Full catalogue in
+          <a href="https://github.com/gledach/signal-patterns/blob/main/sources.md" rel="noopener">signal-patterns</a>.
+        </p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── 02 tools ─────────────────────────── -->
+  <section class="sect" id="tools">
+    <div class="wrap">
+      <h2 class="sect-h"><span class="num">02</span> tools</h2>
+      <p class="sect-intro">
+        Two shipped, one slot open. Everything is on GitHub under
+        <a href="https://github.com/gledach" rel="noopener">gledach</a>.
+      </p>
+
+      <div class="tools">
+
+        <!-- signal -->
+        <article class="tool" data-kind="live">
+          <div class="tool-head">
+            <h3 id="signal">signal</h3>
+            <span class="chip chip-live">v1 · live preview</span>
+          </div>
+          <p class="tool-line">Competitive intelligence your agents can query.</p>
+          <p>
+            Watches a market, turns public noise into scored and attributed signals, and exposes
+            them over <b>MCP</b> — so Claude Code or any MCP client can ask "what changed at the
+            tools we track this week?" and get structured data back. It ships tracking thirteen
+            AI coding agents and prompt-to-app builders; you point it at your own market by
+            editing one gitignored file. The dashboard is one client, not the product.
+          </p>
+
+          <dl class="facts">
+            <div><dt>sources</dt><dd>13</dd></div>
+            <div><dt>MCP tools</dt><dd>8</dd></div>
+            <div><dt>runtime deps</dt><dd>3</dd></div>
+            <div><dt>signals stored</dt><dd>2,600+</dd></div>
+          </dl>
+
+          <div class="cmd cmd-block" data-copy>
+<code>git clone https://github.com/gledach/signals &amp;&amp; cd signals
+npm install
+npm run db:migrate   # local database + demo data. no account, no key
+npm run view         # a populated dashboard at 127.0.0.1:5180</code>
+            <button type="button" class="copy" aria-label="Copy install commands">copy</button>
+          </div>
+          <p class="note">That works offline on a fresh clone. An LLM key unlocks classification,
+          battlecards and analyst briefs; without one a keyword classifier runs instead.</p>
+
+          <nav class="tool-links" aria-labelledby="signal">
+            <a href="https://github.com/gledach/signals" rel="noopener">repo</a>
+            <a href="https://signal-v1.gledach.de" rel="noopener">live preview</a>
+            <a href="https://github.com/gledach/signals/blob/main/docs/start.md" rel="noopener">install guide</a>
+            <a href="https://github.com/gledach/signals/blob/main/docs/mcp.md" rel="noopener">agent surface</a>
+            <a href="https://github.com/gledach/signals/blob/main/docs/blindspots.md" rel="noopener">what it cannot see</a>
+          </nav>
+        </article>
+
+        <!-- signal-patterns -->
+        <article class="tool" data-kind="docs">
+          <div class="tool-head">
+            <h3 id="signal-patterns">signal-patterns</h3>
+            <span class="chip chip-docs">reference</span>
+          </div>
+          <p class="tool-line">How to build tools that watch the public web.</p>
+          <p>
+            What is watchable, what it costs, how to build a watcher, and the engineering
+            decisions that only become obvious after something has broken. Not a framework —
+            there is nothing to install and nothing to version, because the reasoning is the
+            reusable part and the code around it usually is not.
+          </p>
+
+          <dl class="facts">
+            <div><dt>guides</dt><dd>4</dd></div>
+            <div><dt>patterns</dt><dd>8</dd></div>
+            <div><dt>install</dt><dd>nothing</dd></div>
+            <div><dt>reference impl.</dt><dd>signal</dd></div>
+          </dl>
+
+          <nav class="tool-links" aria-labelledby="signal-patterns">
+            <a href="https://github.com/gledach/signal-patterns" rel="noopener">repo</a>
+            <a href="https://github.com/gledach/signal-patterns/blob/main/sources.md" rel="noopener">what is watchable</a>
+            <a href="https://github.com/gledach/signal-patterns/blob/main/techniques.md" rel="noopener">what it costs</a>
+            <a href="https://github.com/gledach/signal-patterns/blob/main/building-a-watcher.md" rel="noopener">building a watcher</a>
+            <a href="https://github.com/gledach/signal-patterns/blob/main/agent-integration.md" rel="noopener">being consumable by agents</a>
+          </nav>
+        </article>
+
+        <!-- open slot -->
+        <article class="tool" data-kind="open">
+          <div class="tool-head">
+            <h3 id="next">the next subject</h3>
+            <span class="chip chip-open">not built</span>
+          </div>
+          <p class="tool-line">Competitors were the first subject. They are not the only one the shape fits.</p>
+          <p>
+            The same four moves work on anything that leaks publicly before it is announced —
+            a regulator's filings, a sector's hiring, a supply chain's infrastructure. Nothing
+            is shipped here yet, and this card stays empty until something is, because a
+            roadmap is not a tool.
+          </p>
+          <nav class="tool-links" aria-labelledby="next">
+            <a href="https://github.com/gledach/signals/issues/new" rel="noopener">suggest a subject</a>
+            <a href="mailto:hi@aleksandarperisic.com">email</a>
+          </nav>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── 03 previews ─────────────────────────── -->
+  <section class="sect" id="previews">
+    <div class="wrap">
+      <h2 class="sect-h"><span class="num">03</span> previews</h2>
+      <p class="sect-intro">
+        You should be able to see a tool before you install it. When one has something worth
+        looking at, it gets a subdomain of its own.
+      </p>
+
+      <div class="convention">
+        <pre><span class="c-a">&lt;tool&gt;</span>-<span class="c-b">&lt;version&gt;</span>.gledach.de
+
+<span class="c-a">signal</span>-<span class="c-b">v1</span>.gledach.de   ← a real deployment, exported to one static file</pre>
+      </div>
+
+      <ul class="rules">
+        <li><b>Real data, not a mock.</b> The export asks the running viewer the same questions
+          a browser asks and inlines the answers, so a preview cannot drift from the thing it
+          was taken from.</li>
+        <li><b>Dated and read-only.</b> It is a snapshot, not a live instance. Nothing you click
+          reaches a database, and the numbers are true as of the export.</li>
+        <li><b>Versioned, never overwritten.</b> <code>v1</code> stays at <code>v1</code>. A
+          rebuild that changes what you would conclude gets a new subdomain.</li>
+        <li><b>Generated analysis is model output</b> — battlecards, briefs and convergences are
+          written by a language model and are not verified fact. Read them as a starting point
+          for a human, which is how the tool describes them too.</li>
+      </ul>
+
+      <p class="cta-line">
+        <a class="btn" href="https://signal-v1.gledach.de" rel="noopener">open signal-v1 <span aria-hidden="true">→</span></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── 04 principles ─────────────────────────── -->
+  <section class="sect" id="principles">
+    <div class="wrap">
+      <h2 class="sect-h"><span class="num">04</span> principles</h2>
+      <p class="sect-intro">Six commitments. They are the reason these tools are shaped the way they are.</p>
+
+      <ul class="princ">
+        <li><b>local-first.</b> The laptop is the runtime. Cloud is for sharing state.</li>
+        <li><b>convergence over alerts.</b> One correlated insight beats ten raw mentions.</li>
+        <li><b>signal over polish.</b> Output quality before dashboard aesthetics — but both.</li>
+        <li><b>say what you cannot see.</b> Every tool ships an honest audit of its own blind spots.</li>
+        <li><b>read-only until asked.</b> An agent does not spend your money because it found a button.</li>
+        <li><b>idempotent retry, not dual-write.</b> Retry until it sticks; never split the source of truth.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <nav class="foot-nav" aria-label="Elsewhere">
+      <a href="https://github.com/gledach" rel="noopener">github</a>
+      <a href="https://github.com/gledach/signals" rel="noopener">signal</a>
+      <a href="https://github.com/gledach/signal-patterns" rel="noopener">patterns</a>
+      <a href="https://signal-v1.gledach.de" rel="noopener">live preview</a>
+      <a href="mailto:hi@aleksandarperisic.com">hi@aleksandarperisic.com</a>
+      <a href="mailto:security@gledach.de">security</a>
+    </nav>
+    <p class="foot-note">
+      <code>if it ships to turso, it shipped.</code>
+    </p>
+    <p class="foot-fine">
+      One HTML file, one stylesheet, one script. No framework, no webfonts, no analytics,
+      and nothing third-party requested when the page renders. Signals are gathered from
+      public sources.
+    </p>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
