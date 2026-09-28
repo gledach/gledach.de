@@ -76,7 +76,7 @@ lightness.
 - **Every number traces to a repository README.** If a number stops being true there,
   change it here. Facts that do not exist yet are `[BRACKETED]` placeholders, which is
   honest and is also how the empty slot card is written.
-- **Previews live on subdomains**, `<tool>-<version>.gledach.de`, never overwritten. They
+- **Previews live on subdomains**, `<tool>.gledach.de`, one per tool, replaced in place. They
   are separate deployments. This repository only links to them.
 - **Change the page, change all four.** `index.html`, `llms.txt`, `index.md` and the
   JSON-LD in the head are shipped twins. The last three go stale silently.

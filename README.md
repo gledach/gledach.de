@@ -86,8 +86,8 @@ yet, which is the opposite of a roadmap.
 
 ## Previews live on subdomains
 
-`<tool>-<version>.gledach.de`, one per tool per version, never overwritten.
-`signal-v1.gledach.de` is the first: a static export of a real Signal deployment, produced by
+`<tool>.gledach.de`, one per tool, replaced in place by the next export.
+`signal.gledach.de` is the first: a static export of a real Signal deployment, produced by
 `npm run demo:html` in [gledach/signals](https://github.com/gledach/signals). Those are
 separate deployments. This repository does not host them and knows nothing about them beyond
 the links in the markup.

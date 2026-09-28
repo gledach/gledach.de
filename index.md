@@ -6,7 +6,7 @@ own subject, and keep everything it collects.
 
 MIT licensed · no account to start · your machine is the runtime
 
-- See one running: <https://signal-v1.gledach.de>
+- See one running: <https://signal.gledach.de>
 - All repositories: <https://github.com/gledach>
 
 ## The shelf
@@ -69,7 +69,7 @@ That runs offline on a fresh clone. An LLM key turns on classification, battleca
 and analyst briefs. Without one, a keyword classifier runs instead.
 
 - Repository: <https://github.com/gledach/signals>
-- Live preview: <https://signal-v1.gledach.de>
+- Live preview: <https://signal.gledach.de>
 - Install guide: <https://github.com/gledach/signals/blob/main/docs/start.md>
 - Agent surface: <https://github.com/gledach/signals/blob/main/docs/mcp.md>
 - What it cannot see: <https://github.com/gledach/signals/blob/main/docs/blindspots.md>
@@ -105,19 +105,23 @@ The shelf is built to hold a dozen. What lands here next is not decided, and the
 honest version of this entry is a placeholder rather than a roadmap. Candidate
 subject: `[SUBJECT]`.
 
+Is there something you keep checking by hand that a tool could watch for you? Say
+so: <request@gledach.de>. Requests that would help more people than the person
+asking go to the front of the queue.
+
 ## Previews
 
-`<tool>-<version>.gledach.de`
+`<tool>.gledach.de`
 
-Example: `signal-v1.gledach.de`, a real deployment exported to a single static file.
+Example: `signal.gledach.de`, a real deployment exported to a single static file.
 
 - **Real data, not a mock.** The export asks the running viewer the same questions a
   browser asks and inlines the answers, so a preview cannot drift from the thing it
   was taken from.
 - **Dated and read only.** It is a snapshot, not a live instance. Nothing you click
   reaches a database, and every number is true as of the export.
-- **Versioned, never overwritten.** `v1` stays at `v1`. A rebuild that changes what
-  you would conclude gets a new subdomain.
+- **One per tool, replaced in place.** A re-export overwrites the preview, so what you
+  are looking at is the most recent snapshot rather than an archive of every one.
 - **Generated text is labelled as generated.** Battlecards, briefs and convergences
   are model output, not verified fact.
 
@@ -141,7 +145,7 @@ The tools vary. These six do not.
 ## Contact
 
 - <hi@aleksandarperisic.com>
-- <security@gledach.de>
+- <request@gledach.de> to request a tool
 - <https://github.com/gledach>
 
 *gledati* (slav.): to watch. What a good analyst does before speaking.

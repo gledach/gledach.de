@@ -81,7 +81,7 @@
       <a href="#rules">House rules</a>
     </nav>
     <div class="nav-right">
-      <a class="btn btn-ghost btn-sm" href="https://signal-v1.gledach.de" rel="noopener">Live preview</a>
+      <a class="btn btn-ghost btn-sm" href="https://signal.gledach.de" rel="noopener">Live preview</a>
       <a class="btn btn-primary btn-sm" href="https://github.com/gledach" rel="noopener">GitHub</a>
     </div>
   </div>
@@ -102,7 +102,7 @@
           own subject, and keep everything it collects.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="https://signal-v1.gledach.de" rel="noopener">
+          <a class="btn btn-primary" href="https://signal.gledach.de" rel="noopener">
             See one running <span class="arrow" aria-hidden="true">&rarr;</span>
           </a>
           <a class="btn btn-ghost" href="#shelf">Browse the shelf</a>
@@ -284,7 +284,7 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
 
           <nav class="tool-links" aria-label="signal links">
             <a href="https://github.com/gledach/signals" rel="noopener">Repository</a>
-            <a href="https://signal-v1.gledach.de" rel="noopener">Live preview</a>
+            <a href="https://signal.gledach.de" rel="noopener">Live preview</a>
             <a href="https://github.com/gledach/signals/blob/main/docs/start.md" rel="noopener">Install guide</a>
             <a href="https://github.com/gledach/signals/blob/main/docs/mcp.md" rel="noopener">Agent surface</a>
             <a href="https://github.com/gledach/signals/blob/main/docs/blindspots.md" rel="noopener">What it cannot see</a>
@@ -363,9 +363,15 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
             repository, and a preview subdomain if there is anything worth looking at.
           </p>
 
+          <p class="slot-ask">
+            Is there something you keep checking by hand that a tool could watch for you?
+            Say so: <a href="mailto:request@gledach.de">request@gledach.de</a>. Requests that
+            would help more people than the person asking go to the front of the queue.
+          </p>
+
           <nav class="tool-links" aria-label="Slot 03 links">
-            <a href="https://github.com/gledach/signals/issues/new" rel="noopener">Suggest a subject</a>
-            <a href="mailto:hi@aleksandarperisic.com">Email</a>
+            <a href="mailto:request@gledach.de">Request a tool</a>
+            <a href="https://github.com/gledach/signals/issues/new" rel="noopener">Open an issue</a>
           </nav>
         </article>
 
@@ -387,9 +393,9 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
       </div>
 
       <div class="convention">
-        <p class="convention-rule"><span class="c-tool">&lt;tool&gt;</span>-<span class="c-ver">&lt;version&gt;</span>.gledach.de</p>
+        <p class="convention-rule"><span class="c-tool">&lt;tool&gt;</span>.gledach.de</p>
         <p class="convention-eg">
-          <a href="https://signal-v1.gledach.de" rel="noopener"><span class="c-tool">signal</span>-<span class="c-ver">v1</span>.gledach.de</a>
+          <a href="https://signal.gledach.de" rel="noopener"><span class="c-tool">signal</span>.gledach.de</a>
           <span class="convention-note">a real deployment, exported to a single static file</span>
         </p>
       </div>
@@ -405,8 +411,8 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
           reaches a database, and every number is true as of the export.
         </li>
         <li>
-          <b>Versioned, never overwritten.</b> <code>v1</code> stays at <code>v1</code>. A
-          rebuild that changes what you would conclude gets a new subdomain.
+          <b>One per tool, replaced in place.</b> A re-export overwrites the preview, so what
+          you are looking at is the most recent snapshot rather than an archive of every one.
         </li>
         <li>
           <b>Generated text is labelled as generated.</b> Battlecards, briefs and convergences
@@ -416,8 +422,8 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
       </ul>
 
       <p class="cta-line">
-        <a class="btn btn-primary" href="https://signal-v1.gledach.de" rel="noopener">
-          Open signal-v1 <span class="arrow" aria-hidden="true">&rarr;</span>
+        <a class="btn btn-primary" href="https://signal.gledach.de" rel="noopener">
+          Open signal.gledach.de <span class="arrow" aria-hidden="true">&rarr;</span>
         </a>
       </p>
     </div>
@@ -500,7 +506,7 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
       <div>
         <p class="mono-label">Previews</p>
         <ul class="foot-list">
-          <li><a href="https://signal-v1.gledach.de" rel="noopener">signal-v1</a></li>
+          <li><a href="https://signal.gledach.de" rel="noopener">signal.gledach.de</a></li>
           <li><a href="#previews">How previews work</a></li>
         </ul>
       </div>
@@ -509,7 +515,7 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
         <p class="mono-label">Contact</p>
         <ul class="foot-list">
           <li><a href="mailto:hi@aleksandarperisic.com">hi@aleksandarperisic.com</a></li>
-          <li><a href="mailto:security@gledach.de">security@gledach.de</a></li>
+          <li><a href="mailto:request@gledach.de">request@gledach.de</a></li>
           <li><a href="/llms.txt">llms.txt</a></li>
           <li><a href="/index.md">This page as markdown</a></li>
         </ul>

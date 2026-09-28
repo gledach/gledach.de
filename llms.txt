@@ -38,7 +38,7 @@ file. Node, three runtime dependencies, no build step, libSQL storage that is a
 local file by default.
 
 - Repository: https://github.com/gledach/signals
-- Live preview: https://signal-v1.gledach.de (static export of a real deployment, dated, read only)
+- Live preview: https://signal.gledach.de (static export of a real deployment, dated, read only)
 - Install guide: https://github.com/gledach/signals/blob/main/docs/start.md
 - Agent surface (MCP): https://github.com/gledach/signals/blob/main/docs/mcp.md
 - Blind spots: https://github.com/gledach/signals/blob/main/docs/blindspots.md
@@ -73,18 +73,19 @@ documentation (hours), changelog (hours), marketing (at launch), press (after).
 ### Slot 03 · not built
 
 Empty. The shelf is built to hold a dozen. Nothing is planned publicly, and there
-is no roadmap to quote.
+is no roadmap to quote. Tool requests are welcome at request@gledach.de, and
+requests that would help more people than the person asking are prioritised.
 
 ## Previews
 
-Convention: `<tool>-<version>.gledach.de`. One per tool per version, never
-overwritten. A preview is a static export of a real deployment: real data, dated,
-read only. A rebuild that changes what you would conclude gets a new subdomain.
+Convention: `<tool>.gledach.de`. One per tool, replaced in place. A preview is a
+static export of a real deployment: real data, dated, read only. A re-export
+overwrites it, so a preview is the most recent snapshot rather than an archive.
 
 ## Contact
 
 - hi@aleksandarperisic.com
-- security@gledach.de
+- request@gledach.de to request a tool that would help people
 - https://github.com/gledach
 
 ## This page

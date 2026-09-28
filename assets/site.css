@@ -689,6 +689,17 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
 .is-slot:hover { transform: none; box-shadow: none; border-color: var(--g-line-dashed); }
 .is-slot .h3 { color: var(--g-muted); }
 .slot-body { max-width: 68ch; font-size: 16px; color: var(--g-ink-2); }
+/* The invitation on the empty slot. Sits apart from the placeholder prose so it
+   reads as an ask rather than more description of what is not there. */
+.slot-ask {
+  max-width: 68ch;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--g-line-soft);
+  font-size: 16px;
+  color: var(--g-ink-2);
+}
+
 .slot-body code {
   background: var(--g-sunken);
   border-radius: var(--g-r-xs);
@@ -859,7 +870,6 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
 .convention-eg a { font-family: var(--font-mono); font-size: clamp(15px, 1.5vw, 19px); color: var(--g-ink); }
 .convention-eg a:hover { color: var(--g-accent); }
 .c-tool { color: var(--g-accent); }
-.c-ver { color: var(--g-accent-mid); }
 .convention-note { font-size: 14px; color: var(--g-muted); }
 
 .rules-list {
