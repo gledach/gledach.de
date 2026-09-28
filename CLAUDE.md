@@ -13,8 +13,8 @@ not covered, match what is already on the page.
 **Two rules break the page loudest when missed:**
 
 - **No em dashes.** Not in copy, not in code comments, not in commit messages. Use a
-  colon, a comma, a period or a middle dot `·`. A grep for `—` across this
-  repository should return nothing.
+  colon, a comma, a period or a middle dot `·`. A grep for U+2014 across this
+  repository should return nothing, including this line.
 - **Proof over promise.** Every claim is shown as product UI, data or evidence. A card
   with an icon and a blurb is not finished.
 
