@@ -52,6 +52,20 @@
       "price": "0",
       "priceCurrency": "EUR",
       "itemOffered": {
+        "@type": "SoftwareApplication",
+        "name": "whenrun",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Windows, macOS, Linux",
+        "license": "https://opensource.org/licenses/MIT",
+        "url": "https://github.com/gledach/whenrun",
+        "description": "Watches day-ahead electricity prices and renewable share, then schedules jobs into the cheapest or greenest window. Zero dependencies, no account."
+      }
+    },
+    {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR",
+      "itemOffered": {
         "@type": "TechArticle",
         "name": "signal-patterns",
         "url": "https://github.com/gledach/signal-patterns",
@@ -114,7 +128,7 @@
       <figure class="rack" aria-labelledby="rack-cap">
         <div class="rack-head">
           <a class="mono-label rack-jump" href="#shelf">The shelf</a>
-          <span class="chip chip-neutral">2 of 12 slots filled</span>
+          <span class="chip chip-neutral">3 of 12 slots filled</span>
         </div>
         <div class="rack-body">
           <span class="rack-scan" aria-hidden="true"></span>
@@ -133,11 +147,12 @@
             <span class="rack-status">Docs</span>
           </a>
 
-          <div class="rack-row is-empty">
+          <a class="rack-row" href="#whenrun">
             <span class="rack-n">03</span>
-            <span class="rack-name">[UNNAMED]</span>
-            <span class="rack-status">Empty</span>
-          </div>
+            <span class="rack-name">whenrun</span>
+            <span class="chip chip-accent">Intelligence</span>
+            <span class="rack-status is-live">Shipped</span>
+          </a>
 
           <div class="rack-row is-empty">
             <span class="rack-n">04</span>
@@ -146,7 +161,7 @@
           </div>
         </div>
         <figcaption id="rack-cap">
-          Two filled today. Same author, different shapes: what they share is the promise, not a stack.
+          Three filled today. Same author, different shapes: what they share is the promise, not a stack.
         </figcaption>
       </figure>
 
@@ -188,7 +203,7 @@
           <span class="mono-label">04 · Intelligence</span>
           <p>Queryable by something other than a person. An answer to a question you had not
           thought to ask yet.</p>
-          <span class="ladder-flag">signal reaches here</span>
+          <span class="ladder-flag">signal and whenrun reach here</span>
         </li>
       </ol>
 
@@ -205,7 +220,7 @@
       <div class="section-head">
         <div>
           <p class="eyebrow">The shelf</p>
-          <h2 class="h2">Two tools today. Room for <em>the rest.</em></h2>
+          <h2 class="h2">Three tools today. Room for <em>the rest.</em></h2>
         </div>
         <p class="lead">
           A tool earns a slot here when it runs on someone else's machine, not only on mine.
@@ -346,11 +361,97 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
           </nav>
         </article>
 
+        <!-- ─────────── whenrun ─────────── -->
+        <article class="tool card" id="whenrun">
+          <div class="tool-head">
+            <h3 class="h3">whenrun</h3>
+            <span class="chip chip-accent">Rung 04 · Intelligence</span>
+            <span class="chip chip-good">Shipped</span>
+          </div>
+
+          <p class="tool-line">Run it when the power is cheap.</p>
+
+          <div class="tool-body">
+            <div class="tool-text">
+              <p>
+                Watches day-ahead electricity prices and the renewable-share forecast, works
+                out the cheapest or greenest window that still meets a job's deadline, and
+                starts the job there. Backups, builds, an EV charger, a heat pump. It is the
+                first tool here that acts on what it sees rather than reporting it, and the
+                only one with nothing at all to install: no account, no key, and zero runtime
+                dependencies.
+              </p>
+
+              <dl class="stats">
+                <div>
+                  <dt>Price sources</dt>
+                  <dd>2</dd>
+                  <p>both keyless, cross-checked against each other by <code>doctor</code></p>
+                </div>
+                <div>
+                  <dt>Bidding zones</dt>
+                  <dd>16</dd>
+                  <p>verified live in DE-LU, AT, FR, CH, NL, ES and PL</p>
+                </div>
+                <div>
+                  <dt>Runtime deps</dt>
+                  <dd>0</dd>
+                  <p>no npm install, storage is a file on disk</p>
+                </div>
+                <div>
+                  <dt>Tests</dt>
+                  <dd>142</dd>
+                  <p>fully offline, against fixtures captured from the real APIs</p>
+                </div>
+              </dl>
+            </div>
+
+            <figure class="termshot">
+              <pre>DE-LU · 82319 Starnberg · energy-charts · 15min slots
+
+  today     ▆▅▅▅▅▅▇█▇▆▅▃▂▁▁▃▅▇██▇▅▅▄  72 to 231 EUR/MWh
+            00:00 06:00 12:00 18:00
+
+  Cheapest window from now
+
+  len  when                  spot          you pay
+  ───  ────────────────────  ────────────  ─────────────
+  1h   today 13:15 to 14:15  68.3 EUR/MWh  31.3 ct/kWh
+  4h   today 11:30 to 15:30  86.6 EUR/MWh  33.5 ct/kWh
+
+  Greenest 2h  today 12:30 to 14:30  101% renewable</pre>
+              <figcaption>
+                Real output. German power moved by a factor of three that day, and the
+                renewable share passed 100% because exported surplus counts against
+                domestic load.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="cmd" data-copy>
+<code>git clone https://github.com/gledach/whenrun &amp;&amp; cd whenrun
+node bin/whenrun.mjs prices          # what power costs today
+node bin/whenrun.mjs where           # your location, and every zone</code>
+            <button type="button" class="copy" aria-label="Copy the install commands for whenrun">Copy</button>
+          </div>
+          <p class="figure-note">
+            No <code>npm install</code>, because there is nothing to install. Savings are
+            reported against the delivered bill rather than the spot price, since grid fees
+            and tax do not move by the hour and a spot-only figure flatters the tool.
+          </p>
+
+          <nav class="tool-links" aria-label="whenrun links">
+            <a href="https://github.com/gledach/whenrun" rel="noopener">Repository</a>
+            <a href="https://github.com/gledach/whenrun/blob/main/docs/running-it.md" rel="noopener">Running it for real</a>
+            <a href="https://github.com/gledach/whenrun/blob/main/docs/roadmap.md" rel="noopener">What it cannot do</a>
+          </nav>
+        </article>
+
         <!-- ─────────── empty slot ─────────── -->
-        <article class="tool card is-slot" id="slot-03">
+        <article class="tool card is-slot" id="slot-04">
           <div class="tool-head">
             <h3 class="h3">[TOOL NAME]</h3>
-            <span class="chip chip-draft">Slot 03</span>
+            <span class="chip chip-draft">Slot 04</span>
             <span class="chip chip-draft">Not built</span>
           </div>
 
@@ -369,7 +470,7 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
             would help more people than the person asking go to the front of the queue.
           </p>
 
-          <nav class="tool-links" aria-label="Slot 03 links">
+          <nav class="tool-links" aria-label="Slot 04 links">
             <a href="mailto:request@gledach.de">Request a tool</a>
             <a href="https://github.com/gledach/signals/issues/new" rel="noopener">Open an issue</a>
           </nav>

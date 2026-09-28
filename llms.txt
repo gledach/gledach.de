@@ -70,7 +70,28 @@ Thesis: the useful signals are the ones a company exposes before it means to.
 Ordered by lead time: infrastructure (weeks), hiring (months, vague),
 documentation (hours), changelog (hours), marketing (at launch), press (after).
 
-### Slot 03 · not built
+### whenrun · rung 04, intelligence · shipped
+
+Run it when the power is cheap. Watches day-ahead electricity prices and the
+renewable-share forecast, finds the cheapest or greenest window that still meets
+a job's deadline, and starts the job there. The first tool here that acts on what
+it sees rather than reporting it.
+
+- Repository: https://github.com/gledach/whenrun
+- Running it for real: https://github.com/gledach/whenrun/blob/main/docs/running-it.md
+- What it cannot do: https://github.com/gledach/whenrun/blob/main/docs/roadmap.md
+- Licence: MIT. Price: 0.
+
+Install:
+
+    git clone https://github.com/gledach/whenrun && cd whenrun
+    node bin/whenrun.mjs prices
+
+Figures: 2 keyless price sources, 16 bidding zones, 0 runtime dependencies,
+142 offline tests. Savings are reported against the delivered bill rather than
+the spot price, because grid fees and tax do not move by the hour.
+
+### Slot 04 · not built
 
 Empty. The shelf is built to hold a dozen. Nothing is planned publicly, and there
 is no roadmap to quote. Tool requests are welcome at request@gledach.de, and

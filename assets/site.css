@@ -793,6 +793,36 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
   color: var(--g-muted);
 }
 
+/* ═══════════════════════ 13b. terminal capture ═══════════════════════ */
+
+/* Real command output, rendered as itself. A screenshot would be heavier, less
+   legible and impossible to select; the ink surface is the same one the command
+   blocks use so the two read as the same kind of evidence. */
+.termshot { margin: 0; }
+.termshot pre {
+  margin: 0;
+  background: var(--g-dark);
+  border-radius: var(--g-r-md);
+  padding: 20px 18px;
+  /* Deliberately not var(--font-mono). Geist Mono has no block-element glyphs
+     (U+2581 to U+2588), so the sparkline falls back per glyph to a font with a
+     different advance width and the column alignment collapses. These all carry
+     the blocks at the same width as their other characters. */
+  font-family: Consolas, 'DejaVu Sans Mono', 'Liberation Mono', Menlo, monospace;
+  font-size: clamp(10.5px, 1.1vw, 13px);
+  line-height: 1.55;
+  color: var(--g-on-dark-2);
+  white-space: pre;
+  overflow-x: auto;
+  -webkit-font-smoothing: auto;
+}
+.termshot figcaption {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--g-muted);
+}
+
 /* ═══════════════════════ 14. lead-time chart ═══════════════════════ */
 
 .leadtime {

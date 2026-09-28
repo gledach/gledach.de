@@ -15,10 +15,10 @@ MIT licensed · no account to start · your machine is the runtime
 |---|---|---|---|
 | 01 | signal | Intelligence | Live preview |
 | 02 | signal-patterns | Reference | Docs |
-| 03 | [UNNAMED] | | Empty |
+| 03 | whenrun | Intelligence | Shipped |
 | 04 | [UNNAMED] | | Empty |
 
-Two filled today. Same author, different shapes: what they share is the promise,
+Three filled today. Same author, different shapes: what they share is the promise,
 not a stack.
 
 ## Four rungs between raw data and an answer
@@ -34,7 +34,7 @@ it stopped.
 3. **Insight.** Scored and correlated. You know which of it matters, and what it is
    evidence of.
 4. **Intelligence.** Queryable by something other than a person. An answer to a
-   question you had not thought to ask yet. `signal` reaches here.
+   question you had not thought to ask yet. `signal` and `whenrun` reach here.
 
 Most monitoring products stop at rung 02 and call the result a feed. The distance
 between rung 02 and rung 04 is the whole job.
@@ -97,7 +97,38 @@ looking.
 - Building a watcher: <https://github.com/gledach/signal-patterns/blob/main/building-a-watcher.md>
 - Being consumable by agents: <https://github.com/gledach/signal-patterns/blob/main/agent-integration.md>
 
-## Slot 03
+## whenrun
+
+**Rung 04, intelligence. Shipped.**
+
+Run it when the power is cheap.
+
+Watches day-ahead electricity prices and the renewable-share forecast, works out the
+cheapest or greenest window that still meets a job's deadline, and starts the job there.
+Backups, builds, an EV charger, a heat pump. The first tool here that acts on what it sees
+rather than reporting it, and the only one with nothing at all to install.
+
+| Figure | Value | Context |
+|---|---|---|
+| Price sources | 2 | both keyless, cross-checked against each other |
+| Bidding zones | 16 | verified live in DE-LU, AT, FR, CH, NL, ES and PL |
+| Runtime deps | 0 | no npm install, storage is a file on disk |
+| Tests | 142 | fully offline, against fixtures captured from the real APIs |
+
+```bash
+git clone https://github.com/gledach/whenrun && cd whenrun
+node bin/whenrun.mjs prices
+node bin/whenrun.mjs where
+```
+
+Savings are reported against the delivered bill rather than the spot price, because grid
+fees and tax do not move by the hour and a spot-only figure flatters the tool.
+
+- Repository: <https://github.com/gledach/whenrun>
+- Running it for real: <https://github.com/gledach/whenrun/blob/main/docs/running-it.md>
+- What it cannot do: <https://github.com/gledach/whenrun/blob/main/docs/roadmap.md>
+
+## Slot 04
 
 **Not built.**
 
