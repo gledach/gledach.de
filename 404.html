@@ -1,41 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Not here — gledach</title>
+<title>Not here · gledach</title>
 <meta name="robots" content="noindex">
-<meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#0a0c11">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#F6F5F1">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
-<script>try{var t=localStorage.getItem('gledach-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
 
-<header class="bar">
-  <div class="wrap bar-in">
-    <a class="mark" href="/" aria-label="gledach, home">
-      <span class="mark-glyph" aria-hidden="true"></span>gledach
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="/" aria-label="gledach, home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="brand-word">gledach</span>
     </a>
-    <nav class="bar-nav" aria-label="Sections">
-      <a href="/#tools">tools</a>
-      <a href="https://github.com/gledach" rel="noopener">github</a>
-    </nav>
+    <div class="nav-right">
+      <a class="btn btn-primary btn-sm" href="https://github.com/gledach" rel="noopener">GitHub</a>
+    </div>
   </div>
 </header>
 
 <main class="lost">
-  <div class="wrap">
-    <h1>404 — nothing is watching this path</h1>
-    <p>
-      The page you asked for is not here. Tool previews live on their own subdomains
-      (<code>&lt;tool&gt;-&lt;version&gt;.gledach.de</code>) rather than under this one, so a
-      link to a preview path on <code>gledach.de</code> will always land here.
+  <div class="container">
+    <p class="eyebrow">404</p>
+    <h1 class="h2">Nothing is watching <em>this path.</em></h1>
+    <p class="lead">
+      The page you asked for is not here. Tool previews live on their own subdomains,
+      <code>&lt;tool&gt;-&lt;version&gt;.gledach.de</code>, rather than under this one, so a link
+      to a preview path on <code>gledach.de</code> will always land here.
     </p>
     <p class="cta-line">
-      <a class="btn btn-primary" href="/#tools">the tools <span aria-hidden="true">→</span></a>
-      <a class="btn" href="https://signal-v1.gledach.de" rel="noopener">signal-v1 preview</a>
+      <a class="btn btn-primary" href="/#shelf">The shelf <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      <a class="btn btn-ghost" href="https://signal-v1.gledach.de" rel="noopener">Open signal-v1</a>
     </p>
   </div>
 </main>

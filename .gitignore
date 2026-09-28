@@ -5,3 +5,6 @@ Thumbs.db
 .idea/
 
 # Nothing here is built, so nothing here is generated.
+
+# The design system this page follows is held outside the repository.
+DESIGN.md

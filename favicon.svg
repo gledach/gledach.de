@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="gledach">
-  <rect width="32" height="32" rx="7" fill="#0a0c11"/>
-  <!-- watching: a ring with a filled centre. Two shapes only, so it survives 16px. -->
-  <circle cx="16" cy="16" r="9.5" fill="none" stroke="#5b9dff" stroke-width="2.6" opacity="0.55"/>
-  <circle cx="16" cy="16" r="4.2" fill="#5b9dff"/>
+  <rect width="32" height="32" rx="9" fill="#0F1115"/>
+  <!-- Three rising bars. The tallest carries the accent. DESIGN.md 5.1 -->
+  <rect x="7"  y="19" width="4.5" height="6"  rx="1.6" fill="#9BA0AD"/>
+  <rect x="13.75" y="14" width="4.5" height="11" rx="1.6" fill="#9BA0AD"/>
+  <rect x="20.5" y="7"  width="4.5" height="18" rx="1.6" fill="#8E95F0"/>
 </svg>

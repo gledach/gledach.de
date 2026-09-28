@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Machine-readable twins of this page, for agents and crawlers that prefer them.
+# /llms.txt   summary of the shelf, the tools and the house rules
+# /index.md   markdown twin of the landing page
+
 Sitemap: https://gledach.de/sitemap.xml

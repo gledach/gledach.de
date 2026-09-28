@@ -1,0 +1,93 @@
+# gledach
+
+> Free, installable tools that turn public data into information, insight and
+> intelligence. Run them on your own machine. No account to start.
+
+gledati (slav.): to watch. What a good analyst does before speaking.
+
+gledach is a shelf, not a platform. The tools published here are written by the
+same author but do not share a stack, an interface or a release cadence. What
+they share is the promise below.
+
+## House rules
+
+- Free, and the source is public. MIT unless a dependency makes that impossible.
+- Your machine is the runtime. Cloud is for sharing state between machines you own.
+- No account to start. Keys, hosted databases and schedules are opt in, later.
+- Honest about blind spots. Every tool ships a written audit of what it cannot see.
+- Read only until you say otherwise. Paid actions ship disabled, behind a spend ceiling.
+- Generated text is labelled as generated. Model output is not verified fact.
+
+## The ladder
+
+Every tool moves something public up four rungs and states where it stopped.
+
+1. Data: what is already public. Feeds, filings, certificate logs, changed pages.
+2. Information: collected, deduplicated, attributed.
+3. Insight: scored and correlated.
+4. Intelligence: queryable by something other than a person.
+
+## Tools
+
+### signal · rung 04, intelligence · live preview
+
+Competitive intelligence your agents can query. Watches a market, turns public
+noise into scored and attributed signals, exposes them over MCP. Ships tracking
+thirteen AI coding agents and app builders; retargeted by editing one gitignored
+file. Node, three runtime dependencies, no build step, libSQL storage that is a
+local file by default.
+
+- Repository: https://github.com/gledach/signals
+- Live preview: https://signal-v1.gledach.de (static export of a real deployment, dated, read only)
+- Install guide: https://github.com/gledach/signals/blob/main/docs/start.md
+- Agent surface (MCP): https://github.com/gledach/signals/blob/main/docs/mcp.md
+- Blind spots: https://github.com/gledach/signals/blob/main/docs/blindspots.md
+- Licence: MIT. Price: 0.
+
+Install:
+
+    git clone https://github.com/gledach/signals && cd signals
+    npm install
+    npm run db:migrate
+    npm run view
+
+Figures: 13 sources, 8 MCP tools (read only until a deployment opts in),
+3 runtime dependencies, 2,600+ signals stored in the deployment behind the preview.
+
+### signal-patterns · reference
+
+How to build tools that watch the public web: what is watchable, what it costs,
+how to build a watcher, and the engineering decisions that only become obvious
+after something has broken. Nothing to install.
+
+- Repository: https://github.com/gledach/signal-patterns
+- What is watchable: https://github.com/gledach/signal-patterns/blob/main/sources.md
+- What it costs: https://github.com/gledach/signal-patterns/blob/main/techniques.md
+- Building a watcher: https://github.com/gledach/signal-patterns/blob/main/building-a-watcher.md
+- Being consumable by agents: https://github.com/gledach/signal-patterns/blob/main/agent-integration.md
+
+Thesis: the useful signals are the ones a company exposes before it means to.
+Ordered by lead time: infrastructure (weeks), hiring (months, vague),
+documentation (hours), changelog (hours), marketing (at launch), press (after).
+
+### Slot 03 · not built
+
+Empty. The shelf is built to hold a dozen. Nothing is planned publicly, and there
+is no roadmap to quote.
+
+## Previews
+
+Convention: `<tool>-<version>.gledach.de`. One per tool per version, never
+overwritten. A preview is a static export of a real deployment: real data, dated,
+read only. A rebuild that changes what you would conclude gets a new subdomain.
+
+## Contact
+
+- hi@aleksandarperisic.com
+- security@gledach.de
+- https://github.com/gledach
+
+## This page
+
+- HTML: https://gledach.de/
+- Markdown twin: https://gledach.de/index.md
