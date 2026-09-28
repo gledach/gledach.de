@@ -95,7 +95,7 @@
 
       <div class="hero-copy">
         <p class="eyebrow">Free intelligence tools</p>
-        <h1 class="h-hero">Free tools that <em>find things out.</em></h1>
+        <h1 class="h-hero"><span style="--i:0">Free</span> <span style="--i:1">tools</span> <span style="--i:2">that</span> <em><span style="--i:3">find</span> <span style="--i:4">things</span> <span style="--i:5">out.</span></em></h1>
         <p class="lead">
           gledach publishes small, installable tools that turn public data into information,
           insight and intelligence. Clone one, run it on your own machine, point it at your
@@ -113,7 +113,7 @@
       <!-- Real structure, not decoration: this is the shelf itself. -->
       <figure class="rack" aria-labelledby="rack-cap">
         <div class="rack-head">
-          <span class="mono-label">The shelf</span>
+          <a class="mono-label rack-jump" href="#shelf">The shelf</a>
           <span class="chip chip-neutral">2 of 12 slots filled</span>
         </div>
         <div class="rack-body">
@@ -216,9 +216,9 @@
       <div class="tools">
 
         <!-- ─────────── signal ─────────── -->
-        <article class="tool card">
+        <article class="tool card" id="signal">
           <div class="tool-head">
-            <h3 class="h3" id="signal">signal</h3>
+            <h3 class="h3">signal</h3>
             <span class="chip chip-accent">Rung 04 · Intelligence</span>
             <span class="chip chip-good">Live preview</span>
           </div>
@@ -292,9 +292,9 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
         </article>
 
         <!-- ─────────── signal-patterns ─────────── -->
-        <article class="tool card">
+        <article class="tool card" id="signal-patterns">
           <div class="tool-head">
-            <h3 class="h3" id="signal-patterns">signal-patterns</h3>
+            <h3 class="h3">signal-patterns</h3>
             <span class="chip chip-neutral">Reference</span>
             <span class="chip chip-neutral">Docs</span>
           </div>
@@ -347,9 +347,9 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
         </article>
 
         <!-- ─────────── empty slot ─────────── -->
-        <article class="tool card is-slot">
+        <article class="tool card is-slot" id="slot-03">
           <div class="tool-head">
-            <h3 class="h3" id="slot-03">[TOOL NAME]</h3>
+            <h3 class="h3">[TOOL NAME]</h3>
             <span class="chip chip-draft">Slot 03</span>
             <span class="chip chip-draft">Not built</span>
           </div>
@@ -395,7 +395,7 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
       <div class="convention">
         <p class="convention-rule"><span class="c-tool">&lt;tool&gt;</span>.gledach.de</p>
         <p class="convention-eg">
-          <a href="https://signal.gledach.de" rel="noopener"><span class="c-tool">signal</span>.gledach.de</a>
+          <a href="https://signal.gledach.de" rel="noopener"><span class="c-tool type-in">signal</span>.gledach.de</a>
           <span class="convention-note">a real deployment, exported to a single static file</span>
         </p>
       </div>

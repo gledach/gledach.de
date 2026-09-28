@@ -74,11 +74,39 @@ Container 1240px, gutter 40px (16px on mobile), 150px between sections (80px mob
 Section header is a two-column split: H2 left, lead right, rule underneath. Cards are
 white, 1px `#E4E2DA`, radius 20 to 24px, hover lifts 4px.
 
-Motion only where it explains a mechanism: the single scan pass over the rack, bar growth
-on the lead-time chart, scroll reveal on section blocks. Nothing loops. Scroll-driven
-animation lives inside `@supports (animation-timeline: view())` and the static state is
-the finished state, so a browser without it shows a complete page.
-`prefers-reduced-motion` switches all of it off.
+Motion only where it explains a mechanism. Nothing loops, so nothing needs a pause
+control. What is animated, and what each one is saying:
+
+| Motion | What it explains |
+|---|---|
+| Headline resolves word by word out of blur | Things coming into focus, which is the page's subject |
+| Rack fills slot by slot, then a scan passes over it | A shelf with capacity, being watched |
+| Ladder rung bars grow in sequence | Each rung reaches further than the one before |
+| Lead-time bars cascade top to bottom | The ordering the chart is arguing for |
+| Tool name types into the placeholder | The substitution the subdomain convention describes |
+| Section blocks rise on entry | Ordinary reveal, the only decorative one, kept subtle |
+
+Scroll-driven animation lives inside `@supports (animation-timeline: view())`, and the
+base style is always the finished state. Animations supply a `from` keyframe only. That
+is what makes `prefers-reduced-motion` and any browser without view timelines land on a
+complete page rather than an empty one.
+
+**Three traps, all paid for once already:**
+
+- **`overflow: hidden` on an ancestor breaks `view()` timelines.** It makes that ancestor
+  a scroll container, the timeline resolves against it, and since it never scrolls the
+  animation never runs. Use `overflow: clip`, which clips identically without creating a
+  scroll container. `.stats` is the reason this is written down.
+- **Do not animate a property that collapses the element's own box.** The element is the
+  timeline's subject, so animating `width` to `0` degenerates the timeline and the
+  animation never advances. The type-in reveal uses `clip-path` for this reason.
+- **CSS-only count-up on the stat numbers does not work here.** A registered custom
+  property held at its `from` value instead of interpolating, with a literal `to` as well
+  as a `var()` one. It was removed rather than shipped, because the failure mode renders
+  `0` in place of the real figure. Do not re-add it without proving it counts on screen.
+
+Anchor targets carry `scroll-margin-top: 96px` because the nav is sticky at 72px. Card
+ids live on the `<article>`, not the `<h3>`, so a jump shows the whole card.
 
 ### Accessibility
 

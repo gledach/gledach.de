@@ -265,7 +265,16 @@ code { font-family: var(--font-mono); font-size: .88em; }
   padding: 7px 6px;
   flex: none;
 }
-.brand-mark i { width: 4px; border-radius: 1.5px; background: var(--g-on-dark-3); }
+.brand-mark i {
+  width: 4px;
+  border-radius: 1.5px;
+  background: var(--g-on-dark-3);
+  transition: height var(--g-base) var(--g-ease), background var(--g-base) var(--g-ease);
+}
+/* The mark is a signal meter. On hover it moves like one. */
+.brand:hover .brand-mark i:nth-child(1) { height: 62%; }
+.brand:hover .brand-mark i:nth-child(2) { height: 100%; }
+.brand:hover .brand-mark i:nth-child(3) { height: 78%; }
 .brand-mark i:nth-child(1) { height: 36%; }
 .brand-mark i:nth-child(2) { height: 62%; }
 .brand-mark i:nth-child(3) { height: 100%; background: var(--g-accent-mid); }
@@ -521,7 +530,7 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--g-accent), transparent);
   opacity: 0;
-  animation: scanpass 2.4s var(--g-ease) .5s 1 both;
+  animation: scanpass 2.4s var(--g-ease) .95s 1 both;
 }
 @keyframes scanpass {
   0% { transform: translateY(0); opacity: 0; }
@@ -529,6 +538,14 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
   88% { opacity: .9; }
   100% { transform: translateY(232px); opacity: 0; }
 }
+
+/* The nav is sticky at 72px. Without this every in-page link lands with its
+   heading tucked underneath it, which is the single most common way an anchor
+   on a sticky-header page feels broken. */
+[id] { scroll-margin-top: 96px; }
+
+.rack-jump { color: var(--g-muted); }
+.rack-jump:hover { color: var(--g-accent); }
 
 /* ═══════════════════════ 9. sections ═══════════════════════ */
 
@@ -724,9 +741,18 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
   background: var(--g-line);
   border: 1px solid var(--g-line);
   border-radius: var(--g-r-md);
-  overflow: hidden;
+  /* clip, not hidden. overflow:hidden makes this a scroll container, which the
+     tally's view() timeline then resolves against; that container never
+     scrolls, so the timeline stays inactive and the count never runs. clip
+     gives the same rounded-corner clipping without the scroll container. */
+  overflow: clip;
 }
-.stats > div { background: var(--g-surface); padding: 16px 18px 18px; }
+.stats > div {
+  background: var(--g-surface);
+  padding: 16px 18px 18px;
+  transition: background var(--g-base) var(--g-ease);
+}
+.stats > div:hover { background: var(--g-sunken); }
 .stats dt {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -844,10 +870,13 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
   border: 1px solid var(--g-dark-line);
   border-radius: var(--g-r-pill);
   cursor: pointer;
-  transition: background var(--g-fast) var(--g-ease), color var(--g-fast) var(--g-ease);
+  transition: background var(--g-fast) var(--g-ease), color var(--g-fast) var(--g-ease),
+              transform var(--g-fast) var(--g-ease);
 }
 .copy:hover { background: var(--g-dark-2); color: var(--g-on-dark); }
-.copy[data-done] { color: #8FE3C8; border-color: #2F5E51; }
+.copy:active { transform: scale(.95); }
+.copy[data-done] { color: #8FE3C8; border-color: #2F5E51; animation: pop .3s var(--g-ease); }
+@keyframes pop { 50% { transform: scale(1.07); } }
 
 /* ═══════════════════════ 16. previews ═══════════════════════ */
 
@@ -991,7 +1020,18 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
 
 /* ═══════════════════════ 19. motion ═══════════════════════ */
 
-/* Entrance: hero only, staggered. One choreography per viewport. */
+/* Every animation here is keyed to a mechanism: words resolving into focus, a
+   shelf filling slot by slot, a scan passing over it, numbers counting, rungs
+   reaching further than the last, a placeholder being typed over. Nothing moves
+   to decorate.
+
+   The base style is always the finished state, and animations only supply a
+   "from" keyframe. That is what makes prefers-reduced-motion and any browser
+   without scroll-driven timelines land on a complete, readable page instead of
+   an empty one. */
+
+/* --- hero: one choreography, about 1.6s end to end --- */
+
 .hero-copy > *, .rack {
   animation: risein var(--g-slow) var(--g-ease) both;
 }
@@ -1007,20 +1047,83 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
   to { opacity: 1; transform: none; }
 }
 
-/* Scroll reveal and bar growth, both scroll driven. The static state is the
-   final state, so a browser without view() timelines shows a finished page. */
+/* The page is about things coming into focus, so the headline does that
+   literally: word by word, out of blur, rather than rising as one block. */
+.hero-copy > .h-hero { animation: none; }
+.h-hero span {
+  display: inline-block;
+  animation: wordin .85s var(--g-ease) both;
+  animation-delay: calc(90ms + var(--i, 0) * 85ms);
+}
+@keyframes wordin {
+  from { opacity: 0; transform: translateY(.34em); filter: blur(9px); }
+}
+
+/* The shelf fills slot by slot. The scan follows once the rows have landed. */
+.rack-body .rack-row { animation: rowin .55s var(--g-ease) both; }
+.rack-body .rack-row:nth-child(2) { animation-delay: .46s; }
+.rack-body .rack-row:nth-child(3) { animation-delay: .55s; }
+.rack-body .rack-row:nth-child(4) { animation-delay: .64s; }
+.rack-body .rack-row:nth-child(5) { animation-delay: .73s; }
+@keyframes rowin { from { opacity: 0; transform: translateX(-10px); } }
+
+/* --- scroll driven --- */
+
 @supports (animation-timeline: view()) {
+
   .section-head, .ladder li, .tool, .convention, .rules-list li, .house li {
     animation: risein .7s var(--g-ease) both;
     animation-timeline: view();
     animation-range: entry 0% cover 26%;
   }
+
+  /* The rung bar is the ladder's argument: each step reaches further than the
+     one before it. Growing them in sequence makes that argument readable. */
+  .ladder li::before {
+    animation: bargrow .9s var(--g-ease) both;
+    animation-timeline: view();
+  }
+  .ladder li:nth-child(1)::before { animation-range: entry 8% cover 22%; }
+  .ladder li:nth-child(2)::before { animation-range: entry 11% cover 25%; }
+  .ladder li:nth-child(3)::before { animation-range: entry 14% cover 28%; }
+  .ladder li:nth-child(4)::before { animation-range: entry 17% cover 31%; }
+
+  /* Lead time cascades top to bottom, which is the order the chart argues in.
+     Scroll-driven animations ignore animation-delay, so the stagger is done by
+     offsetting each row's range instead. */
   .lt-bar {
     animation: bargrow 1.2s var(--g-ease) both;
     animation-timeline: view();
-    animation-range: entry 10% cover 30%;
   }
-  @keyframes bargrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .leadtime-bars li:nth-child(1) .lt-bar { animation-range: entry 10% cover 22%; }
+  .leadtime-bars li:nth-child(2) .lt-bar { animation-range: entry 13% cover 25%; }
+  .leadtime-bars li:nth-child(3) .lt-bar { animation-range: entry 16% cover 28%; }
+  .leadtime-bars li:nth-child(4) .lt-bar { animation-range: entry 19% cover 31%; }
+  .leadtime-bars li:nth-child(5) .lt-bar { animation-range: entry 22% cover 34%; }
+  .leadtime-bars li:nth-child(6) .lt-bar { animation-range: entry 25% cover 37%; }
+
+  @keyframes bargrow { from { transform: scaleX(0); } }
+
+  /* A count-up on the stat numbers was built here and removed. The CSS-only
+     approach needs a registered custom property, and in testing the property
+     held at its "from" value instead of interpolating, which would have
+     rendered 0 in place of the real figure. A number that can render wrong is
+     worse than a number that does not move. */
+
+  /* The convention substitutes a real tool name into a placeholder. Typing it
+     says that in less space than another sentence of prose would. */
+  .type-in {
+    display: inline-block;
+    white-space: nowrap;
+    animation: typein .9s steps(6, end) both;
+    animation-timeline: view();
+    animation-range: entry 20% cover 42%;
+  }
+  /* Reveals by clip rather than by width. Animating width to zero collapses the
+     element's own box, and since that box is the view timeline's subject, the
+     timeline degenerates and the animation never advances. clip-path leaves the
+     layout alone, and it drops the hardcoded character count with it. */
+  @keyframes typein { from { clip-path: inset(0 100% 0 0); } }
 }
 
 @media (prefers-reduced-motion: reduce) {
