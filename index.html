@@ -66,6 +66,34 @@
       "price": "0",
       "priceCurrency": "EUR",
       "itemOffered": {
+        "@type": "SoftwareApplication",
+        "name": "phonehome",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Windows, macOS, Linux",
+        "license": "https://opensource.org/licenses/MIT",
+        "url": "https://github.com/gledach/phonehome",
+        "description": "A local DNS resolver that records which domains every device on your network contacts, classifies them, and says when one starts talking somewhere new. Nothing is uploaded and nothing is blocked."
+      }
+    },
+    {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR",
+      "itemOffered": {
+        "@type": "SoftwareApplication",
+        "name": "recall",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Windows, macOS, Linux",
+        "license": "https://opensource.org/licenses/MIT",
+        "url": "https://github.com/gledach/recall",
+        "description": "Watches EU Safety Gate, German medicine shortages, US vehicle campaigns and software end-of-support for the specific things you own, and grades how sure each match is."
+      }
+    },
+    {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR",
+      "itemOffered": {
         "@type": "TechArticle",
         "name": "signal-patterns",
         "url": "https://github.com/gledach/signal-patterns",
@@ -128,7 +156,7 @@
       <figure class="rack" aria-labelledby="rack-cap">
         <div class="rack-head">
           <a class="mono-label rack-jump" href="#shelf">The shelf</a>
-          <span class="chip chip-neutral">3 of 12 slots filled</span>
+          <span class="chip chip-neutral">5 of 12 slots filled</span>
         </div>
         <div class="rack-body">
           <span class="rack-scan" aria-hidden="true"></span>
@@ -154,14 +182,28 @@
             <span class="rack-status is-live">Shipped</span>
           </a>
 
-          <div class="rack-row is-empty">
+          <a class="rack-row" href="#phonehome">
             <span class="rack-n">04</span>
+            <span class="rack-name">phonehome</span>
+            <span class="chip chip-accent">Intelligence</span>
+            <span class="rack-status is-live">Shipped</span>
+          </a>
+
+          <a class="rack-row" href="#recall">
+            <span class="rack-n">05</span>
+            <span class="rack-name">recall</span>
+            <span class="chip chip-accent">Intelligence</span>
+            <span class="rack-status is-live">Shipped</span>
+          </a>
+
+          <div class="rack-row is-empty">
+            <span class="rack-n">06</span>
             <span class="rack-name">[UNNAMED]</span>
             <span class="rack-status">Empty</span>
           </div>
         </div>
         <figcaption id="rack-cap">
-          Three filled today. Same author, different shapes: what they share is the promise, not a stack.
+          Five filled today. Same author, different shapes: what they share is the promise, not a stack.
         </figcaption>
       </figure>
 
@@ -203,7 +245,7 @@
           <span class="mono-label">04 · Intelligence</span>
           <p>Queryable by something other than a person. An answer to a question you had not
           thought to ask yet.</p>
-          <span class="ladder-flag">signal and whenrun reach here</span>
+          <span class="ladder-flag">signal, whenrun, phonehome and recall reach here</span>
         </li>
       </ol>
 
@@ -447,11 +489,199 @@ node bin/whenrun.mjs where           # your location, and every zone</code>
           </nav>
         </article>
 
+        <!-- ─────────── phonehome ─────────── -->
+        <article class="tool card" id="phonehome">
+          <div class="tool-head">
+            <h3 class="h3">phonehome</h3>
+            <span class="chip chip-accent">Rung 04 · Intelligence</span>
+            <span class="chip chip-good">Shipped</span>
+          </div>
+
+          <p class="tool-line">See what your devices talk to.</p>
+
+          <div class="tool-body">
+            <div class="tool-text">
+              <p>
+                A local DNS resolver that records which domains every device on your network
+                contacts, classifies them, and tells you when one starts talking somewhere
+                new. It does not block anything and it does not upload anything: the point is
+                to find out, which is a different job from filtering. If you already run
+                Pi-hole, AdGuard Home, dnsmasq or Unbound, it reads your existing logs
+                instead, so you can see months of history without touching your network.
+              </p>
+
+              <dl class="stats">
+                <div>
+                  <dt>Log formats read</dt>
+                  <dd>4</dd>
+                  <p>dnsmasq, Pi-hole, Unbound, AdGuard Home, detected automatically</p>
+                </div>
+                <div>
+                  <dt>Categories</dt>
+                  <dd>11</dd>
+                  <p>including one for televisions reporting what is on the screen</p>
+                </div>
+                <div>
+                  <dt>Runtime deps</dt>
+                  <dd>0</dd>
+                  <p>a resolver and a JSONL file, nothing else</p>
+                </div>
+                <div>
+                  <dt>Tests</dt>
+                  <dd>67</dd>
+                  <p>offline, including the DNS wire format and the forwarder</p>
+                </div>
+              </dl>
+            </div>
+
+            <figure class="termshot">
+              <pre>report  last 1 day
+
+  device           queries  domains  busiest category  unknown
+  ───────────────  ───────  ───────  ────────────────  ───────
+  living room TV   198      10       telemetry         29%
+  kitchen speaker  184      6        unknown           36%
+  robot vacuum     161      3        assistant         24%
+  laptop           157      3        unknown           72%
+
+  Where the queries went
+
+  category   queries  share
+  ─────────  ───────  ─────  ──────────────────────────────────────
+  unknown    275      39%
+  assistant  131      19%    Voice assistants and smart-home backends
+  telemetry  120      17%    Product telemetry and crash reporting
+  doh        65       9%     Encrypted DNS, which routes around this tool
+  acr        21       3%     What is on your screen, reported</pre>
+              <figcaption>
+                Real output, from a sample log rather than anyone's house. The last line is a
+                television fingerprinting what is on screen. It gets its own category because
+                filed under telemetry nobody would notice it.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="cmd" data-copy>
+<code>git clone https://github.com/gledach/phonehome &amp;&amp; cd phonehome
+node bin/phonehome.mjs import /var/log/pihole.log --execute
+node bin/phonehome.mjs report        # what talked to what</code>
+            <button type="button" class="copy" aria-label="Copy the install commands for phonehome">Copy</button>
+          </div>
+          <p class="figure-note">
+            <code>unknown</code> stays visible and is counted. A classifier that quietly
+            labels everything looks better and tells you less, and 9% of that traffic used
+            encrypted DNS, which routes around this tool entirely. It says so rather than
+            reporting a total it cannot see.
+          </p>
+
+          <nav class="tool-links" aria-label="phonehome links">
+            <a href="https://github.com/gledach/phonehome" rel="noopener">Repository</a>
+            <a href="https://github.com/gledach/phonehome/blob/main/docs/roadmap.md" rel="noopener">What it cannot do</a>
+          </nav>
+        </article>
+
+        <!-- ─────────── recall ─────────── -->
+        <article class="tool card" id="recall">
+          <div class="tool-head">
+            <h3 class="h3">recall</h3>
+            <span class="chip chip-accent">Rung 04 · Intelligence</span>
+            <span class="chip chip-good">Shipped</span>
+          </div>
+
+          <p class="tool-line">Tell me when something I own is recalled.</p>
+
+          <div class="tool-body">
+            <div class="tool-text">
+              <p>
+                Recalls are published. Nobody reads them, because they are published as a
+                firehose about everyone's belongings. This keeps a list of the things you
+                actually own and checks it against four public registers: European product
+                alerts, German medicine shortages, American vehicle campaigns and software
+                past its security support date. None of them needs an account.
+              </p>
+              <p>
+                Matching a label someone copied off the back of an appliance against prose a
+                regulator wrote is not exact, so every result is graded and the grade is shown.
+                Add the barcode off the box and it stops being a guess entirely.
+              </p>
+
+              <dl class="stats">
+                <div>
+                  <dt>Registers</dt>
+                  <dd>4</dd>
+                  <p>EU, Germany, United States, and vendor support dates</p>
+                </div>
+                <div>
+                  <dt>Keys needed</dt>
+                  <dd>0</dd>
+                  <p>no account for any of the four</p>
+                </div>
+                <div>
+                  <dt>Runtime deps</dt>
+                  <dd>0</dd>
+                  <p>including its own CSV and XML readers</p>
+                </div>
+                <div>
+                  <dt>Tests</dt>
+                  <dd>98</dd>
+                  <p>offline, against fixtures cut from real register downloads</p>
+                </div>
+              </dl>
+            </div>
+
+            <figure class="termshot">
+              <pre>check  5 things
+
+  HIGH  Something scanned off the box
+      Tickit Sensory Blocks Set of 16
+      The toy could rupture and the filling could come out. The
+      sand inside contains asbestos (up to 1.92% by weight).
+      exact: barcode 5060138820289 matches exactly
+
+  HIGH  The stomach tablets
+      Shortage: Pantoprazol-Micro Labs 40 mg
+      Expected to last until 28.10.2026.
+      exact: PZN 10516704 matches exactly
+
+  Sources
+      source      checked  result
+  ──  ──────────  ───────  ──────────  ──────────────────
+  ok  safetygate  3 items  2 findings  EU register only
+  ok  bfarm       1 item   2 findings  DE register only
+  ok  endoflife   1 item   0 findings  every jurisdiction
+  ok  nhtsa       1 item   0 findings  US register only
+
+  Absence of a notice is not proof a product is safe.</pre>
+              <figcaption>
+                Real output against the live registers. Both of those are genuine notices
+                published that week, found by matching digits printed on the packaging.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="cmd" data-copy>
+<code>git clone https://github.com/gledach/recall &amp;&amp; cd recall
+cp config/inventory.default.mjs config/inventory.local.mjs
+node bin/recall.mjs check            # after listing what you own</code>
+            <button type="button" class="copy" aria-label="Copy the install commands for recall">Copy</button>
+          </div>
+          <p class="figure-note">
+            The last line of every run is the important one. A register that could not be
+            reached is reported as unreachable, never as clean, because a person who reads a
+            quiet screen as a guarantee has been actively misled.
+          </p>
+
+          <nav class="tool-links" aria-label="recall links">
+            <a href="https://github.com/gledach/recall" rel="noopener">Repository</a>
+            <a href="https://github.com/gledach/recall/blob/main/docs/roadmap.md" rel="noopener">What it cannot do</a>
+          </nav>
+        </article>
+
         <!-- ─────────── empty slot ─────────── -->
-        <article class="tool card is-slot" id="slot-04">
+        <article class="tool card is-slot" id="slot-06">
           <div class="tool-head">
             <h3 class="h3">[TOOL NAME]</h3>
-            <span class="chip chip-draft">Slot 04</span>
+            <span class="chip chip-draft">Slot 06</span>
             <span class="chip chip-draft">Not built</span>
           </div>
 
@@ -470,7 +700,7 @@ node bin/whenrun.mjs where           # your location, and every zone</code>
             would help more people than the person asking go to the front of the queue.
           </p>
 
-          <nav class="tool-links" aria-label="Slot 04 links">
+          <nav class="tool-links" aria-label="Slot 06 links">
             <a href="mailto:request@gledach.de">Request a tool</a>
             <a href="https://github.com/gledach/signals/issues/new" rel="noopener">Open an issue</a>
           </nav>

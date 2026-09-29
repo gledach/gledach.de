@@ -91,7 +91,60 @@ Figures: 2 keyless price sources, 16 bidding zones, 0 runtime dependencies,
 142 offline tests. Savings are reported against the delivered bill rather than
 the spot price, because grid fees and tax do not move by the hour.
 
-### Slot 04 · not built
+### phonehome · rung 04, intelligence · shipped
+
+See what your devices talk to. A local DNS resolver that records which domains
+every device on your network contacts, classifies them, and says when one starts
+talking somewhere new. It does not block and does not upload: finding out is a
+different job from filtering. Reads existing Pi-hole, AdGuard Home, dnsmasq or
+Unbound logs, so months of history are available without re-pointing a network.
+
+- Repository: https://github.com/gledach/phonehome
+- What it cannot do: https://github.com/gledach/phonehome/blob/main/docs/roadmap.md
+- Licence: MIT. Price: 0.
+
+Install:
+
+    git clone https://github.com/gledach/phonehome && cd phonehome
+    node bin/phonehome.mjs import /var/log/pihole.log --execute
+    node bin/phonehome.mjs report
+
+Figures: 4 log formats read, 11 categories, 0 runtime dependencies, 67 offline
+tests. "unknown" is kept visible and counted rather than guessed at, and the
+share of traffic using encrypted DNS is reported because that traffic routes
+around the tool entirely. One category exists for televisions reporting what is
+on the screen, because filed under telemetry nobody notices it.
+
+### recall · rung 04, intelligence · shipped
+
+Tell me when something I own is recalled. Keeps a list of the things one person
+owns and checks it against four public registers, none of which needs an account:
+EU Safety Gate (product alerts), BfArM (German medicine supply shortages, which
+is availability rather than safety), NHTSA (US vehicle campaigns), and
+endoflife.date (software past security support).
+
+- Repository: https://github.com/gledach/recall
+- What it cannot do: https://github.com/gledach/recall/blob/main/docs/roadmap.md
+- Licence: MIT. Price: 0.
+
+Install:
+
+    git clone https://github.com/gledach/recall && cd recall
+    cp config/inventory.default.mjs config/inventory.local.mjs
+    node bin/recall.mjs check
+
+Figures: 4 registers, 0 keys, 0 runtime dependencies, 98 offline tests. Also
+exposes an MCP server with 5 read-only tools.
+
+Matches are graded rather than binary: exact on a barcode, PZN or VIN; strong
+when make and model both appear in a notice; weak when only a distinctive model
+number does; mention for noise. Weak is shown by default, because missing the one
+that mattered is worse and invisible while a false alarm is merely annoying. A
+register that could not be reached is reported as unreachable, never as clean:
+"nothing found" and "could not look" must never render the same way, and nothing
+in the output ever states that a product is safe.
+
+### Slot 06 · not built
 
 Empty. The shelf is built to hold a dozen. Nothing is planned publicly, and there
 is no roadmap to quote. Tool requests are welcome at request@gledach.de, and

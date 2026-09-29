@@ -645,7 +645,7 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
    size is its content's min-content width, and the command block plus the wide
    screenshot push that past a phone viewport. */
 .tools { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
-.tool, .tool-body, .tool-text, .tool-grid > *, .stats, .cmd, .shot { min-width: 0; }
+.tool, .tool-body, .tool-text, .tool-grid > *, .stats, .cmd, .shot, .termshot { min-width: 0; }
 
 .card {
   background: var(--g-surface);

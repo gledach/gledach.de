@@ -16,9 +16,11 @@ MIT licensed · no account to start · your machine is the runtime
 | 01 | signal | Intelligence | Live preview |
 | 02 | signal-patterns | Reference | Docs |
 | 03 | whenrun | Intelligence | Shipped |
-| 04 | [UNNAMED] | | Empty |
+| 04 | phonehome | Intelligence | Shipped |
+| 05 | recall | Intelligence | Shipped |
+| 06 | [UNNAMED] | | Empty |
 
-Three filled today. Same author, different shapes: what they share is the promise,
+Five filled today. Same author, different shapes: what they share is the promise,
 not a stack.
 
 ## Four rungs between raw data and an answer
@@ -34,7 +36,8 @@ it stopped.
 3. **Insight.** Scored and correlated. You know which of it matters, and what it is
    evidence of.
 4. **Intelligence.** Queryable by something other than a person. An answer to a
-   question you had not thought to ask yet. `signal` and `whenrun` reach here.
+   question you had not thought to ask yet. `signal`, `whenrun`, `phonehome` and
+   `recall` reach here.
 
 Most monitoring products stop at rung 02 and call the result a feed. The distance
 between rung 02 and rung 04 is the whole job.
@@ -128,7 +131,78 @@ fees and tax do not move by the hour and a spot-only figure flatters the tool.
 - Running it for real: <https://github.com/gledach/whenrun/blob/main/docs/running-it.md>
 - What it cannot do: <https://github.com/gledach/whenrun/blob/main/docs/roadmap.md>
 
-## Slot 04
+## phonehome
+
+**Rung 04, intelligence. Shipped.**
+
+See what your devices talk to.
+
+A local DNS resolver that records which domains every device on your network contacts,
+classifies them, and tells you when one starts talking somewhere new. It does not block
+anything and it does not upload anything: finding out is a different job from filtering.
+If you already run Pi-hole, AdGuard Home, dnsmasq or Unbound, it reads your existing logs
+instead, so you can see months of history without touching your network.
+
+| Figure | Value | Context |
+|---|---|---|
+| Log formats read | 4 | dnsmasq, Pi-hole, Unbound, AdGuard Home, detected automatically |
+| Categories | 11 | including one for televisions reporting what is on the screen |
+| Runtime deps | 0 | a resolver and a JSONL file, nothing else |
+| Tests | 67 | offline, including the DNS wire format and the forwarder |
+
+```bash
+git clone https://github.com/gledach/phonehome && cd phonehome
+node bin/phonehome.mjs import /var/log/pihole.log --execute
+node bin/phonehome.mjs report
+```
+
+`unknown` stays visible and is counted, because a classifier that quietly labels
+everything looks better and tells you less. Encrypted DNS routes around the tool
+entirely, and the report says what share of traffic did that rather than reporting a
+total it cannot see.
+
+- Repository: <https://github.com/gledach/phonehome>
+- What it cannot do: <https://github.com/gledach/phonehome/blob/main/docs/roadmap.md>
+
+## recall
+
+**Rung 04, intelligence. Shipped.**
+
+Tell me when something I own is recalled.
+
+Recalls are published. Nobody reads them, because they are published as a firehose about
+everyone's belongings. This keeps a list of the things you actually own and checks it
+against four public registers: European product alerts, German medicine shortages,
+American vehicle campaigns, and software past its security support date. None of them
+needs an account.
+
+Matching a label copied off the back of an appliance against prose a regulator wrote is
+not exact, so every result is graded and the grade is shown: exact on a barcode, PZN or
+VIN; strong when make and model both appear; weak when only a distinctive model number
+does. Weak is shown by default, because missing the one that mattered is worse than
+reading one that turns out to be unrelated.
+
+| Figure | Value | Context |
+|---|---|---|
+| Registers | 4 | EU, Germany, United States, and vendor support dates |
+| Keys needed | 0 | no account for any of the four |
+| Runtime deps | 0 | including its own CSV and XML readers |
+| Tests | 98 | offline, against fixtures cut from real register downloads |
+
+```bash
+git clone https://github.com/gledach/recall && cd recall
+cp config/inventory.default.mjs config/inventory.local.mjs
+node bin/recall.mjs check
+```
+
+A register that could not be reached is reported as unreachable, never as clean. "Nothing
+found" and "could not look" must never render the same way, because a person who reads a
+quiet screen as a guarantee has been actively misled.
+
+- Repository: <https://github.com/gledach/recall>
+- What it cannot do: <https://github.com/gledach/recall/blob/main/docs/roadmap.md>
+
+## Slot 06
 
 **Not built.**
 
