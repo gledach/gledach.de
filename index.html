@@ -4,20 +4,46 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>gledach · free tools that find things out</title>
-<meta name="description" content="gledach publishes small, installable tools that turn public data into information, insight and intelligence. Free, MIT licensed, run on your own machine, no account to start.">
+<meta name="description" content="Free, installable tools that turn public data into intelligence: signal, whenrun, phonehome, recall. MIT licensed, run on your machine, no account to start.">
 <link rel="canonical" href="https://gledach.de/">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#F6F5F1">
 
+<!-- max-image-preview:large is the one that matters here. Without it Google shows
+     a thumbnail rather than the card, and the card is the whole point of drawing
+     one. The other two lift truncation limits on the snippet. -->
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Aleksandar Perisic">
+
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://gledach.de/">
 <meta property="og:site_name" content="gledach">
+<meta property="og:locale" content="en_GB">
 <meta property="og:title" content="gledach · free tools that find things out">
-<meta property="og:description" content="Small, installable tools that turn public data into information, insight and intelligence. Free, on your machine, no account to start.">
-<meta property="og:image" content="https://gledach.de/assets/img/signal-live-feed.jpg">
+<meta property="og:description" content="Five tools on the shelf. Each watches something public and hands back an answer. Free, MIT licensed, running on your machine, no account to start.">
+<!-- A drawn card, not the dashboard capture that used to sit here. That capture
+     is 1519x784, so every crawler letterboxed or centre-cropped it to 1.91:1, and
+     its text is far too small to survive a timeline thumbnail. Source and render
+     instructions: assets/og/og-home.html. -->
+<meta property="og:image" content="https://gledach.de/assets/img/og-home.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The gledach wordmark above the headline 'Free tools that find things out', with the five tool names underneath: signal, signal-patterns, whenrun, phonehome and recall.">
+
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="gledach · free tools that find things out">
+<meta name="twitter:description" content="Five tools on the shelf. Each watches something public and hands back an answer. Free, MIT licensed, running on your machine, no account to start.">
+<meta name="twitter:image" content="https://gledach.de/assets/img/og-home.png">
+<meta name="twitter:image:alt" content="The gledach wordmark above the headline 'Free tools that find things out', with the five tool names underneath: signal, signal-patterns, whenrun, phonehome and recall.">
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<!-- The agent-readable twins, declared rather than only linked in the footer, so
+     a client that prefers one does not have to parse the page to find it. -->
+<link rel="alternate" type="text/markdown" href="/index.md" title="This page as markdown">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="The shelf, as plain text for agents">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,10 +53,48 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@graph": [
+  {
+    "@type": "WebSite",
+    "@id": "https://gledach.de/#website",
+    "url": "https://gledach.de/",
+    "name": "gledach",
+    "description": "Free, installable tools that turn public data into information, insight and intelligence.",
+    "inLanguage": "en-GB",
+    "publisher": { "@id": "https://gledach.de/#org" }
+  },
+  {
+    "@type": "CollectionPage",
+    "@id": "https://gledach.de/#webpage",
+    "url": "https://gledach.de/",
+    "name": "gledach · free tools that find things out",
+    "description": "Five tools on the shelf. Each watches something public and hands back an answer.",
+    "inLanguage": "en-GB",
+    "isPartOf": { "@id": "https://gledach.de/#website" },
+    "about": { "@id": "https://gledach.de/#org" },
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://gledach.de/assets/img/og-home.png",
+      "width": 1200,
+      "height": 630
+    }
+  },
+  {
   "@type": "Organization",
+  "@id": "https://gledach.de/#org",
   "name": "gledach",
   "url": "https://gledach.de/",
   "description": "Publisher of free, installable tools that turn public data into information, insight and intelligence.",
+  "email": "request@gledach.de",
+  "logo": {
+    "@type": "ImageObject",
+    "@id": "https://gledach.de/#logo",
+    "url": "https://gledach.de/apple-touch-icon.png",
+    "width": 180,
+    "height": 180,
+    "caption": "gledach"
+  },
+  "image": { "@id": "https://gledach.de/#logo" },
   "sameAs": ["https://github.com/gledach"],
   "makesOffer": [
     {
@@ -101,6 +165,8 @@
       }
     }
   ]
+  }
+  ]
 }
 </script>
 </head>
@@ -117,8 +183,8 @@
       <span class="brand-word">gledach</span>
     </a>
     <nav class="nav-links" aria-label="Sections">
-      <a href="#ladder">What they do</a>
       <a href="#shelf">The shelf</a>
+      <a href="#ladder">How far they go</a>
       <a href="#previews">Previews</a>
       <a href="#rules">House rules</a>
     </nav>
@@ -145,130 +211,151 @@
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="https://signal.gledach.de" rel="noopener">
-            See one running <span class="arrow" aria-hidden="true">&rarr;</span>
+            Open the live preview <span class="arrow" aria-hidden="true">&rarr;</span>
           </a>
           <a class="btn btn-ghost" href="#shelf">Browse the shelf</a>
         </div>
         <p class="meta-line">MIT licensed · no account to start · your machine is the runtime</p>
       </div>
 
-      <!-- Real structure, not decoration: this is the shelf itself. -->
-      <figure class="rack" aria-labelledby="rack-cap">
-        <div class="rack-head">
-          <a class="mono-label rack-jump" href="#shelf">The shelf</a>
-          <span class="chip chip-neutral">5 of 12 slots filled</span>
+      <!-- The hero carries proof, not an inventory. The shelf is listed once, in the
+           shelf section, where a list belongs. What goes here instead is the one
+           claim on this page a reader can check in a single click: there is a real
+           dashboard, online, and it costs nothing to look at.
+
+           No fake browser chrome. The head is the same pattern the page already
+           uses elsewhere, a mono label against a chip, so the URL frames the shot
+           without importing a trope. -->
+      <figure class="preview" aria-labelledby="preview-cap">
+        <div class="preview-head">
+          <a class="preview-url" href="https://signal.gledach.de" rel="noopener">signal.gledach.de</a>
+          <span class="chip chip-good">Live, read only</span>
         </div>
-        <div class="rack-body">
-          <span class="rack-scan" aria-hidden="true"></span>
 
-          <a class="rack-row" href="#signal">
-            <span class="rack-n">01</span>
-            <span class="rack-name">signal</span>
-            <span class="chip chip-accent">Intelligence</span>
-            <span class="rack-status is-live">Live preview</span>
-          </a>
+        <!-- Cropped to the rows, because the full-width view is on signal's card
+             below and a shot too small to read is decoration. aria-hidden and out
+             of the tab order: the URL above is the same destination, and a second
+             link to it is noise on a screen reader. -->
+        <a class="preview-shot" href="https://signal.gledach.de" rel="noopener"
+           tabindex="-1" aria-hidden="true">
+          <img src="/assets/img/signal-live-feed.jpg" width="1519" height="784"
+               decoding="async" fetchpriority="high"
+               alt="">
+        </a>
 
-          <a class="rack-row" href="#signal-patterns">
-            <span class="rack-n">02</span>
-            <span class="rack-name">signal-patterns</span>
-            <span class="chip chip-neutral">Reference</span>
-            <span class="rack-status">Docs</span>
-          </a>
-
-          <a class="rack-row" href="#whenrun">
-            <span class="rack-n">03</span>
-            <span class="rack-name">whenrun</span>
-            <span class="chip chip-accent">Intelligence</span>
-            <span class="rack-status is-live">Shipped</span>
-          </a>
-
-          <a class="rack-row" href="#phonehome">
-            <span class="rack-n">04</span>
-            <span class="rack-name">phonehome</span>
-            <span class="chip chip-accent">Intelligence</span>
-            <span class="rack-status is-live">Shipped</span>
-          </a>
-
-          <a class="rack-row" href="#recall">
-            <span class="rack-n">05</span>
-            <span class="rack-name">recall</span>
-            <span class="chip chip-accent">Intelligence</span>
-            <span class="rack-status is-live">Shipped</span>
-          </a>
-
-          <div class="rack-row is-empty">
-            <span class="rack-n">06</span>
-            <span class="rack-name">[UNNAMED]</span>
-            <span class="rack-status">Empty</span>
-          </div>
-        </div>
-        <figcaption id="rack-cap">
-          Five filled today. Same author, different shapes: what they share is the promise, not a stack.
+        <figcaption id="preview-cap">
+          A real <b>signal</b> deployment, exported to one static file. Dated, read only,
+          and nothing you click reaches a database.
+          <span class="preview-local">
+            <code>npm run view</code> puts the same dashboard on
+            <code>127.0.0.1:5180</code>, pointed at your market instead of this one's.
+          </span>
         </figcaption>
       </figure>
 
     </div>
   </section>
 
-  <!-- ══════════════════════════ 01 ladder ══════════════════════════ -->
-  <section class="section" id="ladder">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">What these tools do</p>
-          <h2 class="h2">Four rungs between raw data and an <em>answer.</em></h2>
-        </div>
-        <p class="lead">
-          The tools here do not share a stack, an interface or a release cadence. They share a
-          destination. Each one moves something public up this ladder, and tells you where it
-          stopped.
-        </p>
-      </div>
-
-      <ol class="ladder">
-        <li>
-          <span class="mono-label">01 · Data</span>
-          <p>What is already public: feeds, filings, certificate logs, pages that changed
-          overnight. Free to anyone who goes and collects it.</p>
-        </li>
-        <li>
-          <span class="mono-label">02 · Information</span>
-          <p>Collected, deduplicated, attributed. You know what was said, when it was said,
-          and who said it.</p>
-        </li>
-        <li>
-          <span class="mono-label">03 · Insight</span>
-          <p>Scored and correlated. You know which of it matters, and what it is evidence
-          of.</p>
-        </li>
-        <li class="is-reached">
-          <span class="mono-label">04 · Intelligence</span>
-          <p>Queryable by something other than a person. An answer to a question you had not
-          thought to ask yet.</p>
-          <span class="ladder-flag">signal, whenrun, phonehome and recall reach here</span>
-        </li>
-      </ol>
-
-      <p class="figure-note">
-        Most monitoring products stop at rung 02 and call the result a feed. The distance
-        between rung 02 and rung 04 is the whole job.
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════ 02 shelf ══════════════════════════ -->
+  <!-- ══════════════════════════ 01 shelf ══════════════════════════ -->
   <section class="section" id="shelf">
     <div class="container">
       <div class="section-head">
         <div>
           <p class="eyebrow">The shelf</p>
-          <h2 class="h2">Three tools today. Room for <em>the rest.</em></h2>
+          <h2 class="h2">Five slots filled. Room for <em>the rest.</em></h2>
         </div>
         <p class="lead">
           A tool earns a slot here when it runs on someone else's machine, not only on mine.
-          Everything is on GitHub under <a href="https://github.com/gledach" rel="noopener">gledach</a>.
+          The rung on each card is <a href="#ladder">how far it gets</a>: rung 04 is an answer
+          rather than a feed. Everything is on GitHub under
+          <a href="https://github.com/gledach" rel="noopener">gledach</a>.
         </p>
       </div>
+
+      <!-- The whole shelf in one screen, as input and output rather than as blurbs.
+           A reader who wants the difference between five tools should not have to
+           read five cards to find it. Rows are the growth unit: adding a tool is a
+           row here and a card below. -->
+      <figure class="index-wrap" aria-labelledby="index-cap">
+        <div class="index-head">
+          <p class="mono-label">What each one watches, and what it hands back</p>
+          <span class="chip chip-neutral">5 of 12 slots filled</span>
+        </div>
+
+        <!-- The scan the hero rack used to carry, moved to the only list that is
+             left. It says the same thing it always said: a shelf with capacity,
+             being watched. Scroll-driven now rather than fired on load, because
+             this sits below the fold and a pass nobody sees is a pass wasted. -->
+        <div class="index-body">
+          <span class="index-scan" aria-hidden="true"></span>
+          <table class="shelf-index">
+            <thead>
+              <tr>
+                <th scope="col">Tool</th>
+                <th scope="col">Watches</th>
+                <th scope="col">Tells you</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" data-label="Tool">
+                  <span class="idx-n">01</span><a href="#signal">signal</a>
+                </th>
+                <td data-label="Watches">Thirteen public sources around one market</td>
+                <td data-label="Tells you">What changed, scored and attributed, over MCP</td>
+                <td data-label="Status"><span class="idx-status is-live">Live preview</span></td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Tool">
+                  <span class="idx-n">02</span><a href="#signal-patterns">signal-patterns</a>
+                </th>
+                <td data-label="Watches">Nothing. It is the written reasoning</td>
+                <td data-label="Tells you">What is watchable, what it costs, how to build it</td>
+                <td data-label="Status"><span class="idx-status">Docs</span></td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Tool">
+                  <span class="idx-n">03</span><a href="#whenrun">whenrun</a>
+                </th>
+                <td data-label="Watches">Day-ahead power prices and renewable share</td>
+                <td data-label="Tells you">The cheapest or greenest window, then starts the job in it</td>
+                <td data-label="Status"><span class="idx-status is-live">Shipped</span></td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Tool">
+                  <span class="idx-n">04</span><a href="#phonehome">phonehome</a>
+                </th>
+                <td data-label="Watches">Every DNS query on your own network</td>
+                <td data-label="Tells you">Which device talked where, and when that changed</td>
+                <td data-label="Status"><span class="idx-status is-live">Shipped</span></td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Tool">
+                  <span class="idx-n">05</span><a href="#recall">recall</a>
+                </th>
+                <td data-label="Watches">Four public registers, against a list of what you own</td>
+                <td data-label="Tells you">Which of your things has a notice, and how sure the match is</td>
+                <td data-label="Status"><span class="idx-status is-live">Shipped</span></td>
+              </tr>
+              <tr class="is-empty">
+                <th scope="row" data-label="Tool">
+                  <span class="idx-n">06</span><a href="#slot-06">[UNNAMED]</a>
+                </th>
+                <td data-label="Watches">[UNDECIDED]</td>
+                <td data-label="Tells you">[UNDECIDED]</td>
+                <td data-label="Status"><span class="idx-status">Empty</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figcaption id="index-cap">
+          Every row is a card below, and every claim in one is shown there as real output.
+          The empty row is written the same way the empty card is, because a slot with
+          nothing in it is a fact rather than a gap to fill with copy.
+        </figcaption>
+      </figure>
 
       <div class="tools">
 
@@ -280,6 +367,9 @@
             <span class="chip chip-good">Live preview</span>
           </div>
 
+          <p class="tool-problem">
+            You find out a competitor shipped something when a customer mentions it.
+          </p>
           <p class="tool-line">Competitive intelligence your agents can query.</p>
 
           <div class="tool-body">
@@ -316,13 +406,15 @@
               </dl>
             </div>
 
+            <!-- Intrinsic size is 1519x784. The attributes used to claim 1600x1000,
+                 which reserves the wrong box and shifts the card as the image lands. -->
             <figure class="shot shot-wide">
-              <img src="/assets/img/signal-live-feed.jpg" width="1600" height="1000"
+              <img src="/assets/img/signal-live-feed.jpg" width="1519" height="784"
                    loading="lazy" decoding="async"
                    alt="Signal's Live Feed view: convergences ranked by business impact, each row showing the correlation rule that fired it and its evidence count.">
               <figcaption>
-                The Live Feed view, captured from a running deployment. Convergences ranked by
-                business impact, each carrying the rule that fired it.
+                The whole view, at the width it is meant to be read at: navigation, filters and
+                the feed. The hero above is a crop of these rows.
               </figcaption>
             </figure>
           </div>
@@ -356,6 +448,10 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
             <span class="chip chip-neutral">Docs</span>
           </div>
 
+          <p class="tool-problem">
+            You want to build one of these, and the hard part is knowing what is watchable
+            at all.
+          </p>
           <p class="tool-line">How to build tools that watch the public web.</p>
 
           <div class="tool-grid">
@@ -411,6 +507,10 @@ npm run view         # a populated dashboard at 127.0.0.1:5180</code>
             <span class="chip chip-good">Shipped</span>
           </div>
 
+          <p class="tool-problem">
+            Power can cost three times more in the evening than it does at midday, and your
+            backup job does not care when it runs.
+          </p>
           <p class="tool-line">Run it when the power is cheap.</p>
 
           <div class="tool-body">
@@ -497,6 +597,10 @@ node bin/whenrun.mjs where           # your location, and every zone</code>
             <span class="chip chip-good">Shipped</span>
           </div>
 
+          <p class="tool-problem">
+            Nothing on your network tells you where it has been sending data, or when that
+            changed.
+          </p>
           <p class="tool-line">See what your devices talk to.</p>
 
           <div class="tool-body">
@@ -588,6 +692,9 @@ node bin/phonehome.mjs report        # what talked to what</code>
             <span class="chip chip-good">Shipped</span>
           </div>
 
+          <p class="tool-problem">
+            The notice for the thing in your kitchen was published. Nobody sent it to you.
+          </p>
           <p class="tool-line">Tell me when something I own is recalled.</p>
 
           <div class="tool-body">
@@ -707,6 +814,55 @@ node bin/recall.mjs check            # after listing what you own</code>
         </article>
 
       </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ 02 ladder ══════════════════════════ -->
+  <!-- Sits after the shelf, not before it. The ladder is the argument for why the
+       tools stop where they stop, and that argument only lands on a reader who has
+       already seen what the tools are. -->
+  <section class="section" id="ladder">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">How far they go</p>
+          <h2 class="h2">Four rungs between raw data and an <em>answer.</em></h2>
+        </div>
+        <p class="lead">
+          The tools above do not share a stack, an interface or a release cadence. They share a
+          destination. Each one moves something public up this ladder, and tells you where it
+          stopped.
+        </p>
+      </div>
+
+      <ol class="ladder">
+        <li>
+          <span class="mono-label">01 · Data</span>
+          <p>What is already public: feeds, filings, certificate logs, pages that changed
+          overnight. Free to anyone who goes and collects it.</p>
+        </li>
+        <li>
+          <span class="mono-label">02 · Information</span>
+          <p>Collected, deduplicated, attributed. You know what was said, when it was said,
+          and who said it.</p>
+        </li>
+        <li>
+          <span class="mono-label">03 · Insight</span>
+          <p>Scored and correlated. You know which of it matters, and what it is evidence
+          of.</p>
+        </li>
+        <li class="is-reached">
+          <span class="mono-label">04 · Intelligence</span>
+          <p>Queryable by something other than a person. An answer to a question you had not
+          thought to ask yet.</p>
+          <span class="ladder-flag">signal, whenrun, phonehome and recall reach here</span>
+        </li>
+      </ol>
+
+      <p class="figure-note">
+        Most monitoring products stop at rung 02 and call the result a feed. The distance
+        between rung 02 and rung 04 is the whole job.
+      </p>
     </div>
   </section>
 
@@ -830,6 +986,9 @@ node bin/recall.mjs check            # after listing what you own</code>
         <ul class="foot-list">
           <li><a href="https://github.com/gledach/signals" rel="noopener">signal</a></li>
           <li><a href="https://github.com/gledach/signal-patterns" rel="noopener">signal-patterns</a></li>
+          <li><a href="https://github.com/gledach/whenrun" rel="noopener">whenrun</a></li>
+          <li><a href="https://github.com/gledach/phonehome" rel="noopener">phonehome</a></li>
+          <li><a href="https://github.com/gledach/recall" rel="noopener">recall</a></li>
           <li><a href="https://github.com/gledach" rel="noopener">All repositories</a></li>
         </ul>
       </div>

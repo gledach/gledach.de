@@ -9,6 +9,10 @@ gledach is a shelf, not a platform. The tools published here are written by the
 same author but do not share a stack, an interface or a release cadence. What
 they share is the promise below.
 
+Look at one before installing it: https://signal.gledach.de is a real signal
+deployment exported to one static file, dated and read only. `npm run view` puts
+the same dashboard on 127.0.0.1:5180 against your own subject.
+
 ## House rules
 
 - Free, and the source is public. MIT unless a dependency makes that impossible.
@@ -18,18 +22,25 @@ they share is the promise below.
 - Read only until you say otherwise. Paid actions ship disabled, behind a spend ceiling.
 - Generated text is labelled as generated. Model output is not verified fact.
 
-## The ladder
+## The shelf, in one table
 
-Every tool moves something public up four rungs and states where it stopped.
+Six slots, five filled. What each one watches, and what it hands back.
 
-1. Data: what is already public. Feeds, filings, certificate logs, changed pages.
-2. Information: collected, deduplicated, attributed.
-3. Insight: scored and correlated.
-4. Intelligence: queryable by something other than a person.
+| Slot | Tool | Watches | Tells you | Status |
+|---|---|---|---|---|
+| 01 | signal | Thirteen public sources around one market | What changed, scored and attributed, over MCP | Live preview |
+| 02 | signal-patterns | Nothing. It is the written reasoning | What is watchable, what it costs, how to build it | Docs |
+| 03 | whenrun | Day-ahead power prices and renewable share | The cheapest or greenest window, then starts the job in it | Shipped |
+| 04 | phonehome | Every DNS query on your own network | Which device talked where, and when that changed | Shipped |
+| 05 | recall | Four public registers, against a list of what you own | Which of your things has a notice, and how sure the match is | Shipped |
+| 06 | [UNNAMED] | [UNDECIDED] | [UNDECIDED] | Empty |
 
 ## Tools
 
 ### signal · rung 04, intelligence · live preview
+
+Situation: you find out a competitor shipped something when a customer mentions
+it.
 
 Competitive intelligence your agents can query. Watches a market, turns public
 noise into scored and attributed signals, exposes them over MCP. Ships tracking
@@ -56,6 +67,9 @@ Figures: 13 sources, 8 MCP tools (read only until a deployment opts in),
 
 ### signal-patterns · reference
 
+Situation: you want to build one of these, and the hard part is knowing what is
+watchable at all.
+
 How to build tools that watch the public web: what is watchable, what it costs,
 how to build a watcher, and the engineering decisions that only become obvious
 after something has broken. Nothing to install.
@@ -71,6 +85,9 @@ Ordered by lead time: infrastructure (weeks), hiring (months, vague),
 documentation (hours), changelog (hours), marketing (at launch), press (after).
 
 ### whenrun · rung 04, intelligence · shipped
+
+Situation: power can cost three times more in the evening than it does at midday,
+and a backup job does not care when it runs.
 
 Run it when the power is cheap. Watches day-ahead electricity prices and the
 renewable-share forecast, finds the cheapest or greenest window that still meets
@@ -92,6 +109,9 @@ Figures: 2 keyless price sources, 16 bidding zones, 0 runtime dependencies,
 the spot price, because grid fees and tax do not move by the hour.
 
 ### phonehome · rung 04, intelligence · shipped
+
+Situation: nothing on a home network tells you where it has been sending data, or
+when that changed.
 
 See what your devices talk to. A local DNS resolver that records which domains
 every device on your network contacts, classifies them, and says when one starts
@@ -116,6 +136,9 @@ around the tool entirely. One category exists for televisions reporting what is
 on the screen, because filed under telemetry nobody notices it.
 
 ### recall · rung 04, intelligence · shipped
+
+Situation: the notice for the thing in your kitchen was published, and nobody sent
+it to you.
 
 Tell me when something I own is recalled. Keeps a list of the things one person
 owns and checks it against four public registers, none of which needs an account:
@@ -149,6 +172,19 @@ in the output ever states that a product is safe.
 Empty. The shelf is built to hold a dozen. Nothing is planned publicly, and there
 is no roadmap to quote. Tool requests are welcome at request@gledach.de, and
 requests that would help more people than the person asking are prioritised.
+
+## The ladder
+
+Stated after the tools, not before them: it is the argument for why each tool
+stops where it stops. Every tool moves something public up four rungs and says
+where it stopped.
+
+1. Data: what is already public. Feeds, filings, certificate logs, changed pages.
+2. Information: collected, deduplicated, attributed.
+3. Insight: scored and correlated.
+4. Intelligence: queryable by something other than a person.
+
+Most monitoring products stop at rung 02 and call the result a feed.
 
 ## Previews
 

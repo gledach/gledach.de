@@ -1,7 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="gledach">
   <rect width="32" height="32" rx="9" fill="#0F1115"/>
-  <!-- Three rising bars. The tallest carries the accent. DESIGN.md 5.1 -->
+  <!-- Three rising bars. The tallest carries the accent, and it is the same
+       --g-accent-mid the nav wordmark uses, on the same ink tile. It read
+       #8E95F0 until now, which was the cobalt from before the oxblood switch:
+       off brand everywhere a favicon shows up, which is a browser tab and a
+       search result. -->
   <rect x="7"  y="19" width="4.5" height="6"  rx="1.6" fill="#9BA0AD"/>
   <rect x="13.75" y="14" width="4.5" height="11" rx="1.6" fill="#9BA0AD"/>
-  <rect x="20.5" y="7"  width="4.5" height="18" rx="1.6" fill="#8E95F0"/>
+  <rect x="20.5" y="7"  width="4.5" height="18" rx="1.6" fill="#C2452E"/>
 </svg>

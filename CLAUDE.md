@@ -80,7 +80,7 @@ control. What is animated, and what each one is saying:
 | Motion | What it explains |
 |---|---|
 | Headline resolves word by word out of blur | Things coming into focus, which is the page's subject |
-| Rack fills slot by slot, then a scan passes over it | A shelf with capacity, being watched |
+| A scan passes over the shelf index as it arrives | A shelf with capacity, being watched |
 | Ladder rung bars grow in sequence | Each rung reaches further than the one before |
 | Lead-time bars cascade top to bottom | The ordering the chart is arguing for |
 | Tool name types into the placeholder | The substitution the subdomain convention describes |
@@ -91,7 +91,20 @@ base style is always the finished state. Animations supply a `from` keyframe onl
 is what makes `prefers-reduced-motion` and any browser without view timelines land on a
 complete page rather than an empty one.
 
-**Three traps, all paid for once already:**
+**Five traps, all paid for once already:**
+
+- **A cropped screenshot must be pinned to an absolute size, not a percentage.**
+  `object-fit` and `width: 100%` both tie the rendered size of a capture to the width
+  of its frame, so the same crop is legible at one viewport and unreadable at the
+  next. The hero shot is pinned at `1109px`, which is 0.73 of the 1519px capture, and
+  the frame clips whatever fits. Text size then holds at every width and only the
+  number of visible rows changes.
+- **A box pinned wider than its grid track needs `minmax(0, 1fr)`.** A track's
+  automatic minimum is its content's min-content width, so a bare `1fr` lets the
+  1109px shot size the column and the crop stops clipping. The same applies to
+  `aspect-ratio`: an in-flow child taller than the ratio wins, so the shot is
+  `position: absolute` inside its frame and the frame's height comes from the ratio
+  alone.
 
 - **`overflow: hidden` on an ancestor breaks `view()` timelines.** It makes that ancestor
   a scroll container, the timeline resolves against it, and since it never scrolls the

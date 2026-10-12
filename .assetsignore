@@ -13,6 +13,11 @@ wrangler.jsonc
 # directory on a maintainer's machine. Deploying from there must not publish it.
 DESIGN.md
 
+# Social card sources. These render to assets/img/og-home.png and
+# apple-touch-icon.png, both of which ARE deployed. The templates are the
+# negatives, not the prints.
+assets/og
+
 # Never.
 **/.git
 **/node_modules
@@ -25,3 +30,5 @@ DESIGN.md
 #   llms.txt     the agent-readable summary
 #   robots.txt   points crawlers at both of the above
 #   sitemap.xml
+#   favicon.svg and apple-touch-icon.png
+#   assets/img/   including the rendered og-home.png

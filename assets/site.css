@@ -423,12 +423,16 @@ code { font-family: var(--font-mono); font-size: .88em; }
 .hero-grid {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
-  gap: 64px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr);
+  gap: 56px;
   align-items: center;
 }
+/* minmax(0, 1fr), never a bare 1fr. A grid track's automatic minimum is its
+   content's min-content width, and the preview shot is pinned to 1109px, so a
+   bare 1fr lets it size the column and the frame stops clipping. Same lesson as
+   the .tools grid below. */
 @media (max-width: 980px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 48px; }
 }
 
 .hero-actions {
@@ -440,112 +444,113 @@ code { font-family: var(--font-mono); font-size: .88em; }
 
 .hero-copy .lead { max-width: 46ch; }
 
-/* ═══════════════════════ 8. rack: the shelf, as an object ═══════════════════════ */
+/* ═══════════════════════ 8. hero preview ═══════════════════════ */
 
-.rack {
+/* What the hero used to hold was a list of the five tools, which the shelf
+   section lists again twenty lines further down. Two inventories for five tools
+   is one too many, and an inventory was never the hero's job. This is: the one
+   claim on the page a reader can check in a single click. */
+
+.preview {
   margin: 0;
+  min-width: 0;
   background: var(--g-surface);
   border: 1px solid var(--g-line);
   border-radius: var(--g-r-xl);
-  padding: 22px;
-  box-shadow: var(--g-shadow-hover);
+  padding: 18px 18px 20px;
+  box-shadow: var(--g-shadow-float);
 }
 
-.rack-head {
+.preview-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--g-line-soft);
+  padding: 2px 4px 14px;
 }
 
-.rack-body { position: relative; padding: 6px 0 2px; overflow: hidden; }
-
-.rack-row {
-  display: grid;
-  grid-template-columns: 28px minmax(0, 1fr) auto auto;
-  align-items: center;
-  gap: 12px;
-  min-height: 56px;
-  padding: 10px 10px;
-  margin: 2px -10px;
-  border-radius: var(--g-r-md);
-  color: var(--g-ink);
-  transition: background var(--g-base) var(--g-ease);
-}
-a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
-
-.rack-row + .rack-row { border-top: 1px solid var(--g-line-soft); }
-
-.rack-n {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--g-muted);
-  font-variant-numeric: tabular-nums;
-}
-.rack-name {
+.preview-url {
   font-family: var(--font-mono);
   font-weight: 500;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: -.01em;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  color: var(--g-ink);
 }
-.rack-row .chip { grid-column: 3; }
-.rack-status {
-  grid-column: 4;
-  min-width: 82px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--g-muted);
-  text-align: right;
-}
-.rack-status.is-live { color: var(--g-good); }
+.preview-url:hover { color: var(--g-accent); }
 
-.rack-row.is-empty .rack-name {
-  color: var(--g-line-dashed);
-  font-weight: 400;
+/* Cropped rather than scaled. The full view lives on signal's card at a width it
+   can be read at; here the point is that the rows are legible, so the shot is
+   anchored on the feed and the sidebar is allowed to fall outside the frame. */
+/* position: relative with the shot absolutely placed inside it. In flow, the
+   1109px-wide image contributes its full 572px of content height and the frame
+   grows to fit it, which beats the aspect-ratio and defeats the crop. Out of
+   flow, the frame's height comes from the ratio alone and the image is clipped
+   against it. */
+.preview-shot {
+  display: block;
+  position: relative;
+  border-radius: var(--g-r-md);
+  border: 1px solid var(--g-line);
+  background: var(--g-dark);
+  overflow: clip;
+  aspect-ratio: 16 / 11;
 }
-.rack-row.is-empty .rack-status { color: var(--g-line-dashed); }
+/* Neither object-fit nor a percentage width works here. Both tie the rendering
+   size of the shot to the width of the frame, so the rows are readable at one
+   viewport and illegible at the next: a 2.6x zoom that lands correctly in a 425px
+   frame shows an unreadable 0.55x on a 320px phone and a soft 1.6x blow-up when
+   the hero stacks and the frame goes full width.
 
-.rack figcaption {
+   So the shot is pinned to one absolute size and the frame clips whatever fits.
+   1109px is 0.73 of the 1519px capture, which is the size the convergence rows
+   read at. The text is then identical at every viewport and only the number of
+   visible rows changes, which is the right thing to trade away.
+
+   The translate is in percentages of the image's own box, and puts the point at
+   (13%, 11%) of the capture in the top left corner: the sidebar ends at 14% of
+   its width and the first convergence row sits at 19% of its height, so the crop
+   opens on the filter bar with the rows under it. */
+.preview-shot img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1109px;
+  max-width: none;
+  height: auto;
+  transform-origin: 0 0;
+  transform: translate(-13%, -11%);
+}
+
+.preview figcaption {
   margin-top: 16px;
-  padding-top: 16px;
+  padding: 16px 4px 0;
   border-top: 1px solid var(--g-line-soft);
   font-size: 14px;
   line-height: 1.5;
   color: var(--g-muted);
 }
+.preview figcaption b { color: var(--g-ink-2); font-weight: 600; }
 
-/* A single scan pass. gledati: to watch. One pass only, so no pause control
-   is required under WCAG 2.2.2. */
-.rack-scan {
-  position: absolute;
-  left: -22px;
-  right: -22px;
-  top: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--g-accent), transparent);
-  opacity: 0;
-  animation: scanpass 2.4s var(--g-ease) .95s 1 both;
+/* The second half of the claim, and the more important one: the hosted copy is
+   there so you can look, but the tool belongs on your own machine. */
+.preview-local {
+  display: block;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--g-line);
+  font-size: 13.5px;
 }
-@keyframes scanpass {
-  0% { transform: translateY(0); opacity: 0; }
-  12% { opacity: .9; }
-  88% { opacity: .9; }
-  100% { transform: translateY(232px); opacity: 0; }
+.preview-local code {
+  background: var(--g-sunken);
+  border-radius: var(--g-r-xs);
+  padding: 2px 6px;
+  color: var(--g-ink-2);
 }
 
 /* The nav is sticky at 72px. Without this every in-page link lands with its
    heading tucked underneath it, which is the single most common way an anchor
    on a sticky-header page feels broken. */
 [id] { scroll-margin-top: 96px; }
-
-.rack-jump { color: var(--g-muted); }
-.rack-jump:hover { color: var(--g-accent); }
 
 /* ═══════════════════════ 9. sections ═══════════════════════ */
 
@@ -639,6 +644,179 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
   padding: 4px 10px;
 }
 
+/* ═══════════════════════ 10b. shelf index ═══════════════════════ */
+
+/* The whole shelf as one comparison, so the difference between five tools costs
+   one screen rather than five cards. A real table, because the question it
+   answers is a table-shaped question, and because rows grow to a dozen without a
+   layout change. */
+
+.index-wrap { margin: 0 0 56px; }
+
+/* The head the hero rack used to carry: a mono label against a chip. Kept here
+   because the slot count belongs next to the list it counts. */
+.index-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+}
+.index-head .mono-label { margin: 0; }
+
+.index-body { position: relative; }
+
+/* gledati: to watch. One pass, triggered by the table arriving rather than by
+   page load, so it is seen. One pass only, so WCAG 2.2.2 asks for no control. */
+.index-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, transparent, var(--g-accent), transparent);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.shelf-index {
+  width: 100%;
+  /* separate with zero spacing, not collapse: a collapsed table cannot carry a
+     border-radius on its own border box, and the cells are transparent so the
+     rounded corners read correctly without clipping anything. */
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  background: var(--g-surface);
+  border: 1px solid var(--g-line);
+  border-radius: var(--g-r-lg);
+}
+
+.shelf-index th,
+.shelf-index td {
+  text-align: left;
+  vertical-align: top;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--g-line-soft);
+  font-size: 15px;
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--g-ink-2);
+}
+
+.shelf-index thead th {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--g-muted);
+  padding-top: 18px;
+  padding-bottom: 12px;
+  border-bottom-color: var(--g-line-strong);
+}
+.shelf-index thead th:nth-child(1) { width: 19%; }
+.shelf-index thead th:nth-child(2) { width: 28%; }
+.shelf-index thead th:nth-child(3) { width: 35%; }
+.shelf-index thead th:nth-child(4) { width: 18%; }
+
+.shelf-index tbody tr { transition: background var(--g-base) var(--g-ease); }
+.shelf-index tbody tr:hover { background: var(--g-sunken); }
+.shelf-index tbody tr:last-child th,
+.shelf-index tbody tr:last-child td { border-bottom: 0; }
+
+.shelf-index tbody th a {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--g-ink);
+}
+.shelf-index tbody th a:hover { color: var(--g-accent); }
+
+.idx-n {
+  display: block;
+  margin-bottom: 3px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .06em;
+  color: var(--g-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.idx-status {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--g-muted);
+}
+.idx-status.is-live { color: var(--g-good); }
+
+.shelf-index tr.is-empty th a,
+.shelf-index tr.is-empty td { color: var(--g-muted); }
+
+.index-wrap figcaption {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--g-muted);
+  max-width: 76ch;
+}
+
+/* Stacked below the point where four prose columns stop being readable. Each
+   cell carries its own heading, so the row survives as a labelled block. */
+@media (max-width: 900px) {
+  .shelf-index,
+  .shelf-index tbody,
+  .shelf-index tr,
+  .shelf-index th,
+  .shelf-index td { display: block; }
+
+  .index-head { flex-wrap: wrap; gap: 10px; }
+
+  .shelf-index thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .shelf-index tr { padding: 10px 0; border-bottom: 1px solid var(--g-line-soft); }
+  .shelf-index tbody tr:last-child { border-bottom: 0; }
+
+  .shelf-index th,
+  .shelf-index td {
+    display: grid;
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 12px;
+    padding: 6px 18px;
+    border-bottom: 0;
+  }
+
+  /* Three items in this one: the label, the slot number and the name. Without a
+     third track the name drops to a second row underneath the label. */
+  .shelf-index tbody th {
+    grid-template-columns: 84px auto minmax(0, 1fr);
+    align-items: baseline;
+  }
+  .shelf-index tbody th .idx-n { margin-bottom: 0; }
+
+  .shelf-index tbody th::before,
+  .shelf-index td::before {
+    content: attr(data-label);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--g-muted);
+    padding-top: 3px;
+  }
+}
+
 /* ═══════════════════════ 11. tool cards ═══════════════════════ */
 
 /* minmax(0, 1fr) rather than a bare auto track: a grid item's automatic minimum
@@ -668,6 +846,19 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
   flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 14px;
+}
+
+/* The situation, in muted body text, above the payoff in display ink. Setup then
+   answer. A card that opens with the mechanism asks the reader to work out for
+   themselves whether they have the problem it solves. */
+.tool-problem {
+  margin: 0 0 16px;
+  padding-left: 16px;
+  border-left: 2px solid var(--g-accent);
+  max-width: 60ch;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--g-muted);
 }
 
 .tool-line {
@@ -1062,7 +1253,7 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
 
 /* --- hero: one choreography, about 1.6s end to end --- */
 
-.hero-copy > *, .rack {
+.hero-copy > *, .preview {
   animation: risein var(--g-slow) var(--g-ease) both;
 }
 .hero-copy > *:nth-child(1) { animation-delay: .00s; }
@@ -1070,7 +1261,7 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
 .hero-copy > *:nth-child(3) { animation-delay: .16s; }
 .hero-copy > *:nth-child(4) { animation-delay: .24s; }
 .hero-copy > *:nth-child(5) { animation-delay: .32s; }
-.rack { animation-delay: .20s; }
+.preview { animation-delay: .20s; }
 
 @keyframes risein {
   from { opacity: 0; transform: translateY(18px); }
@@ -1089,22 +1280,35 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
   from { opacity: 0; transform: translateY(.34em); filter: blur(9px); }
 }
 
-/* The shelf fills slot by slot. The scan follows once the rows have landed. */
-.rack-body .rack-row { animation: rowin .55s var(--g-ease) both; }
-.rack-body .rack-row:nth-child(2) { animation-delay: .46s; }
-.rack-body .rack-row:nth-child(3) { animation-delay: .55s; }
-.rack-body .rack-row:nth-child(4) { animation-delay: .64s; }
-.rack-body .rack-row:nth-child(5) { animation-delay: .73s; }
-@keyframes rowin { from { opacity: 0; transform: translateX(-10px); } }
+/* Travels in percent of .index-body rather than a pixel count. A top percentage
+   resolves against the containing block, so the pass still reaches the last row
+   when the shelf grows a slot. */
+@keyframes scanpass {
+  0% { top: 0; opacity: 0; }
+  14% { opacity: .9; }
+  86% { opacity: .9; }
+  100% { top: 100%; opacity: 0; }
+}
 
 /* --- scroll driven --- */
 
 @supports (animation-timeline: view()) {
 
-  .section-head, .ladder li, .tool, .convention, .rules-list li, .house li {
+  .section-head, .index-wrap, .ladder li, .tool, .convention, .rules-list li, .house li {
     animation: risein .7s var(--g-ease) both;
     animation-timeline: view();
     animation-range: entry 0% cover 26%;
+  }
+
+  /* The scan is named off .index-body rather than taken from .index-scan's own
+     view(): the scan is a 2px line, so its own timeline would resolve over a
+     couple of pixels of scroll and fire instantly. The timeline belongs to the
+     thing being scanned. */
+  .index-body { view-timeline-name: --shelf-scan; }
+  .index-scan {
+    animation: scanpass linear both;
+    animation-timeline: --shelf-scan;
+    animation-range: entry 35% cover 62%;
   }
 
   /* The rung bar is the ladder's argument: each step reaches further than the
@@ -1174,6 +1378,6 @@ a.rack-row:hover { background: var(--g-sunken); color: var(--g-ink); }
 @media print {
   .nav, .copy, .hero::before, .foot-wordmark { display: none; }
   body { background: #fff; }
-  .card, .ladder li { break-inside: avoid; box-shadow: none; }
+  .card, .ladder li, .shelf-index tr { break-inside: avoid; box-shadow: none; }
   a::after { content: " (" attr(href) ")"; font-size: .8em; color: #666; }
 }

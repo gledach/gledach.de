@@ -6,45 +6,38 @@ own subject, and keep everything it collects.
 
 MIT licensed · no account to start · your machine is the runtime
 
-- See one running: <https://signal.gledach.de>
+## Look at one before you install it
+
+<https://signal.gledach.de> is a real `signal` deployment, exported to one static file.
+Dated, read only, and nothing you click reaches a database. `npm run view` puts the same
+dashboard on `127.0.0.1:5180`, pointed at your market instead of that one's.
+
 - All repositories: <https://github.com/gledach>
 
 ## The shelf
 
-| Slot | Tool | Rung | Status |
-|---|---|---|---|
-| 01 | signal | Intelligence | Live preview |
-| 02 | signal-patterns | Reference | Docs |
-| 03 | whenrun | Intelligence | Shipped |
-| 04 | phonehome | Intelligence | Shipped |
-| 05 | recall | Intelligence | Shipped |
-| 06 | [UNNAMED] | | Empty |
+A tool earns a slot here when it runs on someone else's machine, not only on mine.
+The rung on each entry is how far it gets: rung 04 is an answer rather than a feed.
+
+What each one watches, and what it hands back:
+
+| Slot | Tool | Watches | Tells you | Status |
+|---|---|---|---|---|
+| 01 | signal | Thirteen public sources around one market | What changed, scored and attributed, over MCP | Live preview |
+| 02 | signal-patterns | Nothing. It is the written reasoning | What is watchable, what it costs, how to build it | Docs |
+| 03 | whenrun | Day-ahead power prices and renewable share | The cheapest or greenest window, then starts the job in it | Shipped |
+| 04 | phonehome | Every DNS query on your own network | Which device talked where, and when that changed | Shipped |
+| 05 | recall | Four public registers, against a list of what you own | Which of your things has a notice, and how sure the match is | Shipped |
+| 06 | [UNNAMED] | [UNDECIDED] | [UNDECIDED] | Empty |
 
 Five filled today. Same author, different shapes: what they share is the promise,
 not a stack.
 
-## Four rungs between raw data and an answer
-
-The tools here do not share a stack, an interface or a release cadence. They share
-a destination. Each one moves something public up this ladder, and tells you where
-it stopped.
-
-1. **Data.** What is already public: feeds, filings, certificate logs, pages that
-   changed overnight. Free to anyone who goes and collects it.
-2. **Information.** Collected, deduplicated, attributed. You know what was said,
-   when it was said, and who said it.
-3. **Insight.** Scored and correlated. You know which of it matters, and what it is
-   evidence of.
-4. **Intelligence.** Queryable by something other than a person. An answer to a
-   question you had not thought to ask yet. `signal`, `whenrun`, `phonehome` and
-   `recall` reach here.
-
-Most monitoring products stop at rung 02 and call the result a feed. The distance
-between rung 02 and rung 04 is the whole job.
-
 ## signal
 
 **Rung 04, intelligence. Live preview.**
+
+You find out a competitor shipped something when a customer mentions it.
 
 Competitive intelligence your agents can query.
 
@@ -81,6 +74,9 @@ and analyst briefs. Without one, a keyword classifier runs instead.
 
 **Reference. Docs.**
 
+You want to build one of these, and the hard part is knowing what is watchable at
+all.
+
 How to build tools that watch the public web.
 
 What is watchable, what it costs, how to build a watcher, and the engineering
@@ -103,6 +99,9 @@ looking.
 ## whenrun
 
 **Rung 04, intelligence. Shipped.**
+
+Power can cost three times more in the evening than it does at midday, and your
+backup job does not care when it runs.
 
 Run it when the power is cheap.
 
@@ -134,6 +133,9 @@ fees and tax do not move by the hour and a spot-only figure flatters the tool.
 ## phonehome
 
 **Rung 04, intelligence. Shipped.**
+
+Nothing on your network tells you where it has been sending data, or when that
+changed.
 
 See what your devices talk to.
 
@@ -167,6 +169,8 @@ total it cannot see.
 ## recall
 
 **Rung 04, intelligence. Shipped.**
+
+The notice for the thing in your kitchen was published. Nobody sent it to you.
 
 Tell me when something I own is recalled.
 
@@ -213,6 +217,25 @@ subject: `[SUBJECT]`.
 Is there something you keep checking by hand that a tool could watch for you? Say
 so: <request@gledach.de>. Requests that would help more people than the person
 asking go to the front of the queue.
+
+## Four rungs between raw data and an answer
+
+The tools above do not share a stack, an interface or a release cadence. They share
+a destination. Each one moves something public up this ladder, and tells you where
+it stopped.
+
+1. **Data.** What is already public: feeds, filings, certificate logs, pages that
+   changed overnight. Free to anyone who goes and collects it.
+2. **Information.** Collected, deduplicated, attributed. You know what was said,
+   when it was said, and who said it.
+3. **Insight.** Scored and correlated. You know which of it matters, and what it is
+   evidence of.
+4. **Intelligence.** Queryable by something other than a person. An answer to a
+   question you had not thought to ask yet. `signal`, `whenrun`, `phonehome` and
+   `recall` reach here.
+
+Most monitoring products stop at rung 02 and call the result a feed. The distance
+between rung 02 and rung 04 is the whole job.
 
 ## Previews
 

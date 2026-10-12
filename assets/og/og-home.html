@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>og-home · 1200x630</title>
+
+<!-- The source of /assets/img/og-home.png, kept in the repository so the card can
+     be regenerated rather than redrawn. Render it at exactly 1200x630. The
+     command is in README.md under "Social cards".
+
+     Nothing here animates and nothing is responsive: this file has exactly one
+     viewport, and it is a camera target, not a page. -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+
+<style>
+  /* Tokens copied rather than imported. site.css carries a page's worth of rules
+     this card has no use for, and a social card that silently restyles itself
+     when the site does is worse than one that holds still. */
+  :root {
+    --paper: #F6F5F1;
+    --ink: #0F1115;
+    --ink-2: #3A3F4A;
+    --muted: #5E6470;
+    --line: #E4E2DA;
+    --accent: #8C1D18;
+    --accent-mid: #C2452E;
+    --grey: #9BA0AD;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { width: 1200px; height: 630px; }
+
+  body {
+    position: relative;
+    background: var(--paper);
+    color: var(--ink-2);
+    font-family: Geist, system-ui, sans-serif;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 64px 72px 58px;
+  }
+
+  /* The hero's dot grid, same size and same fade, so the card and the page it
+     links to are visibly the same object. */
+  body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(#D9D6CC 1px, transparent 1px);
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(84% 74% at 22% 6%, #000 0%, transparent 74%);
+    mask-image: radial-gradient(84% 74% at 22% 6%, #000 0%, transparent 74%);
+  }
+
+  .row { position: relative; display: flex; align-items: center; }
+
+  /* Brand */
+  .brand { gap: 16px; }
+  .mark {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: var(--ink);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4.5px;
+    padding: 11px 9px;
+  }
+  .mark i { width: 6px; border-radius: 2.2px; background: var(--grey); }
+  .mark i:nth-child(1) { height: 36%; }
+  .mark i:nth-child(2) { height: 62%; }
+  .mark i:nth-child(3) { height: 100%; background: var(--accent-mid); }
+  .word {
+    font-family: 'Bricolage Grotesque', Georgia, serif;
+    font-weight: 700;
+    font-size: 34px;
+    letter-spacing: -.03em;
+    color: var(--ink);
+  }
+
+  .slots {
+    margin-left: auto;
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-weight: 500;
+    font-size: 17px;
+    letter-spacing: .04em;
+    color: var(--accent);
+    background: #F8E8E4;
+    border-radius: 999px;
+    padding: 9px 18px;
+  }
+
+  /* Headline */
+  .eyebrow {
+    position: relative;
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-weight: 500;
+    font-size: 19px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  h1 {
+    position: relative;
+    font-family: 'Bricolage Grotesque', Georgia, serif;
+    font-weight: 700;
+    font-size: 108px;
+    line-height: .93;
+    letter-spacing: -.05em;
+    color: var(--ink);
+  }
+  h1 em {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -.02em;
+    color: var(--accent);
+  }
+
+  /* Footer */
+  .foot {
+    position: relative;
+    padding-top: 26px;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+    gap: 28px;
+  }
+  .tools {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-weight: 500;
+    font-size: 21px;
+    letter-spacing: -.01em;
+    color: var(--ink);
+  }
+  .tools span { color: var(--muted); font-weight: 400; }
+  .terms {
+    margin-left: auto;
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 17px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+  <div class="row brand">
+    <span class="mark"><i></i><i></i><i></i></span>
+    <span class="word">gledach</span>
+    <span class="slots">5 of 12 slots filled</span>
+  </div>
+
+  <div>
+    <p class="eyebrow">Free intelligence tools</p>
+    <h1>Free tools that<br><em>find things out.</em></h1>
+  </div>
+
+  <div class="row foot">
+    <p class="tools">
+      signal <span>·</span> signal-patterns <span>·</span> whenrun <span>·</span>
+      phonehome <span>·</span> recall
+    </p>
+    <p class="terms">MIT · no account · your machine</p>
+  </div>
+
+</body>
+</html>
