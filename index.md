@@ -1,8 +1,8 @@
 # Free tools that find things out
 
-gledach publishes small, installable tools that turn public data into information,
-insight and intelligence. Clone one, run it on your own machine, point it at your
-own subject, and keep everything it collects.
+gledach publishes small tools that turn public data into information, insight and
+intelligence. Clone one, run it on your own machine, point it at your own subject,
+and keep everything it collects.
 
 MIT licensed · no account to start · your machine is the runtime
 
@@ -14,12 +14,13 @@ dashboard on `127.0.0.1:5180`, pointed at your market instead of that one's.
 
 - All repositories: <https://github.com/gledach>
 
-## The shelf
+## The shelf: same author, different shapes
 
 A tool earns a slot here when it runs on someone else's machine, not only on mine.
-The rung on each entry is how far it gets: rung 04 is an answer rather than a feed.
+They share no stack and no interface, only the promise: free, installable, and honest
+about what each one cannot see.
 
-What each one watches, and what it hands back:
+Five of twelve slots are filled. What each one watches, and what it hands back:
 
 | Slot | Tool | Watches | Tells you | Status |
 |---|---|---|---|---|
@@ -30,8 +31,8 @@ What each one watches, and what it hands back:
 | 05 | recall | Four public registers, against a list of what you own | Which of your things has a notice, and how sure the match is | Shipped |
 | 06 | [UNNAMED] | [UNDECIDED] | [UNDECIDED] | Empty |
 
-Five filled today. Same author, different shapes: what they share is the promise,
-not a stack.
+Every row is an entry below. Each one also states the rung it reaches, and the ladder
+further down says what the rungs are.
 
 ## signal
 

@@ -24,7 +24,8 @@ the same dashboard on 127.0.0.1:5180 against your own subject.
 
 ## The shelf, in one table
 
-Six slots, five filled. What each one watches, and what it hands back.
+Twelve slots, five filled. The table lists the filled ones and the next empty one.
+What each tool watches, and what it hands back.
 
 | Slot | Tool | Watches | Tells you | Status |
 |---|---|---|---|---|

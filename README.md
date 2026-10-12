@@ -84,7 +84,9 @@ with JavaScript off and a crawler sees it. Adding one is a copy-paste:
 7. Add a row to the `.shelf-index` table: slot number, what it watches, what it tells you,
    its status. Every `<td>` needs its `data-label`, which is what the stacked mobile layout
    reads from. This table is the only inventory on the page. Do not add a second one.
-8. Update the "N of 12 slots filled" chip in `.index-head` and the count in the shelf `<h2>`.
+8. Update the "N of 12 slots filled" chip in `.index-head`, and the same count in `index.md`.
+   The shelf `<h2>` deliberately carries no number, so that it is not a second place the
+   count has to be rewritten as prose. Keep it that way.
 9. Mirror the change into `llms.txt` and `index.md`. Both carry the same index table and the
    same situation line, and both go stale silently.
 10. Add an `Offer` to the JSON-LD graph in the head, under the `Organization` node.
