@@ -33,7 +33,15 @@ rule rather than a convenience:
 | `--g-accent-hover` | `#6E1613` | Hover only |
 | `--g-accent-soft` | `#F8E8E4` | Chip ground on paper |
 | `--g-accent-tint` | `#F0A94C` | **Dark band only.** Eyebrows and the serif italic on `#0F1115` |
-| `--g-accent-mid` | `#C2452E` | Large display and non-text only. Never small text |
+| `--g-accent-mid` | `#C2452E` | Large display and non-text only, which includes the serif italic in every headline on paper. Never small text |
+
+**A title never wears the link colour.** Links on this page carry no underline, so colour
+is the only thing marking them. Spend that colour on something unclickable and the one
+signal a reader has stops meaning anything. So the serif italic in a headline is brick,
+never oxblood: it is large display, which is what brick is for, and it separates from a
+link by value as well as hue. Eyebrows and chips are the documented exception, because
+11px and 12px mono uppercase at 0.1em tracking is not a texture anyone mistakes for a link
+in prose.
 
 **The hot colour only appears in the dark.** Ember scores 1.8:1 on ivory, so putting it on
 paper is both an accessibility failure and off brand. Oxblood carries the drama through
@@ -64,8 +72,9 @@ before using it on text.
 | Body | Geist 400 to 600 | Everything readable |
 | Label | Geist Mono 500 | Eyebrows, meta, chips, table heads, figures |
 
-Headlines are sentence case with one serif italic phrase carrying the payoff: "Free tools
-that *find things out.*" Never two accents in one headline. An eyebrow in mono uppercase
+Headlines are sentence case with one serif italic phrase carrying the payoff: "Track
+anyone. Compare anyone. On *your own machine.*" Never two accents in one headline, and the
+italic is brick rather than the link colour. An eyebrow in mono uppercase
 accent sits above every H2. Numbers use tabular numerals.
 
 ### Layout and motion

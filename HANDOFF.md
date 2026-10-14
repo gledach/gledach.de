@@ -12,11 +12,11 @@ Rewritten 2026-10-13. The landing page for the gledach organisation.
 
 | | |
 |---|---|
-| Branch | `main`, with the signal section uncommitted |
-| Head | `e8d9d49`, signed and pushed |
+| Branch | `main`, clean |
+| Head | `707257d`, signed and pushed |
 | Build | none. `index.html` plus one stylesheet and one script |
-| Deploy | Cloudflare Workers static assets via `wrangler.jsonc` |
-| Serving | **Not live.** See the blocker below |
+| Deploy | Cloudflare Workers static assets, built from git on push to `main` |
+| Serving | **Live at https://gledach.de.** Push is publish, about a minute end to end |
 
 Run it with `python -m http.server 8080` from the repo root. Opening `index.html` from
 disk will not load the stylesheet, because asset paths are absolute.
@@ -92,48 +92,39 @@ the restructure. Worth reading the message if any of the shelf copy looks odd.
 
 ## What is open, in priority order
 
-1. **The site is not deployed, and the blocker is not in this repo.** The Cloudflare
-   build fails at initialisation with:
-
-   ```
-   Failed: The build token selected for this build has been deleted or rolled
-   and cannot be used for this build.
-   ```
-
-   That is a Cloudflare credential, not code. Fix in the dashboard under
-   **Workers & Pages, the Worker, Settings, Build, Build token**, then retry. Nothing
-   in this repository will change that outcome. Build command must stay **empty**;
-   deploy command is `npx wrangler deploy`.
-
-   Check that `name` in `wrangler.jsonc` (`gledach-de`) matches the Worker that already
-   exists in the dashboard, or wrangler creates a second one beside it.
-
-2. **Fonts load from Google Fonts.** The design system asks for self-hosted woff2 with
+1. **Fonts load from Google Fonts.** The design system asks for self-hosted woff2 with
    `font-display: swap` and the display face preloaded. Until then the page makes one
    third-party request on render, and the social cards cannot be re-rendered offline.
    Needs permission to download four font files.
 
-3. **Battle is still uncaptured.** The hero crops the Live Feed and the signal section
-   runs Compare at full width, so the two captures in the tree are two different views
-   and neither repeats the other. `../signals/docs/images/dashboard-battle.jpg` is the
-   third and is not used here. `signal-patterns` carries a data figure and the other
-   three carry terminal output.
+2. **`assets/img/signal-live-feed.jpg` is unreferenced and still deployed.** It was the
+   hero crop before the hero became Compare. Either use it or delete it. Battle, the
+   third view, has never been captured here at all:
+   `../signals/docs/images/dashboard-battle.jpg`.
 
-4. **Both captures contain em dashes.** Every convergence row reads `CONVERGENCE`, then
-   U+2014, then the vendor name, and Compare's prose cells use the character too. That
-   is signal's own UI, so the grep rule over this repository is unaffected, but the page
-   now shows it twice: in the hero at 0.73 scale and in the signal section at 0.76.
-   Fixing it means changing signal and recapturing.
+3. **The hero capture contains em dashes.** Compare's prose cells use the character. That
+   is signal's own UI, so the grep rule over this repository is unaffected, but it is now
+   the first thing a visitor sees, at 0.74 scale. Fixing it means changing signal and
+   recapturing.
 
-   Note that this paragraph cannot quote the row verbatim, which is the rule working as
-   intended. The previous draft of this file did quote it, and committed U+2014 into the
+   Note that this paragraph cannot quote a cell verbatim, which is the rule working as
+   intended. An earlier draft of this file did quote one, and committed U+2014 into the
    repository in the act of describing the ban on U+2014.
+
+4. **The hero capture is a grey shape on a phone.** About 300px wide on a 390px viewport.
+   The figcaption carries the meaning there. The alternative, cropping to one of the two
+   columns being compared, disproves its own caption, so this is the lesser evil rather
+   than a solved problem.
+
+5. **The title, the meta description and `og-home.png` still say "free tools that find
+   things out".** True of the site, no longer what the page opens with. Re-rendering the
+   social card is the expensive half.
 
 ## Decisions already made. Do not re-litigate
 
 - **One inventory.** The shelf table is the only list of tools on the page. Do not add a
   second one to the hero, however light. An inventory was never the hero's job. Row 01
-  points up to the signal section rather than down to a card, and that is correct.
+  points up to the hero rather than down to a card, and that is correct.
 - **signal is the hero, the other tools have cards.** It is not a reward for being the
   favourite, it is because signal is the only one you aim. If a second pointable tool
   ships, it gets a card first and this decision gets reopened, rather than the page
@@ -170,7 +161,9 @@ the restructure. Worth reading the message if any of the shelf copy looks odd.
 - **Do not re-add a CSS-only count-up on the stat numbers.** It renders `0`.
 - **A cropped screenshot must be pinned to an absolute size, not a percentage.**
 - **A box pinned wider than its grid track needs `minmax(0, 1fr)`**, and `aspect-ratio`
-  loses to an in-flow child, so the hero shot is `position: absolute` in its frame.
+  loses to an in-flow child, so a cropped shot has to be `position: absolute` in its
+  frame. Nothing on the page is cropped today, so the machinery is gone and the rule is
+  kept here and in `CLAUDE.md` for the next one.
 
 Plus one that is not in `CLAUDE.md` because it is not a design rule:
 
@@ -198,8 +191,12 @@ Plus one that is not in `CLAUDE.md` because it is not a design rule:
 
 ## Suggested first move
 
-Nothing here is blocked on code. If the goal is to get the site live, the Cloudflare
-build token is the only thing standing in the way and it is fixed in the dashboard.
+The site is live and the pipeline works: Cloudflare builds from git, so a push to `main`
+is the publish step and it lands in about a minute. Verify a deploy by fetching
+`https://gledach.de/` and diffing it against the local `index.html`. It should match
+exactly, apart from one challenge-platform script Cloudflare injects before `</body>`.
+Do not run `npx wrangler deploy` by hand: it would push the working copy out of band
+from the git-driven build.
 
 If the goal is content: slots 01 to 05 are filled and slot 06 is the next empty one.
 `README.md` has the eleven-step checklist for adding a tool, which now includes the

@@ -169,13 +169,22 @@ code { font-family: var(--font-mono); font-size: .88em; }
   color: var(--g-ink);
 }
 
-/* One serif italic accent per headline. */
+/* One serif italic accent per headline.
+
+   Brick, not oxblood. Oxblood is the link colour, and a headline phrase painted
+   in exactly the colour of every link on the page reads as a link: on this page
+   links carry no underline, so colour is the only thing marking them, and
+   spending that colour on something unclickable breaks the one signal a reader
+   has. Brick is the token reserved for large display and non-text, which is what
+   a 52px to 104px serif phrase is, and it separates the two by value as well as
+   hue. It is 4.6:1 on paper, over the 3:1 that text this size has to clear, and
+   it stays off small text everywhere else. */
 .h-hero em, .h2 em, .h3 em {
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
   letter-spacing: -.02em;
-  color: var(--g-accent);
+  color: var(--g-accent-mid);
 }
 .band .h2 em { color: var(--g-accent-tint); }
 
@@ -1115,7 +1124,8 @@ code { font-family: var(--font-mono); font-size: .88em; }
   padding-top: 20px;
   border-top: 2px solid var(--g-accent);
 }
-.focus-steps .mono-label { color: var(--g-accent); }
+/* The 2px rule above each step carries the accent. The label under it does not
+   need to carry it as well, and every other mono label on the page is muted. */
 .focus-steps p {
   margin: 12px 0 0;
   font-size: 15px;
