@@ -478,9 +478,10 @@ code { font-family: var(--font-mono); font-size: .88em; }
 }
 .preview-url:hover { color: var(--g-accent); }
 
-/* Cropped rather than scaled. The full view lives on signal's card at a width it
-   can be read at; here the point is that the rows are legible, so the shot is
-   anchored on the feed and the sidebar is allowed to fall outside the frame. */
+/* Cropped rather than scaled. The point here is that the rows are legible, so the
+   shot is anchored on the feed and the sidebar is allowed to fall outside the
+   frame. A whole view at a readable width is the job of the Compare capture in
+   the signal section, which is a different view rather than this one again. */
 /* position: relative with the shot absolutely placed inside it. In flow, the
    1109px-wide image contributes its full 572px of content height and the frame
    grows to fit it, which beats the aspect-ratio and defeats the crop. Out of
@@ -823,7 +824,8 @@ code { font-family: var(--font-mono); font-size: .88em; }
    size is its content's min-content width, and the command block plus the wide
    screenshot push that past a phone viewport. */
 .tools { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
-.tool, .tool-body, .tool-text, .tool-grid > *, .stats, .cmd, .shot, .termshot { min-width: 0; }
+.tool, .tool-body, .tool-text, .tool-grid > *, .stats, .cmd, .shot, .termshot,
+.focus-steps li { min-width: 0; }
 
 .card {
   background: var(--g-surface);
@@ -1099,6 +1101,59 @@ code { font-family: var(--font-mono); font-size: .88em; }
 .copy[data-done] { color: #8FE3C8; border-color: #2F5E51; animation: pop .3s var(--g-ease); }
 @keyframes pop { 50% { transform: scale(1.07); } }
 
+/* ═══════════════════════ 15b. in focus: signal ═══════════════════════ */
+
+/* Three steps rather than three features: what you edit, who installs it, and
+   what consumes the output. Each cell ends in the command that proves its own
+   claim, so the sentence and its evidence are never a scroll apart. Numbered
+   because the order is the argument. */
+.focus-steps {
+  margin: 44px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+@media (max-width: 1000px) { .focus-steps { grid-template-columns: 1fr; gap: 24px; } }
+
+.focus-steps li {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  border-top: 2px solid var(--g-accent);
+}
+.focus-steps .mono-label { color: var(--g-accent); }
+.focus-steps p {
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--g-ink-2);
+}
+.focus-steps p code {
+  background: var(--g-sunken);
+  border-radius: var(--g-r-xs);
+  padding: 2px 6px;
+  color: var(--g-ink);
+}
+
+/* margin-top: auto rather than a fixed gap, so the three commands sit on one
+   line across the row however much prose is above them. */
+.focus-steps .focus-cmd { margin-top: auto; padding-top: 18px; }
+.focus-steps .focus-cmd code {
+  display: block;
+  background: var(--g-dark);
+  color: var(--g-on-dark);
+  border-radius: var(--g-r-sm);
+  padding: 12px 14px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  /* These are paths and flags, so they have no spaces to break at. Without this
+     the longest one sets the column's min-content width and the three-up grid
+     stops fitting. */
+  overflow-wrap: anywhere;
+}
+
 /* ═══════════════════════ 16. previews ═══════════════════════ */
 
 .convention {
@@ -1294,7 +1349,8 @@ code { font-family: var(--font-mono); font-size: .88em; }
 
 @supports (animation-timeline: view()) {
 
-  .section-head, .index-wrap, .ladder li, .tool, .convention, .rules-list li, .house li {
+  .section-head, .index-wrap, .ladder li, .tool, .focus-steps li,
+  .convention, .rules-list li, .house li {
     animation: risein .7s var(--g-ease) both;
     animation-timeline: view();
     animation-range: entry 0% cover 26%;

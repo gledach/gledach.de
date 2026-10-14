@@ -70,6 +70,9 @@ Tool cards are hand-written HTML rather than rendered from a data file, so the c
 with JavaScript off and a crawler sees it. Adding one is a copy-paste:
 
 1. Duplicate an `<article class="tool card">` block in the shelf section of `index.html`.
+   Slot 01 is the exception and is not a card: `signal` has its own section above the shelf,
+   because it is the one tool whose subject is a list the reader writes. A new tool is a card
+   unless it is also pointable, which is a high bar and not the default.
 2. Give the `<h3>` an `id` and point the card's `<nav aria-label>` at the tool name.
 3. Add a rung chip (`chip-accent`) and a status chip (`chip-good` live, `chip-neutral` docs,
    `chip-draft` unbuilt).
@@ -157,11 +160,15 @@ All three are maintained by hand. Change the page, change all four.
 - **Fonts load from Google Fonts.** The design system asks for self-hosted woff2 with
   `font-display: swap` and the display face preloaded. Until that is done, the page makes a
   third-party request on render.
-- **One product screenshot, used twice.** `signal-live-feed.jpg` is the only product capture
-  in the repository. The hero shows a crop of its convergence rows and `signal`'s card shows
-  the whole view, which reads as detail then context rather than repetition, but a second
-  capture of a different view would be better. `signal-patterns` carries a data figure and
-  the other three carry terminal output, which satisfies the rule without being product UI.
+- **Both product captures contain em dashes.** `signal-live-feed.jpg` and
+  `signal-compare.jpg` are captures of signal's own UI, which uses U+2014 in its convergence
+  rows and its prose cells. The grep rule over this repository is unaffected, since neither
+  is text here, but the hero and the signal section both show them at roughly 0.75 scale.
+  Fixing it means changing signal and recapturing.
+- **Two product captures, two views.** The hero crops the Live Feed to its convergence rows
+  and the signal section runs Compare at full container width, so no capture is used twice.
+  `signal-patterns` carries a data figure and the other three carry terminal output, which
+  satisfies the rule without being product UI.
 
 ## Licence
 

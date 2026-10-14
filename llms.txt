@@ -29,7 +29,7 @@ What each tool watches, and what it hands back.
 
 | Slot | Tool | Watches | Tells you | Status |
 |---|---|---|---|---|
-| 01 | signal | Thirteen public sources around one market | What changed, scored and attributed, over MCP | Live preview |
+| 01 | signal | Thirteen public sources around whichever market you name | What changed, scored and attributed, over MCP | Live preview |
 | 02 | signal-patterns | Nothing. It is the written reasoning | What is watchable, what it costs, how to build it | Docs |
 | 03 | whenrun | Day-ahead power prices and renewable share | The cheapest or greenest window, then starts the job in it | Shipped |
 | 04 | phonehome | Every DNS query on your own network | Which device talked where, and when that changed | Shipped |
@@ -38,23 +38,27 @@ What each tool watches, and what it hands back.
 
 ## Tools
 
-### signal · rung 04, intelligence · live preview
+### signal · rung 04, intelligence · live preview · in focus
 
 Situation: you find out a competitor shipped something when a customer mentions
 it.
 
 Competitive intelligence your agents can query. Watches a market, turns public
-noise into scored and attributed signals, exposes them over MCP. Ships tracking
-thirteen AI coding agents and app builders; retargeted by editing one gitignored
-file. Node, three runtime dependencies, no build step, libSQL storage that is a
-local file by default.
+noise into scored and attributed signals, correlates them into convergences that
+several independent publishers corroborate, and exposes the result over MCP.
+Ships tracking thirteen AI coding agents and app builders. Node, three runtime
+dependencies, no build step, libSQL storage that is a local file by default.
+
+It is the only tool on this shelf whose subject is a list the operator writes,
+which is why the landing page gives it a section of its own rather than a card.
+The other four watch something fixed.
 
 - Repository: https://github.com/gledach/signals
 - Live preview: https://signal.gledach.de (static export of a real deployment, dated, read only)
 - Install guide: https://github.com/gledach/signals/blob/main/docs/start.md
 - Agent surface (MCP): https://github.com/gledach/signals/blob/main/docs/mcp.md
 - Blind spots: https://github.com/gledach/signals/blob/main/docs/blindspots.md
-- Licence: MIT. Price: 0.
+- Licence: MIT. Price: 0. Needs Node 22 or newer, and git.
 
 Install:
 
@@ -62,6 +66,32 @@ Install:
     npm install
     npm run db:migrate
     npm run view
+
+That runs offline on a fresh clone, on Windows, macOS or Linux. An LLM key turns
+on classification, battlecards and analyst briefs; without one a keyword
+classifier runs instead and everything else still works.
+
+Three steps after it runs:
+
+1. Point it at anyone. `cp config/companies.default.mjs config/companies.local.mjs`.
+   The roster is one gitignored file, so upstream can be pulled forever without a
+   conflict in the only file that was changed. Feeds, GitHub repository mappings,
+   Hacker News queries and classifier collision warnings all derive from it, and
+   `npm test` fails if a brand name appears anywhere outside `config/`.
+2. Let the agent install it:
+   `claude mcp add signal -- node /path/to/signals/mcp-server.mjs`. The repository
+   ships AGENTS.md, CLAUDE.md and five skills, so Codex or Claude Code can clone
+   it, migrate the database and wire itself in. Node 22 and git still have to be
+   on the machine: an agent can run the commands, it cannot conjure a runtime.
+3. Then it feeds whatever asks. `npm run start` is one scheduled pass over every
+   watcher. Eight MCP tools and `signal://` resources serve the result to an
+   agent, JSON endpoints serve it to anything else, briefs and battlecards come
+   out as markdown. All read only: the single tool that spends money ships
+   disabled and stays under a ceiling shared with cron.
+
+Compare sets an anchor company against up to three rivals across positioning,
+target segment, pricing, strengths and weaknesses, and marks a claim
+`[unverified]` where the signal set does not support it.
 
 Figures: 13 sources, 8 MCP tools (read only until a deployment opts in),
 3 runtime dependencies, 2,600+ signals stored in the deployment behind the preview.
@@ -195,7 +225,7 @@ overwrites it, so a preview is the most recent snapshot rather than an archive.
 
 ## Contact
 
-- hi@aleksandarperisic.com
+- Creator: Aleksandar Perisic, https://www.linkedin.com/in/apsolut/
 - request@gledach.de to request a tool that would help people
 - https://github.com/gledach
 

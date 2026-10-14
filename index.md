@@ -24,29 +24,34 @@ Five of twelve slots are filled. What each one watches, and what it hands back:
 
 | Slot | Tool | Watches | Tells you | Status |
 |---|---|---|---|---|
-| 01 | signal | Thirteen public sources around one market | What changed, scored and attributed, over MCP | Live preview |
+| 01 | signal | Thirteen public sources around whichever market you name | What changed, scored and attributed, over MCP | Live preview |
 | 02 | signal-patterns | Nothing. It is the written reasoning | What is watchable, what it costs, how to build it | Docs |
 | 03 | whenrun | Day-ahead power prices and renewable share | The cheapest or greenest window, then starts the job in it | Shipped |
 | 04 | phonehome | Every DNS query on your own network | Which device talked where, and when that changed | Shipped |
 | 05 | recall | Four public registers, against a list of what you own | Which of your things has a notice, and how sure the match is | Shipped |
 | 06 | [UNNAMED] | [UNDECIDED] | [UNDECIDED] | Empty |
 
-Every row is an entry below. Each one also states the rung it reaches, and the ladder
-further down says what the rungs are.
+Every row is an entry below, starting with signal. Each one also states the rung it
+reaches, and the ladder further down says what the rungs are.
 
 ## signal
 
-**Rung 04, intelligence. Live preview.**
+**Rung 04, intelligence. Live preview. In focus.**
 
 You find out a competitor shipped something when a customer mentions it.
 
 Competitive intelligence your agents can query.
 
-Watches a market, turns public noise into scored and attributed signals, then
-exposes them over MCP, so Claude Code or any MCP client can ask what changed this
-week and get structured data back. It ships tracking thirteen AI coding agents and
-app builders. You point it at your own market by editing one gitignored file. The
-dashboard is one client, not the product.
+Every other tool on this shelf watches something fixed: a power market, a home network,
+four public registers. signal watches whoever you name in one file, which is the reason
+the landing page gives it a section of its own rather than a card.
+
+Thirteen public sources are collected around one market, deduplicated and attributed,
+scored for impact, then correlated into convergences: patterns that several independent
+publishers corroborate. The result is exposed over MCP, so Claude Code, Codex or any
+other MCP client can ask what changed this week and get structured data back rather than
+a page to read. It ships tracking thirteen AI coding agents and app builders, and that
+roster is configuration, not code. The dashboard is one client, not the product.
 
 | Figure | Value | Context |
 |---|---|---|
@@ -62,8 +67,42 @@ npm run db:migrate
 npm run view
 ```
 
-That runs offline on a fresh clone. An LLM key turns on classification, battlecards
-and analyst briefs. Without one, a keyword classifier runs instead.
+That runs offline on a fresh clone, on Windows, macOS or Linux. An LLM key turns on
+classification, battlecards and analyst briefs. Without one, a keyword classifier runs
+instead and everything else still works.
+
+**01 · Point it at anyone.** The roster is one gitignored file, so you can pull upstream
+forever without a conflict in the only file you changed. Feeds, GitHub repository
+mappings, Hacker News queries and classifier collision warnings all derive from it, and
+`npm test` fails if a brand name appears anywhere outside `config/`. Retargeting cannot
+leave someone else's market behind in a watcher or a prompt.
+
+```bash
+cp config/companies.default.mjs config/companies.local.mjs
+```
+
+**02 · Let the agent install it.** The repository ships `AGENTS.md`, `CLAUDE.md` and five
+skills, so Codex or Claude Code can clone it, migrate the database and wire itself in
+without you reading the install guide first. Node 22 and git still have to be on the
+machine: an agent can run the commands, it cannot conjure a runtime.
+
+```bash
+claude mcp add signal -- node /path/to/signals/mcp-server.mjs
+```
+
+**03 · Then it feeds whatever asks.** One scheduled pass runs every watcher and leaves the
+day in a database file you own. Eight MCP tools and `signal://` resources serve it to an
+agent, JSON endpoints serve it to anything else, briefs and battlecards come out as
+markdown. All read only: the single tool that spends money ships disabled, and stays
+under a ceiling shared with cron.
+
+```bash
+npm run start
+```
+
+Compare sets an anchor company against up to three rivals across positioning, target
+segment, pricing, strengths and weaknesses, and marks a claim `[unverified]` where the
+signal set does not support it.
 
 - Repository: <https://github.com/gledach/signals>
 - Live preview: <https://signal.gledach.de>
@@ -273,7 +312,7 @@ The tools vary. These six do not.
 
 ## Contact
 
-- <hi@aleksandarperisic.com>
+- Creator: [Aleksandar Perisic on LinkedIn](https://www.linkedin.com/in/apsolut/)
 - <request@gledach.de> to request a tool
 - <https://github.com/gledach>
 

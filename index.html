@@ -96,6 +96,7 @@
   },
   "image": { "@id": "https://gledach.de/#logo" },
   "sameAs": ["https://github.com/gledach"],
+  "founder": { "@id": "https://gledach.de/#creator" },
   "makesOffer": [
     {
       "@type": "Offer",
@@ -106,9 +107,10 @@
         "name": "signal",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Windows, macOS, Linux",
+        "softwareRequirements": "Node.js 22 or newer, and git",
         "license": "https://opensource.org/licenses/MIT",
         "url": "https://github.com/gledach/signals",
-        "description": "Competitive intelligence your agents can query. Watches a market, scores and attributes public signals, exposes them over MCP."
+        "description": "Competitive intelligence your agents can query. Watches a market, scores and attributes public signals, exposes them over MCP. Point it at any market by editing one gitignored file."
       }
     },
     {
@@ -165,6 +167,13 @@
       }
     }
   ]
+  },
+  {
+    "@type": "Person",
+    "@id": "https://gledach.de/#creator",
+    "name": "Aleksandar Perisic",
+    "url": "https://www.linkedin.com/in/apsolut/",
+    "sameAs": ["https://www.linkedin.com/in/apsolut/"]
   }
   ]
 }
@@ -183,6 +192,7 @@
       <span class="brand-word">gledach</span>
     </a>
     <nav class="nav-links" aria-label="Sections">
+      <a href="#signal">signal</a>
       <a href="#shelf">The shelf</a>
       <a href="#ladder">How far they go</a>
       <a href="#previews">Previews</a>
@@ -261,7 +271,147 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════ 01 shelf ══════════════════════════ -->
+  <!-- ══════════════════════════ 01 in focus: signal ══════════════════════════ -->
+  <!-- signal is out of the shelf's card grid and in a section of its own. The
+       reason is not that it is the favourite: it is the only tool here whose
+       subject is a list the reader writes. The other four watch something fixed,
+       a power market, a network, four registers, and a card is the right size
+       for a tool you cannot point anywhere.
+
+       Row 01 of the shelf index links up here rather than down to a card, so the
+       inventory is still complete and is still stated exactly once. -->
+  <section class="section" id="signal">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">In focus · slot 01</p>
+          <h2 class="h2">Track anyone. Compare anyone. On <em>your own machine.</em></h2>
+        </div>
+        <p class="lead">
+          Every other tool on this shelf watches something fixed: a power market, a home
+          network, four public registers. signal watches whoever you name in one file,
+          which is the reason it gets a section rather than a card.
+        </p>
+      </div>
+
+      <p class="tool-problem">
+        You find out a competitor shipped something when a customer mentions it.
+      </p>
+      <p class="tool-line">Competitive intelligence your agents can query.</p>
+
+      <div class="tool-body">
+        <div class="tool-text">
+          <p>
+            Thirteen public sources are collected around one market, deduplicated and
+            attributed, scored for impact, then correlated into convergences: patterns
+            that several independent publishers corroborate. The result is exposed over
+            MCP, so Claude Code, Codex or any other MCP client can ask what changed this
+            week and get structured data back rather than a page to read. It ships
+            tracking thirteen AI coding agents and app builders, and that roster is
+            configuration, not code. The dashboard is one client, not the product.
+          </p>
+
+          <dl class="stats">
+            <div>
+              <dt>Sources</dt>
+              <dd>13</dd>
+              <p>RSS, Hacker News, GitHub, YouTube, certificate logs, sitemaps, search, trends</p>
+            </div>
+            <div>
+              <dt>Agent tools</dt>
+              <dd>8</dd>
+              <p>over MCP, read only until a deployment opts in</p>
+            </div>
+            <div>
+              <dt>Runtime deps</dt>
+              <dd>3</dd>
+              <p>no build step, no framework, offline on a fresh clone</p>
+            </div>
+            <div>
+              <dt>Signals stored</dt>
+              <dd>2,600+</dd>
+              <p>in the deployment behind the live preview</p>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Compare rather than the Live Feed, which the hero already shows cropped
+             to its rows. Intrinsic size is 1519x784, and it runs the full width of
+             the container so the two columns of prose are readable. -->
+        <figure class="shot">
+          <img src="/assets/img/signal-compare.jpg" width="1519" height="784"
+               loading="lazy" decoding="async"
+               alt="Signal's Compare view: Claude Code as the anchor company beside Cursor, set against each other across positioning, target segment, pricing model, strengths and weaknesses.">
+          <figcaption>
+            Compare, from the deployment behind the live preview. Thirteen companies in the
+            left rail, read out of the one file you edit, and any of them can be the anchor.
+            The <code>[unverified against competitor signals]</code> in the pricing cell is
+            the tool declining to assert something its own evidence does not support.
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="cmd" data-copy>
+<code>git clone https://github.com/gledach/signals &amp;&amp; cd signals
+npm install
+npm run db:migrate   # local database and demo data. no account, no key
+npm run view         # a populated dashboard at 127.0.0.1:5180</code>
+        <button type="button" class="copy" aria-label="Copy the install commands for signal">Copy</button>
+      </div>
+      <p class="figure-note">
+        That runs offline on a fresh clone, on Windows, macOS or Linux. An LLM key turns on
+        classification, battlecards and analyst briefs. Without one, a keyword classifier
+        runs instead and everything else still works.
+      </p>
+
+      <ol class="focus-steps">
+        <li>
+          <span class="mono-label">01 · Point it at anyone</span>
+          <p>
+            The roster is one gitignored file, so you can pull upstream forever without a
+            conflict in the only file you changed. Feeds, GitHub repository mappings, Hacker
+            News queries and classifier collision warnings all derive from it, and
+            <code>npm test</code> fails if a brand name appears anywhere outside
+            <code>config/</code>. Retargeting cannot leave someone else's market behind in a
+            watcher or a prompt.
+          </p>
+          <p class="focus-cmd"><code>cp config/companies.default.mjs config/companies.local.mjs</code></p>
+        </li>
+        <li>
+          <span class="mono-label">02 · Let the agent install it</span>
+          <p>
+            The repository ships <code>AGENTS.md</code>, <code>CLAUDE.md</code> and five
+            skills, so Codex or Claude Code can clone it, migrate the database and wire
+            itself in without you reading the install guide first. Node 22 and git still
+            have to be on the machine: an agent can run the commands, it cannot conjure a
+            runtime.
+          </p>
+          <p class="focus-cmd"><code>claude mcp add signal -- node /path/to/signals/mcp-server.mjs</code></p>
+        </li>
+        <li>
+          <span class="mono-label">03 · Then it feeds whatever asks</span>
+          <p>
+            One scheduled pass runs every watcher and leaves the day in a database file you
+            own. Eight MCP tools and <code>signal://</code> resources serve it to an agent,
+            JSON endpoints serve it to anything else, briefs and battlecards come out as
+            markdown. All read only: the single tool that spends money ships disabled, and
+            stays under a ceiling shared with cron.
+          </p>
+          <p class="focus-cmd"><code>npm run start</code></p>
+        </li>
+      </ol>
+
+      <nav class="tool-links" aria-label="signal links">
+        <a href="https://github.com/gledach/signals" rel="noopener">Repository</a>
+        <a href="https://signal.gledach.de" rel="noopener">Live preview</a>
+        <a href="https://github.com/gledach/signals/blob/main/docs/start.md" rel="noopener">Install guide</a>
+        <a href="https://github.com/gledach/signals/blob/main/docs/mcp.md" rel="noopener">Agent surface</a>
+        <a href="https://github.com/gledach/signals/blob/main/docs/blindspots.md" rel="noopener">What it cannot see</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ 02 shelf ══════════════════════════ -->
   <section class="section" id="shelf">
     <div class="container">
       <div class="section-head">
@@ -312,7 +462,7 @@
                 <th scope="row" data-label="Tool">
                   <span class="idx-n">01</span><a href="#signal">signal</a>
                 </th>
-                <td data-label="Watches">Thirteen public sources around one market</td>
+                <td data-label="Watches">Thirteen public sources around whichever market you name</td>
                 <td data-label="Tells you">What changed, scored and attributed, over MCP</td>
                 <td data-label="Status"><span class="idx-status is-live">Live preview</span></td>
               </tr>
@@ -361,96 +511,18 @@
         </div>
 
         <figcaption id="index-cap">
-          Every row is a card below, and every claim in one is shown there as real output.
-          Each card also carries the rung it reaches, and
-          <a href="#ladder">the ladder</a> says what the rungs are. The empty row is written
-          the same way the empty card is, because a slot with nothing in it is a fact rather
-          than a gap to fill with copy.
+          Row 01 is <a href="#signal">the section above</a>. Every other row is a card below,
+          and every claim in one is shown there as real output. Each card also carries the
+          rung it reaches, and <a href="#ladder">the ladder</a> says what the rungs are. The
+          empty row is written the same way the empty card is, because a slot with nothing in
+          it is a fact rather than a gap to fill with copy.
         </figcaption>
       </figure>
 
       <div class="tools">
 
-        <!-- ─────────── signal ─────────── -->
-        <article class="tool card" id="signal">
-          <div class="tool-head">
-            <h3 class="h3">signal</h3>
-            <span class="chip chip-accent">Rung 04 · Intelligence</span>
-            <span class="chip chip-good">Live preview</span>
-          </div>
-
-          <p class="tool-problem">
-            You find out a competitor shipped something when a customer mentions it.
-          </p>
-          <p class="tool-line">Competitive intelligence your agents can query.</p>
-
-          <div class="tool-body">
-            <div class="tool-text">
-              <p>
-                Watches a market, turns public noise into scored and attributed signals, then
-                exposes them over MCP, so Claude Code or any MCP client can ask what changed
-                this week and get structured data back. It ships tracking thirteen AI coding
-                agents and app builders. You point it at your own market by editing one
-                gitignored file. The dashboard is one client, not the product.
-              </p>
-
-              <dl class="stats">
-                <div>
-                  <dt>Sources</dt>
-                  <dd>13</dd>
-                  <p>RSS, Hacker News, GitHub, YouTube, certificate logs, sitemaps, search, trends</p>
-                </div>
-                <div>
-                  <dt>Agent tools</dt>
-                  <dd>8</dd>
-                  <p>over MCP, read only until a deployment opts in</p>
-                </div>
-                <div>
-                  <dt>Runtime deps</dt>
-                  <dd>3</dd>
-                  <p>no build step, no framework, offline on a fresh clone</p>
-                </div>
-                <div>
-                  <dt>Signals stored</dt>
-                  <dd>2,600+</dd>
-                  <p>in the deployment behind the live preview</p>
-                </div>
-              </dl>
-            </div>
-
-            <!-- Intrinsic size is 1519x784. The attributes used to claim 1600x1000,
-                 which reserves the wrong box and shifts the card as the image lands. -->
-            <figure class="shot shot-wide">
-              <img src="/assets/img/signal-live-feed.jpg" width="1519" height="784"
-                   loading="lazy" decoding="async"
-                   alt="Signal's Live Feed view: convergences ranked by business impact, each row showing the correlation rule that fired it and its evidence count.">
-              <figcaption>
-                The whole view, at the width it is meant to be read at: navigation, filters and
-                the feed. The hero above is a crop of these rows.
-              </figcaption>
-            </figure>
-          </div>
-
-          <div class="cmd" data-copy>
-<code>git clone https://github.com/gledach/signals &amp;&amp; cd signals
-npm install
-npm run db:migrate   # local database and demo data. no account, no key
-npm run view         # a populated dashboard at 127.0.0.1:5180</code>
-            <button type="button" class="copy" aria-label="Copy the install commands for signal">Copy</button>
-          </div>
-          <p class="figure-note">
-            That runs offline on a fresh clone. An LLM key turns on classification, battlecards
-            and analyst briefs. Without one, a keyword classifier runs instead.
-          </p>
-
-          <nav class="tool-links" aria-label="signal links">
-            <a href="https://github.com/gledach/signals" rel="noopener">Repository</a>
-            <a href="https://signal.gledach.de" rel="noopener">Live preview</a>
-            <a href="https://github.com/gledach/signals/blob/main/docs/start.md" rel="noopener">Install guide</a>
-            <a href="https://github.com/gledach/signals/blob/main/docs/mcp.md" rel="noopener">Agent surface</a>
-            <a href="https://github.com/gledach/signals/blob/main/docs/blindspots.md" rel="noopener">What it cannot see</a>
-          </nav>
-        </article>
+        <!-- Slot 01 is not here. signal has the section above, because it is the one
+             tool on the shelf you aim at a subject of your own. -->
 
         <!-- ─────────── signal-patterns ─────────── -->
         <article class="tool card" id="signal-patterns">
@@ -829,7 +901,7 @@ node bin/recall.mjs check            # after listing what you own</code>
     </div>
   </section>
 
-  <!-- ══════════════════════════ 02 ladder ══════════════════════════ -->
+  <!-- ══════════════════════════ 03 ladder ══════════════════════════ -->
   <!-- Sits after the shelf, not before it. The ladder is the argument for why the
        tools stop where they stop, and that argument only lands on a reader who has
        already seen what the tools are. -->
@@ -878,7 +950,7 @@ node bin/recall.mjs check            # after listing what you own</code>
     </div>
   </section>
 
-  <!-- ══════════════════════════ 03 previews ══════════════════════════ -->
+  <!-- ══════════════════════════ 04 previews ══════════════════════════ -->
   <section class="section" id="previews">
     <div class="container">
       <div class="section-head">
@@ -928,7 +1000,7 @@ node bin/recall.mjs check            # after listing what you own</code>
     </div>
   </section>
 
-  <!-- ══════════════════════════ 04 house rules ══════════════════════════ -->
+  <!-- ══════════════════════════ 05 house rules ══════════════════════════ -->
   <section class="section band" id="rules">
     <div class="container">
       <div class="section-head">
@@ -1016,7 +1088,7 @@ node bin/recall.mjs check            # after listing what you own</code>
       <div>
         <p class="mono-label">Contact</p>
         <ul class="foot-list">
-          <li><a href="mailto:hi@aleksandarperisic.com">hi@aleksandarperisic.com</a></li>
+          <li><a href="https://www.linkedin.com/in/apsolut/" rel="noopener">Creator, on LinkedIn</a></li>
           <li><a href="mailto:request@gledach.de">request@gledach.de</a></li>
           <li><a href="/llms.txt">llms.txt</a></li>
           <li><a href="/index.md">This page as markdown</a></li>

@@ -12,8 +12,8 @@ Rewritten 2026-10-13. The landing page for the gledach organisation.
 
 | | |
 |---|---|
-| Branch | `main`, clean |
-| Head | `411d849`, signed and pushed |
+| Branch | `main`, with the signal section uncommitted |
+| Head | `e8d9d49`, signed and pushed |
 | Build | none. `index.html` plus one stylesheet and one script |
 | Deploy | Cloudflare Workers static assets via `wrangler.jsonc` |
 | Serving | **Not live.** See the blocker below |
@@ -23,8 +23,33 @@ disk will not load the stylesheet, because asset paths are absolute.
 
 ## What changed last
 
-Two commits restructured the page around one complaint: a reader could not tell what
-the tools were.
+**signal was promoted out of the shelf's card grid into a section of its own**, between
+the hero and the shelf, and the contact column lost the personal email address.
+
+The reason signal gets a section is written into the page and should stay the stated
+reason: it is the only tool here whose subject is a list the reader writes. The other four
+watch something fixed, and a card is the right size for a tool you cannot aim. The shelf
+index still carries all six rows and row 01 now links up rather than down, so the page has
+one inventory and says each thing once.
+
+The section carries three claims, each with the evidence beside it: the roster is one
+gitignored file and `npm test` fails if a brand leaks outside `config/`; the repository
+ships `AGENTS.md`, `CLAUDE.md` and five committed skills, so an agent can install and wire
+it; `npm run start` is one pass over every watcher feeding eight read-only MCP tools and
+`signal://` resources. Each figure traces to `../signals`. Note that only five skills are
+committed there: the working tree has nine, four of which are untracked, so the page says
+five.
+
+`assets/img/signal-compare.jpg` is new, copied from `../signals/docs/images/`. It is the
+second product view the open work below used to ask for, which is why no capture is used
+twice any more.
+
+Contact is now `Creator, on LinkedIn` pointing at linkedin.com/in/apsolut, in the footer,
+`llms.txt`, `index.md` and a new `Person` node in the JSON-LD graph that `Organization`
+names as its founder. `request@gledach.de` stays, because that one is the org's.
+
+Before that, two commits restructured the page around one complaint: a reader could not
+tell what the tools were.
 
 `0a0e639` **the hero shows the product, and the shelf is listed once.** The page had
 been carrying two inventories of the same five tools, a rack in the hero and an index
@@ -62,16 +87,17 @@ the restructure. Worth reading the message if any of the shelf copy looks odd.
    third-party request on render, and the social cards cannot be re-rendered offline.
    Needs permission to download four font files.
 
-3. **One product capture, used twice.** `signal-live-feed.jpg` is the only product
-   screenshot in the repository. The hero shows a crop of its rows and signal's card
-   shows the whole view, which reads as detail then context, but a second capture of a
-   different view (Compare, or Battlecards) would be better. `signal-patterns` carries a
-   data figure and the other three carry terminal output.
+3. **Battle is still uncaptured.** The hero crops the Live Feed and the signal section
+   runs Compare at full width, so the two captures in the tree are two different views
+   and neither repeats the other. `../signals/docs/images/dashboard-battle.jpg` is the
+   third and is not used here. `signal-patterns` carries a data figure and the other
+   three carry terminal output.
 
-4. **The capture contains em dashes.** Every convergence row in it reads `CONVERGENCE`,
-   then U+2014, then the vendor name. That is signal's own UI, so the grep rule over
-   this repository is unaffected, but the hero now shows those rows at 0.73 scale on the
-   first screen. Fixing it means changing signal and recapturing.
+4. **Both captures contain em dashes.** Every convergence row reads `CONVERGENCE`, then
+   U+2014, then the vendor name, and Compare's prose cells use the character too. That
+   is signal's own UI, so the grep rule over this repository is unaffected, but the page
+   now shows it twice: in the hero at 0.73 scale and in the signal section at 0.76.
+   Fixing it means changing signal and recapturing.
 
    Note that this paragraph cannot quote the row verbatim, which is the rule working as
    intended. The previous draft of this file did quote it, and committed U+2014 into the
@@ -80,7 +106,12 @@ the restructure. Worth reading the message if any of the shelf copy looks odd.
 ## Decisions already made. Do not re-litigate
 
 - **One inventory.** The shelf table is the only list of tools on the page. Do not add a
-  second one to the hero, however light. An inventory was never the hero's job.
+  second one to the hero, however light. An inventory was never the hero's job. Row 01
+  points up to the signal section rather than down to a card, and that is correct.
+- **signal has a section, the other tools have cards.** The section is not a reward for
+  being the favourite, it is because signal is the only one you aim. If a second
+  pointable tool ships, it gets a card first and this decision gets reopened, rather than
+  the page growing a second section by default.
 - **The shelf `<h2>` carries no number.** The `5 of 12 slots filled` chip is the single
   place the count is stated, because a chip does not have to be rewritten as prose.
 - **`DESIGN.md` is deliberately not in this repository.** It belongs to a different
