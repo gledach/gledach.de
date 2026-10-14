@@ -1,18 +1,19 @@
-# Free tools that find things out
+# Track anyone. Compare anyone. On your own machine.
 
-gledach publishes small tools that turn public data into information, insight and
-intelligence. Clone one, run it on your own machine, point it at your own subject,
-and keep everything it collects.
+Anyone means any company you name in one file. `signal` watches what they publish,
+scores and attributes it, and answers your agent over MCP. Your machine keeps
+everything it collects.
 
 MIT licensed · no account to start · your machine is the runtime
 
-## Look at one before you install it
+- Live preview: <https://signal.gledach.de>
+- All repositories: <https://github.com/gledach>
 
 <https://signal.gledach.de> is a real `signal` deployment, exported to one static file.
-Dated, read only, and nothing you click reaches a database. `npm run view` puts the same
-dashboard on `127.0.0.1:5180`, pointed at your market instead of that one's.
+It is a static export, read only, and nothing you click reaches a database. `npm run view`
+puts the same dashboard on `127.0.0.1:5180`, pointed at your companies instead of those.
 
-- All repositories: <https://github.com/gledach>
+signal is slot 01 on the gledach shelf. The rest of the shelf is below.
 
 ## The shelf: same author, different shapes
 
@@ -36,15 +37,11 @@ reaches, and the ladder further down says what the rungs are.
 
 ## signal
 
-**Rung 04, intelligence. Live preview. In focus.**
+**Rung 04, intelligence. Live preview. Slot 01.**
 
 You find out a competitor shipped something when a customer mentions it.
 
 Competitive intelligence your agents can query.
-
-Every other tool on this shelf watches something fixed: a power market, a home network,
-four public registers. signal watches whoever you name in one file, which is the reason
-the landing page gives it a section of its own rather than a card.
 
 Thirteen public sources are collected around one market, deduplicated and attributed,
 scored for impact, then correlated into convergences: patterns that several independent

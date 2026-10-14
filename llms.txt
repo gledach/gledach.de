@@ -2,6 +2,9 @@
 
 > Free, installable tools that turn public data into information, insight and
 > intelligence. Run them on your own machine. No account to start.
+>
+> Featured: signal, slot 01. Track anyone, compare anyone, on your own machine.
+> Anyone means any company you name in one file.
 
 gledati (slav.): to watch. What a good analyst does before speaking.
 
@@ -49,9 +52,10 @@ several independent publishers corroborate, and exposes the result over MCP.
 Ships tracking thirteen AI coding agents and app builders. Node, three runtime
 dependencies, no build step, libSQL storage that is a local file by default.
 
-It is the only tool on this shelf whose subject is a list the operator writes,
-which is why the landing page gives it a section of its own rather than a card.
-The other four watch something fixed.
+It is the only tool on this shelf whose subject is a list the operator writes.
+The other four watch something fixed: a power market, a home network, four
+public registers. The landing page opens on signal for that reason, and the
+shelf index follows immediately under it.
 
 - Repository: https://github.com/gledach/signals
 - Live preview: https://signal.gledach.de (static export of a real deployment, dated, read only)

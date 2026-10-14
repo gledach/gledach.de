@@ -70,9 +70,10 @@ Tool cards are hand-written HTML rather than rendered from a data file, so the c
 with JavaScript off and a crawler sees it. Adding one is a copy-paste:
 
 1. Duplicate an `<article class="tool card">` block in the shelf section of `index.html`.
-   Slot 01 is the exception and is not a card: `signal` has its own section above the shelf,
-   because it is the one tool whose subject is a list the reader writes. A new tool is a card
-   unless it is also pointable, which is a high bar and not the default.
+   Slot 01 is the exception and is not a card: `signal` is the hero. The page opens on its
+   claim, the capture under the headline is its proof, and `.signal-detail` under that is its
+   evidence. A new tool is a card. Promoting one to the hero is a decision about what the
+   whole site is for, not a step in this checklist.
 2. Give the `<h3>` an `id` and point the card's `<nav aria-label>` at the tool name.
 3. Add a rung chip (`chip-accent`) and a status chip (`chip-good` live, `chip-neutral` docs,
    `chip-draft` unbuilt).
@@ -160,15 +161,21 @@ All three are maintained by hand. Change the page, change all four.
 - **Fonts load from Google Fonts.** The design system asks for self-hosted woff2 with
   `font-display: swap` and the display face preloaded. Until that is done, the page makes a
   third-party request on render.
-- **Both product captures contain em dashes.** `signal-live-feed.jpg` and
-  `signal-compare.jpg` are captures of signal's own UI, which uses U+2014 in its convergence
-  rows and its prose cells. The grep rule over this repository is unaffected, since neither
-  is text here, but the hero and the signal section both show them at roughly 0.75 scale.
-  Fixing it means changing signal and recapturing.
-- **Two product captures, two views.** The hero crops the Live Feed to its convergence rows
-  and the signal section runs Compare at full container width, so no capture is used twice.
-  `signal-patterns` carries a data figure and the other three carry terminal output, which
-  satisfies the rule without being product UI.
+- **The hero capture contains em dashes.** `signal-compare.jpg` is a capture of signal's
+  own UI, which uses U+2014 in its prose cells. The grep rule over this repository is
+  unaffected, since it is not text here, but it is now the first thing on the page, at 0.74
+  scale. Fixing it means changing signal and recapturing.
+- **The hero capture is illegible on a phone.** It renders at 1122px on desktop, which is
+  0.74 of the capture and reads fine, and at about 300px on a 390px viewport, which reads as
+  a grey shape. The figcaption carries the meaning there. A 1519px dashboard cannot be read
+  on a phone at any scale, so the alternatives are a crop showing one of the two columns
+  being compared, which disproves its own caption, or this.
+- **`assets/img/signal-live-feed.jpg` is currently unreferenced.** It was the hero crop
+  before the hero became Compare. Kept in the tree rather than deleted, because it is the
+  only capture of the Live Feed view and the next tool section may want it. It is deployed
+  and nothing links to it. Delete it, or use it.
+- **One capture on the page.** `signal-patterns` carries a data figure and the other three
+  tools carry terminal output, which satisfies the proof rule without being product UI.
 
 ## Licence
 

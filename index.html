@@ -207,22 +207,37 @@
 
 <main>
 
-  <!-- ══════════════════════════ hero ══════════════════════════ -->
-  <section class="hero">
-    <div class="container hero-grid">
+  <!-- ══════════════════════════ hero: signal ══════════════════════════ -->
+  <!-- The page used to open on the shelf's own thesis, which is a sentence a
+       stranger has no reason to care about yet, and then sold signal anyway with
+       the first button and the first screenshot. So the opener is signal's claim,
+       stated plainly, with the view that proves it directly underneath. The shelf
+       follows immediately with its own H2. What carries "this is one of several"
+       up here is the eyebrow and the second button, which is enough: featuring one
+       tool reorders the shelf, it does not dissolve it.
 
-      <div class="hero-copy">
-        <!-- Not "Free intelligence tools". That put the headline's own first word
-             directly above it, so the eyebrow spent its one line repeating rather
-             than orienting. "Installable" is the trait the headline does not
-             carry, so it earns the space, and the lead drops the word to avoid
-             trading one repetition for another. -->
-        <p class="eyebrow">Installable intelligence tools</p>
-        <h1 class="h-hero"><span style="--i:0">Free</span> <span style="--i:1">tools</span> <span style="--i:2">that</span> <em><span style="--i:3">find</span> <span style="--i:4">things</span> <span style="--i:5">out.</span></em></h1>
+       Stacked rather than two columns. In the 525px column the old hero used, a
+       Compare capture can only show one of the two companies it is comparing,
+       which is a screenshot that disproves its own caption. -->
+  <section class="hero" id="signal">
+    <div class="container hero-stack">
+
+      <div class="hero-copy hero-lede">
+        <p class="eyebrow">signal · slot 01 on the gledach shelf</p>
+        <!-- Hard breaks, one sentence per line. Left to wrap on its own the
+             headline breaks mid-sentence at most widths, which turns three
+             claims into one run-on. The breaks do not stop the lines wrapping
+             again on a phone, they only fix where the sentences end. -->
+        <h1 class="h-hero"><span style="--i:0">Track</span> <span style="--i:1">anyone.</span><br>
+        <span style="--i:2">Compare</span> <span style="--i:3">anyone.</span><br>
+        <span style="--i:4">On</span> <em><span style="--i:5">your</span> <span style="--i:6">own</span> <span style="--i:7">machine.</span></em></h1>
+        <!-- "Anyone" is the hook and also the one word on this page that can be
+             read wrong, so the lead spends its first clause saying which anyone
+             it means rather than leaving it to the reader. -->
         <p class="lead">
-          gledach publishes small tools that turn public data into information, insight
-          and intelligence. Clone one, run it on your own machine, point it at your own
-          subject, and keep everything it collects.
+          Anyone means any company you name in one file. signal watches what they
+          publish, scores and attributes it, and answers your agent over MCP. Your
+          machine keeps everything it collects.
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="https://signal.gledach.de" rel="noopener">
@@ -233,37 +248,27 @@
         <p class="meta-line">MIT licensed · no account to start · your machine is the runtime</p>
       </div>
 
-      <!-- The hero carries proof, not an inventory. The shelf is listed once, in the
-           shelf section, where a list belongs. What goes here instead is the one
-           claim on this page a reader can check in a single click: there is a real
-           dashboard, online, and it costs nothing to look at.
-
-           No fake browser chrome. The head is the same pattern the page already
-           uses elsewhere, a mono label against a chip, so the URL frames the shot
-           without importing a trope. -->
-      <figure class="preview" aria-labelledby="preview-cap">
+      <!-- The chip used to read "Live, read only" while the caption under it said
+           the thing is a dated static export. Both cannot be true. The export is
+           what it is, and saying so costs nothing. -->
+      <figure class="preview preview-wide" aria-labelledby="preview-cap">
         <div class="preview-head">
           <a class="preview-url" href="https://signal.gledach.de" rel="noopener">signal.gledach.de</a>
-          <span class="chip chip-good">Live, read only</span>
+          <span class="chip chip-neutral">Static export, read only</span>
         </div>
 
-        <!-- Cropped to the rows, because the full-width view is on signal's card
-             below and a shot too small to read is decoration. aria-hidden and out
-             of the tab order: the URL above is the same destination, and a second
-             link to it is noise on a screen reader. -->
-        <a class="preview-shot" href="https://signal.gledach.de" rel="noopener"
-           tabindex="-1" aria-hidden="true">
-          <img src="/assets/img/signal-live-feed.jpg" width="1519" height="784"
-               decoding="async" fetchpriority="high"
-               alt="">
-        </a>
+        <img class="preview-full" src="/assets/img/signal-compare.jpg"
+             width="1519" height="784" decoding="async" fetchpriority="high"
+             alt="Signal's Compare view: Claude Code as the anchor company beside Cursor, set against each other across positioning, target segment, pricing model, strengths and weaknesses.">
 
         <figcaption id="preview-cap">
-          A real <b>signal</b> deployment, exported to one static file. Dated, read only,
-          and nothing you click reaches a database.
+          <b>Compare</b>, in a real deployment. Thirteen companies in the left rail, read
+          out of the one file you edit, and any of them can be the anchor. The
+          <code>[unverified against competitor signals]</code> in the pricing cell is the
+          tool declining to assert something its own evidence does not support.
           <span class="preview-local">
-            <code>npm run view</code> puts the same dashboard on
-            <code>127.0.0.1:5180</code>, pointed at your market instead of this one's.
+            <code>npm run view</code> puts this dashboard on <code>127.0.0.1:5180</code>,
+            pointed at your companies instead of these.
           </span>
         </figcaption>
       </figure>
@@ -271,84 +276,55 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════ 01 in focus: signal ══════════════════════════ -->
-  <!-- signal is out of the shelf's card grid and in a section of its own. The
-       reason is not that it is the favourite: it is the only tool here whose
-       subject is a list the reader writes. The other four watch something fixed,
-       a power market, a network, four registers, and a card is the right size
-       for a tool you cannot point anywhere.
-
-       Row 01 of the shelf index links up here rather than down to a card, so the
-       inventory is still complete and is still stated exactly once. -->
-  <section class="section" id="signal">
+  <!-- ══════════════════════════ 01 signal, in detail ══════════════════════════ -->
+  <!-- No second headline. The H1 above already made signal's claim, and a section
+       head here would restate it in smaller type. This block is only the evidence
+       for the claim: the situation, the mechanism, the figures, the install, and
+       the three things you do next. -->
+  <section class="section signal-detail" aria-label="What signal does">
     <div class="container">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">In focus · slot 01</p>
-          <h2 class="h2">Track anyone. Compare anyone. On <em>your own machine.</em></h2>
-        </div>
-        <p class="lead">
-          Every other tool on this shelf watches something fixed: a power market, a home
-          network, four public registers. signal watches whoever you name in one file,
-          which is the reason it gets a section rather than a card.
-        </p>
-      </div>
 
       <p class="tool-problem">
         You find out a competitor shipped something when a customer mentions it.
       </p>
       <p class="tool-line">Competitive intelligence your agents can query.</p>
 
-      <div class="tool-body">
-        <div class="tool-text">
-          <p>
-            Thirteen public sources are collected around one market, deduplicated and
-            attributed, scored for impact, then correlated into convergences: patterns
-            that several independent publishers corroborate. The result is exposed over
-            MCP, so Claude Code, Codex or any other MCP client can ask what changed this
-            week and get structured data back rather than a page to read. It ships
-            tracking thirteen AI coding agents and app builders, and that roster is
-            configuration, not code. The dashboard is one client, not the product.
-          </p>
+      <!-- One capture on the page before the shelf, and it is in the hero. A
+           second one here would be a second thing to look at in the same
+           argument, which is how a page starts feeling like a brochure. -->
+      <div class="tool-text">
+        <p>
+          Thirteen public sources are collected around one market, deduplicated and
+          attributed, scored for impact, then correlated into convergences: patterns
+          that several independent publishers corroborate. The result is exposed over
+          MCP, so Claude Code, Codex or any other MCP client can ask what changed this
+          week and get structured data back rather than a page to read. It ships
+          tracking thirteen AI coding agents and app builders, and that roster is
+          configuration, not code. The dashboard is one client, not the product.
+        </p>
 
-          <dl class="stats">
-            <div>
-              <dt>Sources</dt>
-              <dd>13</dd>
-              <p>RSS, Hacker News, GitHub, YouTube, certificate logs, sitemaps, search, trends</p>
-            </div>
-            <div>
-              <dt>Agent tools</dt>
-              <dd>8</dd>
-              <p>over MCP, read only until a deployment opts in</p>
-            </div>
-            <div>
-              <dt>Runtime deps</dt>
-              <dd>3</dd>
-              <p>no build step, no framework, offline on a fresh clone</p>
-            </div>
-            <div>
-              <dt>Signals stored</dt>
-              <dd>2,600+</dd>
-              <p>in the deployment behind the live preview</p>
-            </div>
-          </dl>
-        </div>
-
-        <!-- Compare rather than the Live Feed, which the hero already shows cropped
-             to its rows. Intrinsic size is 1519x784, and it runs the full width of
-             the container so the two columns of prose are readable. -->
-        <figure class="shot">
-          <img src="/assets/img/signal-compare.jpg" width="1519" height="784"
-               loading="lazy" decoding="async"
-               alt="Signal's Compare view: Claude Code as the anchor company beside Cursor, set against each other across positioning, target segment, pricing model, strengths and weaknesses.">
-          <figcaption>
-            Compare, from the deployment behind the live preview. Thirteen companies in the
-            left rail, read out of the one file you edit, and any of them can be the anchor.
-            The <code>[unverified against competitor signals]</code> in the pricing cell is
-            the tool declining to assert something its own evidence does not support.
-          </figcaption>
-        </figure>
+        <dl class="stats">
+          <div>
+            <dt>Sources</dt>
+            <dd>13</dd>
+            <p>RSS, Hacker News, GitHub, YouTube, certificate logs, sitemaps, search, trends</p>
+          </div>
+          <div>
+            <dt>Agent tools</dt>
+            <dd>8</dd>
+            <p>over MCP, read only until a deployment opts in</p>
+          </div>
+          <div>
+            <dt>Runtime deps</dt>
+            <dd>3</dd>
+            <p>no build step, no framework, offline on a fresh clone</p>
+          </div>
+          <div>
+            <dt>Signals stored</dt>
+            <dd>2,600+</dd>
+            <p>in the deployment behind the preview above</p>
+          </div>
+        </dl>
       </div>
 
       <div class="cmd" data-copy>

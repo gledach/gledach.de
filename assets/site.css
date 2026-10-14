@@ -420,19 +420,20 @@ code { font-family: var(--font-mono); font-size: .88em; }
   pointer-events: none;
 }
 
-.hero-grid {
+/* The hero was two columns until the capture in it became a side by side
+   comparison. The minmax(0, 1fr) lesson that lived here is not lost with it:
+   it is written down in CLAUDE.md and still enforced on .tools below. */
+
+/* The stacked hero. The headline is the page's opening claim and the capture
+   under it is the proof of that claim, so they belong in one column with the
+   proof at a width it can be read at. The two-column version put the capture in
+   a 525px frame, which is fine for a cropped feed and useless for a side by
+   side comparison: at that width only one of the two columns being compared
+   fits. */
+.hero-stack {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr);
-  gap: 56px;
-  align-items: center;
-}
-/* minmax(0, 1fr), never a bare 1fr. A grid track's automatic minimum is its
-   content's min-content width, and the preview shot is pinned to 1109px, so a
-   bare 1fr lets it size the column and the frame stops clipping. Same lesson as
-   the .tools grid below. */
-@media (max-width: 980px) {
-  .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  gap: clamp(40px, 5vw, 64px);
 }
 
 .hero-actions {
@@ -443,6 +444,9 @@ code { font-family: var(--font-mono); font-size: .88em; }
 }
 
 .hero-copy .lead { max-width: 46ch; }
+/* Wider than the two-column hero allowed, because the column is the container
+   now. 56ch is the same measure every other lead on the page uses. */
+.hero-lede .lead { max-width: 56ch; }
 
 /* ═══════════════════════ 8. hero preview ═══════════════════════ */
 
@@ -478,48 +482,22 @@ code { font-family: var(--font-mono); font-size: .88em; }
 }
 .preview-url:hover { color: var(--g-accent); }
 
-/* Cropped rather than scaled. The point here is that the rows are legible, so the
-   shot is anchored on the feed and the sidebar is allowed to fall outside the
-   frame. A whole view at a readable width is the job of the Compare capture in
-   the signal section, which is a different view rather than this one again. */
-/* position: relative with the shot absolutely placed inside it. In flow, the
-   1109px-wide image contributes its full 572px of content height and the frame
-   grows to fit it, which beats the aspect-ratio and defeats the crop. Out of
-   flow, the frame's height comes from the ratio alone and the image is clipped
-   against it. */
-.preview-shot {
-  display: block;
-  position: relative;
+/* The cropped, absolutely pinned shot that used to live here is gone with the
+   two-column hero. It was pinned to 1109px because a percentage width ties a
+   capture's rendered size to its frame, and a crop that is legible at one
+   viewport is unreadable at the next. That rule still applies to any future
+   crop and is written down in CLAUDE.md. It does not apply below: nothing is
+   cropped there, so nothing needs pinning. */
+
+/* The whole view rather than a crop of it, at the container's width. 1122px of
+   inner frame against a 1519px capture is 0.74, which is the scale the cropped
+   hero already proved legible. Nothing is pinned here, because nothing is
+   clipped: the figure is as wide as the page gets. */
+.preview-full {
+  width: 100%;
   border-radius: var(--g-r-md);
   border: 1px solid var(--g-line);
   background: var(--g-dark);
-  overflow: clip;
-  aspect-ratio: 16 / 11;
-}
-/* Neither object-fit nor a percentage width works here. Both tie the rendering
-   size of the shot to the width of the frame, so the rows are readable at one
-   viewport and illegible at the next: a 2.6x zoom that lands correctly in a 425px
-   frame shows an unreadable 0.55x on a 320px phone and a soft 1.6x blow-up when
-   the hero stacks and the frame goes full width.
-
-   So the shot is pinned to one absolute size and the frame clips whatever fits.
-   1109px is 0.73 of the 1519px capture, which is the size the convergence rows
-   read at. The text is then identical at every viewport and only the number of
-   visible rows changes, which is the right thing to trade away.
-
-   The translate is in percentages of the image's own box, and puts the point at
-   (13%, 11%) of the capture in the top left corner: the sidebar ends at 14% of
-   its width and the first convergence row sits at 19% of its height, so the crop
-   opens on the filter bar with the rows under it. */
-.preview-shot img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1109px;
-  max-width: none;
-  height: auto;
-  transform-origin: 0 0;
-  transform: translate(-13%, -11%);
 }
 
 .preview figcaption {
@@ -529,8 +507,15 @@ code { font-family: var(--font-mono); font-size: .88em; }
   font-size: 14px;
   line-height: 1.5;
   color: var(--g-muted);
+  max-width: 96ch;
 }
 .preview figcaption b { color: var(--g-ink-2); font-weight: 600; }
+.preview figcaption code {
+  background: var(--g-sunken);
+  border-radius: var(--g-r-xs);
+  padding: 2px 6px;
+  color: var(--g-ink-2);
+}
 
 /* The second half of the claim, and the more important one: the hosted copy is
    there so you can look, but the tool belongs on your own machine. */
@@ -1101,7 +1086,14 @@ code { font-family: var(--font-mono); font-size: .88em; }
 .copy[data-done] { color: #8FE3C8; border-color: #2F5E51; animation: pop .3s var(--g-ease); }
 @keyframes pop { 50% { transform: scale(1.07); } }
 
-/* ═══════════════════════ 15b. in focus: signal ═══════════════════════ */
+/* ═══════════════════════ 15b. signal, in detail ═══════════════════════ */
+
+/* Sits directly under the hero, so it does not get a full section's worth of
+   air above it. The evidence for a claim should not be a scroll away from the
+   claim. */
+.signal-detail { padding-top: clamp(40px, 5vw, 72px); }
+.signal-detail .tool-text > p { max-width: 78ch; }
+
 
 /* Three steps rather than three features: what you edit, who installs it, and
    what consumes the output. Each cell ends in the command that proves its own

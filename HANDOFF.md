@@ -23,8 +23,34 @@ disk will not load the stylesheet, because asset paths are absolute.
 
 ## What changed last
 
-**signal was promoted out of the shelf's card grid into a section of its own**, between
-the hero and the shelf, and the contact column lost the personal email address.
+**The page opens on signal.** The hero's own headline is now
+`Track anyone. Compare anyone. On your own machine.`, the Compare capture sits under it at
+full container width, and `.signal-detail` carries the evidence below that. The shelf
+follows with its own H2 and all six rows.
+
+This replaced a hero that spent the first screen on the shelf's thesis and then sold
+signal anyway with its first button and its first screenshot. Codex was consulted on the
+question and picked the same option, with one correction worth keeping in mind: "anyone"
+can be read as individual people, which signal does not do, so the lead's first clause
+says which anyone it means. Its other recommendations, cutting the ladder, the empty slot
+and the slot counter, were declined: those are decisions already recorded below.
+
+Two defects Codex found were fixed in the same pass. The hero chip read `Live, read only`
+above a caption calling the same thing a dated static export, and now reads
+`Static export, read only`. The signal lead explained the page's own layout to the reader
+and is gone. One it found was left alone deliberately: `Most monitoring products stop at
+rung 02` is still the one unevidenced competitor claim on the page.
+
+Structural fallout, all deliberate: `.hero-grid` and `.preview-shot` are deleted, since the
+hero no longer has two columns or a cropped capture. The pinning lesson both encoded is in
+`CLAUDE.md` and still applies to any future crop. `assets/img/signal-live-feed.jpg` is now
+unreferenced and still in the tree. The `<title>`, the meta description and `og-home.png`
+still say "free tools that find things out", which remains true of the site and is no
+longer what the page opens with.
+
+Before that, **signal was promoted out of the shelf's card grid into a section of its
+own**, between the hero and the shelf, and the contact column lost the personal email
+address.
 
 The reason signal gets a section is written into the page and should stay the stated
 reason: it is the only tool here whose subject is a list the reader writes. The other four
@@ -108,10 +134,15 @@ the restructure. Worth reading the message if any of the shelf copy looks odd.
 - **One inventory.** The shelf table is the only list of tools on the page. Do not add a
   second one to the hero, however light. An inventory was never the hero's job. Row 01
   points up to the signal section rather than down to a card, and that is correct.
-- **signal has a section, the other tools have cards.** The section is not a reward for
-  being the favourite, it is because signal is the only one you aim. If a second
-  pointable tool ships, it gets a card first and this decision gets reopened, rather than
-  the page growing a second section by default.
+- **signal is the hero, the other tools have cards.** It is not a reward for being the
+  favourite, it is because signal is the only one you aim. If a second pointable tool
+  ships, it gets a card first and this decision gets reopened, rather than the page
+  growing a second hero by default.
+- **One capture before the shelf.** The hero holds Compare and nothing else does. A
+  second large capture in `.signal-detail` was removed on that principle, not by accident.
+- **The ladder, the empty slot card and the `N of 12` chip stay.** Codex recommended
+  cutting all three. They are the page being honest about capacity and about where each
+  tool stops, which is the argument the whole shelf rests on.
 - **The shelf `<h2>` carries no number.** The `5 of 12 slots filled` chip is the single
   place the count is stated, because a chip does not have to be rewritten as prose.
 - **`DESIGN.md` is deliberately not in this repository.** It belongs to a different
