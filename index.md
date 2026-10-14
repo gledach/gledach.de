@@ -251,9 +251,19 @@ The shelf is built to hold a dozen. What lands here next is not decided, and the
 honest version of this entry is a placeholder rather than a roadmap. Candidate
 subject: `[SUBJECT]`.
 
-Is there something you keep checking by hand that a tool could watch for you? Say
-so: <request@gledach.de>. Requests that would help more people than the person
-asking go to the front of the queue.
+Watching [the organisation on GitHub](https://github.com/gledach) or following
+[gledach on LinkedIn](https://www.linkedin.com/company/gledach/) is how you hear when a
+slot fills.
+
+Is there something you keep checking by hand that a tool could watch for you?
+[Ask in the open](https://github.com/gledach/requests/issues/new?template=tool-request.yml).
+The form puts the three questions that decide whether anything is watchable at all: what
+you check by hand, where it is published, and whether seeing it needs an account. Without
+a GitHub account, <request@gledach.de> takes the same three answers.
+
+[The queue is public](https://github.com/gledach/requests/issues), including what was
+turned down and why. A request that would help more people than the person asking is built
+first, and anything arriving by email is filed there too.
 
 ## Four rungs between raw data and an answer
 
@@ -309,8 +319,10 @@ The tools vary. These six do not.
 
 ## Contact
 
+- Request a tool: <https://github.com/gledach/requests>
+- <request@gledach.de> if you would rather not use GitHub
 - Creator: [Aleksandar Perisic on LinkedIn](https://www.linkedin.com/in/apsolut/)
-- <request@gledach.de> to request a tool
+- gledach on LinkedIn: <https://www.linkedin.com/company/gledach/>
 - <https://github.com/gledach>
 
 *gledati* (slav.): to watch. What a good analyst does before speaking.

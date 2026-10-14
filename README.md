@@ -100,6 +100,19 @@ with JavaScript off and a crawler sees it. Adding one is a copy-paste:
 Keep the empty-slot card last, and keep it honest. It exists to say nothing is shipped there
 yet, which is the opposite of a roadmap.
 
+## Requests live in their own repository
+
+[`gledach/requests`](https://github.com/gledach/requests) is the public intake queue. The
+empty slot card links at its issue form, which asks the three questions that decide whether
+anything is watchable at all: what the reader checks by hand, where it is published, and
+whether seeing it needs an account. `request@gledach.de` is the fallback for anyone who will
+not open a GitHub account, and what arrives there gets filed in the queue afterwards, so the
+open issues are the whole list.
+
+**Do not point a request link at a tool's own repository.** A request for a tool that does
+not exist is not an issue in a tool that does. That was the wiring until `requests` existed,
+and it sent new-tool requests into signal's tracker.
+
 ## Previews live on subdomains
 
 `<tool>.gledach.de`, one per tool, replaced in place by the next export.

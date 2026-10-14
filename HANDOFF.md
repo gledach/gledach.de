@@ -13,7 +13,7 @@ Rewritten 2026-10-13. The landing page for the gledach organisation.
 | | |
 |---|---|
 | Branch | `main`, clean |
-| Head | `707257d`, signed and pushed |
+| Head | whatever `git log -1` says. This line went stale three times, so it stopped carrying a hash |
 | Build | none. `index.html` plus one stylesheet and one script |
 | Deploy | Cloudflare Workers static assets, built from git on push to `main` |
 | Serving | **Live at https://gledach.de.** Push is publish, about a minute end to end |
@@ -22,6 +22,25 @@ Run it with `python -m http.server 8080` from the repo root. Opening `index.html
 disk will not load the stylesheet, because asset paths are absolute.
 
 ## What changed last
+
+**Requests have a queue, and the GitHub side caught up with the site.**
+[`gledach/requests`](https://github.com/gledach/requests) is new: no code, one issue form,
+five triage labels, and a README explaining how a request is handled. The empty slot card
+points at it, email stays as the no-account fallback, and the open issues are linked so
+"a request that helps more people is built first" is a claim someone can check.
+
+The GitHub org surface was the weak link and is fixed. The profile README at
+github.com/gledach still carried the personal email address that was removed from the
+site, called signal "our first public repo" when five had shipped, and ran seven em dashes
+and three emoji. Rewritten in the site's voice, root and `profile/` copies reunited. Every
+public repo now has a description, a homepage and topics, signal's description lost its em
+dash, and the organisation itself has a description for the first time. `cia` and
+`cia-nice` were checked and are private, so the public org is exactly the shelf plus this
+repo, `.github` and `requests`.
+
+LinkedIn is wired where it does work: `Organization.sameAs` in the JSON-LD, the footer, and
+the line on the slot card saying how you hear when a slot fills. Not as a request channel:
+a request sent by DM is invisible to everyone else and cannot be labelled or linked.
 
 **The page opens on signal.** The hero's own headline is now
 `Track anyone. Compare anyone. On your own machine.`, the Compare capture sits under it at
@@ -92,17 +111,23 @@ the restructure. Worth reading the message if any of the shelf copy looks odd.
 
 ## What is open, in priority order
 
-1. **Fonts load from Google Fonts.** The design system asks for self-hosted woff2 with
+1. **Confirm `request@gledach.de` actually routes.** `gledach.de` has Cloudflare Email
+   Routing MX records and SPF, so the domain takes mail, but whether that specific address
+   has a rule is only visible in the dashboard under **Email, Email Routing, Routing
+   rules**. The page offers it as the no-GitHub fallback and the JSON-LD publishes it as
+   the organisation's email, so a missing rule is a silent dead end in two places.
+
+2. **Fonts load from Google Fonts.** The design system asks for self-hosted woff2 with
    `font-display: swap` and the display face preloaded. Until then the page makes one
    third-party request on render, and the social cards cannot be re-rendered offline.
    Needs permission to download four font files.
 
-2. **`assets/img/signal-live-feed.jpg` is unreferenced and still deployed.** It was the
+3. **`assets/img/signal-live-feed.jpg` is unreferenced and still deployed.** It was the
    hero crop before the hero became Compare. Either use it or delete it. Battle, the
    third view, has never been captured here at all:
    `../signals/docs/images/dashboard-battle.jpg`.
 
-3. **The hero capture contains em dashes.** Compare's prose cells use the character. That
+4. **The hero capture contains em dashes.** Compare's prose cells use the character. That
    is signal's own UI, so the grep rule over this repository is unaffected, but it is now
    the first thing a visitor sees, at 0.74 scale. Fixing it means changing signal and
    recapturing.
@@ -111,12 +136,12 @@ the restructure. Worth reading the message if any of the shelf copy looks odd.
    intended. An earlier draft of this file did quote one, and committed U+2014 into the
    repository in the act of describing the ban on U+2014.
 
-4. **The hero capture is a grey shape on a phone.** About 300px wide on a 390px viewport.
+5. **The hero capture is a grey shape on a phone.** About 300px wide on a 390px viewport.
    The figcaption carries the meaning there. The alternative, cropping to one of the two
    columns being compared, disproves its own caption, so this is the lesser evil rather
    than a solved problem.
 
-5. **The title, the meta description and `og-home.png` still say "free tools that find
+6. **The title, the meta description and `og-home.png` still say "free tools that find
    things out".** True of the site, no longer what the page opens with. Re-rendering the
    social card is the expensive half.
 

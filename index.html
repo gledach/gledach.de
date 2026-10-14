@@ -95,7 +95,10 @@
     "caption": "gledach"
   },
   "image": { "@id": "https://gledach.de/#logo" },
-  "sameAs": ["https://github.com/gledach"],
+  "sameAs": [
+    "https://github.com/gledach",
+    "https://www.linkedin.com/company/gledach/"
+  ],
   "founder": { "@id": "https://gledach.de/#creator" },
   "makesOffer": [
     {
@@ -859,17 +862,36 @@ node bin/recall.mjs check            # after listing what you own</code>
             honest version of this card is a placeholder rather than a roadmap. Candidate
             subject: <code>[SUBJECT]</code>. When one ships it gets a card in this shape, a
             repository, and a preview subdomain if there is anything worth looking at.
+            Watching <a href="https://github.com/gledach" rel="noopener">the organisation on
+            GitHub</a> or following <a href="https://www.linkedin.com/company/gledach/"
+            rel="noopener">gledach on LinkedIn</a> is how you hear that it did.
           </p>
 
+          <!-- The ask used to be a mailto and an issue link pointed at signal's own
+               tracker, which is the wrong repository for a tool that does not exist
+               yet. It also promised a queue nobody could see. Both are fixed: the
+               queue is a public repository, and email still works for anyone who
+               does not want a GitHub account. -->
           <p class="slot-ask">
             Is there something you keep checking by hand that a tool could watch for you?
-            Say so: <a href="mailto:request@gledach.de">request@gledach.de</a>. Requests that
-            would help more people than the person asking go to the front of the queue.
+            <a href="https://github.com/gledach/requests/issues/new?template=tool-request.yml"
+               rel="noopener">Ask in the open</a>. The form puts the three questions that
+            decide whether anything is watchable at all: what you check by hand, where it is
+            published, and whether seeing it needs an account. Without a GitHub account,
+            <a href="mailto:request@gledach.de">request@gledach.de</a> takes the same three
+            answers.
+          </p>
+          <p class="figure-note">
+            <a href="https://github.com/gledach/requests/issues" rel="noopener">The queue is
+            public</a>, including what was turned down and why. A request that would help more
+            people than the person asking is built first, and anything arriving by email is
+            filed there too, so the list stays the whole list.
           </p>
 
           <nav class="tool-links" aria-label="Slot 06 links">
-            <a href="mailto:request@gledach.de">Request a tool</a>
-            <a href="https://github.com/gledach/signals/issues/new" rel="noopener">Open an issue</a>
+            <a href="https://github.com/gledach/requests/issues/new?template=tool-request.yml" rel="noopener">Request a tool</a>
+            <a href="https://github.com/gledach/requests/issues" rel="noopener">The queue</a>
+            <a href="mailto:request@gledach.de">By email instead</a>
           </nav>
         </article>
 
@@ -1064,6 +1086,8 @@ node bin/recall.mjs check            # after listing what you own</code>
       <div>
         <p class="mono-label">Contact</p>
         <ul class="foot-list">
+          <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
+          <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
           <li><a href="https://www.linkedin.com/in/apsolut/" rel="noopener">Creator, on LinkedIn</a></li>
           <li><a href="mailto:request@gledach.de">request@gledach.de</a></li>
           <li><a href="/llms.txt">llms.txt</a></li>
