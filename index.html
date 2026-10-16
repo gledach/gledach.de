@@ -195,15 +195,39 @@
 <!-- ══════════════════════════ nav ══════════════════════════ -->
 <header class="nav">
   <div class="nav-in">
-    <a class="brand" href="/" aria-label="gledach, home">
-      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-      gledach
-    </a>
+    <!-- Organisation, then the tool you are in, then the rest of the shelf
+         behind the dots. The same shape on all five pages, so a visitor who
+         lands on a satellite can still tell whose tool it is. -->
+    <div class="brandbar">
+      <a class="brand" href="/" aria-label="gledach, the organisation behind these tools">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        gledach
+      </a>
+      <span class="brand-sep" aria-hidden="true"></span>
+      <a class="brand-tool" href="/" aria-current="page">signal</a>
+      <details class="toolmenu">
+        <summary aria-label="The other tools on the gledach shelf">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        </summary>
+        <div class="toolmenu-panel">
+          <p class="toolmenu-head">The gledach shelf · 5 of 12 slots filled</p>
+          <ul class="toolmenu-list">
+            <li><a href="/" aria-current="page"><b>signal <span class="tm-slot">slot 01</span></b><span>Competitive intelligence your agents can query</span></a></li>
+            <li><a href="/signal-patterns"><b>signal-patterns <span class="tm-slot">slot 02</span></b><span>How to build tools that watch the public web</span></a></li>
+            <li><a href="/whenrun"><b>whenrun <span class="tm-slot">slot 03</span></b><span>Run it when the power is cheap</span></a></li>
+            <li><a href="/phonehome"><b>phonehome <span class="tm-slot">slot 04</span></b><span>See what your devices talk to</span></a></li>
+            <li><a href="/recall"><b>recall <span class="tm-slot">slot 05</span></b><span>Tell me when something I own is recalled</span></a></li>
+          </ul>
+          <p class="toolmenu-foot">
+            <a href="#shelf">Why these five</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
+          </p>
+        </div>
+      </details>
+    </div>
     <nav class="nav-links" aria-label="Sections">
       <a href="#collect">What it watches</a>
-      <a href="#pipeline">What it does with it</a>
-      <a href="#surfaces">Who consumes it</a>
-      <a href="#retarget">Point it anywhere</a>
+      <a href="#views">The dashboard</a>
+      <a href="#retarget">Set it up</a>
       <a href="#shelf">The shelf</a>
     </nav>
     <div class="nav-cta">
@@ -561,7 +585,82 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════ 04 surfaces ══════════════════════════ -->
+  <!-- ══════════════════════════ 04 the dashboard ══════════════════════════ -->
+  <!-- Captures of a real deployment, uncropped. They are here because the
+       page had no product UI on it at all after the redesign, and an MCP
+       response proves the agent claim but shows a reader nothing. -->
+  <section class="sec tint-mist" id="views">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What you actually look at</p>
+          <h2 class="t-h-lg">Three views, running on your own machine.</h2>
+        </div>
+        <p class="t-lg">
+          Every capture below is a real deployment with real collected data, not
+          a mockup. <code>npm run view</code> puts the same dashboard on
+          <code>127.0.0.1:5180</code>, pointed at your companies instead of these.
+        </p>
+      </div>
+
+      <figure class="shot">
+        <div class="shot-bar">
+          <span>Live Feed</span>
+          <span class="tag tag-quiet">real deployment</span>
+        </div>
+        <img src="/assets/img/signal-live-feed.jpg" width="1519" height="784"
+             decoding="async"
+             alt="Signal's Live Feed: convergences ranked by business impact, each one showing the rule that fired it and how many independent pieces of evidence support it.">
+        <figcaption>
+          <b>Live Feed.</b> Not a list of headlines. A <b>convergence</b> is the unit
+          here: a pattern several independent publishers corroborate, scored from its
+          own evidence rather than against a fixed floor, with the rule that fired it
+          stated on the row. One line to read instead of forty.
+        </figcaption>
+      </figure>
+
+      <figure class="shot">
+        <div class="shot-bar">
+          <span>Compare</span>
+          <span class="tag tag-quiet">real deployment</span>
+        </div>
+        <img src="/assets/img/signal-compare.jpg" width="1519" height="784"
+             loading="lazy" decoding="async"
+             alt="Signal's Compare view: Claude Code as the anchor company beside Cursor, set against each other across positioning, target segment, pricing model, strengths and weaknesses.">
+        <figcaption>
+          <b>Compare.</b> One company as the anchor against up to three rivals, section
+          by section: positioning, segment, pricing, strengths, weaknesses. Thirteen
+          companies in the left rail, read out of the one file you edit. Where the
+          collected evidence does not support a claim, the cell says
+          <code>[unverified]</code> rather than asserting it.
+        </figcaption>
+      </figure>
+
+      <figure class="shot">
+        <div class="shot-bar">
+          <span>Battle</span>
+          <span class="tag tag-quiet">real deployment</span>
+        </div>
+        <img src="/assets/img/signal-battle.jpg" width="1519" height="784"
+             loading="lazy" decoding="async"
+             alt="Signal's Battle view: kill shots and the objections to expect back for a single competitor, ranked against deal context such as codebase size and team size.">
+        <figcaption>
+          <b>Battle.</b> Call prep for one competitor: the strongest points to make and
+          the objections you should expect back, ranked against the deal in front of you
+          rather than dumped as a list. This is the view a salesperson opens before a
+          call, and it is generated text, which the page says so you can check it.
+        </figcaption>
+      </figure>
+
+      <p class="figure-note">
+        On a phone a 1519px dashboard cannot be read at any scale, so the captions
+        above carry the meaning there. The whole thing is clickable and real at
+        <a href="https://signal.gledach.de" rel="noopener">signal.gledach.de</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ 05 surfaces ══════════════════════════ -->
   <section class="sec tint-frost" id="surfaces">
     <div class="wrap">
       <div class="head">
@@ -635,48 +734,150 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════ 05 retarget ══════════════════════════ -->
+  <!-- ══════════════════════════ 06 set it up ══════════════════════════ -->
+  <!-- Rewritten for the reader who is not a developer. The previous version
+       said "six layers resolve identically: an environment variable, then
+       your local file, then the shipped default", which is accurate and
+       tells a marketer nothing. Same facts, said in the order someone
+       setting this up actually meets them. -->
   <section class="sec" id="retarget">
     <div class="wrap">
-      <div class="band">
+      <div class="head">
         <div>
-          <p class="eyebrow">Point it anywhere</p>
-          <h2 class="t-h">Nothing in here knows which market it is watching.</h2>
-          <p class="t-lg" style="margin-top: var(--s-16)">
-            It ships pointed at thirteen AI coding tools. That is a configuration
-            file, not the product.
-          </p>
-          <p class="t-sm" style="margin-top: var(--s-24)">
-            Six layers resolve identically: an environment variable, then your local
-            file, then the shipped default. The roster, the feeds, the deal-context
-            axes, subdomain scoring, the agent policy and the answer-engine prompts.
-            Your file is ignored by git, so you can pull upstream forever without a
-            conflict in the one file you changed.
-          </p>
-          <p class="t-sm">
-            The gate is mechanical rather than a promise: the test suite fails if a
-            brand name appears anywhere outside the configuration directory, or if
-            the dashboard's own labels drift from the roster. Retargeting cannot
-            leave somebody else's market behind in a watcher or a prompt.
-          </p>
+          <p class="eyebrow">Set it up</p>
+          <h2 class="t-h-lg">You edit one file: the list of companies you care about.</h2>
+        </div>
+        <p class="t-lg">
+          You do not have to be a developer. Three commands put this on your own
+          laptop with a real example dataset already loaded, and from there the only
+          thing you change is who it watches. No account, no card, and nothing you
+          collect ever leaves your machine.
+        </p>
+      </div>
+
+      <ol class="steps">
+
+        <li class="step">
+          <p class="step-n">Step 01<span>Get it running</span></p>
+          <div class="step-body">
+            <p>
+              The first command downloads it. The second builds a small database on
+              your machine and fills it with real collected data. The third opens the
+              dashboard in your browser. You can stop there and look around:
+              everything in the three screens above is already populated.
+            </p>
+            <div class="cmd" data-copy>
+<pre><code><span class="c-bin">git</span> clone https://github.com/gledach/signals &amp;&amp; cd signals
+<span class="c-bin">npm</span> install
+<span class="c-bin">npm</span> run db:migrate   <span class="c-cmt"># your own database, with example data in it</span>
+<span class="c-bin">npm</span> run view         <span class="c-cmt"># the dashboard, at 127.0.0.1:5180</span></code></pre>
+              <button type="button" class="copy" aria-label="Copy the install commands for signal">Copy</button>
+            </div>
+            <p class="figure-note">
+              <b>What you need:</b> a Mac, a Windows PC or a Linux machine, and Node 22.
+              That is the whole list. The
+              <a href="https://github.com/gledach/signals/blob/main/docs/start.md" rel="noopener">install
+              guide</a> assumes you have never used a terminal before and takes about
+              fifteen minutes. If you have, it is closer to two. Run
+              <code>npm run doctor</code> at any point and it will tell you what is
+              working and what each thing you have not set up yet would unlock.
+            </p>
+          </div>
+        </li>
+
+        <li class="step">
+          <p class="step-n">Step 02<span>Tell it who to watch</span></p>
+          <div class="step-body">
+            <p>
+              It arrives watching thirteen AI coding tools, because a tool that opens
+              empty teaches you nothing. Pointing it at your own market is one file:
+              copy the example, write in the companies you care about, save.
+            </p>
+            <div class="cmd" data-copy>
+<pre><code><span class="c-cmt"># copy the example, then edit your copy</span>
+<span class="c-bin">cp</span> config/companies.default.mjs config/companies.local.mjs</code></pre>
+              <button type="button" class="copy" aria-label="Copy the command that creates your own company list">Copy</button>
+            </div>
+            <figure class="console" style="margin-top: var(--s-16)">
+              <div class="console-bar">
+                <span>config/companies.local.mjs</span>
+                <span class="tag tag-quiet">the only file most people edit</span>
+              </div>
+<pre>export const companies = {
+  acme: {
+    id: 'acme', name: 'Acme', domain: 'acme.com',
+    query: '"Acme Corp" OR "acme.com"',
+    repos: ['acme/platform'],
+    subreddits: ['acme'],
+  },
+  <span class="c-cmt">// one block like that per competitor</span>
+};</pre>
+            </figure>
+            <p>
+              The one field worth a moment's thought is <code>query</code>, because a
+              company name is often an ordinary word. <q>Cursor</q> is also the thing
+              blinking in a text box, so the query is written to catch the company and
+              not the word. The shipped file has thirteen worked examples to copy the
+              pattern from, each with a note on what it collides with.
+            </p>
+            <p>
+              Everything else follows on its own. The news feeds it reads, the searches
+              it runs, the code repositories it checks and the labels down the side of
+              the dashboard are all rebuilt from that one list. There is no second
+              place to keep in sync.
+            </p>
+          </div>
+        </li>
+
+        <li class="step">
+          <p class="step-n">Step 03<span>Leave it collecting</span></p>
+          <div class="step-body">
+            <p>
+              One command runs every watcher once and leaves the day in your database.
+              Put it on a schedule and you have a standing picture of the market that
+              updates while you are not looking at it.
+            </p>
+            <div class="cmd" data-copy>
+<pre><code><span class="c-bin">npm</span> run start      <span class="c-cmt"># one pass over every source, on whatever schedule you like</span>
+<span class="c-bin">npm</span> run brief      <span class="c-cmt"># a 200-word morning read of what changed</span></code></pre>
+              <button type="button" class="copy" aria-label="Copy the scheduled run commands for signal">Copy</button>
+            </div>
+            <p>
+              From there you either read the dashboard, or you point an AI assistant at
+              it and ask. Connecting it to Claude Code or any other MCP client is a
+              single line, and the assistant then answers from your collected data
+              rather than from whatever it remembers about the market.
+            </p>
+          </div>
+        </li>
+
+      </ol>
+
+      <div class="band" style="margin-top: var(--s-48)">
+        <div>
+          <p class="eyebrow">Three things that are easy to worry about</p>
+          <h2 class="t-h">Your setup survives everything.</h2>
           <div class="btn-row">
             <a class="btn btn-reverse" href="https://github.com/gledach/signals/blob/main/docs/start.md" rel="noopener">Read the install guide</a>
           </div>
         </div>
         <div>
-<pre><span class="c-bin">git</span> clone https://github.com/gledach/signals &amp;&amp; cd signals
-<span class="c-bin">npm</span> install
-<span class="c-bin">npm</span> run db:migrate   <span class="c-cmt"># local database and demo data. no account, no key</span>
-<span class="c-bin">npm</span> run doctor       <span class="c-cmt"># what worked, and what each missing key unlocks</span>
-<span class="c-bin">npm</span> run view         <span class="c-cmt"># a populated dashboard at 127.0.0.1:5180</span>
-
-<span class="c-bin">cp</span> config/companies.default.mjs config/companies.local.mjs
-<span class="c-bin">npm</span> run companies    <span class="c-cmt"># confirm what is live, and where it came from</span>
-<span class="c-bin">npm</span> test             <span class="c-cmt"># 15 smoke sections, 5 fixture suites, all offline</span></pre>
-          <p class="t-cap" style="margin-top: var(--s-16)">
-            That runs offline on a fresh clone, on Windows, macOS or Linux. A model
-            key turns on classification, battlecards and briefs. Without one the
-            keyword classifier runs and everything else still works.
+          <p class="t-sm">
+            <b>Updates will not overwrite your list.</b> Your file sits beside the
+            shipped example rather than replacing it, so you can pull the latest
+            version of the tool whenever you like and nothing you wrote is touched.
+          </p>
+          <p class="t-sm">
+            <b>The example market cannot be left behind by accident.</b> The project
+            refuses to build if any of the thirteen shipped names are still hiding
+            somewhere in the code, or if the dashboard's own labels have drifted away
+            from your list. That is a check that runs, not a promise in a readme.
+          </p>
+          <p class="t-sm">
+            <b>Collecting is free.</b> A model key, a few dollars a month at this
+            volume, turns on the written analysis: the classification, the battlecards
+            and the briefs. Without one a simpler keyword classifier runs instead and
+            everything else still works exactly the same.
           </p>
         </div>
       </div>

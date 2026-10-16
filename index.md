@@ -146,39 +146,121 @@ against your own intel, on device. It is experimental, it needs the dashboard
 running, and the test gate does not cover it. Stated here rather than discovered
 later.
 
-## Point it anywhere
+## What you actually look at
 
-Nothing in here knows which market it is watching. It ships pointed at thirteen
-AI coding tools, and that is a configuration file rather than the product.
+Three views, running on your own machine. Every capture on the page is a real
+deployment with real collected data, not a mockup. `npm run view` puts the same
+dashboard on `127.0.0.1:5180`, pointed at your companies instead of these.
 
-Six layers resolve identically: an environment variable, then your local file,
-then the shipped default. The roster, the feeds, the deal-context axes, subdomain
-scoring, the agent policy and the answer-engine prompts. Your file is ignored by
-git, so you can pull upstream forever without a conflict in the one file you
-changed.
+- **Live Feed.** Not a list of headlines. A convergence is the unit here: a
+  pattern several independent publishers corroborate, scored from its own
+  evidence rather than against a fixed floor, with the rule that fired it stated
+  on the row. One line to read instead of forty.
+- **Compare.** One company as the anchor against up to three rivals, section by
+  section: positioning, segment, pricing, strengths, weaknesses. Where the
+  collected evidence does not support a claim, the cell says `[unverified]`
+  rather than asserting it.
+- **Battle.** Call prep for one competitor: the strongest points to make and the
+  objections you should expect back, ranked against the deal in front of you
+  rather than dumped as a list. This is generated text, and the page says so.
 
-The gate is mechanical rather than a promise: the test suite fails if a brand
-name appears anywhere outside the configuration directory, or if the dashboard's
-own labels drift from the roster. Retargeting cannot leave somebody else's market
-behind in a watcher or a prompt.
+On a phone a 1519px dashboard cannot be read at any scale, so the captions carry
+the meaning there. The whole thing is clickable and real at
+<https://signal.gledach.de>.
+
+## Set it up
+
+**You edit one file: the list of companies you care about.**
+
+You do not have to be a developer. Three commands put this on your own laptop
+with a real example dataset already loaded, and from there the only thing you
+change is who it watches. No account, no card, and nothing you collect ever
+leaves your machine.
+
+### Step 01 · Get it running
+
+The first command downloads it. The second builds a small database on your
+machine and fills it with real collected data. The third opens the dashboard in
+your browser. You can stop there and look around: everything in the three views
+above is already populated.
 
 ```
 git clone https://github.com/gledach/signals && cd signals
 npm install
-npm run db:migrate   # local database and demo data. no account, no key
-npm run doctor       # what worked, and what each missing key unlocks
-npm run view         # a populated dashboard at 127.0.0.1:5180
-
-cp config/companies.default.mjs config/companies.local.mjs
-npm run companies    # confirm what is live, and where it came from
-npm test             # 15 smoke sections, 5 fixture suites, all offline
+npm run db:migrate   # your own database, with example data in it
+npm run view         # the dashboard, at 127.0.0.1:5180
 ```
 
-That runs offline on a fresh clone, on Windows, macOS or Linux. A model key turns
-on classification, battlecards and briefs. Without one the keyword classifier runs
-and everything else still works.
+What you need: a Mac, a Windows PC or a Linux machine, and Node 22. That is the
+whole list. The [install
+guide](https://github.com/gledach/signals/blob/main/docs/start.md) assumes you
+have never used a terminal before and takes about fifteen minutes. If you have,
+it is closer to two. Run `npm run doctor` at any point and it will tell you what
+is working and what each thing you have not set up yet would unlock.
 
-Install guide: <https://github.com/gledach/signals/blob/main/docs/start.md>
+### Step 02 · Tell it who to watch
+
+It arrives watching thirteen AI coding tools, because a tool that opens empty
+teaches you nothing. Pointing it at your own market is one file: copy the
+example, write in the companies you care about, save.
+
+```
+# copy the example, then edit your copy
+cp config/companies.default.mjs config/companies.local.mjs
+```
+
+```js
+export const companies = {
+  acme: {
+    id: 'acme', name: 'Acme', domain: 'acme.com',
+    query: '"Acme Corp" OR "acme.com"',
+    repos: ['acme/platform'],
+    subreddits: ['acme'],
+  },
+  // one block like that per competitor
+};
+```
+
+The one field worth a moment's thought is `query`, because a company name is
+often an ordinary word. "Cursor" is also the thing blinking in a text box, so the
+query is written to catch the company and not the word. The shipped file has
+thirteen worked examples to copy the pattern from, each with a note on what it
+collides with.
+
+Everything else follows on its own. The news feeds it reads, the searches it
+runs, the code repositories it checks and the labels down the side of the
+dashboard are all rebuilt from that one list. There is no second place to keep in
+sync.
+
+### Step 03 · Leave it collecting
+
+One command runs every watcher once and leaves the day in your database. Put it
+on a schedule and you have a standing picture of the market that updates while
+you are not looking at it.
+
+```
+npm run start      # one pass over every source, on whatever schedule you like
+npm run brief      # a 200-word morning read of what changed
+```
+
+From there you either read the dashboard, or you point an AI assistant at it and
+ask. Connecting it to Claude Code or any other MCP client is a single line, and
+the assistant then answers from your collected data rather than from whatever it
+remembers about the market.
+
+### Three things that are easy to worry about
+
+- **Updates will not overwrite your list.** Your file sits beside the shipped
+  example rather than replacing it, so you can pull the latest version of the
+  tool whenever you like and nothing you wrote is touched.
+- **The example market cannot be left behind by accident.** The project refuses
+  to build if any of the thirteen shipped names are still hiding somewhere in the
+  code, or if the dashboard's own labels have drifted away from your list. That
+  is a check that runs, not a promise in a readme.
+- **Collecting is free.** A model key, a few dollars a month at this volume,
+  turns on the written analysis: the classification, the battlecards and the
+  briefs. Without one a simpler keyword classifier runs instead and everything
+  else still works exactly the same.
 
 ## Previews
 

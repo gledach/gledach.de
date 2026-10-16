@@ -50,16 +50,38 @@
 
 <header class="nav">
   <div class="nav-in">
-    <a class="brand" href="/" aria-label="gledach, home">
-      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-      gledach
-    </a>
-    <nav class="nav-links" aria-label="The shelf">
-      <a href="/">signal</a>
-      <a href="/signal-patterns" aria-current="page">signal-patterns</a>
-      <a href="/whenrun">whenrun</a>
-      <a href="/phonehome">phonehome</a>
-      <a href="/recall">recall</a>
+    <!-- Organisation, then the tool you are in, then the rest of the shelf
+         behind the dots. The same shape on all five pages, so a visitor who
+         lands on a satellite can still tell whose tool it is. -->
+    <div class="brandbar">
+      <a class="brand" href="/" aria-label="gledach, the organisation behind these tools">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        gledach
+      </a>
+      <span class="brand-sep" aria-hidden="true"></span>
+      <a class="brand-tool" href="/signal-patterns" aria-current="page">signal-patterns</a>
+      <details class="toolmenu">
+        <summary aria-label="The other tools on the gledach shelf">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        </summary>
+        <div class="toolmenu-panel">
+          <p class="toolmenu-head">The gledach shelf · 5 of 12 slots filled</p>
+          <ul class="toolmenu-list">
+            <li><a href="/"><b>signal <span class="tm-slot">slot 01</span></b><span>Competitive intelligence your agents can query</span></a></li>
+            <li><a href="/signal-patterns" aria-current="page"><b>signal-patterns <span class="tm-slot">slot 02</span></b><span>How to build tools that watch the public web</span></a></li>
+            <li><a href="/whenrun"><b>whenrun <span class="tm-slot">slot 03</span></b><span>Run it when the power is cheap</span></a></li>
+            <li><a href="/phonehome"><b>phonehome <span class="tm-slot">slot 04</span></b><span>See what your devices talk to</span></a></li>
+            <li><a href="/recall"><b>recall <span class="tm-slot">slot 05</span></b><span>Tell me when something I own is recalled</span></a></li>
+          </ul>
+          <p class="toolmenu-foot">
+            <a href="/#shelf">Why these five</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
+          </p>
+        </div>
+      </details>
+    </div>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#guides">The guides</a>
+      <a href="#patterns">The patterns</a>
     </nav>
     <div class="nav-cta">
       <a class="btn btn-ghost" href="/#shelf">The shelf</a>
@@ -220,7 +242,7 @@
   </section>
 
   <!-- ══════════════════════════ patterns ══════════════════════════ -->
-  <section class="sec tint-frost">
+  <section class="sec tint-frost" id="patterns">
     <div class="wrap">
       <div class="head">
         <div>

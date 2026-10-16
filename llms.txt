@@ -129,6 +129,15 @@ Battlecards come from Sonnet, deep research from Opus across a 180-day window,
 five analyst modes from a written persona, and a weekly report that uses no model
 at all because its arithmetic is deterministic.
 
+The dashboard has three views worth naming, and the landing page carries a real
+capture of each. Live Feed is not a list of headlines: a convergence is the unit,
+scored from its own evidence, with the rule that fired it stated on the row.
+Compare sets one company as the anchor against up to three rivals across
+positioning, segment, pricing, strengths and weaknesses, and marks a cell
+`[unverified]` where the collected evidence does not support the claim. Battle is
+call prep for one competitor, ranking the strongest points and the objections to
+expect against the deal in front of you, and it is labelled as generated text.
+
 Three consumers: agents (eight MCP tools: list_companies, search_signals,
 get_convergences, get_battlecard, list_briefs, get_brief, run_analyst,
 market_summary, plus signal:// resources), people (eight dashboard views on
@@ -144,12 +153,47 @@ Read only by default and not merely by convention: run_analyst is the only tool
 that spends money and it ships with permission withheld. Opting in binds it to a
 rolling 24-hour ceiling shared with the scheduler and the CLI.
 
-Retargeting: six layers resolve as an environment variable, then a gitignored
-`.local.mjs`, then the shipped `.default.mjs`. The roster, the feeds, the
-deal-context axes, subdomain scoring, the agent policy and the answer-engine
-prompts. `npm test` fails if a brand name appears anywhere outside `config/`, or
-if the dashboard's own labels drift from the roster, so retargeting cannot leave
-somebody else's market behind in a watcher or a prompt.
+Setting it up, for a reader who is not a developer: three commands put it on a
+laptop with a real example dataset already loaded, and the only thing you then
+change is who it watches. Requirements are a Mac, a Windows PC or a Linux
+machine, and Node 22. No account, no card, and nothing collected leaves the
+machine. The install guide assumes no prior terminal experience and takes about
+fifteen minutes; with experience it is closer to two.
+
+Pointing it at your own market is one file. `cp
+config/companies.default.mjs config/companies.local.mjs`, then write one block
+per competitor:
+
+    export const companies = {
+      acme: {
+        id: 'acme', name: 'Acme', domain: 'acme.com',
+        query: '"Acme Corp" OR "acme.com"',
+        repos: ['acme/platform'],
+        subreddits: ['acme'],
+      },
+    };
+
+The field worth thought is `query`, because a company name is often an ordinary
+word: "Cursor" is also the thing blinking in a text box, so the query is written
+to catch the company and not the word. The shipped file carries thirteen worked
+examples, each with a note on what it collides with. Everything else rebuilds
+itself from that list: the feeds, the searches, the repositories checked and the
+dashboard's own labels. There is no second place to keep in sync.
+
+Three reassurances, all mechanical rather than promised. Your file sits beside
+the shipped example rather than replacing it, so pulling a new version never
+overwrites what you wrote and never produces a merge conflict. `npm test` fails
+if any of the thirteen shipped brand names is still present anywhere outside
+`config/`, or if the dashboard's labels have drifted from your list, so the
+example market cannot be left behind by accident. And collecting is free: a
+model key turns on classification, battlecards and briefs, and without one a
+keyword classifier runs instead while everything else works the same.
+
+Under the hood this is six configuration layers, each resolving as an
+environment variable, then a gitignored `.local.mjs`, then the shipped
+`.default.mjs`: the roster, the feeds, the deal-context axes, subdomain scoring,
+the agent policy and the answer-engine prompts. Most deployments only ever edit
+the first.
 
 Figures: 11 collection surfaces, ~60 RSS feeds, 13 companies across 2 segments,
 8 MCP tools, 3 runtime dependencies, 2,600+ signals stored in the deployment
