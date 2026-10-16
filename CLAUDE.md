@@ -139,38 +139,55 @@ because nothing has elevation to lift from: a card border goes lavender instead.
 Motion has exactly two jobs here. It explains a mechanism, or it confirms that
 something you did registered. Nothing else qualifies.
 
-**Entry and mechanism**, scroll-driven:
+**Entry motion reveals once and then stays revealed.** It is not scroll-driven.
+A `view()` timeline does not play, it scrubs: scroll back up and every card
+fades out again, scroll down and it replays. That reads as a gimmick, and it was
+the reason the hero looked right and nothing else did, since the hero was always
+timed rather than scrubbed.
 
-| Motion | Range | Note |
+`assets/site.js` adds `is-pre` to anything still below the fold, watches it with
+an `IntersectionObserver`, and on first intersection swaps `is-pre` for `is-in`
+and unobserves. Nothing ever reverses.
+
+| Motion | Timing | Note |
 |---|---|---|
-| Non-grid blocks rise 10px | `entry 0%` to `55%` | Heads, consoles, bands, notes |
-| Grid children rise 14px, one at a time | `entry 0%` to `50%`, offset 5% per column | The thing that makes the page feel alive |
-| Captures settle 16px and scale from 0.985 | `entry 0%` to `46%` | Reads as weight, not as a zoom |
-| Lead-time bars grow left to right | `entry 10%` to `60%` | The ordering the chart is arguing for |
-| The sticky nav gains its border | `scroll() 0` to `64px` | It is now floating over content rather than sitting in the page |
+| Hero children rise 12px | 560ms, staged 70ms apart | Timed cascade, above the fold |
+| Non-grid blocks rise 14px | 620ms | Heads, consoles, bands, notes |
+| Grid children rise 14px | 620ms, 80ms per column | The thing that makes the page feel alive |
+| Captures settle 16px and scale from 0.985 | 720ms | Reads as weight, not as a zoom |
+| Lead-time bars grow | 700ms, 70ms per row | The ordering the chart is arguing for |
+| The sticky nav gains its border | `scroll() 0` to `64px` | The one correctly scrubbed animation: it is a state indicator, so it should track scroll both ways |
 
 **The hero is a timed cascade, not scroll-driven.** It is above the fold, where a
 view timeline has already finished before the first paint. Children stage 70ms
 apart over 560ms. This is the one place the system accepts `both` hiding content
 before the animation runs, and only because it is a single paint on a static file.
 
-**Two things about the grid stagger that are easy to get wrong:**
+**Four things here are easy to get wrong, and three of them fail silently:**
 
-- **Animate the children, never the container as well.** `.sec > .wrap > *`
-  excludes every grid for exactly this reason. Animating both compounds the
-  transform and the row visibly double-moves. The exclusion list in the
-  stylesheet is load-bearing: add a new grid class there when you add one.
-- **A view timeline staggers rows for free and columns not at all.** Items in one
-  row share a scroll position, so without help they fire together and the row
-  arrives as a slab. `--wave` offsets the range per column, cycling every four so
-  the wave repeats per row instead of running away on a twelve-item grid.
+- **Remove `is-pre` at the same moment you add `is-in`.** A keyframe set with
+  only a `from` takes its implicit `to` from the element's computed style, so
+  leaving `is-pre` on ends the animation at opacity 0: the element fades in and
+  then vanishes. The swap order in `site.js` is load-bearing.
+- **Animate the children, never the container as well.** The reveal selector
+  excludes every grid from the block rule for exactly this reason. Animating both
+  compounds the transform and the row visibly double-moves. That exclusion list
+  lives in `site.js` now as well as the stylesheet: add a new grid class to both.
+- **The stagger has to come from `animation-delay`, not a scroll offset.** Items
+  in one row intersect at the same instant, so without a delay the row arrives as
+  a slab. `--wave` is set by column and cycles every four, so the wave repeats per
+  row instead of running away across a twelve-item grid.
+- **Never put `is-pre` in the markup.** The hidden state is applied by script, so
+  with JavaScript blocked nothing is ever hidden and the page is simply complete.
+  Elements already on screen when the script runs are skipped and never hidden,
+  so there is no flash after first paint. `grep is-pre *.html` must return nothing.
 
-Percentages are of the element's **own** entry span, which is its height, so a
-short card resolves over a shorter scroll than a tall one. A first pass at 36%
-had a 264px tile finishing inside 140px of scrolling, which at any real scroll
-speed is a pop rather than a wave. Measure before tuning: park the scroll
-mid-range and read the computed opacity of four adjacent items. They should
-differ by roughly 0.10 each.
+**How to verify it rather than eyeball it.** `getAnimations()` on a revealed
+element should report `playState: "finished"` with a `delay` of 0, 80, 160 or
+240ms depending on its column. Scroll away and back: it stays `finished`. Under
+`prefers-reduced-motion: reduce` the script does not run at all, so `is-pre` and
+`is-in` counts are both 0, every element is at opacity 1, and the bars are at
+full width.
 
 **Confirming interaction**, 120ms to 150ms:
 

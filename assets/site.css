@@ -710,77 +710,70 @@ a.card .card-go { color: var(--indigo-ink); }
   @keyframes menu-in { from { opacity: 0; transform: translateY(-4px); } }
 }
 
-/* ── motion ──────────────────────────────────────────────────────────
-   The base style is the finished state and the keyframes supply a "from"
-   only. That is what makes prefers-reduced-motion and any browser without
-   view timelines land on a complete page rather than an empty one.
+/* ── entry motion: reveal once, then stay ────────────────────────────
+   This was a `view()` timeline, and a view timeline does not play, it
+   scrubs. Scroll back up and every card faded out again; scroll down and
+   it replayed. The hero looked right only because it was timed rather
+   than scroll-driven, which is the inconsistency that gave it away.
 
-   Never put overflow: hidden on an ancestor of one of these. It makes that
-   ancestor a scroll container, the timeline resolves against it, and since
-   it never scrolls the animation never runs. Use overflow: clip.
+   So entry is now class-driven and plays exactly once. assets/site.js
+   adds `is-pre` to anything still below the fold, watches it with an
+   IntersectionObserver, and on first intersection swaps `is-pre` for
+   `is-in` and stops watching. Scrolling back up changes nothing.
+
+   The no-JavaScript guarantee is stronger than before, not weaker: the
+   hidden state is applied by script, so with JavaScript off nothing is
+   ever hidden and the page is simply complete. Elements already on
+   screen when the script runs are skipped entirely, so there is no
+   flash of content being hidden after paint.
+
+   `is-pre` is removed at the moment `is-in` is added, and that ordering
+   matters. A keyframe set with only a `from` takes its implicit `to`
+   from the element's computed style, so leaving `is-pre` on would make
+   the animation end at opacity 0: it would fade in and then vanish.
    ------------------------------------------------------------------- */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
+@media (prefers-reduced-motion: no-preference) {
 
-    /* Blocks that are not grids: heads, consoles, bands, notes. The hero is
-       excluded because it is above the fold, where a scroll timeline has
-       already finished before anyone sees it. It gets a load cascade below
-       instead. Grids are excluded because their children animate
-       individually, and animating both compounds the transform. */
-    .sec:not(.hero) > .wrap > *:not(:is(
-      .cards, .tiles, .rules, .blind, .steps, .stats, .shot
-    )) {
-      animation: rise linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 55%;
-    }
-    @keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+  .is-pre { opacity: 0; transform: translateY(14px); }
+  .shot.is-pre { transform: translateY(16px) scale(0.985); }
+  .bars.is-pre .bar-fill { width: 0; }
 
-    /* Grid children, one at a time. This is the difference between a page
-       that arrives and a page that is simply there: five cards appearing as
-       one slab reads as a static block, and the same five arriving left to
-       right reads as alive. A view() timeline staggers rows for free, since
-       each row enters at a different scroll position, but items in the SAME
-       row share a position and would fire together. --wave offsets the range
-       per column to fix that, cycling every four so the wave repeats per row
-       rather than running away on a twelve-item grid. */
-    :is(.cards, .tiles, .rules, .blind, .steps, .stats) > *,
-    .rail-step {
-      animation: rise-item linear both;
-      animation-timeline: view();
-      /* The percentages are of the element's own entry span, which is its
-         height, so a short card resolves over a shorter scroll than a tall
-         one. The first pass used 36% and a 280px tile finished inside 140px
-         of scrolling, which at any real scroll speed is not a wave, it is a
-         pop. 50% with a 5% step per column is long enough to read. */
-      animation-range:
-        entry calc(var(--wave, 0) * 5%)
-        entry calc(50% + var(--wave, 0) * 5%);
-    }
-    @keyframes rise-item { from { opacity: 0; transform: translateY(14px); } }
-
-    :is(.cards, .tiles, .rules, .blind, .steps, .stats) > :nth-child(4n + 2) { --wave: 1; }
-    :is(.cards, .tiles, .rules, .blind, .steps, .stats) > :nth-child(4n + 3) { --wave: 2; }
-    :is(.cards, .tiles, .rules, .blind, .steps, .stats) > :nth-child(4n + 4) { --wave: 3; }
-
-    /* A capture settles rather than appears. The scale is 0.985, which is
-       small enough that you register it as weight rather than as a zoom. */
-    .shot {
-      animation: settle linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 46%;
-    }
-    @keyframes settle {
-      from { opacity: 0; transform: translateY(16px) scale(0.985); }
-    }
-
-    .bar-fill {
-      animation: grow linear both;
-      animation-timeline: view();
-      animation-range: entry 10% entry 60%;
-    }
-    @keyframes grow { from { width: 0; } }
+  .is-in {
+    animation: reveal 620ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    /* Items in one row intersect together, so the wave has to come from
+       a delay here rather than from a scroll offset. --wave is set by
+       column further down and cycles every four. */
+    animation-delay: calc(var(--wave, 0) * 80ms);
   }
+  @keyframes reveal { from { opacity: 0; transform: translateY(14px); } }
+
+  /* A capture settles rather than appears. The scale is 0.985, small
+     enough to register as weight rather than as a zoom. */
+  .shot.is-in { animation-name: reveal-shot; animation-duration: 720ms; }
+  @keyframes reveal-shot {
+    from { opacity: 0; transform: translateY(16px) scale(0.985); }
+  }
+
+  /* The chart rows do not move. Only the fills grow, top to bottom,
+     which is the ordering the chart is arguing for. */
+  .bars.is-in { animation: none; }
+  .bars.is-in .bar-fill {
+    animation: grow 700ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+  @keyframes grow { from { width: 0; } }
+  .bars.is-in li:nth-child(1) .bar-fill { animation-delay: 0ms; }
+  .bars.is-in li:nth-child(2) .bar-fill { animation-delay: 70ms; }
+  .bars.is-in li:nth-child(3) .bar-fill { animation-delay: 140ms; }
+  .bars.is-in li:nth-child(4) .bar-fill { animation-delay: 210ms; }
+  .bars.is-in li:nth-child(5) .bar-fill { animation-delay: 280ms; }
+  .bars.is-in li:nth-child(6) .bar-fill { animation-delay: 350ms; }
+
+  /* The wave, by column. Cycling every four means it repeats per row
+     instead of running away across a twelve-item grid, and it does not
+     need to know how many columns the grid actually resolved to. */
+  :is(.cards, .tiles, .rules, .blind, .steps, .stats) > :nth-child(4n + 2) { --wave: 1; }
+  :is(.cards, .tiles, .rules, .blind, .steps, .stats) > :nth-child(4n + 3) { --wave: 2; }
+  :is(.cards, .tiles, .rules, .blind, .steps, .stats) > :nth-child(4n + 4) { --wave: 3; }
 }
 
 /* ── the hero, on load ───────────────────────────────────────────────

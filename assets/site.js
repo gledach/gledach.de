@@ -41,6 +41,50 @@
     });
   });
 
+  /* ── reveal on entry, once ──────────────────────────────────────────
+     Entry motion used to be a `view()` timeline, which does not play, it
+     scrubs: scrolling back up faded every card out again and scrolling
+     down replayed it. These reveal once and then stay revealed.
+
+     The no-JavaScript guarantee is stronger this way, not weaker. The
+     hidden state is applied here rather than in the markup, so with this
+     file blocked nothing is ever hidden and the page is simply complete.
+     Anything already on screen when this runs is skipped and never
+     hidden at all, so there is no flash after first paint. */
+  var REVEAL = [
+    /* blocks that are not grids: heads, consoles, bands, notes */
+    '.sec:not(.hero) > .wrap > *:not(.cards):not(.tiles):not(.rules)' +
+      ':not(.blind):not(.steps):not(.stats):not(.shot):not(.bars)',
+    /* grid children, one at a time */
+    '.cards > *', '.tiles > *', '.rules > li', '.blind > li',
+    '.steps > li', '.stats > div', '.rail-step',
+    /* and the two that animate something other than themselves */
+    '.shot', '.bars'
+  ].join(',');
+
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!still && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        /* Order matters. A keyframe set with only a `from` takes its
+           implicit `to` from the element's computed style, so leaving
+           is-pre on would end the animation at opacity 0: it would fade
+           in and then disappear. */
+        entry.target.classList.remove('is-pre');
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -10% 0px' });
+
+    document.querySelectorAll(REVEAL).forEach(function (el) {
+      if (el.getBoundingClientRect().top < window.innerHeight) return;
+      el.classList.add('is-pre');
+      io.observe(el);
+    });
+  }
+
   /* ── tool menu dismissal ────────────────────────────────────────────
      The menu is a <details>, so opening, closing and the keyboard already
      work without this. What <details> does not do is close when you click
