@@ -112,13 +112,18 @@ job, the copy buttons, which the satellite install blocks use.
    need rewriting against the tokens at the top of `assets/site.css` before re-rendering.
    This is the largest outstanding piece and it is what every social share currently shows.
 
-2. **Two of the three dashboard captures carry em dashes as pixels.** They are
-   signal's own UI, so the tracked-file check is unaffected, but they are now on the
-   landing page. Fixing it means changing signal and recapturing.
+2. **`assets/img/signal-compare.jpg` and `signal-battle.jpg` are unreferenced
+   again.** The three dashboard sections are rebuilt in HTML, so only
+   `signal-live-feed.jpg` is still used, as the single whole-screen capture at the
+   foot of that section. Delete the other two or find them a job. Note that both
+   contain em dashes inside signal's own UI, as pixels, which is a point in favour
+   of leaving them out.
 
-3. **The captions are the only thing making a 1519px capture legible on a phone.**
-   At 390px the dashboard is a grey texture. The caption sits above the image and
-   carries the meaning, which is the lesser evil rather than a solved problem.
+3. **The panels have to be kept in step with the deployment by hand.** They carry
+   real convergence rows, real battlecard text and real figures transcribed out of
+   `../signals/demo/seed-signals.jsonl` and `../signals/battlecards/`. Nothing
+   checks that they still match. If the demo dataset is re-exported, these go stale
+   silently, exactly like the twins do.
 
 4. **`request@gledach.de` is gone from the site and may still exist as a route.**
    Every `mailto:`, the JSON-LD `email` fields and the prose fallbacks were removed:

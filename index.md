@@ -148,9 +148,19 @@ later.
 
 ## What you actually look at
 
-Three views, running on your own machine. Every capture on the page is a real
-deployment with real collected data, not a mockup. `npm run view` puts the same
-dashboard on `127.0.0.1:5180`, pointed at your companies instead of these.
+Three views, running on your own machine. Every row on the page is real output
+from the deployment behind the live preview, rebuilt in the page's own type
+rather than shown as a screenshot, because a 1519px dashboard scaled to fit puts
+its interface text around 9px and nobody can read that. `npm run view` puts the
+same three views on `127.0.0.1:5180`, pointed at your companies instead of these.
+
+A sample of what Live Feed actually shows:
+
+| Company | Convergence | Evidence | Impact |
+|---|---|---|---|
+| Tabnine | Capital and corporate event cluster, a raise plus M&A, corroborated across channels | 19 events, 22 independent publishers, 90 days | 97 |
+| Replit | Customer dissatisfaction clustering: switching pressure in the category | 5 events, 5 independent publishers, 30 days | 96 |
+| Sourcegraph Cody | Moving upmarket toward enterprise, on security and governance posture | 4 events, 4 independent publishers, 45 days | 96 |
 
 - **Live Feed.** Not a list of headlines. A convergence is the unit here: a
   pattern several independent publishers corroborate, scored from its own
@@ -164,8 +174,9 @@ dashboard on `127.0.0.1:5180`, pointed at your companies instead of these.
   objections you should expect back, ranked against the deal in front of you
   rather than dumped as a list. This is generated text, and the page says so.
 
-On a phone a 1519px dashboard cannot be read at any scale, so the captions carry
-the meaning there. The whole thing is clickable and real at
+One real capture stays on the page under those three, showing the whole screen
+at once, which is the one job a screenshot still does better than a rebuild. It
+is not legible at that size and says so. The readable, clickable version is
 <https://signal.gledach.de>.
 
 ## Set it up

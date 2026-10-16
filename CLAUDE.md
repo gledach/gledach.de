@@ -37,7 +37,18 @@ not covered, match what is already on the page.
   never reach the site, and editing them only makes the next scaffold run diverge.
 - **Proof over promise.** Every claim is shown as product UI, data or evidence. A card
   with an icon and a blurb is not finished. The corollary that bites: do not invent
-  output. Everything inside a `.console` is either real or labelled as a convention.
+  output. Everything inside a `.console` or a `.panel` is either real or labelled as
+  a convention.
+
+  **Prefer rebuilding a product view to screenshotting it.** A 1519px dashboard
+  scaled to fit the container renders its own 11px interface text at about 9px,
+  which no background colour or framing will rescue. The `.panel` components on
+  the index are the same real data from the deployment behind the live preview,
+  set in the site's own type: legible, reflowing on a phone, selectable,
+  indexable and far lighter. Transcription normalises exactly two things, the
+  emoji prefix and the em dashes, because U+2014 is banned here and a dash is
+  typography rather than data. Keep one real capture for the job a rebuild
+  cannot do, which is showing the whole screen at once.
 
 ### Ground
 
