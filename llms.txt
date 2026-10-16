@@ -3,8 +3,9 @@
 > Free, installable tools that turn public data into information, insight and
 > intelligence. Run them on your own machine. No account to start.
 >
-> Featured: signal, slot 01. Track anyone, compare anyone, on your own machine.
-> Anyone means any company you name in one file.
+> The landing page is signal, slot 01: competitive intelligence your agents can
+> query. Ten watchers and one Gmail inbox read what a market publishes, and the
+> result is answerable by a machine over MCP. Every other tool has its own page.
 
 gledati (slav.): to watch. What a good analyst does before speaking.
 
@@ -25,14 +26,23 @@ the same dashboard on 127.0.0.1:5180 against your own subject.
 - Read only until you say otherwise. Paid actions ship disabled, behind a spend ceiling.
 - Generated text is labelled as generated. Model output is not verified fact.
 
+## Pages on this site
+
+| Path | Tool | Slot |
+|---|---|---|
+| https://gledach.de/ | signal | 01 |
+| https://gledach.de/signal-patterns | signal-patterns | 02 |
+| https://gledach.de/whenrun | whenrun | 03 |
+| https://gledach.de/phonehome | phonehome | 04 |
+| https://gledach.de/recall | recall | 05 |
+
 ## The shelf, in one table
 
-Twelve slots, five filled. The table lists the filled ones and the next empty one.
-What each tool watches, and what it hands back.
+Twelve slots, five filled. What each tool watches, and what it hands back.
 
 | Slot | Tool | Watches | Tells you | Status |
 |---|---|---|---|---|
-| 01 | signal | Thirteen public sources around whichever market you name | What changed, scored and attributed, over MCP | Live preview |
+| 01 | signal | Ten watchers and one inbox, on whichever market you name | What changed, scored and attributed, over MCP | Live preview |
 | 02 | signal-patterns | Nothing. It is the written reasoning | What is watchable, what it costs, how to build it | Docs |
 | 03 | whenrun | Day-ahead power prices and renewable share | The cheapest or greenest window, then starts the job in it | Shipped |
 | 04 | phonehome | Every DNS query on your own network | Which device talked where, and when that changed | Shipped |
@@ -41,26 +51,28 @@ What each tool watches, and what it hands back.
 
 ## Tools
 
-### signal · rung 04, intelligence · live preview · in focus
+### signal · slot 01 · live preview · the landing page
 
 Situation: you find out a competitor shipped something when a customer mentions
 it.
 
-Competitive intelligence your agents can query. Watches a market, turns public
-noise into scored and attributed signals, correlates them into convergences that
-several independent publishers corroborate, and exposes the result over MCP.
-Ships tracking thirteen AI coding agents and app builders. Node, three runtime
+Competitive intelligence your agents can query. Ten watchers and one Gmail inbox
+collect what a market publishes, each item is typed and scored and attributed,
+patterns several independent publishers corroborate are promoted into
+convergences, and the result is exposed over MCP. Ships tracking thirteen AI
+coding agents and app builders across two segments. Node, three runtime
 dependencies, no build step, libSQL storage that is a local file by default.
 
 It is the only tool on this shelf whose subject is a list the operator writes.
 The other four watch something fixed: a power market, a home network, four
-public registers. The landing page opens on signal for that reason, and the
-shelf index follows immediately under it.
+public registers. The landing page is signal for that reason.
 
+- Page: https://gledach.de/
 - Repository: https://github.com/gledach/signals
 - Live preview: https://signal.gledach.de (static export of a real deployment, dated, read only)
 - Install guide: https://github.com/gledach/signals/blob/main/docs/start.md
 - Agent surface (MCP): https://github.com/gledach/signals/blob/main/docs/mcp.md
+- Google Alerts by Gmail: https://github.com/gledach/signals/blob/main/docs/gmail.md
 - Blind spots: https://github.com/gledach/signals/blob/main/docs/blindspots.md
 - Licence: MIT. Price: 0. Needs Node 22 or newer, and git.
 
@@ -69,138 +81,311 @@ Install:
     git clone https://github.com/gledach/signals && cd signals
     npm install
     npm run db:migrate
+    npm run doctor
     npm run view
 
-That runs offline on a fresh clone, on Windows, macOS or Linux. An LLM key turns
+That runs offline on a fresh clone, on Windows, macOS or Linux. A model key turns
 on classification, battlecards and analyst briefs; without one a keyword
 classifier runs instead and everything else still works.
 
-Three steps after it runs:
+The eleven ways in, with what each actually reads:
 
-1. Point it at anyone. `cp config/companies.default.mjs config/companies.local.mjs`.
-   The roster is one gitignored file, so upstream can be pulled forever without a
-   conflict in the only file that was changed. Feeds, GitHub repository mappings,
-   Hacker News queries and classifier collision warnings all derive from it, and
-   `npm test` fails if a brand name appears anywhere outside `config/`.
-2. Let the agent install it:
-   `claude mcp add signal -- node /path/to/signals/mcp-server.mjs`. The repository
-   ships AGENTS.md, CLAUDE.md and five skills, so Codex or Claude Code can clone
-   it, migrate the database and wire itself in. Node 22 and git still have to be
-   on the machine: an agent can run the commands, it cannot conjure a runtime.
-3. Then it feeds whatever asks. `npm run start` is one scheduled pass over every
-   watcher. Eight MCP tools and `signal://` resources serve the result to an
-   agent, JSON endpoints serve it to anything else, briefs and battlecards come
-   out as markdown. All read only: the single tool that spends money ships
-   disabled and stays under a ceiling shared with cron.
+1. Feeds (`npm run fetch`, every 30 min). Around sixty RSS feeds across the
+   roster and the category: Google News, Reddit, vendor blogs, GitHub releases.
+   The list derives from the roster, so retargeting rewrites it.
+2. Google Alerts by Gmail (`npm run watch:gmail`, local only). Alerts arrive in a
+   mailbox, a parser reads them, the result fills a local inbox database. Two
+   zones, and the second is easy to forget: nothing reaches the dashboard until
+   `email:promote` runs. The refresh token stays on the operator's machine and is
+   never shipped to the scheduler.
+3. Certificate transparency (`npm run watch:certs`, every 6 h, LEADING). A new
+   subdomain gets a certificate before the thing on it is announced.
+4. Sitemaps and robots (`npm run watch:sites`, every 6 h, LEADING). Diffed against
+   the last snapshot; new paths, removed paths and rule changes.
+5. Hacker News (`npm run watch:hn`, daily) via the Algolia search API, with
+   points, comments, author and timestamps as structured fields.
+6. GitHub (`npm run watch:github`, daily). Releases, breaking-change tags and
+   issue complaints. 60 requests an hour unauthenticated, 5,000 with a token.
+7. YouTube captions (`npm run watch:youtube`, daily) over HTTP, no audio download
+   and no transcription, free for roughly four videos in five.
+8. Answer-engine visibility (`npm run watch:aeo`, weekly). Which brands each
+   engine names when a buyer forms a shortlist. Detection is a deterministic
+   word-boundary match, not a model judging model output.
+9. Model routing (`npm run watch:routing`, daily, LEADING). A public, openly
+   licensed data API: which models the market routes tokens to. Only movement past
+   a threshold is emitted, so a flat week is silent.
+10. Search discovery (`npm run watch:tavily`, daily). Two queries per company,
+    budget guarded against a free monthly tier with a cooldown.
+11. Search interest (`npm run watch:trends`, weekly over 4 passes). Batched to the
+    eight stalest queries per run, because the upstream limiter refuses thirty two
+    in a row.
 
-Compare sets an anchor company against up to three rivals across positioning,
-target segment, pricing, strengths and weaknesses, and marks a claim
-`[unverified]` where the signal set does not support it.
+What happens to one item: classify (Haiku, or a free keyword classifier with no
+key, and the method is recorded on the row), score 0 to 100 re-weighted for this
+job rather than for news, store one row keyed on a hash of its own content so
+every write is idempotent, correlate into convergences by theme and count rules
+with a structured citation graph back to the evidence, then synthesise.
+Battlecards come from Sonnet, deep research from Opus across a 180-day window,
+five analyst modes from a written persona, and a weekly report that uses no model
+at all because its arithmetic is deterministic.
 
-Figures: 13 sources, 8 MCP tools (read only until a deployment opts in),
-3 runtime dependencies, 2,600+ signals stored in the deployment behind the preview.
+Three consumers: agents (eight MCP tools: list_companies, search_signals,
+get_convergences, get_battlecard, list_briefs, get_brief, run_analyst,
+market_summary, plus signal:// resources), people (eight dashboard views on
+localhost: Feed, Battle, Compare, Market, Intel, Report, Briefs, Inbox), and the
+scheduler (one entry point, tiered by cost). There is also an experimental Chrome
+side panel that is not covered by the test gate.
 
-### signal-patterns · reference
+Every signal-reporting MCP tool returns a coverage block: a status of fresh,
+slowing, stale or never, plus a trustEmptyResult flag. Without it, a watcher that
+quietly stopped running reads to an agent as a calm market.
+
+Read only by default and not merely by convention: run_analyst is the only tool
+that spends money and it ships with permission withheld. Opting in binds it to a
+rolling 24-hour ceiling shared with the scheduler and the CLI.
+
+Retargeting: six layers resolve as an environment variable, then a gitignored
+`.local.mjs`, then the shipped `.default.mjs`. The roster, the feeds, the
+deal-context axes, subdomain scoring, the agent policy and the answer-engine
+prompts. `npm test` fails if a brand name appears anywhere outside `config/`, or
+if the dashboard's own labels drift from the roster, so retargeting cannot leave
+somebody else's market behind in a watcher or a prompt.
+
+Figures: 11 collection surfaces, ~60 RSS feeds, 13 companies across 2 segments,
+8 MCP tools, 3 runtime dependencies, 2,600+ signals stored in the deployment
+behind the preview, 15 smoke sections and 5 fixture suites in the offline gate,
+and about $15 to $25 a month at the shipped models and cadence. Cadence moves
+that last figure far more than model choice: a per-company job on a six-hourly
+tier costs four times a daily one for no added freshness, a mistake that cost this
+deployment around $209 a month before it was caught.
+
+### signal-patterns · slot 02 · reference
 
 Situation: you want to build one of these, and the hard part is knowing what is
 watchable at all.
 
-How to build tools that watch the public web: what is watchable, what it costs,
-how to build a watcher, and the engineering decisions that only become obvious
-after something has broken. Nothing to install.
+How to build tools that watch the public web and feed the result to an agent.
+Not a framework: there is no package to install and nothing to version, because
+the reasoning is the reusable part and the code around it usually is not. The
+reference implementation is signal.
 
+- Page: https://gledach.de/signal-patterns
 - Repository: https://github.com/gledach/signal-patterns
 - What is watchable: https://github.com/gledach/signal-patterns/blob/main/sources.md
 - What it costs: https://github.com/gledach/signal-patterns/blob/main/techniques.md
 - Building a watcher: https://github.com/gledach/signal-patterns/blob/main/building-a-watcher.md
 - Being consumable by agents: https://github.com/gledach/signal-patterns/blob/main/agent-integration.md
 
-Thesis: the useful signals are the ones a company exposes before it means to.
-Ordered by lead time: infrastructure (weeks), hiring (months, vague),
-documentation (hours), changelog (hours), marketing (at launch), press (after).
+Thesis: a company is only as visible as what it exposes publicly, and the useful
+signals are the ones it exposes before it means to. Ordered by lead time:
+infrastructure (weeks), hiring (months, vague), documentation (hours), changelog
+(hours), marketing (at launch), press (after). Certificate logs run 20 to 30 days
+ahead; changelog pages change on 73% of monitors within 90 days.
 
-### whenrun · rung 04, intelligence · shipped
+Eight patterns, each extracted from a bug that shipped: store chokepoint;
+canonical and mirror; never store an uncomputed verdict; read-only agent surface;
+the coverage block; zone separation; assertions as guardrails; collect rather
+than write. The bias throughout is that an AI pipeline fails silently and
+pleasantly, so most of these are machinery for turning a quiet failure into a
+loud one.
+
+The shortest version: watch what leaks rather than what is announced; cadence is
+the cost dial, not model choice; batch and cache before optimising anything else;
+a failed model writes nothing; return "I do not know" as data; agents read by
+default and permission must not scale with capability; a skill is a supply chain
+(341 malicious skills among roughly 13,000 in one 2026 marketplace audit); and
+every rule above needs an assertion or it is a comment.
+
+### whenrun · slot 03 · shipped
 
 Situation: power can cost three times more in the evening than it does at midday,
 and a backup job does not care when it runs.
 
 Run it when the power is cheap. Watches day-ahead electricity prices and the
 renewable-share forecast, finds the cheapest or greenest window that still meets
-a job's deadline, and starts the job there. The first tool here that acts on what
-it sees rather than reporting it.
+a job's deadline, and starts the job there. The first tool on this shelf that acts
+on what it sees rather than reporting it, and the only one with nothing at all to
+install.
 
+- Page: https://gledach.de/whenrun
 - Repository: https://github.com/gledach/whenrun
 - Running it for real: https://github.com/gledach/whenrun/blob/main/docs/running-it.md
 - What it cannot do: https://github.com/gledach/whenrun/blob/main/docs/roadmap.md
-- Licence: MIT. Price: 0.
+- Licence: MIT. Price: 0. Needs Node 22 or newer.
 
 Install:
 
     git clone https://github.com/gledach/whenrun && cd whenrun
     node bin/whenrun.mjs prices
+    node bin/whenrun.mjs where
 
-Figures: 2 keyless price sources, 16 bidding zones, 0 runtime dependencies,
-142 offline tests. Savings are reported against the delivered bill rather than
-the spot price, because grid fees and tax do not move by the hour.
+There is no `npm install`, because there is nothing to install.
 
-### phonehome · rung 04, intelligence · shipped
+Commands: prices, plan, run, daemon, report, where, doctor. Three objectives:
+cheapest minimises price, greenest maximises renewable share, balanced blends the
+two. A job marked interruptible may be scattered across non-adjacent slots;
+otherwise it gets one unbroken block. The task is told what it was scheduled into
+through WHENRUN_WINDOW_START, WHENRUN_WINDOW_END, WHENRUN_SPOT_EUR_MWH,
+WHENRUN_RENEWABLE_PCT and WHENRUN_SLOTS.
+
+Safety, because it runs commands unattended: the command comes from your task
+file and never from a price feed, an argument or the network, and there is no
+code path that builds a command out of fetched data; two independent locks, since
+a task needs `enabled: true` and the command needs `--execute`; it refuses rather
+than guesses on stale data, an impossible deadline or a window that closed while
+the daemon slept; and the MCP server is read only, so an agent can ask when power
+is cheap but cannot start anything.
+
+Data: two keyless sources. Energy-Charts (Fraunhofer ISE) at 15-minute resolution
+for DE-LU, AT, FR, NL and more, and aWATTar at 60 minutes for DE and AT. Price
+data is CC BY 4.0 from Bundesnetzagentur and SMARD.de via Energy-Charts. `doctor`
+cross-checks the two and warns when they disagree by more than a rounding error.
+Verified against live data for DE-LU, AT, FR, CH, NL, ES and PL. Ships set to
+postcode 82319 Starnberg in DE-LU.
+
+Agent surface: six read-only MCP tools (get_prices, cheapest_window,
+greenest_window, list_tasks, plan_task, savings_report), each result carrying a
+coverage block and a trustEmptyResult flag.
+
+Figures: 2 keyless price sources, 7 zones verified live, 0 runtime dependencies,
+128 offline tests. Savings are reported against the delivered bill as well as the
+spot price and both are labelled, because only the energy component moves by the
+hour; `report` also prints the standing charge for the period, since no amount of
+load shifting changes it.
+
+Blind spots: your actual tariff (it uses the numbers in your tariff file, and
+doctor warns while you are on the shipped defaults); whether you are on a dynamic
+tariff at all; your own generation, which is not modelled; grid fees that vary by
+time, modelled as flat; whether your job really draws the kW you declared; and it
+cannot pause a running command, so honouring an interruptible split is your
+script's job.
+
+### phonehome · slot 04 · shipped
 
 Situation: nothing on a home network tells you where it has been sending data, or
 when that changed.
 
 See what your devices talk to. A local DNS resolver that records which domains
 every device on your network contacts, classifies them, and says when one starts
-talking somewhere new. It does not block and does not upload: finding out is a
+talking somewhere new. It does not block and it does not upload: finding out is a
 different job from filtering. Reads existing Pi-hole, AdGuard Home, dnsmasq or
 Unbound logs, so months of history are available without re-pointing a network.
 
+- Page: https://gledach.de/phonehome
 - Repository: https://github.com/gledach/phonehome
 - What it cannot do: https://github.com/gledach/phonehome/blob/main/docs/roadmap.md
-- Licence: MIT. Price: 0.
+- Licence: MIT. Price: 0. Needs Node 22 or newer.
 
 Install:
 
     git clone https://github.com/gledach/phonehome && cd phonehome
     node bin/phonehome.mjs import /var/log/pihole.log --execute
     node bin/phonehome.mjs report
+    node bin/phonehome.mjs new
 
-Figures: 4 log formats read, 11 categories, 0 runtime dependencies, 67 offline
-tests. "unknown" is kept visible and counted rather than guessed at, and the
-share of traffic using encrypted DNS is reported because that traffic routes
-around the tool entirely. One category exists for televisions reporting what is
-on the screen, because filed under telemetry nobody notices it.
+Commands: watch, report, new, devices, import, doctor. `new` is the one that earns
+its keep: a steady list of domains is background noise, but a doorbell contacting
+something at 03:00 that it has never contacted before is worth knowing.
 
-### recall · rung 04, intelligence · shipped
+The resolver binds 127.0.0.1:5335 by default, which only the local machine can
+use, deliberately: serving a whole house is a decision you make rather than
+something that happens because you tried the tool. `--host=0.0.0.0` plus a router
+DHCP change covers every device. Port 53 needs privileges on most systems.
 
-Situation: the notice for the thing in your kitchen was published, and nobody sent
-it to you.
+Safety: it never modifies a response, forwarding packets and returning the
+upstream answer unchanged, so it cannot break name resolution by inventing one;
+the only packet it ever composes is a SERVFAIL when the upstream is unreachable.
+It never blocks anything, and the default upstream is whatever the machine was
+already using.
+
+Agent surface: five read-only MCP tools (list_devices, get_report, new_contacts,
+classify_domain, blind_spots). Every result carries the blind-spot list and a
+trustEmptyResult flag, so an agent cannot report a clean bill of health the data
+does not support.
+
+Figures: 4 log formats read and detected automatically, 0 runtime dependencies,
+64 offline tests. "unknown" is kept visible and counted rather than guessed at,
+and the share of traffic using encrypted DNS is reported because that traffic
+routes around the tool entirely.
+
+Blind spots: encrypted DNS, since a device using DoH or DoT never asks this
+resolver anything and becomes completely invisible, though `watch` flags the
+moment a device looks up a known DoH endpoint; content, because this reads the
+question in a DNS packet and nothing else, and a domain being contacted is not
+the same as data being sent; devices with hardcoded resolvers, which only a
+firewall rule catches; who as opposed to what, since it sees devices and not
+people; and classification coverage, which is why every report prints the
+unknown share.
+
+### recall · slot 05 · shipped
+
+Situation: the notice for the thing in your kitchen was published, and nobody
+sent it to you.
 
 Tell me when something I own is recalled. Keeps a list of the things one person
-owns and checks it against four public registers, none of which needs an account:
-EU Safety Gate (product alerts), BfArM (German medicine supply shortages, which
-is availability rather than safety), NHTSA (US vehicle campaigns), and
-endoflife.date (software past security support).
+owns and checks it against four public registers, none of which needs an account.
 
+- Page: https://gledach.de/recall
 - Repository: https://github.com/gledach/recall
 - What it cannot do: https://github.com/gledach/recall/blob/main/docs/roadmap.md
-- Licence: MIT. Price: 0.
+- Licence: MIT. Price: 0. Needs Node 22 or newer.
 
 Install:
 
     git clone https://github.com/gledach/recall && cd recall
+    npm test
     cp config/inventory.default.mjs config/inventory.local.mjs
     node bin/recall.mjs check
 
-Figures: 4 registers, 0 keys, 0 runtime dependencies, 98 offline tests. Also
-exposes an MCP server with 5 read-only tools.
+Registers: EU Safety Gate (consumer products, toys, appliances, electronics,
+vehicles, EU scope); BfArM (German medicine supply shortages, which is
+availability rather than safety, and every notice from that source carries that
+sentence with it); NHTSA (US vehicle safety campaigns); endoflife.date (software
+past its security support date, every jurisdiction). Safety Gate has no
+documented API but publishes a weekly XML report export, and a report reference
+is a stable cursor, so a refresh only fetches weeks it has not seen and a
+published week never changes so its cache never expires.
 
-Matches are graded rather than binary: exact on a barcode, PZN or VIN; strong
-when make and model both appear in a notice; weak when only a distinctive model
-number does; mention for noise. Weak is shown by default, because missing the one
-that mattered is worse and invisible while a false alarm is merely annoying. A
-register that could not be reached is reported as unreachable, never as clean:
-"nothing found" and "could not look" must never render the same way, and nothing
-in the output ever states that a product is safe.
+Five inventory kinds with the fields each needs before it can be checked at all:
+appliance and device need make and model and also accept a barcode; vehicle needs
+make, model and year and also accepts a VIN; software needs an endoflife.date
+product slug and also accepts a cycle; medicine needs a name and also accepts a
+PZN. A missing required field is a startup error, not a skipped entry, because an
+entry silently ignored looks exactly like an entry with nothing wrong.
+
+Matches are graded rather than binary: exact when a barcode, PZN or VIN matched
+or the register matched it for us; strong when make and model both appear in the
+notice; weak when a distinctive model number appears but the make does not;
+mention when only the make appears, which is almost always noise and hidden
+unless asked for. Weak is shown by default, because missing the one that mattered
+is worse and invisible while a false alarm is merely annoying. Nothing in the
+output ever says "you are affected": it says what matched and how.
+
+Add the barcode where the box still has one. Roughly half the EU alerts carry
+one and every German shortage report carries a PZN. Only add digits readable off
+the thing itself, because a wrong barcode is worse than no barcode: it will match
+something unrelated and be reported as certain.
+
+Agent surface: five read-only MCP tools (check_inventory, list_inventory,
+notice_history, describe_sources, blind_spots). Read only on purpose: it cannot
+add to an inventory and it cannot acknowledge a notice, because acknowledging is
+a person deciding they have dealt with something. Every result carries its
+coverage and the confidence grade of each match, because a model asked "is my car
+recalled?" will otherwise turn "no notices found" into "your car is fine".
+
+Figures: 4 registers, 0 keys, 0 runtime dependencies including its own CSV and
+XML readers, 98 offline tests.
+
+Blind spots: no UK, Swiss, Australian, Canadian or Japanese register; German
+vehicle recalls are not checked because that register sits behind a proof-of-work
+challenge; medicine coverage is German shortages only; registers publish days to
+weeks after a decision; matching is text against text; and it checks your list,
+not your house. A source that is unreachable is reported as unreachable, never as
+clean. "Nothing found" and "could not look" must never render the same way, which
+is the single most important thing in the codebase.
+
+This is not legal, medical or safety advice. If a notice concerns you, go to the
+register's own page and read the original.
 
 ### Slot 06 · not built
 
@@ -215,24 +400,13 @@ answers, and anything worth building is filed in the queue afterwards, so the li
 stays the whole list. A request that would help more people than the person asking
 is built first, and the open issues are how you check that.
 
-## The ladder
-
-Stated after the tools, not before them: it is the argument for why each tool
-stops where it stops. Every tool moves something public up four rungs and says
-where it stopped.
-
-1. Data: what is already public. Feeds, filings, certificate logs, changed pages.
-2. Information: collected, deduplicated, attributed.
-3. Insight: scored and correlated.
-4. Intelligence: queryable by something other than a person.
-
-Most monitoring products stop at rung 02 and call the result a feed.
-
 ## Previews
 
 Convention: `<tool>.gledach.de`. One per tool, replaced in place. A preview is a
-static export of a real deployment: real data, dated, read only. A re-export
-overwrites it, so a preview is the most recent snapshot rather than an archive.
+static export of a real deployment: real data, dated, read only. The export asks
+the running viewer the same questions a browser asks and inlines the answers, so
+it cannot drift from the thing it was taken from. A re-export overwrites it, so a
+preview is the most recent snapshot rather than an archive.
 
 ## Contact
 

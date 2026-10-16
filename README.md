@@ -3,8 +3,22 @@
 The landing page for [github.com/gledach](https://github.com/gledach): free, installable
 tools that turn public data into information, insight and intelligence.
 
-Static. No build step, no framework, no dependencies. `index.html` plus one stylesheet and
-one script.
+Static. No build step, no framework, no dependencies. Five pages, one stylesheet and one
+script.
+
+| Path | File | What it is |
+|---|---|---|
+| `/` | `index.html` | signal, slot 01, and the shelf index at the foot |
+| `/signal-patterns` | `signal-patterns/index.html` | slot 02, the written reasoning |
+| `/whenrun` | `whenrun/index.html` | slot 03 |
+| `/phonehome` | `phonehome/index.html` | slot 04 |
+| `/recall` | `recall/index.html` | slot 05 |
+
+**Satellite pages are directories, not `whenrun.html`.** Cloudflare's
+`auto-trailing-slash` would resolve either, but `python -m http.server` has no
+extensionless handling and answers `/whenrun` with a 404. A directory gets a 301 to
+`/whenrun/` from both, so the same links work locally and in production. Do not flatten
+them back.
 
 ## Design
 
@@ -66,39 +80,44 @@ inert everywhere else.
 
 ## Add a tool
 
-Tool cards are hand-written HTML rather than rendered from a data file, so the content works
-with JavaScript off and a crawler sees it. Adding one is a copy-paste:
+Every page is hand-written HTML rather than rendered from a data file, so the content
+works with JavaScript off and a crawler sees it. Adding a tool is a copy-paste of an
+existing satellite page plus six edits elsewhere.
 
-1. Duplicate an `<article class="tool card">` block in the shelf section of `index.html`.
-   Slot 01 is the exception and is not a card: `signal` is the hero. The page opens on its
-   claim, the capture under the headline is its proof, and `.signal-detail` under that is its
-   evidence. A new tool is a card. Promoting one to the hero is a decision about what the
-   whole site is for, not a step in this checklist.
-2. Give the `<h3>` an `id` and point the card's `<nav aria-label>` at the tool name.
-3. Add a rung chip (`chip-accent`) and a status chip (`chip-good` live, `chip-neutral` docs,
-   `chip-draft` unbuilt).
-4. Write the `<p class="tool-problem">` first. One sentence naming the situation the reader
-   is already in, before any sentence about what the tool is. If you cannot write it without
-   inventing a reader, the tool is not ready for a card.
-5. Fill `<dl class="stats">` with four figures you can defend, each with a context line.
-   Never a number on its own.
-6. Every card needs a real visual. A product screenshot in `<figure class="shot">`, a terminal
-   capture in `<figure class="termshot">`, or a data figure like the lead-time chart. An icon
-   and a paragraph is not finished.
-7. Add a row to the `.shelf-index` table: slot number, what it watches, what it tells you,
-   its status. Every `<td>` needs its `data-label`, which is what the stacked mobile layout
-   reads from. This table is the only inventory on the page. Do not add a second one.
-8. Update the "N of 12 slots filled" chip in `.index-head`, and the same count in `index.md`.
-   The shelf `<h2>` deliberately carries no number, so that it is not a second place the
-   count has to be rewritten as prose. Keep it that way.
-9. Mirror the change into `llms.txt` and `index.md`. Both carry the same index table and the
-   same situation line, and both go stale silently.
-10. Add an `Offer` to the JSON-LD graph in the head, under the `Organization` node.
-11. Re-render `assets/img/og-home.png`. It carries the tool names and the slot count, so it
-    goes stale the moment a tool ships. See "Social cards and icons" below.
+1. **Copy a satellite directory.** `recall/` is the fullest and `whenrun/` the most
+   typical. Rename it to the tool, and work through the page top to bottom. Slot 01 is
+   the exception: `signal` is the index itself. Promoting a different tool to the index
+   is a decision about what the whole site is for, not a step in this checklist.
+2. **Write the hero claim and the situation first.** The `<h1>` is what the tool does in
+   one sentence, with the de-emphasised clause in `<em class="quiet">`. The section under
+   it names the situation the reader is already in, before any sentence about mechanism.
+   If you cannot write that without inventing a reader, the tool is not ready for a page.
+3. **Put real output beside the hero.** A `<figure class="console">` carrying terminal
+   output, a product capture or an MCP response. Mark the bar with
+   `<span class="tag tag-quiet">real output</span>` only if it is. An icon and a
+   paragraph is not finished, and neither is invented output.
+4. **Every page ships its blind spots.** A `<ul class="blind">` section, in full, taken
+   from the tool's own README. This is a house rule, not a nicety: the section is the
+   reason the rest of the page can be believed.
+5. **Figures come from the tool's README.** If the README says 128 tests, the page says
+   128. Where a figure does not exist yet, write a `[BRACKETED]` placeholder rather than
+   an estimate.
+6. **Add the card to the index.** One more `<a class="card">` in the `#shelf` section of
+   `index.html`, and one more entry in the `Elsewhere on the shelf` block on every other
+   satellite page. Those blocks are the cross-links and they go stale silently.
+7. **Update the slot count** in the `#shelf` eyebrow of `index.html`, and the same count
+   in `index.md` and `llms.txt`. It is stated in an eyebrow rather than a headline so it
+   never has to be rewritten as prose.
+8. **Mirror into `index.md` and `llms.txt`.** `llms.txt` carries the full per-tool entry,
+   `index.md` carries the shelf table at the foot. Both go stale silently.
+9. **JSON-LD, in two places.** A `SoftwareApplication` block in the new page's own head,
+   and an `Offer` under the `Organization` node in `index.html`.
+10. **Add the page to `sitemap.xml`.**
+11. **Re-render `assets/img/og-home.png`.** It carries the tool names and the slot count,
+    so it goes stale the moment a tool ships. See "Social cards and icons" below.
 
-Keep the empty-slot card last, and keep it honest. It exists to say nothing is shipped there
-yet, which is the opposite of a roadmap.
+Keep the empty-slot card last on the index, and keep it honest. It exists to say nothing
+is shipped there yet, which is the opposite of a roadmap.
 
 ## Requests live in their own repository
 
@@ -141,9 +160,14 @@ npx -y puppeteer-core screenshot ...   # or DevTools, or Playwright
 ```
 
 The only requirement is that the viewport matches the table above exactly and that
-`document.fonts.ready` has resolved first, because both cards are set in Bricolage
-Grotesque, Instrument Serif and Geist Mono loaded from Google Fonts. Screenshot
-before the fonts land and you ship a card set in Georgia.
+`document.fonts.ready` has resolved first, because both cards load their faces from
+Google Fonts. Screenshot before the fonts land and you ship a card set in Georgia.
+
+**Both sources are still set in the pre-October-2026 faces** (Bricolage Grotesque,
+Instrument Serif, Geist Mono) and the oxblood accent, because the redesign to the
+ledger system did not touch them. They need rewriting against the tokens at the top of
+`assets/site.css` before the next render, or the card will not look like the site it
+links to.
 
 **`og-home.html` deliberately copies its tokens instead of importing `site.css`.** A
 social card that silently restyles itself when the site does is worse than one that
@@ -163,32 +187,36 @@ read by agents.
 
 | File | Purpose |
 |---|---|
-| `llms.txt` | The shelf, the tools, the house rules, in plain text |
-| `index.md` | Markdown twin of the landing page |
-| JSON-LD in `index.html` | `Organization` plus an `Offer` per tool, price 0 |
+| `llms.txt` | Every tool in full, plus the house rules, in plain text |
+| `index.md` | Markdown twin of the landing page, with the shelf table at the foot |
+| JSON-LD in `index.html` | `WebSite`, `WebPage`, `SoftwareApplication` for signal, `Organization` with an `Offer` per tool, `Person` |
+| JSON-LD per satellite | One `SoftwareApplication` or `TechArticle` in each page's own head |
+| `sitemap.xml` | Five pages plus the two agent-readable files |
 
-All three are maintained by hand. Change the page, change all four.
+All of them are maintained by hand and all of them go stale silently. Change a page,
+change its twins.
 
 ## Known gaps
 
+- **There is no product screenshot anywhere on the site.** The ledger redesign replaced
+  the hero capture with the MCP response that proves the same claim, and every satellite
+  proves itself with terminal output. That satisfies the proof rule, and it also means a
+  visitor never sees the dashboard. Worth deciding on deliberately rather than leaving as
+  a side effect.
+- **`assets/img/signal-compare.jpg` and `signal-live-feed.jpg` are both unreferenced.**
+  They were the hero captures before the redesign. Still in the tree, still deployed, and
+  nothing links to either. Use them or delete them. Note that Compare's prose cells
+  contain U+2014, so putting that one back puts em dashes on the page as pixels.
+- **The social card and the touch icon are off brand.** Both renders predate the redesign
+  and carry the old faces, the oxblood accent and the headline "free tools that find
+  things out". The sources need rewriting against the new tokens and both need
+  re-rendering. This is the largest outstanding piece.
 - **Fonts load from Google Fonts.** The design system asks for self-hosted woff2 with
   `font-display: swap` and the display face preloaded. Until that is done, the page makes a
   third-party request on render.
-- **The hero capture contains em dashes.** `signal-compare.jpg` is a capture of signal's
-  own UI, which uses U+2014 in its prose cells. The grep rule over this repository is
-  unaffected, since it is not text here, but it is now the first thing on the page, at 0.74
-  scale. Fixing it means changing signal and recapturing.
-- **The hero capture is illegible on a phone.** It renders at 1122px on desktop, which is
-  0.74 of the capture and reads fine, and at about 300px on a 390px viewport, which reads as
-  a grey shape. The figcaption carries the meaning there. A 1519px dashboard cannot be read
-  on a phone at any scale, so the alternatives are a crop showing one of the two columns
-  being compared, which disproves its own caption, or this.
-- **`assets/img/signal-live-feed.jpg` is currently unreferenced.** It was the hero crop
-  before the hero became Compare. Kept in the tree rather than deleted, because it is the
-  only capture of the Live Feed view and the next tool section may want it. It is deployed
-  and nothing links to it. Delete it, or use it.
-- **One capture on the page.** `signal-patterns` carries a data figure and the other three
-  tools carry terminal output, which satisfies the proof rule without being product UI.
+- **The whenrun sparkline pins its own font stack.** Block elements (U+2581 to U+2588)
+  only line up if every glyph comes from one font at one advance width, so any `pre`
+  containing them carries `class="blocks"`. See the note in `assets/site.css`.
 
 ## Licence
 
