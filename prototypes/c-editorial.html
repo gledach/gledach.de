@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PROTOTYPE C · editorial · signal</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PROTOTYPE C, "editorial". Not the live design system.
+
+     Source style: Intercom, "editorial magazine printed on warm cream paper."
+     Its signature is weight 300 at extreme scale, a cream canvas that is never
+     white, 4px corners everywhere, no shadows, and separation by warm tone
+     progression rather than by rules. All honoured. Four notes:
+
+     1. Faces substituted along the source's own documented fallback chains.
+        Saans becomes Inter, SaansMono becomes Geist Mono, which the source
+        names outright, and Serrif becomes Newsreader.
+     2. The source assigns ash #a0a0a0 to "muted headings". It scores 2.6:1 on
+        cream, so a heading set in it is unreadable. Muted headings here use
+        iron #414141 (8.4:1). Smoke #888888 is kept, but only where the source
+        also puts it: placeholders and disabled marks, never running text.
+     3. The violet appears exactly twice on this page, as the source demands:
+        once on the convergence callout, once on the request line. It is never
+        a button fill. Buttons are black on cream, which is the signature.
+     4. The source's image grid is a photography mix. gledach has no photo
+        library and a stock image standing in for proof is the one thing the
+        content rules forbid, so the grid carries source tiles: each one a real
+        watcher, named, with what it reads.
+     ═══════════════════════════════════════════════════════════════════════ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Geist+Mono:wght@300;400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;1,6..72,300&display=swap">
+
+<style>
+/* ── tokens, from the source style ────────────────────────────────── */
+:root {
+  --violet:  #0007cb;   /* twice per page, small functional doses, never a fill */
+  --carbon:  #000000;   /* primary button fills */
+  --ink:     #111111;   /* primary text, headings, body */
+  --iron:    #414141;   /* secondary text */
+  --graphite:#585858;   /* tertiary, helper copy */
+  --smoke:   #888888;   /* placeholders, disabled. never running text */
+  --silver:  #b8b8b8;   /* low-emphasis glyphs */
+  --hairline:#dedbd6;   /* borders, input outlines */
+  --stone:   #d3cec6;   /* texture wash, feature fields */
+  --linen:   #f1eee9;   /* secondary surface, alternating bands */
+  --cream:   #faf9f6;   /* primary canvas. never white */
+  --white:   #ffffff;   /* card surfaces, embedded media */
+
+  --font: 'Inter', Söhne, 'Untitled Sans', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
+  --font-serif: 'Newsreader', 'Source Serif Pro', 'Tiempos Text', Georgia, serif;
+
+  --text-display-lg: 80px;  --leading-display-lg: 0.95; --tracking-display-lg: -2.4px;
+  --text-display: 54px;     --leading-display: 1;       --tracking-display: -1.62px;
+  --text-h: 32px;           --tracking-h: -0.64px;
+  --text-h-sm: 24px;        --tracking-h-sm: -0.48px;
+  --text-body: 16px;        --tracking-body: -0.16px;
+
+  --s-4: 4px;   --s-8: 8px;   --s-12: 12px; --s-16: 16px; --s-20: 20px;
+  --s-24: 24px; --s-32: 32px; --s-40: 40px; --s-48: 48px; --s-64: 64px;
+  --s-80: 80px; --s-96: 96px; --s-112: 112px;
+
+  --max: 1200px;
+  --radius: 4px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--text-body);
+  line-height: 1.5;
+  letter-spacing: var(--tracking-body);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--s-48); }
+/* Sections separate on tone and whitespace. No rules between them: the source
+   is explicit that a hard divider line is not part of this language. */
+.sec { padding: var(--s-96) 0; }
+.s-linen { background: var(--linen); }
+.s-stone { background: var(--stone); }
+.s-ink   { background: var(--ink); color: var(--cream); }
+.s-ink a { color: var(--cream); }
+
+/* ── type ─────────────────────────────────────────────────────────── */
+h1, h2, h3, h4 { font-weight: 300; margin: 0; }
+.t-dl { font-size: clamp(44px, 7.4vw, var(--text-display-lg)); line-height: var(--leading-display-lg); letter-spacing: var(--tracking-display-lg); }
+.t-d  { font-size: clamp(34px, 5.2vw, var(--text-display)); line-height: var(--leading-display); letter-spacing: var(--tracking-display); }
+.t-h  { font-size: var(--text-h); line-height: 1.1; letter-spacing: var(--tracking-h); }
+.t-hs { font-size: var(--text-h-sm); line-height: 1.2; letter-spacing: var(--tracking-h-sm); }
+.t-lead { font-size: 20px; line-height: 1.45; letter-spacing: -0.2px; font-weight: 300; }
+.t-sm { font-size: 14px; line-height: 1.5; letter-spacing: -0.14px; }
+
+p { margin: 0 0 var(--s-16); }
+p:last-child { margin-bottom: 0; }
+.measure { max-width: 62ch; }
+.measure-tight { max-width: 44ch; }
+.muted { color: var(--iron); }
+.helper { color: var(--graphite); }
+.s-ink .muted, .s-ink .helper { color: #b5b2ac; }
+
+/* The serif is the editorial counterpoint. Weight 300, 16px, one role only:
+   the sentence in a block that carries the judgement rather than the fact. */
+.serif {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+.serif-lg { font-size: 26px; line-height: 1.3; }
+.serif em { font-style: italic; }
+
+/* Mono micro-label: 12px at 1.2px tracking, as the source specifies. */
+.kicker {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--graphite);
+  margin: 0 0 var(--s-20);
+}
+.s-ink .kicker { color: #b5b2ac; }
+.kicker-n { color: var(--smoke); }
+
+code, .mono { font-family: var(--font-mono); font-weight: 400; font-size: 14px; letter-spacing: 0.7px; }
+
+a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hairline); }
+a:hover { border-bottom-color: var(--ink); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: var(--radius); }
+.s-ink a:focus-visible { outline-color: var(--cream); }
+a.plain { border-bottom: 0; }
+
+/* ── buttons: black on cream is the signature, never the violet ──── */
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-8);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.14px;
+  border-radius: var(--radius);
+  min-height: 44px;
+  padding: 13px var(--s-20);
+  border: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+}
+.btn-fill { background: var(--carbon); color: var(--white); }
+.btn-fill:hover { background: #2b2b2b; color: var(--white); border-bottom-color: transparent; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn-ghost:hover { background: var(--ink); color: var(--cream); }
+.s-ink .btn-fill { background: var(--cream); color: var(--ink); }
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--s-12); margin-top: var(--s-32); }
+
+/* ── tab navigation ───────────────────────────────────────────────── */
+.nav { background: var(--cream); position: sticky; top: 0; z-index: 10; }
+.nav-in {
+  max-width: var(--max); margin: 0 auto;
+  padding: var(--s-20) var(--s-48);
+  display: flex; align-items: center; gap: var(--s-32);
+}
+.brand { display: flex; align-items: center; gap: var(--s-12); border-bottom: 0; font-size: 20px; letter-spacing: -0.4px; }
+.brand-mark { display: inline-flex; gap: 3px; align-items: flex-end; }
+.brand-mark i { width: 3px; background: var(--ink); border-radius: 1px; }
+.brand-mark i:nth-child(1) { height: 18px; }
+.brand-mark i:nth-child(2) { height: 12px; }
+.brand-mark i:nth-child(3) { height: 7px; }
+.tabs { display: flex; gap: var(--s-24); margin-left: auto; }
+.tabs a {
+  font-size: 15px;
+  color: var(--smoke);
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+.tabs a:hover { color: var(--ink); }
+.tabs a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--ink); }
+.nav-end { display: flex; gap: var(--s-8); }
+.nav-end .btn { min-height: 38px; padding: 9px var(--s-16); }
+
+/* ── masthead ─────────────────────────────────────────────────────── */
+.mast { padding: var(--s-80) 0 var(--s-64); }
+.mast h1 { max-width: 18ch; }
+.mast-meta {
+  display: flex; flex-wrap: wrap; gap: var(--s-24);
+  margin-top: var(--s-40);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+/* ── media card: white, the only white surface ───────────────────── */
+.media {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: clip;
+  margin: 0;
+}
+.media-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s-16);
+  padding: var(--s-12) var(--s-20);
+  background: var(--linen);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+.media pre {
+  margin: 0;
+  padding: var(--s-24);
+  font-family: var(--font-mono);
+  font-weight: 300;
+  font-size: 12.5px;
+  line-height: 1.6;
+  letter-spacing: 0;
+  overflow-x: auto;
+}
+.media figcaption, .cap { font-size: 14px; color: var(--graphite); letter-spacing: -0.14px; }
+.media figcaption { padding: 0 var(--s-20) var(--s-20); }
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 3px var(--s-8);
+  border-radius: var(--radius);
+  background: var(--linen);
+  color: var(--iron);
+}
+.s-linen .chip { background: var(--cream); }
+
+/* ── two column feature block, 50/50 ─────────────────────────────── */
+.feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s-64);
+  align-items: center;
+}
+.feature-flip > :first-child { order: 2; }
+
+/* ── article head: a long read opens with a standfirst ───────────── */
+.art-head { max-width: 72ch; margin-bottom: var(--s-64); }
+
+/* ── source tiles. The source style's image grid, carrying watchers. ── */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: var(--s-4);
+}
+.tile {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: var(--s-24);
+  display: flex; flex-direction: column; gap: var(--s-12);
+  min-height: 210px;
+}
+.s-linen .tile { background: var(--cream); }
+.tile-n { font-family: var(--font-mono); font-size: 12px; letter-spacing: 1.2px; color: var(--smoke); }
+.tile-name { font-size: 18px; font-weight: 300; letter-spacing: -0.2px; }
+.tile-name .mono { display: block; font-size: 12px; color: var(--graphite); margin-top: var(--s-4); letter-spacing: 0.7px; }
+.tile-what { font-size: 14px; line-height: 1.5; letter-spacing: -0.14px; color: var(--iron); }
+.tile-cad { margin-top: auto; font-family: var(--font-mono); font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--graphite); }
+.tile-lead { color: var(--ink); }
+.tile-lead .tile-cad { color: var(--ink); }
+
+/* ── numbered editorial stages ───────────────────────────────────── */
+.stages { list-style: none; margin: 0; padding: 0; }
+.stage {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: var(--s-40);
+  padding: var(--s-40) 0;
+}
+.stage + .stage { border-top: 1px solid var(--hairline); }
+.stage-n { font-size: var(--text-h); font-weight: 300; letter-spacing: var(--tracking-h); color: var(--smoke); line-height: 1; }
+.stage-body { max-width: 66ch; }
+.stage-body h3 { margin-bottom: var(--s-12); }
+
+/* ── the one violet callout ──────────────────────────────────────── */
+.callout {
+  border-left: 2px solid var(--violet);
+  padding-left: var(--s-24);
+  max-width: 56ch;
+}
+.callout .kicker { color: var(--violet); }
+
+/* ── figures row ─────────────────────────────────────────────────── */
+.figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: var(--s-40); margin: 0; }
+.figures dt { font-family: var(--font-mono); font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--graphite); }
+.figures dd { margin: var(--s-12) 0 var(--s-8); font-size: 44px; font-weight: 300; line-height: 1; letter-spacing: -1.3px; }
+.figures p { font-size: 14px; color: var(--graphite); letter-spacing: -0.14px; margin: 0; }
+.s-ink .figures dt, .s-ink .figures p { color: #b5b2ac; }
+
+/* ── lead time bars ───────────────────────────────────────────────── */
+.bars { list-style: none; margin: 0; padding: 0; }
+.bars li { display: grid; grid-template-columns: 124px minmax(0, 1fr) 112px; gap: var(--s-16); align-items: center; padding: 6px 0; font-size: 14px; }
+.bar-track { height: 6px; background: var(--hairline); border-radius: 2px; overflow: clip; }
+.s-stone .bar-track { background: #bdb7ad; }
+.bar-fill { display: block; height: 100%; width: var(--w); background: var(--ink); border-radius: 2px; }
+.bars li:nth-child(n+4) .bar-fill { background: var(--silver); }
+.bar-lag { text-align: right; color: var(--graphite); font-size: 14px; }
+
+/* ── shelf cards ─────────────────────────────────────────────────── */
+.shelf { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: var(--s-4); }
+.shelf-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: var(--s-32);
+  display: flex; flex-direction: column; gap: var(--s-16);
+  border-bottom: 0;
+  min-height: 250px;
+}
+.shelf-card.is-slot { background: transparent; border: 1px solid var(--hairline); }
+.shelf-go { margin-top: auto; font-size: 14px; }
+
+/* ── rules ────────────────────────────────────────────────────────── */
+.rules { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: var(--s-48); }
+.rules li { max-width: 42ch; }
+.rules h3 { font-size: 20px; letter-spacing: -0.2px; margin-bottom: var(--s-8); }
+
+/* ── footer ───────────────────────────────────────────────────────── */
+.foot { background: var(--linen); padding: var(--s-64) 0 var(--s-40); }
+.foot-cols { display: grid; grid-template-columns: 1.5fr repeat(auto-fit, minmax(140px, 1fr)); gap: var(--s-40); }
+.foot-list { list-style: none; margin: 0; padding: 0; font-size: 14px; }
+.foot-list li { padding: var(--s-4) 0; }
+.foot-list a { color: var(--iron); border-bottom: 0; }
+.foot-list a:hover { color: var(--ink); }
+.foot-bottom { margin-top: var(--s-48); display: flex; justify-content: space-between; gap: var(--s-24); flex-wrap: wrap; }
+
+/* ── prototype banner. Not part of the design. ───────────────────── */
+.proto {
+  background: var(--ink); color: var(--cream);
+  padding: 10px var(--s-48);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  display: flex; gap: var(--s-20); flex-wrap: wrap;
+}
+.proto a { color: var(--cream); border-bottom-color: #555; }
+
+/* ── motion. Base style is the finished state. The keyframe supplies a
+      "from" only, so reduced motion and a browser with no view timelines
+      both land on a complete page. ───────────────────────────────── */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sec > .wrap > * { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } }
+    .bar-fill { animation: grow linear both; animation-timeline: view(); animation-range: entry 10% entry 60%; }
+    @keyframes grow { from { width: 0; } }
+  }
+}
+
+@media (max-width: 1000px) {
+  .feature { grid-template-columns: minmax(0, 1fr); gap: var(--s-40); }
+  .feature-flip > :first-child { order: 0; }
+  .tabs { display: none; }
+}
+@media (max-width: 640px) {
+  .wrap { padding: 0 var(--s-20); }
+  .nav-in, .proto { padding-left: var(--s-20); padding-right: var(--s-20); }
+  .sec { padding: var(--s-64) 0; }
+  .stage { grid-template-columns: minmax(0, 1fr); gap: var(--s-12); }
+  .bars li { grid-template-columns: 96px minmax(0, 1fr); }
+  .bar-lag { grid-column: 2; text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<div class="proto">
+  <span><b>Prototype C</b> · editorial</span>
+  <span>Intercom, editorial magazine on cream paper</span>
+  <span><a href="/prototypes/">Compare all three</a></span>
+</div>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="/prototypes/c-editorial.html" aria-label="gledach, home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      gledach
+    </a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#signal" aria-current="page">signal</a>
+      <a href="#collect">Sources</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#shelf">The shelf</a>
+    </nav>
+    <div class="nav-end">
+      <a class="btn btn-ghost" href="https://signal.gledach.de" rel="noopener">Preview</a>
+      <a class="btn btn-fill" href="https://github.com/gledach/signals" rel="noopener">Repository</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══════════════════ masthead ══════════════════ -->
+  <section class="mast sec" id="signal" style="padding-top: var(--s-80)">
+    <div class="wrap">
+      <p class="kicker">signal <span class="kicker-n">· slot 01 of 12 on the shelf</span></p>
+      <h1 class="t-dl">Competitive intelligence your agents can query.</h1>
+      <p class="t-lead measure" style="margin-top: var(--s-32)">
+        Ten watchers and one inbox read what a market publishes. Everything they
+        find is typed, scored and attributed, then handed to a machine as structured
+        data rather than a page for a person to read.
+      </p>
+      <p class="serif muted measure" style="margin-top: var(--s-24)">
+        <em>The dashboard is one client. It is not the product.</em>
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-fill plain" href="https://signal.gledach.de" rel="noopener">Open the live preview</a>
+        <a class="btn btn-ghost plain" href="#collect">See what it watches</a>
+      </div>
+      <p class="mast-meta">
+        <span>MIT licensed</span>
+        <span>No account to start</span>
+        <span>3 runtime dependencies</span>
+        <span>Offline on a fresh clone</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════ the exhibit ══════════════════ -->
+  <section class="sec s-linen">
+    <div class="wrap">
+      <div class="feature">
+        <div>
+          <p class="kicker">01 · the surface an agent sees</p>
+          <h2 class="t-d">It answers in structured data, and it tells you how fresh that data is.</h2>
+          <p class="measure-tight" style="margin-top: var(--s-24)">
+            Eight tools over MCP. Every one that reports signals also reports when it
+            last collected any, which is the whole difference between a quiet market
+            and a watcher that stopped running three weeks ago.
+          </p>
+          <p class="serif" style="margin-top: var(--s-20)">
+            Without that block, a dead watcher reads to an agent as
+            <em>nothing is happening.</em> Which is the most expensive wrong answer
+            this kind of tool can give.
+          </p>
+        </div>
+
+        <figure class="media">
+          <div class="media-bar">
+            <span>mcp · signal</span>
+            <span class="chip">coverage: fresh</span>
+          </div>
+<pre>&gt; search_signals { company: "cursor", since: "7d", minImpact: 70 }
+
+{
+  "signals": [
+    {
+      "hashId":      "8f2a1c…",
+      "signalType":  "pricing_change",
+      "impactScore":        84,
+      "source":      "email-google-alert",
+      "publishedAt": "2026-10-11T06:14:00Z"
+    }
+  ],
+  "coverage": {
+    "status":           "fresh",
+    "lastCollectedAt":  "2026-10-16T05:30:11Z",
+    "trustEmptyResult": true,
+    "warnings":         []
+  }
+}</pre>
+          <figcaption>
+            <code>status</code> is one of <code>fresh</code>,
+            <code>slowing</code>, <code>stale</code> or <code>never</code>.
+            <code>trustEmptyResult</code> says whether an empty answer can be
+            believed.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ the sources ══════════════════ -->
+  <section class="sec" id="collect">
+    <div class="wrap">
+      <div class="art-head">
+        <p class="kicker">02 · the collection</p>
+        <h2 class="t-d">Eleven ways in.</h2>
+        <p class="t-lead" style="margin-top: var(--s-24)">
+          Each tile says what the watcher actually reads and how often it runs. Three
+          of them hear a move while it is still infrastructure, before anyone has
+          written a sentence about it.
+        </p>
+      </div>
+
+      <div class="tiles">
+        <article class="tile">
+          <p class="tile-n">01</p>
+          <h3 class="tile-name">Feeds<span class="mono">npm run fetch</span></h3>
+          <p class="tile-what">
+            Around sixty RSS feeds across the roster and the category: Google News,
+            Reddit, vendor blogs, GitHub releases. The list derives from the roster,
+            so retargeting rewrites it.
+          </p>
+          <p class="tile-cad">every 30 min</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">02</p>
+          <h3 class="tile-name">Google Alerts<span class="mono">npm run watch:gmail</span></h3>
+          <p class="tile-what">
+            Alerts land in a mailbox, a parser reads them, and the result fills a
+            local inbox database. Two zones: nothing reaches the dashboard until
+            <code>email:promote</code> runs.
+          </p>
+          <p class="tile-cad">local only</p>
+        </article>
+
+        <article class="tile tile-lead">
+          <p class="tile-n">03</p>
+          <h3 class="tile-name">Certificate logs<span class="mono">npm run watch:certs</span></h3>
+          <p class="tile-what">
+            Public certificate transparency per domain. A new subdomain is issued a
+            certificate before the thing on it is announced. The earliest free view
+            of a vertical launch there is.
+          </p>
+          <p class="tile-cad">every 6 h · leading</p>
+        </article>
+
+        <article class="tile tile-lead">
+          <p class="tile-n">04</p>
+          <h3 class="tile-name">Sitemaps, robots<span class="mono">npm run watch:sites</span></h3>
+          <p class="tile-what">
+            Fetch, diff against the last snapshot, emit on new paths, removed paths
+            and rule changes. A page exists before anything links to it.
+          </p>
+          <p class="tile-cad">every 6 h · leading</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">05</p>
+          <h3 class="tile-name">Hacker News<span class="mono">npm run watch:hn</span></h3>
+          <p class="tile-what">
+            Through the Algolia search API, filtered on points and recency. Points,
+            comments, author and timestamps arrive as structured fields, not as prose
+            scraped from a feed summary.
+          </p>
+          <p class="tile-cad">daily</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">06</p>
+          <h3 class="tile-name">GitHub<span class="mono">npm run watch:github</span></h3>
+          <p class="tile-what">
+            Releases, breaking-change tags and issue complaints. Sixty requests an
+            hour unauthenticated, five thousand with a token.
+          </p>
+          <p class="tile-cad">daily</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">07</p>
+          <h3 class="tile-name">YouTube captions<span class="mono">npm run watch:youtube</span></h3>
+          <p class="tile-what">
+            Captions over HTTP: no audio download, no transcription, free for roughly
+            four videos in five. A caption-less video still gets a signal saying so.
+          </p>
+          <p class="tile-cad">daily</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">08</p>
+          <h3 class="tile-name">Answer engines<span class="mono">npm run watch:aeo</span></h3>
+          <p class="tile-what">
+            Asks the shortlist question a buyer asks, records which brands each engine
+            names back. Detection is a deterministic word-boundary match, not a model
+            judging a model.
+          </p>
+          <p class="tile-cad">weekly</p>
+        </article>
+
+        <article class="tile tile-lead">
+          <p class="tile-n">09</p>
+          <h3 class="tile-name">Model routing<span class="mono">npm run watch:routing</span></h3>
+          <p class="tile-what">
+            A public, openly licensed data API: which models the market routes tokens
+            to, and which applications process them. Only movement past a threshold
+            is emitted, so a flat week is silent.
+          </p>
+          <p class="tile-cad">daily · leading</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">10</p>
+          <h3 class="tile-name">Search discovery<span class="mono">npm run watch:tavily</span></h3>
+          <p class="tile-what">
+            Mention discovery past the feeds, two queries per company, guarded against
+            a free monthly credit tier with a cooldown between runs.
+          </p>
+          <p class="tile-cad">daily</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">11</p>
+          <h3 class="tile-name">Search interest<span class="mono">npm run watch:trends</span></h3>
+          <p class="tile-what">
+            Brand queries and <q>alternative to</q> queries, batched to the eight
+            stalest per run. The upstream limiter refuses thirty two in a row, so the
+            set rotates across four passes.
+          </p>
+          <p class="tile-cad">weekly, 4 passes</p>
+        </article>
+
+        <article class="tile" style="background: transparent; border: 1px solid var(--hairline)">
+          <p class="tile-n">12</p>
+          <h3 class="tile-name" style="color: var(--smoke)">[UNDECIDED]</h3>
+          <p class="tile-what">
+            A watcher is added when a source is public, readable without an account,
+            and says something the eleven above do not. Those three questions are the
+            whole bar.
+          </p>
+          <p class="tile-cad" style="color: var(--smoke)">not built</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ lead time ══════════════════ -->
+  <section class="sec s-stone">
+    <div class="wrap">
+      <div class="feature feature-flip">
+        <div>
+          <ul class="bars">
+            <li style="--w: 100%"><span>Infrastructure</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">weeks ahead</span></li>
+            <li style="--w: 74%"><span>Hiring</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">months, vague</span></li>
+            <li style="--w: 46%"><span>Documentation</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">hours</span></li>
+            <li style="--w: 38%"><span>Changelog</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">hours</span></li>
+            <li style="--w: 20%"><span>Marketing</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">at launch</span></li>
+            <li style="--w: 8%"><span>Press</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">after</span></li>
+          </ul>
+          <p class="cap" style="margin-top: var(--s-20); color: var(--iron)">
+            Lead time before a move becomes public knowledge.
+          </p>
+        </div>
+        <div>
+          <p class="kicker" style="color: var(--iron)">03 · why those eleven</p>
+          <h2 class="t-d">Infrastructure moves weeks before the press release does.</h2>
+          <p class="measure-tight" style="margin-top: var(--s-24)">
+            The list is not long for its own sake. It is ordered by how early each
+            source speaks. The three watchers marked leading are the three at the top
+            of this chart.
+          </p>
+          <p class="serif" style="margin-top: var(--s-20)">
+            Most monitoring products start at the bottom of it, <em>which is where
+            everybody is already looking.</em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ the pipeline ══════════════════ -->
+  <section class="sec" id="pipeline">
+    <div class="wrap">
+      <div class="art-head">
+        <p class="kicker">04 · what happens to one item</p>
+        <h2 class="t-d">Five stages between a feed entry and an answer.</h2>
+        <p class="t-lead" style="margin-top: var(--s-24)">
+          And the tool reports which of the five it reached, rather than presenting
+          stage two as though it were stage five.
+        </p>
+      </div>
+
+      <ol class="stages">
+        <li class="stage">
+          <span class="stage-n">01</span>
+          <div class="stage-body">
+            <h3 class="t-hs">Classify</h3>
+            <p>
+              A small fast model reads the item and types it: product launch, pricing
+              change, funding, customer win, review complaint. With no model key a
+              keyword classifier runs instead, free and less precise, and the method
+              used is written onto the row either way so you can re-run the ones that
+              matter.
+            </p>
+          </div>
+        </li>
+        <li class="stage">
+          <span class="stage-n">02</span>
+          <div class="stage-body">
+            <h3 class="t-hs">Score</h3>
+            <p>
+              Business impact from 0 to 100, weighted for this job rather than for
+              news. A product launch outranks generic press coverage, which is the
+              opposite of how a headline ranker would order the same two items.
+            </p>
+          </div>
+        </li>
+        <li class="stage">
+          <span class="stage-n">03</span>
+          <div class="stage-body">
+            <h3 class="t-hs">Store</h3>
+            <p>
+              One row, keyed on a hash of its own content, so every write is
+              idempotent and two operators plus a scheduler can run the same pass
+              without producing duplicates. A local file by default. A hosted database
+              only once you point it at one.
+            </p>
+          </div>
+        </li>
+        <li class="stage">
+          <span class="stage-n">04</span>
+          <div class="stage-body">
+            <h3 class="t-hs">Correlate</h3>
+            <p>
+              Theme and count rules fire a convergence, and each one carries a
+              structured citation graph back to the evidence that produced it.
+            </p>
+            <div class="callout" style="margin-top: var(--s-20)">
+              <p class="kicker">the unit that matters</p>
+              <p class="serif serif-lg">
+                A launch, a hiring push and a certificate change all pointing at the
+                same vertical is <em>one finding,</em> not three unread rows.
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="stage">
+          <span class="stage-n">05</span>
+          <div class="stage-body">
+            <h3 class="t-hs">Synthesise, and label it</h3>
+            <p>
+              Battlecards from a mid-sized model, deep research from the largest one
+              across a hundred and eighty days of signal, five analyst modes driven by
+              a written persona, and a weekly report that uses no model at all because
+              its arithmetic is deterministic.
+            </p>
+            <p>
+              Every piece of model output is marked as model output. A claim the
+              evidence does not support is published as unverified rather than
+              asserted quietly, and the section a person wrote by hand is never
+              overwritten by a regeneration.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ══════════════════ figures, on ink ══════════════════ -->
+  <section class="sec s-ink">
+    <div class="wrap">
+      <p class="kicker">05 · the numbers, as they stand</p>
+      <h2 class="t-d measure-tight">Every figure here traces to a repository README.</h2>
+      <p class="measure" style="margin-top: var(--s-24)" class="muted">
+        If one stops being true there, it changes here. A fact that does not exist
+        yet is written as a bracketed placeholder instead of an estimate.
+      </p>
+
+      <dl class="figures" style="margin-top: var(--s-64)">
+        <div>
+          <dt>Signals stored</dt>
+          <dd>2,600+</dd>
+          <p>in the deployment behind the live preview</p>
+        </div>
+        <div>
+          <dt>Companies tracked</dt>
+          <dd>13</dd>
+          <p>two segments, and it is configuration not code</p>
+        </div>
+        <div>
+          <dt>Agent tools</dt>
+          <dd>8</dd>
+          <p>over MCP, read only until a deployment opts in</p>
+        </div>
+        <div>
+          <dt>Runtime deps</dt>
+          <dd>3</dd>
+          <p>no build step, offline on a fresh clone</p>
+        </div>
+        <div>
+          <dt>Monthly spend</dt>
+          <dd>$15&ndash;25</dd>
+          <p>at the shipped models. Database and search on free tiers</p>
+        </div>
+      </dl>
+
+      <p class="serif measure" style="margin-top: var(--s-48)">
+        Cadence moves that last number far more than model choice does. A job making
+        one model call per tracked company costs four times as much on a six-hourly
+        tier as on a daily one, and the output is no fresher. <em>That mistake cost
+        this deployment around two hundred dollars a month before it was caught.</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════ surfaces ══════════════════ -->
+  <section class="sec s-linen">
+    <div class="wrap">
+      <div class="art-head">
+        <p class="kicker">06 · who consumes it</p>
+        <h2 class="t-d">Three consumers, and a dashboard is only one of them.</h2>
+      </div>
+
+      <div class="tiles" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))">
+        <article class="tile" style="min-height: 0">
+          <p class="kicker" style="margin-bottom: var(--s-8)">For agents</p>
+          <h3 class="t-hs">Eight tools over MCP</h3>
+          <p class="tile-what">
+            <code>list_companies</code>, <code>search_signals</code>,
+            <code>get_convergences</code>, <code>get_battlecard</code>,
+            <code>list_briefs</code>, <code>get_brief</code>,
+            <code>run_analyst</code>, <code>market_summary</code>, plus
+            <code>signal://</code> resources for a battlecard or a brief.
+          </p>
+          <p class="tile-what">
+            Read only by default and not merely by convention: the one tool that
+            spends money ships with permission withheld, and opting in binds it to a
+            rolling daily ceiling shared with the scheduler and the command line.
+          </p>
+          <p class="tile-cad"><a href="https://github.com/gledach/signals/blob/main/docs/mcp.md" rel="noopener">The agent surface</a></p>
+        </article>
+
+        <article class="tile" style="min-height: 0">
+          <p class="kicker" style="margin-bottom: var(--s-8)">For people</p>
+          <h3 class="t-hs">Eight views on localhost</h3>
+          <p class="tile-what">
+            Feed, Battle, Compare, Market, Intel, Report, Briefs and Inbox. Number
+            keys switch mode, a command palette jumps anywhere, and Compare takes an
+            anchor plus up to three rivals in a URL you can share.
+          </p>
+          <p class="tile-what">
+            Battlecards and briefs come out as markdown you can edit in anything.
+          </p>
+          <p class="tile-cad"><a href="https://signal.gledach.de" rel="noopener">Open the preview</a></p>
+        </article>
+
+        <article class="tile" style="min-height: 0">
+          <p class="kicker" style="margin-bottom: var(--s-8)">For the scheduler</p>
+          <h3 class="t-hs">One pass, tiered by cost</h3>
+          <p class="tile-what">
+            A single entry point runs every watcher on the cadence it deserves: the
+            expensive passes weekly, the cheap ones every half hour.
+          </p>
+          <p class="tile-what">
+            There is also a Chrome side panel that checks the page you are reading
+            against your own intel, on device. It is experimental, it needs the
+            dashboard running, and the test gate does not cover it.
+          </p>
+          <p class="tile-cad"><a href="https://github.com/gledach/signals/blob/main/docs/cost.md" rel="noopener">What it costs</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ retargeting ══════════════════ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="feature">
+        <div>
+          <p class="kicker">07 · the same parts, a different market</p>
+          <h2 class="t-d">Nothing in here knows which market it is watching.</h2>
+          <p class="measure-tight" style="margin-top: var(--s-24)">
+            It ships pointed at thirteen AI coding tools. That is a configuration
+            file, not the product. Six layers resolve the same way: an environment
+            variable, then your local file, then the shipped default. The roster, the
+            feeds, the deal-context axes, subdomain scoring, the agent policy and the
+            answer-engine prompts.
+          </p>
+          <p class="measure-tight">
+            Your file is ignored by git, so you can pull upstream forever without a
+            conflict in the one file you changed. Feeds, repository mappings and
+            search queries all derive from the roster rather than sitting in a list
+            beside it.
+          </p>
+          <p class="serif" style="margin-top: var(--s-20)">
+            And the gate is mechanical rather than a promise: the test suite fails if
+            a brand name appears anywhere outside the configuration directory.
+            <em>Retargeting cannot leave somebody else's market behind in a watcher
+            or a prompt.</em>
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-fill plain" href="https://github.com/gledach/signals/blob/main/docs/start.md" rel="noopener">Read the install guide</a>
+          </div>
+        </div>
+
+        <figure class="media">
+          <div class="media-bar">
+            <span>a fresh clone</span>
+            <span class="chip">no account, no key</span>
+          </div>
+<pre>git clone https://github.com/gledach/signals &amp;&amp; cd signals
+npm install
+npm run db:migrate   # local database and demo data
+npm run doctor       # what worked, and what each missing key unlocks
+npm run view         # a populated dashboard at 127.0.0.1:5180
+
+cp config/companies.default.mjs config/companies.local.mjs
+npm run companies    # what is live, and which file it came from
+npm test             # 15 smoke sections, 5 fixture suites, all offline</pre>
+          <figcaption>
+            Runs offline on a fresh clone, on Windows, macOS or Linux. A model key
+            turns on classification, battlecards and briefs. Without one the keyword
+            classifier runs and everything else still works.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ previews ══════════════════ -->
+  <section class="sec s-linen">
+    <div class="wrap">
+      <div class="art-head">
+        <p class="kicker">08 · seeing it first</p>
+        <h2 class="t-d">Anything worth looking at gets its own subdomain.</h2>
+        <p class="t-lead" style="margin-top: var(--s-24)">
+          You should be able to watch a tool work before you decide to install it.
+          One address per tool, replaced in place.
+        </p>
+      </div>
+
+      <figure class="media" style="max-width: 540px; margin-bottom: var(--s-48)">
+        <div class="media-bar">
+          <span>the convention</span>
+          <span class="chip">read only</span>
+        </div>
+<pre>&lt;tool&gt;.gledach.de
+
+signal.gledach.de    a real deployment, exported to one static file</pre>
+      </figure>
+
+      <div class="tiles" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))">
+        <article class="tile" style="min-height: 0">
+          <h3 class="tile-name">Real data, not a mock</h3>
+          <p class="tile-what">The export asks the running viewer the same questions a browser asks and inlines the answers, so a preview cannot drift from the thing it was taken from.</p>
+        </article>
+        <article class="tile" style="min-height: 0">
+          <h3 class="tile-name">Dated and read only</h3>
+          <p class="tile-what">A snapshot, not a live instance. Nothing you click reaches a database, and every number is true as of the export.</p>
+        </article>
+        <article class="tile" style="min-height: 0">
+          <h3 class="tile-name">One per tool, replaced in place</h3>
+          <p class="tile-what">A re-export overwrites the preview, so you are looking at the most recent snapshot rather than an archive of all of them.</p>
+        </article>
+        <article class="tile" style="min-height: 0">
+          <h3 class="tile-name">Generated text is labelled</h3>
+          <p class="tile-what">Battlecards, briefs and convergences are model output, not verified fact. A starting point for a person, which is how the tool itself describes them.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ the shelf ══════════════════ -->
+  <section class="sec" id="shelf">
+    <div class="wrap">
+      <div class="art-head">
+        <p class="kicker">09 · the rest of the shelf</p>
+        <h2 class="t-d">Four more, each on its own page.</h2>
+        <p class="t-lead" style="margin-top: var(--s-24)">
+          Same author, different shapes. They share no stack and no interface, only
+          the promise: free, installable, and honest about what each one cannot see.
+        </p>
+      </div>
+
+      <div class="shelf">
+        <a class="shelf-card" href="/whenrun">
+          <h3 class="t-hs">whenrun</h3>
+          <p class="tile-what">Watches day-ahead power prices and renewable share, then starts your job in the cheapest or greenest window that still meets its deadline. Zero runtime dependencies and nothing to install.</p>
+          <p class="shelf-go">Open the page &rarr;</p>
+        </a>
+        <a class="shelf-card" href="/phonehome">
+          <h3 class="t-hs">phonehome</h3>
+          <p class="tile-what">A local resolver that records which domains every device on your network contacts, and says when one starts talking somewhere new. Blocks nothing, uploads nothing.</p>
+          <p class="shelf-go">Open the page &rarr;</p>
+        </a>
+        <a class="shelf-card" href="/recall">
+          <h3 class="t-hs">recall</h3>
+          <p class="tile-what">Checks four public registers against a list of the things you actually own, and grades how sure each match is. A register it could not reach is reported as unreachable, never as clean.</p>
+          <p class="shelf-go">Open the page &rarr;</p>
+        </a>
+        <a class="shelf-card" href="/signal-patterns">
+          <h3 class="t-hs">signal-patterns</h3>
+          <p class="tile-what">The written reasoning behind all of it: what is watchable, what it costs, and the decisions that only become obvious after something has broken. Nothing to install.</p>
+          <p class="shelf-go">Open the page &rarr;</p>
+        </a>
+        <article class="shelf-card is-slot">
+          <h3 class="t-hs" style="color: var(--smoke)">[UNNAMED]</h3>
+          <p class="tile-what">The shelf holds a dozen. Slot 06 is empty and stays that way until something runs.</p>
+          <div class="callout" style="margin-top: var(--s-8)">
+            <p class="kicker" style="margin-bottom: var(--s-8)">the queue is public</p>
+            <p class="tile-what">
+              Is there something you keep checking by hand that a tool could watch
+              for you? <a href="https://github.com/gledach/requests/issues/new?template=tool-request.yml" rel="noopener">Ask in the open</a>,
+              including what was turned down and why.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ house rules ══════════════════ -->
+  <section class="sec s-stone">
+    <div class="wrap">
+      <div class="art-head">
+        <p class="kicker" style="color: var(--iron)">10 · house rules</p>
+        <h2 class="t-d">What is true of everything on this shelf.</h2>
+        <p class="t-lead" style="margin-top: var(--s-24)">
+          The tools vary. These six do not. They are the reason a tool gets published
+          here at all.
+        </p>
+      </div>
+
+      <ul class="rules">
+        <li>
+          <h3>Free, and the source is public</h3>
+          <p class="t-sm">MIT unless a dependency makes that impossible, in which case the licence is stated on the tool's own page.</p>
+        </li>
+        <li>
+          <h3>Your machine is the runtime</h3>
+          <p class="t-sm">Cloud is for sharing state between machines you own. It is not where your data has to live.</p>
+        </li>
+        <li>
+          <h3>No account to start</h3>
+          <p class="t-sm">Clone it and see something real. Keys, hosted databases and schedules are opt in, later, each listed with what it buys you.</p>
+        </li>
+        <li>
+          <h3>Honest about blind spots</h3>
+          <p class="t-sm">Every tool ships a written audit of what it cannot see, kept beside the documentation rather than buried in it.</p>
+        </li>
+        <li>
+          <h3>Read only until you say otherwise</h3>
+          <p class="t-sm">Nothing spends your money because an agent found a button. Paid actions ship disabled and behind a ceiling.</p>
+        </li>
+        <li>
+          <h3>Generated text is labelled</h3>
+          <p class="t-sm">Model output is marked as model output. A tool that cannot tell you what it does not know is not finished.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div>
+        <a class="brand" href="/prototypes/c-editorial.html" aria-label="gledach, home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          gledach
+        </a>
+        <p class="serif muted" style="margin-top: var(--s-16); max-width: 32ch">
+          <em>gledati</em> (slav.): to watch. What a good analyst does before
+          speaking.
+        </p>
+      </div>
+      <div>
+        <p class="kicker">Tools</p>
+        <ul class="foot-list">
+          <li><a href="/">signal</a></li>
+          <li><a href="/whenrun">whenrun</a></li>
+          <li><a href="/phonehome">phonehome</a></li>
+          <li><a href="/recall">recall</a></li>
+          <li><a href="/signal-patterns">signal-patterns</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="kicker">Previews</p>
+        <ul class="foot-list">
+          <li><a href="https://signal.gledach.de" rel="noopener">signal.gledach.de</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="kicker">Contact</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
+          <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
+          <li><a href="https://www.linkedin.com/in/apsolut/" rel="noopener">Creator, on LinkedIn</a></li>
+          <li><a href="mailto:request@gledach.de">request@gledach.de</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p class="t-sm helper">MIT licensed. Signals are gathered from public sources. Generated analysis is model output, not verified fact.</p>
+      <p class="mono helper">if it ships to turso, it shipped</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PROTOTYPE B · ledger · signal</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PROTOTYPE B, "ledger". Not the live design system.
+
+     Source style: Stripe, "indigo-ink ledger on frosted glass."
+     Tokens followed closely. Weight 300 at display size is the signature and
+     is honoured throughout: the headlines whisper. Four notes:
+
+     1. The source's display face is Sohne Var. Its own documented fallback is
+        Inter Tight, which is what loads here, at weight 300.
+     2. The source says depth comes from a background tint progression,
+        white to #f8fafd to #e5edf5 to #e8e9ff to #533afd, and separately says
+        never use the indigo for large backgrounds. Those pull against each
+        other, so the indigo is spent on exactly one compact band, the
+        retargeting call, and nowhere else as a surface.
+     3. The source forbids muted greys for paragraphs. Body copy is therefore
+        #061b31 throughout; steel and slate appear only on captions and labels.
+     4. Tabular numerals are on globally. This page is mostly figures.
+
+     No shadows anywhere. Sections separate on a 1px #e5edf5 hairline at a
+     96px gap, never on a colour shift.
+     ═══════════════════════════════════════════════════════════════════════ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+/* ── tokens, from the source style ────────────────────────────────── */
+:root {
+  --indigo-ink:   #533afd;   /* actions, active links, icon strokes. never body */
+  --indigo-hover: #7389ff;
+  --lavender:     #b9b9f9;   /* ghost button outlines */
+  --lilac:        #d6d9fc;   /* tertiary dividers */
+  --periwinkle:   #e8e9ff;   /* highlighted surfaces */
+  --deep-violet:  #182659;   /* emphasised borders */
+  --amethyst:     #7f71e6;
+
+  --midnight-ink: #061b31;   /* headings and body */
+  --steel:        #50617a;   /* tertiary, helpers */
+  --slate:        #64748d;
+  --smoke:        #839bc8;   /* decorative heading support, large only */
+  --white:        #ffffff;
+  --mist:         #f8fafd;
+  --frost:        #e5edf5;
+
+  --font: 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+
+  /* major second, 1.125 */
+  --text-display: 56px;      --leading-display: 1.03;  --tracking-display: -1.4px;
+  --text-heading-lg: 48px;   --leading-heading-lg: 1.03; --tracking-heading-lg: -0.96px;
+  --text-heading: 32px;      --leading-heading: 1.1;   --tracking-heading: -0.64px;
+  --text-heading-sm: 26px;   --leading-heading-sm: 1.12; --tracking-heading-sm: -0.26px;
+  --text-subheading: 22px;   --leading-subheading: 1.1; --tracking-subheading: -0.22px;
+  --text-body-lg: 20px;      --leading-body-lg: 1.4;   --tracking-body-lg: -0.2px;
+  --text-body: 16px;         --leading-body: 1.5;      --tracking-body: -0.16px;
+  --text-body-sm: 14px;      --leading-body-sm: 1.4;   --tracking-body-sm: -0.14px;
+  --text-caption: 12px;      --leading-caption: 1.45;  --tracking-caption: -0.12px;
+
+  --s-8: 8px;  --s-16: 16px; --s-24: 24px; --s-32: 32px;
+  --s-40: 40px; --s-48: 48px; --s-64: 64px; --s-80: 80px; --s-96: 96px;
+
+  --max: 1320px;
+  --radius: 4px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--midnight-ink);
+  font-family: var(--font);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+  font-weight: 400;
+  font-feature-settings: "ss01" on, "tnum" on;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--s-40); }
+.sec { padding: var(--s-96) 0; border-top: 1px solid var(--frost); }
+.sec-first { border-top: 0; }
+.tint-mist { background: var(--mist); }
+.tint-frost { background: var(--frost); }
+.tint-peri  { background: var(--periwinkle); }
+
+/* ── type ─────────────────────────────────────────────────────────── */
+h1, h2, h3, h4 { font-weight: 300; margin: 0; }
+.t-display {
+  font-size: clamp(36px, 5.2vw, var(--text-display));
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+}
+.t-h-lg { font-size: clamp(32px, 4vw, var(--text-heading-lg)); line-height: var(--leading-heading-lg); letter-spacing: var(--tracking-heading-lg); }
+.t-h    { font-size: var(--text-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); }
+.t-h-sm { font-size: var(--text-heading-sm); line-height: var(--leading-heading-sm); letter-spacing: var(--tracking-heading-sm); }
+.t-sub  { font-size: var(--text-subheading); line-height: var(--leading-subheading); letter-spacing: var(--tracking-subheading); font-weight: 300; }
+.t-lg   { font-size: var(--text-body-lg); line-height: var(--leading-body-lg); letter-spacing: var(--tracking-body-lg); font-weight: 300; }
+.t-sm   { font-size: var(--text-body-sm); line-height: var(--leading-body-sm); letter-spacing: var(--tracking-body-sm); }
+.t-cap  { font-size: var(--text-caption); line-height: var(--leading-caption); letter-spacing: var(--tracking-caption); font-weight: 300; color: var(--steel); }
+
+p { margin: 0 0 var(--s-16); }
+p:last-child { margin-bottom: 0; }
+.measure { max-width: 64ch; }
+.measure-tight { max-width: 46ch; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--indigo-ink);
+  margin: 0 0 var(--s-16);
+}
+.eyebrow-quiet { color: var(--steel); }
+
+code, .mono { font-family: var(--font-mono); font-size: 0.875em; }
+
+a { color: var(--indigo-ink); text-decoration: none; }
+a:hover { color: var(--indigo-hover); }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--indigo-ink);
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+/* ── buttons: filled paired with a ghost outline ─────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-8);
+  font-size: var(--text-body-sm);
+  font-weight: 400;
+  letter-spacing: var(--tracking-body-sm);
+  border-radius: var(--radius);
+  min-height: 44px;
+  padding: 11px var(--s-24);
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.btn-fill { background: var(--indigo-ink); color: var(--white); }
+.btn-fill:hover { background: #4229e8; color: var(--white); }
+.btn-ghost { color: var(--indigo-ink); border-color: var(--lavender); background: transparent; }
+.btn-ghost:hover { border-color: var(--indigo-ink); }
+.btn-reverse { background: var(--white); color: var(--indigo-ink); }
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--s-16); margin-top: var(--s-32); }
+
+/* ── section header: heading left, lead right ────────────────────── */
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s-64);
+  align-items: end;
+  padding-bottom: var(--s-32);
+  border-bottom: 1px solid var(--frost);
+  margin-bottom: var(--s-48);
+}
+.tint-frost .head, .tint-peri .head { border-bottom-color: var(--lilac); }
+
+/* ── nav ──────────────────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--white);
+  border-bottom: 1px solid var(--frost);
+}
+.nav-in {
+  max-width: var(--max); margin: 0 auto;
+  padding: var(--s-16) var(--s-40);
+  display: flex; align-items: center; gap: var(--s-32);
+}
+.brand {
+  font-size: var(--text-subheading);
+  font-weight: 300;
+  letter-spacing: -0.4px;
+  color: var(--midnight-ink);
+  display: flex; align-items: center; gap: 10px;
+}
+.brand-mark { display: inline-flex; gap: 3px; }
+.brand-mark i {
+  width: 3px; height: 16px;
+  background: var(--indigo-ink);
+  border-radius: 1px;
+}
+.brand-mark i:nth-child(2) { height: 11px; align-self: flex-end; opacity: 0.6; }
+.brand-mark i:nth-child(3) { height: 7px;  align-self: flex-end; opacity: 0.35; }
+.nav-links { display: flex; gap: var(--s-24); margin-left: auto; font-size: var(--text-body-sm); }
+.nav-links a { color: var(--steel); }
+.nav-links a:hover { color: var(--indigo-ink); }
+.nav-cta { display: flex; gap: var(--s-8); }
+.nav-cta .btn { min-height: 36px; padding: 7px 14px; }
+
+/* ── hero ─────────────────────────────────────────────────────────── */
+.hero { padding: var(--s-96) 0 var(--s-80); }
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: var(--s-80);
+  align-items: center;
+}
+/* The source assigns smoke #839bc8 to "decorative heading support", but it
+   scores 2.82:1 on white and fails even the large-text threshold. This line
+   is a headline, not decoration, so it takes slate from the same palette:
+   4.75:1, and still visibly quieter than the two lines above it. */
+.hero h1 em { font-style: normal; color: var(--slate); }
+.hero-meta { font-size: var(--text-caption); color: var(--steel); margin-top: var(--s-32); }
+
+/* ── console: the frosted-glass panel ────────────────────────────── */
+.console {
+  background: var(--mist);
+  border: 1px solid var(--frost);
+  border-radius: var(--radius);
+  overflow: clip;
+}
+.console-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s-16);
+  padding: 10px var(--s-16);
+  border-bottom: 1px solid var(--frost);
+  background: var(--white);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--steel);
+}
+.console pre {
+  margin: 0;
+  padding: var(--s-24);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-x: auto;
+  color: var(--midnight-ink);
+}
+/* Two tokens in a code block and no more: the binary in indigo, the trailing
+   comment muted. A full syntax theme would put more colour on this page than
+   the system allows, and the indigo is already spoken for by actions. */
+.console pre .c-bin { color: var(--indigo-ink); font-weight: 500; }
+.console pre .c-cmt { color: var(--slate); }
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  background: var(--periwinkle);
+  color: var(--indigo-ink);
+  letter-spacing: 0.02em;
+}
+.tag-quiet { background: var(--frost); color: var(--steel); }
+
+/* ── the collection, as a tile grid ──────────────────────────────── */
+/* Carried over from prototype C and rebuilt in these tokens. A grid rather
+   than a table because the shelf is meant to grow: a twelfth watcher is one
+   more tile, where a twelfth table row would keep stretching a fixed column
+   set. Grid rows stretch, so cards in a row match height on their own and
+   the cadence line can sit on one baseline with margin-top: auto. */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--s-16);
+}
+.tile {
+  background: var(--white);
+  border: 1px solid var(--frost);
+  border-radius: var(--radius);
+  padding: var(--s-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-12);
+}
+/* The three leading watchers carry the lavender edge, which is the same
+   signal the lead-time chart makes a few sections further down. */
+.tile-lead { border-color: var(--lavender); }
+.tile-n {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--slate);
+  margin: 0;
+}
+.tile-name {
+  font-size: var(--text-subheading);
+  font-weight: 300;
+  line-height: var(--leading-subheading);
+  letter-spacing: var(--tracking-subheading);
+}
+.tile-name .mono {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--indigo-ink);
+  margin-top: 5px;
+}
+.tile-what {
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+  letter-spacing: var(--tracking-body-sm);
+  margin: 0;
+}
+.tile-cad {
+  margin: auto 0 0;
+  padding-top: var(--s-12);
+  border-top: 1px solid var(--frost);
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--slate);
+}
+.tile-lead .tile-cad { color: var(--indigo-ink); }
+.tile-empty { background: transparent; border-style: dashed; }
+.tile-empty .tile-name, .tile-empty .tile-cad { color: var(--slate); }
+
+/* ── the pipeline rail. Depth is the tint progression, so the stages
+      walk up it: white, mist, frost, periwinkle, indigo edge. ─────── */
+.rail { display: grid; gap: 1px; background: var(--frost); border: 1px solid var(--frost); border-radius: var(--radius); overflow: clip; }
+.rail-step { padding: var(--s-32); display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: var(--s-32); }
+.rail-step:nth-child(1) { background: var(--white); }
+.rail-step:nth-child(2) { background: var(--mist); }
+.rail-step:nth-child(3) { background: #f1f5fb; }
+.rail-step:nth-child(4) { background: var(--frost); }
+.rail-step:nth-child(5) { background: var(--periwinkle); }
+.rail-label { font-family: var(--font-mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--indigo-ink); }
+.rail-label span { display: block; font-family: var(--font); font-size: var(--text-heading-sm); font-weight: 300; letter-spacing: var(--tracking-heading-sm); text-transform: none; color: var(--midnight-ink); margin-top: 6px; }
+.rail-body { max-width: 68ch; }
+
+/* ── stat row ─────────────────────────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid var(--frost);
+}
+.stats > div {
+  padding: var(--s-24) var(--s-24) var(--s-24) 0;
+  border-bottom: 1px solid var(--frost);
+}
+.stats dt { font-family: var(--font-mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--steel); }
+.stats dd {
+  margin: var(--s-8) 0 var(--s-8);
+  font-size: var(--text-heading-lg);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: var(--tracking-heading-lg);
+}
+.stats p { font-size: var(--text-caption); color: var(--steel); margin: 0; }
+
+/* ── cards ────────────────────────────────────────────────────────── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: var(--s-24);
+}
+.card {
+  background: var(--white);
+  border: 1px solid var(--frost);
+  border-radius: var(--radius);
+  padding: var(--s-32);
+  display: flex; flex-direction: column; gap: var(--s-16);
+}
+.card-emph { border-color: var(--lavender); }
+.card h3 { letter-spacing: var(--tracking-heading-sm); }
+.card-go { margin-top: auto; font-size: var(--text-body-sm); }
+.card-slot { border-style: dashed; background: transparent; }
+
+/* ── the indigo band. One per page. ──────────────────────────────── */
+.band {
+  background: var(--indigo-ink);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: var(--s-48);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: var(--s-64);
+  align-items: center;
+}
+.band a { color: var(--white); }
+/* The reverse button is white-filled, so it has to win back its ink from the
+   rule above or it renders white on white. */
+.band a.btn-reverse { color: var(--indigo-ink); }
+.band .eyebrow { color: var(--lavender); }
+.band .t-cap { color: var(--lilac); }
+/* A white console sitting on the indigo field. The earlier version tinted the
+   panel darker and the command names had to be lilac, which is not a blue a
+   reader registers as a command. On white they are the real indigo. */
+.band pre {
+  margin: 0;
+  background: var(--white);
+  border: 1px solid var(--lavender);
+  border-radius: var(--radius);
+  padding: var(--s-24);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-x: auto;
+  color: var(--midnight-ink);
+}
+.band pre .c-bin { color: var(--indigo-ink); font-weight: 500; }
+.band pre .c-cmt { color: var(--slate); }
+
+/* ── lead time bars ───────────────────────────────────────────────── */
+.bars { list-style: none; margin: 0; padding: 0; }
+.bars li {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr) 118px;
+  gap: var(--s-16);
+  align-items: center;
+  padding: 7px 0;
+  font-size: var(--text-body-sm);
+}
+.bar-track { height: 8px; background: var(--frost); border-radius: 2px; overflow: clip; }
+.bar-fill { display: block; height: 100%; width: var(--w); background: var(--indigo-ink); border-radius: 2px; }
+.bars li:nth-child(n+4) .bar-fill { background: var(--lavender); }
+.bar-lag { text-align: right; color: var(--steel); font-size: var(--text-caption); }
+
+/* ── house rules ──────────────────────────────────────────────────── */
+.rules { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--s-40); }
+.rules li { max-width: 44ch; }
+.rules h3 { font-size: var(--text-body-lg); letter-spacing: var(--tracking-body-lg); margin-bottom: var(--s-8); }
+
+/* ── footer ───────────────────────────────────────────────────────── */
+.foot { background: var(--mist); border-top: 1px solid var(--frost); padding: var(--s-64) 0 var(--s-40); }
+.foot-cols { display: grid; grid-template-columns: 1.4fr repeat(auto-fit, minmax(150px, 1fr)); gap: var(--s-40); }
+.foot-list { list-style: none; margin: 0; padding: 0; font-size: var(--text-body-sm); }
+.foot-list li { padding: 4px 0; }
+.foot-list a { color: var(--steel); }
+.foot-list a:hover { color: var(--indigo-ink); }
+.foot-bottom { margin-top: var(--s-48); padding-top: var(--s-24); border-top: 1px solid var(--frost); display: flex; justify-content: space-between; gap: var(--s-24); flex-wrap: wrap; }
+
+/* ── prototype banner. Not part of the design. ────────────────────── */
+.proto {
+  background: var(--midnight-ink); color: var(--white);
+  padding: 10px var(--s-40);
+  font-size: var(--text-caption);
+  display: flex; gap: var(--s-16); flex-wrap: wrap;
+}
+.proto a { color: var(--lavender); }
+
+/* ── motion. The base style is the finished state; the keyframe only
+      supplies a "from", so reduced motion and any browser without view
+      timelines lands on a complete page. ──────────────────────────── */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sec > .wrap > * { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 42%; }
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+    .bar-fill { animation: grow linear both; animation-timeline: view(); animation-range: entry 10% entry 60%; }
+    @keyframes grow { from { width: 0; } }
+  }
+}
+
+@media (max-width: 1000px) {
+  .hero-grid, .head, .band { grid-template-columns: minmax(0, 1fr); gap: var(--s-40); }
+  .head { align-items: start; }
+  .rail-step { grid-template-columns: minmax(0, 1fr); gap: var(--s-16); }
+  .nav-links { display: none; }
+}
+@media (max-width: 640px) {
+  .wrap { padding: 0 var(--s-16); }
+  .nav-in, .proto { padding-left: var(--s-16); padding-right: var(--s-16); }
+  .sec { padding: var(--s-64) 0; }
+  .band { padding: var(--s-32); }
+  .bars li { grid-template-columns: 100px minmax(0, 1fr); }
+  .bar-lag { grid-column: 2; text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<div class="proto">
+  <span><b>Prototype B</b> · ledger</span>
+  <span>Stripe, indigo-ink ledger on frosted glass</span>
+  <span><a href="/prototypes/">Compare all three</a></span>
+</div>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="/prototypes/b-ledger.html" aria-label="gledach, home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      gledach
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#collect">What it watches</a>
+      <a href="#pipeline">What it does with it</a>
+      <a href="#surfaces">Who consumes it</a>
+      <a href="#retarget">Point it anywhere</a>
+      <a href="#shelf">The shelf</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="https://signal.gledach.de" rel="noopener">Live preview</a>
+      <a class="btn btn-fill" href="https://github.com/gledach/signals" rel="noopener">Repository</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══════════════════ hero ══════════════════ -->
+  <section class="hero sec sec-first">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">signal · slot 01 on the gledach shelf</p>
+          <h1 class="t-display">
+            Competitive intelligence<br>your agents can query.<br>
+            <em>On your own machine.</em>
+          </h1>
+          <p class="t-lg measure-tight" style="margin-top: var(--s-24)">
+            Ten watchers and one inbox read what a market publishes. Everything
+            they find is typed, scored, attributed and handed to a machine as
+            structured data rather than a page to read.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-fill" href="https://signal.gledach.de" rel="noopener">Open the live preview</a>
+            <a class="btn btn-ghost" href="#collect">See what it watches</a>
+          </div>
+          <p class="hero-meta">MIT licensed · no account to start · 3 runtime dependencies · offline on a fresh clone</p>
+        </div>
+
+        <figure class="console" style="margin: 0">
+          <div class="console-bar">
+            <span>mcp · signal</span>
+            <span class="tag">coverage: fresh</span>
+          </div>
+<pre>&gt; <span class="c-bin">search_signals</span> { company: "cursor", since: "7d", minImpact: 70 }
+
+{
+  "signals": [
+    {
+      "hashId":      "8f2a1c…",
+      "signalType":  "pricing_change",
+      "impactScore":        84,
+      "source":      "email-google-alert",
+      "publishedAt": "2026-10-11T06:14:00Z"
+    }
+  ],
+  "coverage": {
+    "status":            "fresh",
+    "lastCollectedAt":   "2026-10-16T05:30:11Z",
+    "trustEmptyResult":  true,
+    "warnings":          []
+  }
+}</pre>
+          <figcaption class="t-cap" style="padding: 0 var(--s-24) var(--s-24)">
+            Every signal-reporting tool returns that <code>coverage</code> block.
+            It is how an agent tells a quiet market apart from a watcher that
+            stopped running.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ collect ══════════════════ -->
+  <section class="sec" id="collect">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">The collection</p>
+          <h2 class="t-h-lg">Eleven ways in, and three of them speak before anyone announces anything.</h2>
+        </div>
+        <p class="t-lg">
+          Each tile says what the watcher actually reads and how often it runs, not
+          what it promises. The three marked <b>leading</b> hear a move while it is
+          still infrastructure, before anyone has written a sentence about it.
+        </p>
+      </div>
+
+      <div class="tiles">
+
+        <article class="tile">
+          <p class="tile-n">01</p>
+          <h3 class="tile-name">Feeds<span class="mono">npm run fetch</span></h3>
+          <p class="tile-what">
+            Around sixty RSS feeds across the roster and the whole category: Google
+            News, Reddit, vendor blogs, GitHub releases. The list derives from the
+            roster, so retargeting rewrites it rather than leaving it behind.
+          </p>
+          <p class="tile-cad">every 30 min</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">02</p>
+          <h3 class="tile-name">Google Alerts<span class="mono">npm run watch:gmail</span></h3>
+          <p class="tile-what">
+            Alerts arrive in a mailbox, a parser reads them, and the result fills a
+            local inbox database. Two zones, and the second is easy to forget:
+            nothing reaches the dashboard until <code>email:promote</code> runs. The
+            refresh token stays on your machine and is never shipped to the scheduler.
+          </p>
+          <p class="tile-cad">local only</p>
+        </article>
+
+        <article class="tile tile-lead">
+          <p class="tile-n">03</p>
+          <h3 class="tile-name">Certificate logs<span class="mono">npm run watch:certs</span></h3>
+          <p class="tile-what">
+            Public certificate transparency, per competitor domain. A new subdomain
+            gets a certificate before the thing on it is announced, which makes this
+            the earliest free view of a vertical launch there is.
+          </p>
+          <p class="tile-cad">every 6 h · leading</p>
+        </article>
+
+        <article class="tile tile-lead">
+          <p class="tile-n">04</p>
+          <h3 class="tile-name">Sitemaps, robots<span class="mono">npm run watch:sites</span></h3>
+          <p class="tile-what">
+            Fetch, diff against the last snapshot, emit on new paths, removed paths
+            and rule changes. A page exists before anything links to it.
+          </p>
+          <p class="tile-cad">every 6 h · leading</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">05</p>
+          <h3 class="tile-name">Hacker News<span class="mono">npm run watch:hn</span></h3>
+          <p class="tile-what">
+            Through the Algolia search API, filtered on points and recency. Points,
+            comments, author and timestamps arrive as structured fields rather than
+            prose scraped out of a feed summary.
+          </p>
+          <p class="tile-cad">daily</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">06</p>
+          <h3 class="tile-name">GitHub<span class="mono">npm run watch:github</span></h3>
+          <p class="tile-what">
+            Releases, breaking-change tags and issue complaints. Sixty requests an
+            hour unauthenticated, five thousand with a token.
+          </p>
+          <p class="tile-cad">daily</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">07</p>
+          <h3 class="tile-name">YouTube captions<span class="mono">npm run watch:youtube</span></h3>
+          <p class="tile-what">
+            Captions over HTTP: no audio download and no transcription, which is free
+            for roughly four videos in five. A caption-less video still gets a signal
+            recording that captions were unavailable. Local transcription is opt in.
+          </p>
+          <p class="tile-cad">daily</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">08</p>
+          <h3 class="tile-name">Answer engines<span class="mono">npm run watch:aeo</span></h3>
+          <p class="tile-what">
+            Asks the shortlist question a buyer asks and records which brands each
+            engine names back. Detection is a deterministic word-boundary match, not
+            a model judging another model's output.
+          </p>
+          <p class="tile-cad">weekly</p>
+        </article>
+
+        <article class="tile tile-lead">
+          <p class="tile-n">09</p>
+          <h3 class="tile-name">Model routing<span class="mono">npm run watch:routing</span></h3>
+          <p class="tile-what">
+            A public, openly licensed data API: which models the market routes its
+            tokens to, and which applications process them. Only movement past a
+            threshold is emitted, so a flat week is silent instead of noisy.
+          </p>
+          <p class="tile-cad">daily · leading</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">10</p>
+          <h3 class="tile-name">Search discovery<span class="mono">npm run watch:tavily</span></h3>
+          <p class="tile-what">
+            Mention discovery past the feeds, two queries per company, guarded
+            against a free monthly credit tier with a cooldown between runs.
+          </p>
+          <p class="tile-cad">daily</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">11</p>
+          <h3 class="tile-name">Search interest<span class="mono">npm run watch:trends</span></h3>
+          <p class="tile-what">
+            Brand queries and <q>alternative to</q> queries, batched to the eight
+            stalest per run. The upstream limiter refuses thirty two in a row, so the
+            full set rotates across four passes.
+          </p>
+          <p class="tile-cad">weekly, 4 passes</p>
+        </article>
+
+        <article class="tile tile-empty">
+          <p class="tile-n">12</p>
+          <h3 class="tile-name">[UNDECIDED]</h3>
+          <p class="tile-what">
+            A watcher is added when a source is public, readable without an account,
+            and says something the eleven above do not. Those three questions are the
+            whole bar.
+          </p>
+          <p class="tile-cad">not built</p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════ lead time ══════════════════ -->
+  <section class="sec tint-mist">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Why those eleven</p>
+          <h2 class="t-h-lg">Infrastructure moves weeks before the press release does.</h2>
+        </div>
+        <p class="t-lg">
+          The list is not long for its own sake. It is ordered by how early each
+          source speaks, and most monitoring products start at the bottom of it.
+        </p>
+      </div>
+
+      <ul class="bars">
+        <li style="--w: 100%"><span>Infrastructure</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">weeks ahead</span></li>
+        <li style="--w: 74%"><span>Hiring</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">months, vague</span></li>
+        <li style="--w: 46%"><span>Documentation</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">hours</span></li>
+        <li style="--w: 38%"><span>Changelog</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">hours</span></li>
+        <li style="--w: 20%"><span>Marketing</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">at launch</span></li>
+        <li style="--w: 8%"><span>Press</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">after</span></li>
+      </ul>
+      <p class="t-cap" style="margin-top: var(--s-24)">
+        Lead time before a move becomes public knowledge. The three watchers flagged
+        leading above are the three at the top of this chart.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════ pipeline ══════════════════ -->
+  <section class="sec" id="pipeline">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What happens to one item</p>
+          <h2 class="t-h-lg">Five stages between a feed entry and an answer.</h2>
+        </div>
+        <p class="t-lg">
+          The panel below darkens as it goes, which is the point: each stage is one
+          step further from raw data, and the tool reports which one it reached.
+        </p>
+      </div>
+
+      <div class="rail">
+        <div class="rail-step">
+          <p class="rail-label">Stage 01<span>Classify</span></p>
+          <div class="rail-body">
+            <p>
+              Haiku reads the item and types it: product launch, pricing change,
+              funding, customer win, review complaint. With no model key a keyword
+              classifier runs instead, free and less precise, and the method used is
+              recorded on the row either way so you can re-run the ones that matter.
+            </p>
+          </div>
+        </div>
+        <div class="rail-step">
+          <p class="rail-label">Stage 02<span>Score</span></p>
+          <div class="rail-body">
+            <p>
+              Business impact from 0 to 100, re-weighted for this job rather than for
+              news: a product launch outranks generic press coverage, which is the
+              opposite of how a headline ranker would order the same two items.
+            </p>
+          </div>
+        </div>
+        <div class="rail-step">
+          <p class="rail-label">Stage 03<span>Store</span></p>
+          <div class="rail-body">
+            <p>
+              One row, keyed on a hash of its own content, so every write is
+              idempotent and two operators plus a scheduler can run the same pass
+              without producing duplicates. A local file by default. A hosted
+              database only once you point it at one.
+            </p>
+          </div>
+        </div>
+        <div class="rail-step">
+          <p class="rail-label">Stage 04<span>Correlate</span></p>
+          <div class="rail-body">
+            <p>
+              Theme and count rules fire a <b>convergence</b>: a pattern several
+              independent publishers corroborate. A launch, a hiring push and a
+              certificate change all pointing at the same vertical is one finding
+              rather than three unread rows. Each carries a structured citation graph
+              back to its evidence and dedupes per calendar week.
+            </p>
+          </div>
+        </div>
+        <div class="rail-step">
+          <p class="rail-label">Stage 05<span>Synthesise, and label it</span></p>
+          <div class="rail-body">
+            <p>
+              Battlecards from Sonnet, deep research from Opus across a hundred and
+              eighty days of signal, five analyst modes driven by a written persona,
+              and a weekly report that uses no model at all because its arithmetic is
+              deterministic. Every piece of model output is marked as model output,
+              and a claim the evidence does not support is published as unverified
+              rather than asserted quietly.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <dl class="stats" style="margin-top: var(--s-64)">
+        <div>
+          <dt>Signals stored</dt>
+          <dd>2,600+</dd>
+          <p>in the deployment behind the live preview</p>
+        </div>
+        <div>
+          <dt>Companies tracked</dt>
+          <dd>13</dd>
+          <p>across two segments, and it is configuration</p>
+        </div>
+        <div>
+          <dt>Runtime deps</dt>
+          <dd>3</dd>
+          <p>no build step, offline on a fresh clone</p>
+        </div>
+        <div>
+          <dt>Monthly spend</dt>
+          <dd>$15&ndash;25</dd>
+          <p>at the shipped models. Database and search on free tiers</p>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ══════════════════ surfaces ══════════════════ -->
+  <section class="sec tint-frost" id="surfaces">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Who consumes it</p>
+          <h2 class="t-h-lg">Three consumers. The dashboard is only one of them.</h2>
+        </div>
+        <p class="t-lg">
+          The agent surface is what this is built for. A person looking at a
+          dashboard is a second client, and the scheduler is a third.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card card-emph">
+          <p class="eyebrow">For agents</p>
+          <h3 class="t-h-sm">Eight tools over MCP</h3>
+          <p class="t-sm">
+            <code>list_companies</code>, <code>search_signals</code>,
+            <code>get_convergences</code>, <code>get_battlecard</code>,
+            <code>list_briefs</code>, <code>get_brief</code>,
+            <code>run_analyst</code>, <code>market_summary</code>, plus
+            <code>signal://</code> resources for a battlecard or a brief.
+          </p>
+          <p class="t-sm">
+            Read only by default and not just by convention: the single tool that
+            spends money ships with permission withheld, and opting in binds it to a
+            rolling daily ceiling shared with the scheduler and the command line.
+          </p>
+          <p class="card-go"><a href="https://github.com/gledach/signals/blob/main/docs/mcp.md" rel="noopener">The agent surface</a></p>
+        </article>
+
+        <article class="card">
+          <p class="eyebrow eyebrow-quiet">For people</p>
+          <h3 class="t-h-sm">Eight views on localhost</h3>
+          <p class="t-sm">
+            Feed, Battle, Compare, Market, Intel, Report, Briefs and Inbox. Number
+            keys switch mode, a command palette jumps anywhere, and Compare takes an
+            anchor plus up to three rivals in a URL you can share.
+          </p>
+          <p class="t-sm">
+            Battlecards and briefs come out as markdown you can edit in anything. A
+            regeneration never overwrites the part a person wrote.
+          </p>
+          <p class="card-go"><a href="https://signal.gledach.de" rel="noopener">Open the preview</a></p>
+        </article>
+
+        <article class="card">
+          <p class="eyebrow eyebrow-quiet">For the scheduler</p>
+          <h3 class="t-h-sm">One pass, tiered by cost</h3>
+          <p class="t-sm">
+            A single entry point runs every watcher on the cadence it deserves: the
+            expensive passes weekly, the cheap ones every half hour.
+          </p>
+          <p class="t-sm">
+            Cadence moves the bill far more than model choice. A job making one model
+            call per tracked company costs four times as much on a six-hourly tier as
+            on a daily one and the output is no fresher. That mistake cost this
+            deployment around two hundred dollars a month before it was caught.
+          </p>
+          <p class="card-go"><a href="https://github.com/gledach/signals/blob/main/docs/cost.md" rel="noopener">What it costs</a></p>
+        </article>
+      </div>
+
+      <p class="t-cap" style="margin-top: var(--s-32); max-width: 76ch">
+        There is also a Chrome side panel that checks whatever page you are reading
+        against your own intel, on device. It is experimental, it needs the dashboard
+        running, and the test gate does not cover it. Stated here rather than
+        discovered later.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════ retarget ══════════════════ -->
+  <section class="sec" id="retarget">
+    <div class="wrap">
+      <div class="band">
+        <div>
+          <p class="eyebrow">Point it anywhere</p>
+          <h2 class="t-h">Nothing in here knows which market it is watching.</h2>
+          <p class="t-lg" style="margin-top: var(--s-16)">
+            It ships pointed at thirteen AI coding tools. That is a configuration
+            file, not the product.
+          </p>
+          <p class="t-sm" style="margin-top: var(--s-24)">
+            Six layers resolve identically: an environment variable, then your local
+            file, then the shipped default. The roster, the feeds, the deal-context
+            axes, subdomain scoring, the agent policy and the answer-engine prompts.
+            Your file is ignored by git, so you can pull upstream forever without a
+            conflict in the one file you changed.
+          </p>
+          <p class="t-sm">
+            The gate is mechanical rather than a promise: the test suite fails if a
+            brand name appears anywhere outside the configuration directory, or if
+            the dashboard's own labels drift from the roster. Retargeting cannot
+            leave somebody else's market behind in a watcher or a prompt.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-reverse" href="https://github.com/gledach/signals/blob/main/docs/start.md" rel="noopener">Read the install guide</a>
+          </div>
+        </div>
+        <div>
+<pre><span class="c-bin">git</span> clone https://github.com/gledach/signals &amp;&amp; cd signals
+<span class="c-bin">npm</span> install
+<span class="c-bin">npm</span> run db:migrate   <span class="c-cmt"># local database and demo data. no account, no key</span>
+<span class="c-bin">npm</span> run doctor       <span class="c-cmt"># what worked, and what each missing key unlocks</span>
+<span class="c-bin">npm</span> run view         <span class="c-cmt"># a populated dashboard at 127.0.0.1:5180</span>
+
+<span class="c-bin">cp</span> config/companies.default.mjs config/companies.local.mjs
+<span class="c-bin">npm</span> run companies    <span class="c-cmt"># confirm what is live, and where it came from</span>
+<span class="c-bin">npm</span> test             <span class="c-cmt"># 15 smoke sections, 5 fixture suites, all offline</span></pre>
+          <p class="t-cap" style="margin-top: var(--s-16)">
+            That runs offline on a fresh clone, on Windows, macOS or Linux. A model
+            key turns on classification, battlecards and briefs. Without one the
+            keyword classifier runs and everything else still works.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ previews ══════════════════ -->
+  <section class="sec tint-mist">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Seeing it first</p>
+          <h2 class="t-h-lg">Anything worth looking at gets its own subdomain.</h2>
+        </div>
+        <p class="t-lg">
+          You should be able to watch a tool work before you decide to install it.
+          The convention is one address per tool, replaced in place.
+        </p>
+      </div>
+
+      <div class="console" style="max-width: 560px">
+        <div class="console-bar">
+          <span>convention</span>
+          <span class="tag-quiet tag">read only</span>
+        </div>
+<pre>&lt;tool&gt;.gledach.de
+
+<span class="c-bin">signal</span>.gledach.de     <span class="c-cmt">a real deployment, exported to one static file</span></pre>
+      </div>
+
+      <div class="cards" style="margin-top: var(--s-48)">
+        <article class="card">
+          <h3 class="t-sub">Real data, not a mock</h3>
+          <p class="t-sm">The export asks the running viewer the same questions a browser asks and inlines the answers, so a preview cannot drift from the thing it was taken from.</p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">Dated and read only</h3>
+          <p class="t-sm">A snapshot, not a live instance. Nothing you click reaches a database, and every number is true as of the export.</p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">One per tool, replaced in place</h3>
+          <p class="t-sm">A re-export overwrites the preview, so you are looking at the most recent snapshot rather than an archive of all of them.</p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">Generated text is labelled</h3>
+          <p class="t-sm">Battlecards, briefs and convergences are model output, not verified fact. They are a starting point for a person, which is how the tool itself describes them.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ shelf ══════════════════ -->
+  <section class="sec" id="shelf">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">The rest of the shelf</p>
+          <h2 class="t-h-lg">Four more, each on its own page.</h2>
+        </div>
+        <p class="t-lg">
+          Same author, different shapes. They share no stack and no interface, only
+          the promise: free, installable, and honest about what each one cannot see.
+        </p>
+      </div>
+
+      <div class="cards">
+        <a class="card" href="/whenrun">
+          <h3 class="t-h-sm">whenrun</h3>
+          <p class="t-sm">Watches day-ahead power prices and renewable share, then starts your job in the cheapest or greenest window that still meets its deadline. Zero runtime dependencies and nothing to install.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/phonehome">
+          <h3 class="t-h-sm">phonehome</h3>
+          <p class="t-sm">A local resolver that records which domains every device on your network contacts, and says when one starts talking somewhere new. Blocks nothing, uploads nothing.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/recall">
+          <h3 class="t-h-sm">recall</h3>
+          <p class="t-sm">Checks four public registers against a list of the things you actually own, and grades how sure each match is. A register it could not reach is reported as unreachable, never as clean.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/signal-patterns">
+          <h3 class="t-h-sm">signal-patterns</h3>
+          <p class="t-sm">The written reasoning behind all of it: what is watchable, what it costs, and the decisions that only become obvious after something has broken. Nothing to install.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <article class="card card-slot">
+          <h3 class="t-h-sm">[UNNAMED]</h3>
+          <p class="t-sm">The shelf holds a dozen. Slot 06 is empty and stays that way until something runs. Is there something you keep checking by hand that a tool could watch for you?</p>
+          <p class="card-go"><a href="https://github.com/gledach/requests/issues" rel="noopener">Ask in the open &rarr;</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ house rules ══════════════════ -->
+  <section class="sec tint-peri">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">House rules</p>
+          <h2 class="t-h-lg">What is true of everything on this shelf.</h2>
+        </div>
+        <p class="t-lg">
+          The tools vary. These six do not. They are the reason a tool gets
+          published here at all.
+        </p>
+      </div>
+
+      <ul class="rules">
+        <li>
+          <h3>Free, and the source is public</h3>
+          <p class="t-sm">MIT unless a dependency makes that impossible, in which case the licence is stated on the tool's own page.</p>
+        </li>
+        <li>
+          <h3>Your machine is the runtime</h3>
+          <p class="t-sm">Cloud is for sharing state between machines you own. It is not where your data has to live.</p>
+        </li>
+        <li>
+          <h3>No account to start</h3>
+          <p class="t-sm">Clone it and see something real. Keys, hosted databases and schedules are opt in, later, each listed with what it buys you.</p>
+        </li>
+        <li>
+          <h3>Honest about blind spots</h3>
+          <p class="t-sm">Every tool ships a written audit of what it cannot see, kept beside the documentation rather than buried in it.</p>
+        </li>
+        <li>
+          <h3>Read only until you say otherwise</h3>
+          <p class="t-sm">Nothing spends your money because an agent found a button. Paid actions ship disabled and behind a ceiling.</p>
+        </li>
+        <li>
+          <h3>Generated text is labelled</h3>
+          <p class="t-sm">Model output is marked as model output. A tool that cannot tell you what it does not know is not finished.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div>
+        <a class="brand" href="/prototypes/b-ledger.html" aria-label="gledach, home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          gledach
+        </a>
+        <p class="t-cap" style="margin-top: var(--s-16); max-width: 34ch">
+          <em>gledati</em> (slav.): to watch. What a good analyst does before
+          speaking.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">Tools</p>
+        <ul class="foot-list">
+          <li><a href="/">signal</a></li>
+          <li><a href="/whenrun">whenrun</a></li>
+          <li><a href="/phonehome">phonehome</a></li>
+          <li><a href="/recall">recall</a></li>
+          <li><a href="/signal-patterns">signal-patterns</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">Previews</p>
+        <ul class="foot-list">
+          <li><a href="https://signal.gledach.de" rel="noopener">signal.gledach.de</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">Contact</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
+          <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
+          <li><a href="https://www.linkedin.com/in/apsolut/" rel="noopener">Creator, on LinkedIn</a></li>
+          <li><a href="mailto:request@gledach.de">request@gledach.de</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p class="t-cap">MIT licensed. Signals are gathered from public sources. Generated analysis is model output, not verified fact.</p>
+      <p class="t-cap mono">if it ships to turso, it shipped</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PROTOTYPE A · gallery · signal</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PROTOTYPE A, "gallery". Not the live design system.
+
+     Source style: Structured, "Renaissance gallery on putty paper."
+     Adapted, not copied. Three deliberate departures, each forced:
+
+     1. The source style's imagery rule is "classical Renaissance and Baroque
+        oil paintings exclusively." gledach has no painting library and a
+        borrowed oil painting would be decoration standing in for proof, which
+        is the one thing the content rules forbid. So the full-bleed canvas
+        slot carries a data plate instead: real output, set like an exhibit.
+     2. Graphite #595855 scores 3.98:1 on putty and fails small text. It is
+        therefore restricted here to bone, chalk and paper surfaces, where it
+        clears 5.5:1. Body copy on putty is ink.
+     3. The source's display face is Davinci. Its own documented fallback
+        chain ends at Playfair Display, which is what loads here.
+
+     Fonts, colour and type scale otherwise follow the source tokens verbatim.
+     Motion is none, as the source specifies: depth comes from alternating
+     light and dark bands, never elevation.
+     ═══════════════════════════════════════════════════════════════════════ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@400;500&display=swap">
+
+<style>
+/* ── tokens, from the source style ────────────────────────────────── */
+:root {
+  --putty:    #c4c3b6;   /* primary light canvas, the gallery wall */
+  --ink:      #000000;
+  --bone:     #e7e5e4;   /* elevated card surface */
+  --chalk:    #ebebeb;   /* lightest surface, footer zones */
+  --vellum:   #dfdcd5;   /* hairline borders */
+  --graphite: #595855;   /* muted text. bone/chalk/paper only, see note 2 */
+  --paper:    #ffffff;
+
+  --font-display: 'Playfair Display', Canela, 'Tiempos Headline', Georgia, serif;
+  --font-util:    'Inter', 'Neue Haas Grotesk', Söhne, 'Helvetica Neue', sans-serif;
+
+  --text-body-sm: 15px;     --leading-body-sm: 1.5;
+  --text-subheading: 22px;  --leading-subheading: 1.33;  --tracking-subheading: -0.11px;
+  --text-heading-sm: 26px;  --leading-heading-sm: 1.33;  --tracking-heading-sm: -0.13px;
+  --text-heading: 43px;     --leading-heading: 1.1;      --tracking-heading: -0.215px;
+  --text-heading-lg: 52px;  --leading-heading-lg: 1;     --tracking-heading-lg: -0.47px;
+  --text-display: 374px;    --leading-display: 0.84;     --tracking-display: -3.37px;
+
+  --spacing-4: 4px;    --spacing-16: 16px;  --spacing-20: 20px;  --spacing-28: 28px;
+  --spacing-32: 32px;  --spacing-36: 36px;  --spacing-40: 40px;  --spacing-52: 52px;
+  --spacing-60: 60px;  --spacing-96: 96px;  --spacing-168: 168px;
+
+  --radius-links: 2px;
+  --radius-cards: 9px;
+  --radius-buttons: 28.8px;
+
+  --section-gap: 80px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--putty);
+  color: var(--ink);
+  font-family: var(--font-util);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Full bleed. The source style has no max-width content container: the page
+   breathes edge to edge and the plates crop at the viewport. Inner text still
+   needs a measure, so the measure lives on the text block, not on a wrapper. */
+.bleed { padding: var(--section-gap) var(--spacing-40); }
+.measure { max-width: 68ch; }
+.measure-tight { max-width: 52ch; }
+
+/* Bands. The only depth mechanism in this system. Hard cuts, no gradients. */
+.band-dark  { background: var(--ink);   color: var(--paper); }
+.band-chalk { background: var(--chalk); color: var(--ink); }
+.band-bone  { background: var(--bone);  color: var(--ink); }
+.band-dark a { color: var(--paper); }
+
+/* ── type ─────────────────────────────────────────────────────────── */
+/* The display face is display only. 52px is its floor, as the source sets. */
+.d-wordmark {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(96px, 26vw, var(--text-display));
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  margin: 0;
+}
+.d-section {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(var(--text-heading-lg), 7vw, 94px);
+  line-height: 0.92;
+  letter-spacing: -0.85px;
+  margin: 0;
+}
+.d-plate {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-heading-lg);
+  line-height: var(--leading-heading-lg);
+  letter-spacing: var(--tracking-heading-lg);
+  margin: 0;
+}
+.d-vignette {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 0;
+}
+.u-heading {
+  font-size: var(--text-heading);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+  font-weight: 400;
+  margin: 0;
+}
+.u-heading-sm {
+  font-size: var(--text-heading-sm);
+  line-height: var(--leading-heading-sm);
+  letter-spacing: var(--tracking-heading-sm);
+  font-weight: 400;
+  margin: 0;
+}
+.u-sub {
+  font-size: var(--text-subheading);
+  line-height: var(--leading-subheading);
+  letter-spacing: var(--tracking-subheading);
+  font-weight: 400;
+  margin: 0;
+}
+p { margin: 0 0 var(--spacing-16); }
+p:last-child { margin-bottom: 0; }
+
+/* Label: weight 500 is reserved for labels and data callouts. 9px is the
+   system's floor and is used only for non-essential marks, never for copy
+   a reader has to parse. */
+.label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 var(--spacing-16);
+}
+.label-muted { color: var(--graphite); }
+.band-dark .label-muted { color: #b5b4b0; }
+
+code, .mono {
+  font-family: ui-monospace, 'SF Mono', 'Geist Mono', Menlo, Consolas, monospace;
+  font-size: 13px;
+}
+
+a { color: inherit; border-radius: var(--radius-links); }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.band-dark a:focus-visible { outline-color: var(--paper); }
+
+/* ── pill action, the single CTA per viewport ─────────────────────── */
+.pill {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.25;
+  padding: 13px 17px;        /* 9px 17px in source, raised to clear 44px */
+  min-height: 44px;
+  border-radius: var(--radius-buttons);
+  text-decoration: none;
+}
+.pill-reverse { background: var(--paper); color: var(--ink); }
+.pill-outline {
+  background: transparent;
+  color: currentColor;
+  border: 1px solid currentColor;
+}
+
+/* ── hexagonal indicator, the secondary brand geometry ───────────── */
+.hex {
+  display: inline-block;
+  width: 12px; height: 13px;
+  background: currentColor;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  opacity: 0.85;
+}
+/* The outline variant cannot be a border plus a clip-path: the clip cuts the
+   border into fragments. It is a stroked polygon instead. */
+.hex-svg { display: inline-block; vertical-align: middle; }
+
+/* ── header ───────────────────────────────────────────────────────── */
+.hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-20) var(--spacing-40);
+}
+.monogram {
+  width: 32px; height: 32px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--font-display);
+  font-size: 16px;
+  text-decoration: none;
+}
+.hdr-link { font-size: 12px; text-decoration: none; }
+
+/* ── hero ─────────────────────────────────────────────────────────── */
+.hero { padding: var(--spacing-60) var(--spacing-40) var(--section-gap); }
+/* The wordmark is a carved shape rather than separate letters, so it is
+   allowed to crop at the viewport edge. clip, never hidden: a scroll
+   container on an ancestor would break any view() timeline below it. */
+.hero-mark { overflow: clip; margin-bottom: var(--spacing-36); }
+.hero-claim { max-width: 20ch; margin-bottom: var(--spacing-28); }
+.hero-meta {
+  display: flex; flex-wrap: wrap; gap: var(--spacing-16);
+  align-items: center;
+  margin-top: var(--spacing-32);
+  font-size: 12px;
+}
+
+/* ── plate: the full-bleed exhibit ────────────────────────────────── */
+.plate {
+  background: var(--paper);
+  border-radius: var(--radius-cards);
+  padding: var(--spacing-28);
+  overflow-x: auto;
+}
+.plate pre {
+  margin: 0;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre;
+}
+.plate-cap {
+  color: var(--graphite);
+  font-size: 12px;
+  margin-top: var(--spacing-16);
+  max-width: 76ch;
+}
+
+/* ── the catalogue: what it watches ──────────────────────────────── */
+.catalogue {
+  list-style: none;
+  margin: var(--spacing-52) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--vellum);
+}
+.cat-row {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1.1fr) minmax(0, 1.6fr) 104px;
+  gap: var(--spacing-20);
+  align-items: start;
+  padding: var(--spacing-20) 0;
+  border-bottom: 1px solid var(--vellum);
+}
+.band-dark .catalogue,
+.band-dark .cat-row { border-color: #2a2a28; }
+.cat-n {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--graphite);
+  padding-top: 3px;
+}
+.band-dark .cat-n { color: #8b8a86; }
+.cat-name { font-weight: 500; font-size: var(--text-body-sm); }
+.cat-name .mono { font-weight: 400; display: block; margin-top: 2px; color: var(--graphite); }
+.band-dark .cat-name .mono { color: #8b8a86; }
+.cat-what { font-size: var(--text-body-sm); }
+.cat-when { font-size: 12px; text-align: right; color: var(--graphite); padding-top: 2px; }
+.band-dark .cat-when { color: #8b8a86; }
+
+/* ── vignette: the circular feature crop ─────────────────────────── */
+.vignettes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--spacing-40);
+  margin-top: var(--spacing-52);
+}
+/* Flex column so the hexagon marker sits on one baseline across the row,
+   whatever length the note under each circle runs to. */
+.vig { text-align: center; display: flex; flex-direction: column; }
+.vig-hex { margin-top: auto; }
+.vig-caption { margin-bottom: var(--spacing-20); }
+/* A circular crop, not a rounded rectangle. The source is explicit on that. */
+.vig-circle {
+  width: 200px; height: 200px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--bone);
+  border: 1px solid var(--vellum);
+  display: grid;
+  place-items: center;
+  overflow: clip;
+  padding: var(--spacing-20);
+}
+.band-dark .vig-circle { background: #141412; border-color: #2a2a28; }
+.vig-figure { font-family: var(--font-display); font-size: 52px; line-height: 1; }
+.vig-unit { display: block; font-family: var(--font-util); font-size: 12px; font-weight: 500; margin-top: 6px; }
+.vig-note { font-size: 12px; color: var(--graphite); margin-top: var(--spacing-16); }
+.band-dark .vig-note { color: #b5b4b0; }
+.vig-hex { margin-top: var(--spacing-16); }
+
+/* ── notched product card ─────────────────────────────────────────── */
+/* Hexagonal corner geometry, not border-radius. The source calls for exactly
+   this and it is the one place the shape language shows up at size. */
+.notched {
+  background: var(--ink);
+  color: var(--paper);
+  padding: var(--spacing-32);
+  clip-path: polygon(28px 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%, 0 28px);
+}
+.notched-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--spacing-20);
+  margin-top: var(--spacing-52);
+}
+.notched .label { color: #b5b4b0; }
+.notched-scroll { font-size: 9px; letter-spacing: 0.12em; color: #8b8a86; margin-top: var(--spacing-28); }
+
+/* ── pipeline: the stages a signal passes ────────────────────────── */
+.stages { list-style: none; margin: var(--spacing-52) 0 0; padding: 0; }
+.stage {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: var(--spacing-32);
+  padding: var(--spacing-32) 0;
+  border-top: 1px solid var(--vellum);
+}
+.band-chalk .stage { border-color: #d8d8d8; }
+.stage-n {
+  font-family: var(--font-display);
+  font-size: 52px;
+  line-height: 0.9;
+  color: var(--graphite);
+}
+.stage-body { max-width: 72ch; }
+.stage-cmd {
+  display: inline-block;
+  background: var(--paper);
+  border: 1px solid var(--vellum);
+  border-radius: var(--radius-links);
+  padding: 4px 8px;
+  margin-top: var(--spacing-16);
+}
+
+/* ── two column split ─────────────────────────────────────────────── */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--spacing-60);
+  align-items: start;
+}
+
+/* ── lead time bars ───────────────────────────────────────────────── */
+.bars { list-style: none; margin: var(--spacing-32) 0 0; padding: 0; }
+.bars li {
+  display: grid;
+  grid-template-columns: 136px minmax(0, 1fr) 108px;
+  gap: var(--spacing-16);
+  align-items: center;
+  padding: 6px 0;
+  font-size: 12px;
+}
+.bar {
+  height: 10px;
+  background: var(--ink);
+  width: var(--w);
+}
+.band-dark .bar { background: var(--paper); }
+.bar-lag { color: var(--graphite); text-align: right; }
+.band-dark .bar-lag { color: #b5b4b0; }
+
+/* ── shelf: the other tools, each on its own page now ────────────── */
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: var(--spacing-20);
+  margin-top: var(--spacing-52);
+}
+.shelf-card {
+  background: var(--paper);
+  border-radius: var(--radius-cards);
+  padding: var(--spacing-28);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  text-decoration: none;
+}
+.shelf-card.is-slot { background: transparent; border: 1px dashed var(--vellum); }
+.shelf-name { font-family: var(--font-display); font-size: var(--text-heading-sm); line-height: 1.1; }
+.shelf-what { font-size: var(--text-body-sm); }
+.shelf-go { font-size: 12px; font-weight: 500; margin-top: auto; }
+
+/* ── rules ────────────────────────────────────────────────────────── */
+.rules {
+  list-style: none; margin: var(--spacing-52) 0 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-40) var(--spacing-52);
+}
+.rules li { max-width: 46ch; }
+
+/* ── footer ───────────────────────────────────────────────────────── */
+.foot { padding: var(--spacing-60) var(--spacing-40) var(--spacing-40); }
+.foot-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--spacing-40);
+}
+.foot-list { list-style: none; margin: 0; padding: 0; font-size: 12px; }
+.foot-list li { padding: 3px 0; }
+.foot-rule { border: 0; border-top: 1px solid var(--vellum); margin: var(--spacing-40) 0; }
+.foot-mark {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 16vw, 200px);
+  line-height: 0.84;
+  letter-spacing: -2px;
+  margin: var(--spacing-40) 0 0;
+  overflow: clip;
+}
+
+/* ── prototype banner. Not part of the design. ────────────────────── */
+.proto {
+  background: var(--ink); color: var(--paper);
+  padding: 10px var(--spacing-40);
+  font-size: 12px;
+  display: flex; gap: var(--spacing-16); flex-wrap: wrap;
+}
+.proto a { color: var(--paper); }
+
+@media (max-width: 900px) {
+  .split { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-40); }
+  .cat-row { grid-template-columns: 40px minmax(0, 1fr); }
+  .cat-when { text-align: left; grid-column: 2; }
+  .cat-what { grid-column: 2; }
+  .stage { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-16); }
+  .stage-n { font-size: 43px; }
+  .bars li { grid-template-columns: 100px minmax(0, 1fr); }
+  .bar-lag { grid-column: 2; text-align: left; }
+}
+@media (max-width: 640px) {
+  :root { --section-gap: 52px; }
+  .bleed { padding: var(--section-gap) var(--spacing-16); }
+  .hdr, .hero, .foot, .proto { padding-left: var(--spacing-16); padding-right: var(--spacing-16); }
+}
+</style>
+</head>
+<body>
+
+<div class="proto">
+  <span><b>Prototype A</b> · gallery</span>
+  <span>Structured, Renaissance gallery on putty paper</span>
+  <span><a href="/prototypes/">Compare all three</a></span>
+</div>
+
+<header class="hdr">
+  <a class="monogram" href="/prototypes/a-gallery.html" aria-label="gledach, home">g</a>
+  <a class="hdr-link" href="https://github.com/gledach/signals" rel="noopener">Repository</a>
+</header>
+
+<main>
+
+  <!-- ══════════════════ hero ══════════════════ -->
+  <section class="hero">
+    <div class="hero-mark">
+      <h1 class="d-wordmark">signal</h1>
+    </div>
+    <p class="u-heading hero-claim">Competitive intelligence your agents can query.</p>
+    <p class="u-sub measure-tight">
+      Ten watchers and one inbox read what a market publishes. What comes out the
+      other end is scored, attributed and answerable by a machine.
+    </p>
+    <div class="hero-meta">
+      <a class="pill" href="https://signal.gledach.de" rel="noopener">Open the exhibit</a>
+      <svg class="hex-svg" width="12" height="13" viewBox="0 0 12 13" aria-hidden="true" focusable="false"><polygon points="6,0.6 11.4,3.8 11.4,9.2 6,12.4 0.6,9.2 0.6,3.8" fill="none" stroke="currentColor"/></svg>
+      <span>MIT licensed · no account to start · your machine is the runtime</span>
+    </div>
+  </section>
+
+  <!-- ══════════════════ plate I: the exhibit ══════════════════ -->
+  <section class="bleed band-bone">
+    <p class="label label-muted">Plate I · the surface an agent sees</p>
+    <h2 class="d-plate measure">It answers in structured data, not in a page to read.</h2>
+    <p class="measure" style="margin-top: var(--spacing-28)">
+      Eight tools over MCP, and every one that reports signals also reports how
+      recently it collected them. That second part is the whole difference between
+      a quiet market and a watcher that stopped running.
+    </p>
+
+    <div class="plate" style="margin-top: var(--spacing-40)">
+<pre>&gt; search_signals { company: "cursor", since: "7d", minImpact: 70 }
+
+  {
+    "signals": [
+      {
+        "hashId": "8f2a1c…",
+        "signalType": "pricing_change",
+        "impactScore": 84,
+        "source": "email-google-alert",
+        "title": "Cursor revises team seat pricing",
+        "publishedAt": "2026-10-11T06:14:00Z"
+      }
+    ],
+    "coverage": {
+      "status": "fresh",
+      "lastCollectedAt": "2026-10-16T05:30:11Z",
+      "trustEmptyResult": true,
+      "warnings": []
+    }
+  }</pre>
+    </div>
+    <p class="plate-cap">
+      The <code>coverage</code> block is on every signal-reporting tool.
+      <code>status</code> is one of <code>fresh</code>, <code>slowing</code>,
+      <code>stale</code> or <code>never</code>, and <code>trustEmptyResult</code>
+      tells an agent whether an empty answer means nothing happened or means
+      nobody looked. Without it, a watcher that quietly died reads as a calm market.
+    </p>
+  </section>
+
+  <!-- ══════════════════ plate II: the catalogue ══════════════════ -->
+  <section class="bleed">
+    <p class="label label-muted">Plate II · the collection</p>
+    <h2 class="d-section">Eleven ways in.</h2>
+    <p class="u-sub measure" style="margin-top: var(--spacing-28)">
+      Each one reads something already public, and each one is listed with what it
+      actually reads rather than what it promises. Three of them see a move before
+      anybody announces it.
+    </p>
+
+    <ul class="catalogue">
+      <li class="cat-row">
+        <span class="cat-n">01</span>
+        <span class="cat-name">Feeds<span class="mono">npm run fetch</span></span>
+        <span class="cat-what">
+          Around sixty RSS feeds across the roster and the category: Google News,
+          Reddit, vendor blogs, GitHub releases. The feed list derives from the
+          roster, so retargeting rewrites it.
+        </span>
+        <span class="cat-when">every 30 min</span>
+      </li>
+      <li class="cat-row">
+        <span class="cat-n">02</span>
+        <span class="cat-name">Google Alerts, by Gmail<span class="mono">npm run watch:gmail</span></span>
+        <span class="cat-what">
+          Alerts land in a mailbox, a parser reads them, and the result fills a
+          local inbox database. Two zones, and the second is easy to forget:
+          nothing reaches the dashboard until <code>email:promote</code> runs. The
+          refresh token stays on your machine and never goes to the scheduler.
+        </span>
+        <span class="cat-when">local only</span>
+      </li>
+      <li class="cat-row">
+        <span class="cat-n">03</span>
+        <span class="cat-name">Certificate transparency<span class="mono">npm run watch:certs</span></span>
+        <span class="cat-what">
+          Public certificate logs, per competitor domain. A new subdomain is issued
+          a certificate before the thing on it is announced, which makes this the
+          earliest view of a vertical launch anyone gets for free.
+        </span>
+        <span class="cat-when">every 6 h</span>
+      </li>
+      <li class="cat-row">
+        <span class="cat-n">04</span>
+        <span class="cat-name">Sitemaps and robots<span class="mono">npm run watch:sites</span></span>
+        <span class="cat-what">
+          Fetch, diff against the last snapshot, and emit on new paths, removed
+          paths and rule changes. A page exists before it is linked.
+        </span>
+        <span class="cat-when">every 6 h</span>
+      </li>
+      <li class="cat-row">
+        <span class="cat-n">05</span>
+        <span class="cat-name">Hacker News<span class="mono">npm run watch:hn</span></span>
+        <span class="cat-what">
+          Through the Algolia search API, filtered by points and recency, with
+          points, comments, author and timestamps as structured fields rather than
+          prose scraped out of an RSS summary.
+        </span>
+        <span class="cat-when">daily</span>
+      </li>
+      <li class="cat-row">
+        <span class="cat-n">06</span>
+        <span class="cat-name">GitHub<span class="mono">npm run watch:github</span></span>
+        <span class="cat-what">
+          Releases, breaking-change tags and issue complaints. Sixty requests an
+          hour unauthenticated, five thousand with a token.
+        </span>
+        <span class="cat-when">daily</span>
+      </li>
+      <li class="cat-row">
+        <span class="cat-n">07</span>
+        <span class="cat-name">YouTube captions<span class="mono">npm run watch:youtube</span></span>
+        <span class="cat-what">
+          Captions over HTTP, no audio download and no transcription, which is free
+          for roughly four videos in five. A caption-less video still gets a signal
+          saying captions were not available. Local transcription is opt in.
+        </span>
+        <span class="cat-when">daily</span>
+      </li>
+      <li class="cat-row">
+        <span class="cat-n">08</span>
+        <span class="cat-name">Answer-engine visibility<span class="mono">npm run watch:aeo</span></span>
+        <span class="cat-what">
+          Asks the shortlist questions a buyer asks and records which brands each
+          engine names. Detection is a deterministic word-boundary match, not a
+          model judging another model's output.
+        </span>
+        <span class="cat-when">weekly</span>
+      </li>
+      <li class="cat-row">
+        <span class="cat-n">09</span>
+        <span class="cat-name">Model routing<span class="mono">npm run watch:routing</span></span>
+        <span class="cat-what">
+          A public data API, openly licensed: which models the market routes tokens
+          to, and which applications process them. It emits only movement above a
+          threshold, so a flat week is silent rather than noisy.
+        </span>
+        <span class="cat-when">daily</span>
+      </li>
+      <li class="cat-row">
+        <span class="cat-n">10</span>
+        <span class="cat-name">Search discovery<span class="mono">npm run watch:tavily</span></span>
+        <span class="cat-what">
+          Mention discovery past the feeds, two queries per company, budget guarded
+          against a free monthly tier with a cooldown between runs.
+        </span>
+        <span class="cat-when">daily</span>
+      </li>
+      <li class="cat-row">
+        <span class="cat-n">11</span>
+        <span class="cat-name">Search interest<span class="mono">npm run watch:trends</span></span>
+        <span class="cat-what">
+          Brand queries and <q>alternative to</q> queries. Batched to the eight
+          stalest per run, because the upstream rate limiter refuses thirty two in
+          a row, so the full set rotates over four passes.
+        </span>
+        <span class="cat-when">weekly, 4 passes</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ══════════════════ plate III: why these ══════════════════ -->
+  <section class="bleed band-dark">
+    <div class="split">
+      <div>
+        <p class="label label-muted">Plate III · the argument</p>
+        <h2 class="d-section">Infrastructure moves first. Press moves last.</h2>
+      </div>
+      <div class="measure">
+        <p>
+          The sources above are not a long list for its own sake. They are ordered
+          by how early they speak. A certificate is issued and a sitemap grows weeks
+          before a launch post exists, and a launch post is where most monitoring
+          products start.
+        </p>
+        <ul class="bars">
+          <li style="--w: 100%"><span>Infrastructure</span><span class="bar"></span><span class="bar-lag">weeks</span></li>
+          <li style="--w: 74%"><span>Hiring</span><span class="bar"></span><span class="bar-lag">months, vague</span></li>
+          <li style="--w: 46%"><span>Documentation</span><span class="bar"></span><span class="bar-lag">hours</span></li>
+          <li style="--w: 38%"><span>Changelog</span><span class="bar"></span><span class="bar-lag">hours</span></li>
+          <li style="--w: 20%"><span>Marketing</span><span class="bar"></span><span class="bar-lag">at launch</span></li>
+          <li style="--w: 8%"><span>Press</span><span class="bar"></span><span class="bar-lag">after</span></li>
+        </ul>
+        <p style="margin-top: var(--spacing-28)">
+          Lead time before a move becomes public knowledge. Most tools start at the
+          bottom of this list, which is where everyone is already looking.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ plate IV: the pipeline ══════════════════ -->
+  <section class="bleed band-chalk">
+    <p class="label label-muted">Plate IV · what happens to one signal</p>
+    <h2 class="d-section">Five stages, and it says which one it stopped at.</h2>
+
+    <ol class="stages">
+      <li class="stage">
+        <span class="stage-n">I</span>
+        <div class="stage-body">
+          <h3 class="u-heading-sm">Classify</h3>
+          <p>
+            Haiku reads the item and types it: product launch, pricing change,
+            funding, customer win, review complaint. With no model key a keyword
+            classifier runs instead, which is less precise and still free, and the
+            method is recorded on the row either way.
+          </p>
+        </div>
+      </li>
+      <li class="stage">
+        <span class="stage-n">II</span>
+        <div class="stage-body">
+          <h3 class="u-heading-sm">Score</h3>
+          <p>
+            Business impact from nought to a hundred, re-weighted for this job: a
+            product launch outranks generic press coverage, which is the opposite
+            of how a news ranker would read the same two items.
+          </p>
+        </div>
+      </li>
+      <li class="stage">
+        <span class="stage-n">III</span>
+        <div class="stage-body">
+          <h3 class="u-heading-sm">Store</h3>
+          <p>
+            One row, keyed by a hash of its content. Every write is idempotent, so
+            two operators and a scheduler can all run the same pass and the
+            duplicates collapse. A local file by default. A hosted database only
+            when you point it at one.
+          </p>
+        </div>
+      </li>
+      <li class="stage">
+        <span class="stage-n">IV</span>
+        <div class="stage-body">
+          <h3 class="u-heading-sm">Correlate</h3>
+          <p>
+            Theme and count rules fire a convergence: a pattern several independent
+            publishers corroborate. A launch, a hiring push and a certificate change
+            all pointing at the same vertical is one finding, not three. Each carries
+            a structured citation graph back to its evidence, and dedupes per week.
+          </p>
+          <code class="stage-cmd">npm run correlate:dry</code>
+        </div>
+      </li>
+      <li class="stage">
+        <span class="stage-n">V</span>
+        <div class="stage-body">
+          <h3 class="u-heading-sm">Synthesise, and label it</h3>
+          <p>
+            Battlecards from Sonnet, deep research from Opus against a hundred and
+            eighty days of signal, five analyst modes from a written persona, and a
+            weekly report that uses no model at all because the arithmetic is
+            deterministic. All model output is marked as model output. A claim the
+            evidence does not support is published as unverified rather than
+            quietly asserted.
+          </p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="vignettes">
+      <figure class="vig">
+        <figcaption class="vig-caption d-vignette">Collected</figcaption>
+        <div class="vig-circle">
+          <p class="vig-figure">2,600<span class="vig-unit">signals stored</span></p>
+        </div>
+        <p class="vig-note">in the deployment behind the exhibit</p>
+        <p class="vig-hex"><svg class="hex-svg" width="12" height="13" viewBox="0 0 12 13" aria-hidden="true" focusable="false"><polygon points="6,0.6 11.4,3.8 11.4,9.2 6,12.4 0.6,9.2 0.6,3.8" fill="none" stroke="currentColor"/></svg></p>
+      </figure>
+      <figure class="vig">
+        <figcaption class="vig-caption d-vignette">Watched</figcaption>
+        <div class="vig-circle">
+          <p class="vig-figure">13<span class="vig-unit">companies, 2 segments</span></p>
+        </div>
+        <p class="vig-note">the shipped roster, and it is configuration</p>
+        <p class="vig-hex"><svg class="hex-svg" width="12" height="13" viewBox="0 0 12 13" aria-hidden="true" focusable="false"><polygon points="6,0.6 11.4,3.8 11.4,9.2 6,12.4 0.6,9.2 0.6,3.8" fill="none" stroke="currentColor"/></svg></p>
+      </figure>
+      <figure class="vig">
+        <figcaption class="vig-caption d-vignette">Carried</figcaption>
+        <div class="vig-circle">
+          <p class="vig-figure">3<span class="vig-unit">runtime dependencies</span></p>
+        </div>
+        <p class="vig-note">no build step, offline on a fresh clone</p>
+        <p class="vig-hex"><svg class="hex-svg" width="12" height="13" viewBox="0 0 12 13" aria-hidden="true" focusable="false"><polygon points="6,0.6 11.4,3.8 11.4,9.2 6,12.4 0.6,9.2 0.6,3.8" fill="none" stroke="currentColor"/></svg></p>
+      </figure>
+      <figure class="vig">
+        <figcaption class="vig-caption d-vignette">Spent</figcaption>
+        <div class="vig-circle">
+          <p class="vig-figure">$15<span class="vig-unit">to $25 a month</span></p>
+        </div>
+        <p class="vig-note">at the shipped models and cadence. Database and search sit on free tiers</p>
+        <p class="vig-hex"><svg class="hex-svg" width="12" height="13" viewBox="0 0 12 13" aria-hidden="true" focusable="false"><polygon points="6,0.6 11.4,3.8 11.4,9.2 6,12.4 0.6,9.2 0.6,3.8" fill="none" stroke="currentColor"/></svg></p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ══════════════════ plate V: who consumes it ══════════════════ -->
+  <section class="bleed">
+    <p class="label label-muted">Plate V · the surfaces</p>
+    <h2 class="d-section">Three consumers. The dashboard is only one of them.</h2>
+
+    <div class="notched-grid">
+      <div class="notched">
+        <p class="label">For agents</p>
+        <p class="u-sub" style="margin-bottom: var(--spacing-16)">Eight tools over MCP.</p>
+        <p>
+          <code>list_companies</code>, <code>search_signals</code>,
+          <code>get_convergences</code>, <code>get_battlecard</code>,
+          <code>list_briefs</code>, <code>get_brief</code>, <code>run_analyst</code>,
+          <code>market_summary</code>, plus <code>signal://</code> resources for a
+          battlecard or a brief.
+        </p>
+        <p>
+          Read only is the default and not merely the posture: the one tool that
+          spends money ships with permission withheld, and opting in binds it to a
+          rolling daily ceiling shared with the scheduler and the command line.
+        </p>
+        <p class="notched-scroll">SCROLL</p>
+      </div>
+      <div class="notched">
+        <p class="label">For people</p>
+        <p class="u-sub" style="margin-bottom: var(--spacing-16)">Eight views on localhost.</p>
+        <p>
+          Feed, Battle, Compare, Market, Intel, Report, Briefs and Inbox. Number
+          keys switch mode, a command palette jumps anywhere, and Compare takes an
+          anchor plus up to three rivals in a shareable URL.
+        </p>
+        <p>
+          Battlecards and analyst briefs come out as markdown you can edit. A
+          regeneration never overwrites the part a person wrote.
+        </p>
+        <p class="notched-scroll">SCROLL</p>
+      </div>
+      <div class="notched">
+        <p class="label">For the scheduler</p>
+        <p class="u-sub" style="margin-bottom: var(--spacing-16)">One pass, tiered.</p>
+        <p>
+          A single entry point runs every watcher on the cadence each one deserves.
+          The expensive passes fire weekly, the cheap ones hourly. Cadence moves the
+          bill far more than model choice does: running a per-company model call
+          four times as often costs four times as much and is no fresher.
+        </p>
+        <p class="notched-scroll">SCROLL</p>
+      </div>
+    </div>
+
+    <p class="plate-cap" style="margin-top: var(--spacing-40); max-width: 76ch">
+      There is also a Chrome side panel that checks any page you are reading
+      against your own intel on device. It is experimental, it needs the dashboard
+      running, and the test gate does not cover it. Said here rather than
+      discovered later.
+    </p>
+  </section>
+
+  <!-- ══════════════════ plate VI: retargeting ══════════════════ -->
+  <section class="bleed band-dark">
+    <div class="split">
+      <div>
+        <p class="label label-muted">Plate VI · the same parts, a different market</p>
+        <h2 class="d-section">Nothing here knows which market it is watching.</h2>
+        <p class="u-sub" style="margin-top: var(--spacing-28); max-width: 36ch">
+          It ships pointed at thirteen AI coding tools. That is a configuration
+          file, not the product.
+        </p>
+      </div>
+      <div class="measure">
+        <p>
+          Six layers resolve the same way, each one an environment variable, then
+          your local file, then the shipped default: the roster, the feeds, the deal
+          context axes, subdomain scoring, the agent policy and the answer-engine
+          prompts. Your file is ignored by git, so you can pull upstream forever
+          without a conflict in the only file you changed.
+        </p>
+        <p>
+          Feeds, repository mappings and search queries all derive from the roster
+          rather than sitting in a list beside it. And the gate is mechanical: the
+          test suite fails if a brand name appears anywhere outside the
+          configuration directory, or if the dashboard's own labels drift away from
+          the roster. Retargeting cannot leave somebody else's market behind in a
+          watcher or a prompt, because the build refuses it.
+        </p>
+        <div class="plate" style="margin-top: var(--spacing-28)">
+<pre>cp config/companies.default.mjs config/companies.local.mjs
+npm run companies      # confirm what is live, and where it came from
+npm test               # 15 smoke sections, 5 fixture suites, all offline</pre>
+        </div>
+        <p style="margin-top: var(--spacing-28)">
+          <a class="pill pill-reverse" href="https://github.com/gledach/signals/blob/main/docs/start.md" rel="noopener">Read the install guide</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ plate VII: previews ══════════════════ -->
+  <section class="bleed band-bone">
+    <div class="split">
+      <div>
+        <p class="label label-muted">Plate VII · seeing it first</p>
+        <h2 class="d-section">Every exhibit has an address.</h2>
+        <p class="d-plate" style="margin-top: var(--spacing-28)">
+          <span class="mono" style="font-size: inherit; font-family: inherit">&lt;tool&gt;</span>.gledach.de
+        </p>
+      </div>
+      <div class="measure">
+        <p>
+          <b>Real data, not a mock.</b> The export asks the running viewer the same
+          questions a browser asks and inlines the answers, so a preview cannot
+          drift from the thing it was taken from.
+        </p>
+        <p>
+          <b>Dated and read only.</b> A snapshot, not a live instance. Nothing you
+          click reaches a database, and every number is true as of the export.
+        </p>
+        <p>
+          <b>One per tool, replaced in place.</b> A re-export overwrites the
+          preview, so you are looking at the most recent snapshot rather than an
+          archive of all of them.
+        </p>
+        <p>
+          <b>Generated text is labelled as generated.</b> Battlecards, briefs and
+          convergences are model output. They are a starting point for a person,
+          which is how the tool itself describes them.
+        </p>
+        <p style="margin-top: var(--spacing-28)">
+          <a class="pill" href="https://signal.gledach.de" rel="noopener">Open signal.gledach.de</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ plate VIII: the rest of the shelf ══════════════════ -->
+  <section class="bleed">
+    <p class="label label-muted">Plate VIII · the rest of the shelf</p>
+    <h2 class="d-section">Four more, each on its own page.</h2>
+    <p class="u-sub measure" style="margin-top: var(--spacing-28)">
+      Same author, different shapes. They share no stack and no interface, only the
+      promise: free, installable, and honest about what each one cannot see.
+    </p>
+
+    <div class="shelf">
+      <a class="shelf-card" href="/whenrun">
+        <span class="shelf-name">whenrun</span>
+        <span class="shelf-what">
+          Watches day-ahead power prices and renewable share, then starts your job
+          in the cheapest or greenest window that still meets its deadline. Zero
+          dependencies.
+        </span>
+        <span class="shelf-go">Open the page <span class="hex" aria-hidden="true"></span></span>
+      </a>
+      <a class="shelf-card" href="/phonehome">
+        <span class="shelf-name">phonehome</span>
+        <span class="shelf-what">
+          A local resolver that records which domains every device on your network
+          contacts, and says when one starts talking somewhere new. Blocks nothing,
+          uploads nothing.
+        </span>
+        <span class="shelf-go">Open the page <span class="hex" aria-hidden="true"></span></span>
+      </a>
+      <a class="shelf-card" href="/recall">
+        <span class="shelf-name">recall</span>
+        <span class="shelf-what">
+          Checks four public registers against a list of the things you actually
+          own, and grades how sure each match is. A register it could not reach is
+          reported as unreachable, never as clean.
+        </span>
+        <span class="shelf-go">Open the page <span class="hex" aria-hidden="true"></span></span>
+      </a>
+      <a class="shelf-card" href="/signal-patterns">
+        <span class="shelf-name">signal-patterns</span>
+        <span class="shelf-what">
+          The written reasoning behind all of it: what is watchable, what it costs,
+          and the decisions that only become obvious after something has broken.
+          Nothing to install.
+        </span>
+        <span class="shelf-go">Open the page <span class="hex" aria-hidden="true"></span></span>
+      </a>
+      <div class="shelf-card is-slot">
+        <span class="shelf-name">[UNNAMED]</span>
+        <span class="shelf-what">
+          The shelf holds a dozen. Slot 06 is empty and stays that way until
+          something runs. Is there something you keep checking by hand?
+        </span>
+        <span class="shelf-go">
+          <a href="https://github.com/gledach/requests/issues" rel="noopener">The public queue</a>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ plate IX: house rules ══════════════════ -->
+  <section class="bleed band-dark">
+    <p class="label label-muted">Plate IX · house rules</p>
+    <h2 class="d-section">What is true of everything on this shelf.</h2>
+
+    <ul class="rules">
+      <li>
+        <h3 class="u-heading-sm">Free, and the source is public</h3>
+        <p>MIT unless a dependency makes that impossible, in which case the licence is stated on the tool's own page.</p>
+      </li>
+      <li>
+        <h3 class="u-heading-sm">Your machine is the runtime</h3>
+        <p>Cloud is for sharing state between machines you own. It is not where your data has to live.</p>
+      </li>
+      <li>
+        <h3 class="u-heading-sm">No account to start</h3>
+        <p>Clone it and see something real. Keys, hosted databases and schedules are opt in, later, each listed with what it buys you.</p>
+      </li>
+      <li>
+        <h3 class="u-heading-sm">Honest about blind spots</h3>
+        <p>Every tool ships a written audit of what it cannot see, kept beside the documentation rather than buried in it.</p>
+      </li>
+      <li>
+        <h3 class="u-heading-sm">Read only until you say otherwise</h3>
+        <p>Nothing spends your money because an agent found a button. Paid actions ship disabled and behind a ceiling.</p>
+      </li>
+      <li>
+        <h3 class="u-heading-sm">Generated text is labelled</h3>
+        <p>Model output is marked as model output. A tool that cannot tell you what it does not know is not finished.</p>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="foot band-chalk">
+  <div class="foot-cols">
+    <div>
+      <p class="label label-muted">gledach</p>
+      <p style="font-family: var(--font-display); font-size: var(--text-subheading)">
+        <em>gledati</em> (slav.): to watch.
+      </p>
+      <p style="font-size: 12px; color: var(--graphite)">What a good analyst does before speaking.</p>
+    </div>
+    <div>
+      <p class="label label-muted">Tools</p>
+      <ul class="foot-list">
+        <li><a href="/">signal</a></li>
+        <li><a href="/whenrun">whenrun</a></li>
+        <li><a href="/phonehome">phonehome</a></li>
+        <li><a href="/recall">recall</a></li>
+        <li><a href="/signal-patterns">signal-patterns</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="label label-muted">Previews</p>
+      <ul class="foot-list">
+        <li><a href="https://signal.gledach.de" rel="noopener">signal.gledach.de</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="label label-muted">Contact</p>
+      <ul class="foot-list">
+        <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
+        <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
+        <li><a href="mailto:request@gledach.de">request@gledach.de</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="foot-rule">
+  <p style="font-size: 12px; color: var(--graphite)">
+    MIT licensed. Signals are gathered from public sources. Generated analysis is
+    model output, not verified fact.
+  </p>
+  <p class="foot-mark" aria-hidden="true">gledach</p>
+</footer>
+
+</body>
+</html>

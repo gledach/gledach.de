@@ -13,6 +13,10 @@ wrangler.jsonc
 # directory on a maintainer's machine. Deploying from there must not publish it.
 DESIGN.md
 
+# Design prototypes. Three candidate redesigns of the index, each a
+# self-contained file. Work in progress, not part of the site.
+prototypes
+
 # Social card sources. These render to assets/img/og-home.png and
 # apple-touch-icon.png, both of which ARE deployed. The templates are the
 # negatives, not the prints.

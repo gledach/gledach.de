@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototypes · gledach.de index redesign</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root { --ink: #0F1115; --paper: #F6F5F1; --grey: #5E6470; --line: #E4E2DA; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 400 16px/1.6 ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 64px 24px 96px; }
+  h1 { font-size: 34px; line-height: 1.15; letter-spacing: -0.5px; margin: 0 0 16px; }
+  h2 { font-size: 20px; margin: 0 0 8px; }
+  p { margin: 0 0 16px; max-width: 70ch; }
+  .lab {
+    font: 500 12px/1.2 ui-monospace, Consolas, monospace;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey);
+    margin: 0 0 20px;
+  }
+  .grid { display: grid; gap: 16px; margin: 40px 0; }
+  .card {
+    background: #fff; border: 1px solid var(--line); border-radius: 12px;
+    padding: 24px; display: grid; gap: 10px;
+  }
+  .card a { color: #8C1D18; font-weight: 600; }
+  .is-chosen { border-color: #8C1D18; border-width: 2px; }
+  .pick {
+    font: 500 12px/1.2 ui-monospace, Consolas, monospace;
+    letter-spacing: 0.1em; text-transform: uppercase; color: #8C1D18; margin: 0;
+  }
+  .sw { display: flex; gap: 6px; margin-top: 4px; }
+  .sw i { width: 28px; height: 28px; border-radius: 4px; border: 1px solid rgba(0,0,0,.12); display: block; }
+  dl { margin: 0; display: grid; grid-template-columns: 130px 1fr; gap: 4px 16px; font-size: 14px; }
+  dt { color: var(--grey); }
+  dd { margin: 0; }
+  .note { border-left: 2px solid #8C1D18; padding-left: 16px; margin-top: 40px; }
+  code { font-family: ui-monospace, Consolas, monospace; font-size: 0.9em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="lab">gledach.de · index redesign · three directions</p>
+  <h1>The index becomes the signal story. The other four tools get their own pages.</h1>
+  <p>
+    Each prototype is a complete scrolling index for signal, built from one Refero
+    style. Same content spine in all three, so the comparison is about the design
+    rather than about the copy: the eleven collectors, why those eleven, the five
+    pipeline stages, who consumes the result, how to point it at another market,
+    the subdomain convention, then the rest of the shelf as links out to pages that
+    do not exist yet.
+  </p>
+  <p>
+    Nothing here touches <code>index.html</code> or <code>assets/site.css</code>.
+    Each file is self-contained and excluded from deployment.
+  </p>
+
+  <div class="grid">
+
+    <article class="card">
+      <h2><a href="/prototypes/a-gallery.html">Prototype A · gallery</a></h2>
+      <div class="sw" aria-hidden="true">
+        <i style="background:#c4c3b6"></i><i style="background:#000"></i>
+        <i style="background:#e7e5e4"></i><i style="background:#dfdcd5"></i>
+        <i style="background:#fff"></i>
+      </div>
+      <dl>
+        <dt>Source style</dt><dd>Structured, "Renaissance gallery on putty paper"</dd>
+        <dt>Canvas</dt><dd>Putty <code>#c4c3b6</code>, monochrome warm greys and black</dd>
+        <dt>Display</dt><dd>Playfair Display 500, up to 374px, cropped at the viewport</dd>
+        <dt>Motion</dt><dd>None, by design. Depth is the light and dark band alternation</dd>
+        <dt>Risk</dt><dd>No accent colour at all, so status and action lean entirely on weight and position</dd>
+      </dl>
+    </article>
+
+    <article class="card is-chosen">
+      <p class="pick">Chosen direction</p>
+      <h2><a href="/prototypes/b-ledger.html">Prototype B · ledger</a></h2>
+      <div class="sw" aria-hidden="true">
+        <i style="background:#fff"></i><i style="background:#f8fafd"></i>
+        <i style="background:#e5edf5"></i><i style="background:#e8e9ff"></i>
+        <i style="background:#533afd"></i>
+      </div>
+      <dl>
+        <dt>Source style</dt><dd>Stripe, "indigo-ink ledger on frosted glass"</dd>
+        <dt>Canvas</dt><dd>White, with one indigo <code>#533afd</code> for every action</dd>
+        <dt>Display</dt><dd>Inter Tight 300 at 56px. The headline whispers</dd>
+        <dt>Motion</dt><dd>Restrained entry rise, plus the lead-time bars growing</dd>
+        <dt>Risk</dt><dd>Reads as an instrument panel, which suits signal and suits the shelf's other four less well</dd>
+        <dt>Since chosen</dt><dd>The collection is C's tile grid rebuilt in these tokens, and command names in the code blocks are indigo</dd>
+      </dl>
+    </article>
+
+    <article class="card">
+      <h2><a href="/prototypes/c-editorial.html">Prototype C · editorial</a></h2>
+      <div class="sw" aria-hidden="true">
+        <i style="background:#faf9f6"></i><i style="background:#f1eee9"></i>
+        <i style="background:#d3cec6"></i><i style="background:#111"></i>
+        <i style="background:#0007cb"></i>
+      </div>
+      <dl>
+        <dt>Source style</dt><dd>Intercom, "editorial magazine on warm cream paper"</dd>
+        <dt>Canvas</dt><dd>Cream <code>#faf9f6</code>, never white, with violet twice per page</dd>
+        <dt>Display</dt><dd>Inter 300 at 80px, with Newsreader italic as the editorial voice</dd>
+        <dt>Motion</dt><dd>Restrained entry rise, plus the lead-time bars growing</dd>
+        <dt>Risk</dt><dd>Closest to the current page, so it is the smallest jump and the least new</dd>
+      </dl>
+    </article>
+
+  </div>
+
+  <div class="note">
+    <p class="lab">Two things worth knowing before you pick</p>
+    <p>
+      <b>All three depart from the live design system.</b> The oxblood accent,
+      Bricolage Grotesque, Instrument Serif and the ivory ground are not in any of
+      them. That is what you asked for, and it means whichever one wins,
+      <code>CLAUDE.md</code> needs rewriting rather than amending.
+    </p>
+    <p>
+      <b>Two source styles specify photography this brand does not have.</b>
+      A borrowed oil painting or a stock photo standing in for evidence is the one
+      move the content rules forbid, so in A and C that slot carries real output
+      instead. Each file's head comment lists every deviation and why.
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
