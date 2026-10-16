@@ -115,30 +115,54 @@ reached.
 | Runtime deps | 3 | no build step, offline on a fresh clone |
 | Monthly spend | $15 to $25 | at the shipped models. Database and search on free tiers |
 
-## Who consumes it
+## What builds up
 
-Three consumers. The dashboard is only one of them.
+**The useful part is the history, and it is a file on your machine.** Every pass
+appends to a local database rather than refreshing a feed. After a few weeks you
+are not reading today's news, you are querying months of attributed, scored,
+deduplicated history that nobody else holds a copy of.
 
-**For agents.** Eight tools over MCP: `list_companies`, `search_signals`,
-`get_convergences`, `get_battlecard`, `list_briefs`, `get_brief`, `run_analyst`,
-`market_summary`, plus `signal://` resources for a battlecard or a brief. Read
-only by default and not just by convention: the single tool that spends money
-ships with permission withheld, and opting in binds it to a rolling daily ceiling
-shared with the scheduler and the command line.
+**Ask an agent what changed.** Eight tools over MCP: `list_companies`,
+`search_signals`, `get_convergences`, `get_battlecard`, `list_briefs`,
+`get_brief`, `run_analyst`, `market_summary`, plus `signal://` resources. Claude
+Code or any other MCP client then answers from your collected history instead of
+from whatever it remembers about the market, and wiring one in is a single line.
+Read only by default: the one tool that spends money ships with permission
+withheld, behind a daily ceiling shared with the scheduler and the command line.
 <https://github.com/gledach/signals/blob/main/docs/mcp.md>
 
-**For people.** Eight views on localhost: Feed, Battle, Compare, Market, Intel,
-Report, Briefs and Inbox. Number keys switch mode, a command palette jumps
-anywhere, and Compare takes an anchor plus up to three rivals in a URL you can
-share. Battlecards and briefs come out as markdown you can edit in anything, and
-a regeneration never overwrites the part a person wrote.
+**Search it yourself.** Plain SQL over a libSQL file, no ORM and no
+schema-deploy step, so anything that can open a database can read it. JSON
+endpoints and `--json` on the CLI cover the rest. YouTube transcripts are
+archived as excerpts and searchable on their own, which is the kind of question
+that is impossible against a feed:
 
-**For the scheduler.** One entry point runs every watcher on the cadence it
-deserves: the expensive passes weekly, the cheap ones every half hour. Cadence
-moves the bill far more than model choice. A job making one model call per tracked
-company costs four times as much on a six-hourly tier as on a daily one and the
-output is no fresher. That mistake cost this deployment around two hundred dollars
-a month before it was caught.
+```
+npm run transcripts -- --stats       # word counts per competitor
+npm run transcripts -- "pricing"     # every mention, with snippets
+```
+
+**Compare one week with the next.** `npm run report:weekly` writes a snapshot per
+calendar week: convergences, the top signals and a line per competitor. It uses
+no model at all, because the arithmetic is deterministic, and it is idempotent,
+so you can backfill a week you missed. The watchers keep their own baselines too,
+which is what lets a new subdomain or a changed sitemap path be reported as new
+rather than merely present.
+
+**What is actually kept, so the claim stays honest.** Attributed signals with a
+link back to the source, 2,600 and counting in the deployment behind the preview.
+Excerpts of YouTube transcripts rather than whole videos. Weekly report
+snapshots, generated briefs and battlecards, the per-call model cost ledger, and
+each watcher's own baseline. It is not a copy of the web: it keeps what it
+collected and what it computed. Every row is keyed by a hash of its own content,
+so re-running a pass collapses duplicates rather than growing the file, and the
+default is a file on your machine that nothing uploads anywhere.
+
+**On cadence, which is the one cost trap.** One entry point runs every watcher on
+the cadence it deserves: the expensive passes weekly, the cheap ones every half
+hour. A job making one model call per tracked company costs four times as much on
+a six-hourly tier as on a daily one and the output is no fresher. That mistake
+cost this deployment around two hundred dollars a month before it was caught.
 <https://github.com/gledach/signals/blob/main/docs/cost.md>
 
 There is also a Chrome side panel that checks whatever page you are reading

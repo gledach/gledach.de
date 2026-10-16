@@ -692,76 +692,98 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════ 05 surfaces ══════════════════════════ -->
-  <section class="sec tint-frost" id="surfaces">
+  <!-- ══════════════════════════ 05 what builds up ══════════════════════════ -->
+  <!-- This was "Three consumers. The dashboard is only one of them." That
+       framing described the architecture rather than anything a reader wants,
+       treated a cron entry point as a peer of the agent surface, and its
+       middle card re-listed the dashboard that the section directly above
+       already shows.
+
+       The organising idea is now what the tool leaves behind: a database that
+       gets more useful the longer it runs. Codex was asked and landed on the
+       same reframe, with one warning worth keeping: do not let "a dataset you
+       own" imply a complete analysis-ready copy of everything it watches. So
+       the note under the cards names exactly what is retained and what is
+       not. -->
+  <section class="sec tint-frost" id="data">
     <div class="wrap">
       <div class="head">
         <div>
-          <p class="eyebrow">Who consumes it</p>
-          <h2 class="t-h-lg">Three consumers. The dashboard is only one of them.</h2>
+          <p class="eyebrow">What builds up</p>
+          <h2 class="t-h-lg">The useful part is the history, and it is a file on your machine.</h2>
         </div>
         <p class="t-lg">
-          The agent surface is what this is built for. A person looking at a
-          dashboard is a second client, and the scheduler is a third.
+          Every pass appends to a local database rather than refreshing a feed.
+          After a few weeks you are not reading today's news, you are querying
+          months of attributed, scored, deduplicated history that nobody else holds
+          a copy of.
         </p>
       </div>
 
       <div class="cards">
+
         <article class="card card-emph">
-          <p class="eyebrow">For agents</p>
-          <h3 class="t-h-sm">Eight tools over MCP</h3>
+          <h3 class="t-h-sm">Ask an agent what changed</h3>
           <p class="t-sm">
-            <code>list_companies</code>, <code>search_signals</code>,
-            <code>get_convergences</code>, <code>get_battlecard</code>,
-            <code>list_briefs</code>, <code>get_brief</code>,
-            <code>run_analyst</code>, <code>market_summary</code>, plus
-            <code>signal://</code> resources for a battlecard or a brief.
+            Eight tools over MCP plus <code>signal://</code> resources, so Claude
+            Code or any other MCP client answers from your collected history
+            instead of from whatever it remembers about the market. Wiring one in
+            is a single line.
           </p>
           <p class="t-sm">
-            Read only by default and not just by convention: the single tool that
-            spends money ships with permission withheld, and opting in binds it to a
-            rolling daily ceiling shared with the scheduler and the command line.
+            Read only by default: the one tool that spends money ships with
+            permission withheld, behind a daily ceiling shared with the scheduler
+            and the command line.
           </p>
           <p class="card-go"><a href="https://github.com/gledach/signals/blob/main/docs/mcp.md" rel="noopener">The agent surface &rarr;</a></p>
         </article>
 
         <article class="card">
-          <p class="eyebrow eyebrow-quiet">For people</p>
-          <h3 class="t-h-sm">Eight views on localhost</h3>
+          <h3 class="t-h-sm">Search it yourself</h3>
           <p class="t-sm">
-            Feed, Battle, Compare, Market, Intel, Report, Briefs and Inbox. Number
-            keys switch mode, a command palette jumps anywhere, and Compare takes an
-            anchor plus up to three rivals in a URL you can share.
+            It is plain SQL over a libSQL file, with no ORM and no schema-deploy
+            step, so anything that can open a database can read it. JSON endpoints
+            and <code>--json</code> on the CLI cover the rest.
           </p>
           <p class="t-sm">
-            Battlecards and briefs come out as markdown you can edit in anything. A
-            regeneration never overwrites the part a person wrote.
+            YouTube transcripts are archived as excerpts and searchable on their
+            own, which is the kind of question that is impossible against a feed:
           </p>
-          <p class="card-go"><a href="https://signal.gledach.de" rel="noopener">Open the preview &rarr;</a></p>
+          <div class="cmd" data-copy>
+<pre><code><span class="c-bin">npm</span> run transcripts -- --stats       <span class="c-cmt"># word counts per competitor</span>
+<span class="c-bin">npm</span> run transcripts -- "pricing"     <span class="c-cmt"># every mention, with snippets</span></code></pre>
+            <button type="button" class="copy" aria-label="Copy the transcript search commands">Copy</button>
+          </div>
         </article>
 
         <article class="card">
-          <p class="eyebrow eyebrow-quiet">For the scheduler</p>
-          <h3 class="t-h-sm">One pass, tiered by cost</h3>
+          <h3 class="t-h-sm">Compare one week with the next</h3>
           <p class="t-sm">
-            A single entry point runs every watcher on the cadence it deserves: the
-            expensive passes weekly, the cheap ones every half hour.
+            <code>npm run report:weekly</code> writes a snapshot per calendar week:
+            convergences, the top signals and a line per competitor. It uses no
+            model at all, because the arithmetic is deterministic, and it is
+            idempotent, so you can backfill a week you missed.
           </p>
           <p class="t-sm">
-            Cadence moves the bill far more than model choice. A job making one model
-            call per tracked company costs four times as much on a six-hourly tier as
-            on a daily one and the output is no fresher. That mistake cost this
-            deployment around two hundred dollars a month before it was caught.
+            The watchers keep their own baselines too, which is what lets a new
+            subdomain or a changed sitemap path be reported as <em>new</em> rather
+            than merely present.
           </p>
-          <p class="card-go"><a href="https://github.com/gledach/signals/blob/main/docs/cost.md" rel="noopener">What it costs &rarr;</a></p>
+          <p class="card-go"><a href="https://github.com/gledach/signals/blob/main/docs/howto.md" rel="noopener">The manual &rarr;</a></p>
         </article>
+
       </div>
 
       <p class="figure-note">
-        There is also a Chrome side panel that checks whatever page you are reading
-        against your own intel, on device. It is experimental, it needs the dashboard
-        running, and the test gate does not cover it. Stated here rather than
-        discovered later.
+        <b>What is actually kept, so the claim stays honest.</b> Attributed signals
+        with a link back to the source, 2,600 and counting in the deployment behind
+        the preview. Excerpts of YouTube transcripts rather than whole videos.
+        Weekly report snapshots, generated briefs and battlecards, the per-call
+        model cost ledger, and each watcher's own baseline. It is not a copy of the
+        web: it keeps what it collected and what it computed. Every row is keyed by
+        a hash of its own content, so re-running a pass collapses duplicates rather
+        than growing the file, and the default is a file on your machine that
+        nothing uploads anywhere.
       </p>
     </div>
   </section>

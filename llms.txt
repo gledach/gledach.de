@@ -140,11 +140,29 @@ positioning, segment, pricing, strengths and weaknesses, and marks a cell
 call prep for one competitor, ranking the strongest points and the objections to
 expect against the deal in front of you, and it is labelled as generated text.
 
-Three consumers: agents (eight MCP tools: list_companies, search_signals,
-get_convergences, get_battlecard, list_briefs, get_brief, run_analyst,
-market_summary, plus signal:// resources), people (eight dashboard views on
-localhost: Feed, Battle, Compare, Market, Intel, Report, Briefs, Inbox), and the
-scheduler (one entry point, tiered by cost). There is also an experimental Chrome
+What the tool leaves behind is the point: every pass appends to a local libSQL
+database rather than refreshing a feed, so after a few weeks you are querying
+months of attributed, scored, deduplicated history rather than reading today's
+news. Three ways to use it. Ask an agent, through eight MCP tools
+(list_companies, search_signals, get_convergences, get_battlecard, list_briefs,
+get_brief, run_analyst, market_summary) plus signal:// resources, so an MCP
+client answers from your collected history instead of from training data. Search
+it yourself, in plain SQL with no ORM and no schema-deploy step, or over the JSON
+endpoints, or with `npm run transcripts -- --stats` for word counts per
+competitor across archived YouTube transcripts and `npm run transcripts --
+"pricing"` to find every mention with snippets. Or compare week to week with
+`npm run report:weekly`, a deterministic snapshot per ISO week that uses no model
+and is idempotent, so a missed week can be backfilled.
+
+What is actually retained: attributed signals with a link back to source (2,600+
+in the deployment behind the preview), excerpts of YouTube transcripts rather
+than whole videos, weekly report snapshots, generated briefs and battlecards, the
+per-call model cost ledger, and each watcher's own baseline, which is what lets a
+new subdomain be reported as new rather than merely present. It is not a copy of
+the web. Every row is keyed by a hash of its own content, so re-running a pass
+collapses duplicates rather than growing the file.
+
+There is also a localhost dashboard with eight views, and an experimental Chrome
 side panel that is not covered by the test gate.
 
 Every signal-reporting MCP tool returns a coverage block: a status of fresh,
