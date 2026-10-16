@@ -136,12 +136,41 @@ Section header is a two-column split: H2 left, lead right, 1px hairline undernea
 Cards are white with a 1px `#e5edf5` border and a 4px radius. Nothing lifts on hover,
 because nothing has elevation to lift from: a card border goes lavender instead.
 
-Motion only where it explains a mechanism, and there are exactly two:
+Motion has exactly two jobs here. It explains a mechanism, or it confirms that
+something you did registered. Nothing else qualifies.
+
+**Explaining a mechanism**, scroll-driven:
 
 | Motion | What it explains |
 |---|---|
 | Section blocks rise on entry | Ordinary reveal, the only decorative one, kept subtle |
 | Lead-time bars grow left to right | The ordering the chart is arguing for |
+| The sticky nav gains its border past 64px | It is now floating over content rather than sitting in the page |
+
+**Confirming interaction**, 120ms to 150ms:
+
+| Motion | Where |
+|---|---|
+| Colour and border ease | Buttons, links, linked cards, the copy button, the menu summary |
+| Arrow nudges 2 to 3px | Buttons and linked cards, on hover, because it points somewhere |
+| 1px press | Buttons and the copy button, on `:active` |
+| Panel fades down 4px | The tool menu, on open |
+
+**Three rules the interaction block depends on, in that order of importance:**
+
+- **Only on something interactive.** A transition on a static card teaches a
+  reader it is clickable when it is not. The collection tiles and the stat rows
+  are the most tempting things on the page to animate and are deliberately
+  excluded. Check `transition-duration` is `0s` on them before shipping a change.
+- **Never transition `outline`.** A focus ring has to land the instant the key is
+  pressed. Only `color`, `background-color` and `border-color` are transitioned,
+  which keeps focus instant by construction.
+- **120ms, not 300ms.** The first reads as the element responding to you. The
+  second reads as an effect being played at you.
+
+Everything above sits inside `prefers-reduced-motion: no-preference`. Under
+`reduce` the site keeps every hover state and simply snaps to it, the nav keeps
+its border, and the bars sit at full width. Verified, not assumed.
 
 Scroll-driven animation lives inside `@supports (animation-timeline: view())`, and the
 base style is always the finished state. Animations supply a `from` keyframe only. That

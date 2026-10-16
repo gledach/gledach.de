@@ -658,6 +658,58 @@ a.card .card-go { color: var(--indigo-ink); }
 .foot-list a:hover { color: var(--indigo-ink); }
 .foot-bottom { margin-top: var(--s-48); padding-top: var(--s-24); border-top: 1px solid var(--frost); display: flex; justify-content: space-between; gap: var(--s-24); flex-wrap: wrap; }
 
+/* ── micro-interaction ───────────────────────────────────────────────
+   Feedback, not decoration, and a different thing from the two
+   scroll-driven animations below. Those explain a mechanism. These
+   answer "did that register?", which is the other legitimate reason for
+   motion on a page like this.
+
+   Three rules hold the whole block together:
+
+   1. Only on something you can actually interact with. A transition on a
+      static card teaches a reader it is clickable when it is not, which
+      is why the collection tiles and the stat rows are not in this list
+      despite being the most tempting things to animate.
+   2. Never on `outline`. A focus ring has to appear the instant the key
+      is pressed; easing it in makes keyboard navigation feel broken.
+      Only colour and border are transitioned, so focus stays instant.
+   3. Fast enough to feel like causation. 120ms reads as the element
+      responding, 300ms reads as an effect playing.
+
+   All of it sits inside a reduced-motion guard, so the site keeps every
+   hover state and simply snaps to it. */
+@media (prefers-reduced-motion: no-preference) {
+  .btn,
+  .copy,
+  a.card,
+  .toolmenu > summary,
+  .toolmenu-list a,
+  .nav-links a,
+  .foot-list a,
+  .brand-tool,
+  .shot-cap a,
+  a:not(.card):not(.btn) {
+    transition: color 120ms ease, background-color 120ms ease,
+                border-color 120ms ease;
+  }
+
+  /* An arrow that nudges toward where it is taking you. The only
+     ornamental motion here, and it earns the exception by pointing. */
+  .arrow, .card-go { transition: transform 150ms ease; }
+  .btn:hover .arrow { transform: translateX(3px); }
+  a.card:hover .card-go { transform: translateX(2px); }
+
+  /* A press needs an acknowledgement separate from hover, or a click on
+     an already-hovered button produces no feedback at all. */
+  .btn:active, .copy:active { transform: translateY(1px); }
+
+  /* The menu panel. Base style is the resting state and the keyframe
+     supplies a "from" only, which is the same discipline the scroll
+     animations below follow. */
+  .toolmenu[open] .toolmenu-panel { animation: menu-in 140ms ease-out; }
+  @keyframes menu-in { from { opacity: 0; transform: translateY(-4px); } }
+}
+
 /* ── motion ──────────────────────────────────────────────────────────
    The base style is the finished state and the keyframes supply a "from"
    only. That is what makes prefers-reduced-motion and any browser without
@@ -682,6 +734,23 @@ a.card .card-go { color: var(--indigo-ink); }
       animation-range: entry 10% entry 60%;
     }
     @keyframes grow { from { width: 0; } }
+  }
+}
+
+/* The sticky nav earns its edge only once it is floating over content.
+   At the very top it is part of the page and a hairline there is just a
+   line. Base style is the edge, because that is the state it is in for
+   all but the first 64px, and the keyframe takes it away at scroll 0.
+   A browser without scroll() keeps the border permanently, which is the
+   old behaviour and perfectly fine. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .nav {
+      animation: nav-edge linear both;
+      animation-timeline: scroll();
+      animation-range: 0 64px;
+    }
+    @keyframes nav-edge { from { border-bottom-color: transparent; } }
   }
 }
 
