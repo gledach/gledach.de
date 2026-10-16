@@ -180,6 +180,19 @@ that is in the checklist above.
 icon that arrives pre-rounded is rounded twice. `favicon.svg` keeps its 9px radius
 because nothing masks that one.
 
+### LinkedIn covers
+
+`assets/og/linkedin-cover-{a,b,c}.html` are three personal-profile banner variants,
+rendered the same way at **1584x396**. They are not site assets and nothing links to
+them, so the renders go to `.apsolut/07-files/exports/` rather than `assets/img/`,
+and are listed in that folder's manifest. The sources live here so the banners stay
+reproducible and on the same tokens as the site.
+
+Append `#guides` to the URL to overlay the profile-photo circle and the unusable
+regions. LinkedIn puts the avatar over the **bottom left** and clips the bottom strip
+on mobile, so nothing readable may sit inside `x 0-430` or the bottom 90px. All three
+keep their content in `x 470-1520, y 60-306`, which is checked rather than assumed.
+
 ## Agent-readable layer
 
 This matters more here than on most sites, because the tools on this shelf exist to be

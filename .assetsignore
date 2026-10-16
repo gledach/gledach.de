@@ -17,6 +17,12 @@ DESIGN.md
 # self-contained file. Work in progress, not part of the site.
 prototypes
 
+# The working notes vault. Gitignored today, so a git-driven build never sees
+# it, but this is the belt to that braces: a local `wrangler deploy` uploads
+# the working directory, and anyone who later decides to track the vault would
+# otherwise publish it at gledach.de/.apsolut/.
+.apsolut
+
 # Social card sources. These render to assets/img/og-home.png and
 # apple-touch-icon.png, both of which ARE deployed. The templates are the
 # negatives, not the prints.

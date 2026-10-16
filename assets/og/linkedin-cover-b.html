@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LinkedIn cover B · the shelf</title>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     LinkedIn PERSONAL profile cover, variant B. Render at exactly 1584x396.
+     Same safe zone as variant A: nothing readable inside x 0-430 or the
+     bottom 90px. Add #guides to the URL to see it drawn.
+
+     B shows breadth: the statement plus what is actually on the shelf. Use
+     this one if the point is "I ship things", not "here is my positioning".
+     ═══════════════════════════════════════════════════════════════════════ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --indigo: #533afd;
+    --lavender: #b9b9f9;
+    --periwinkle: #e8e9ff;
+    --ink: #061b31;
+    --steel: #50617a;
+    --slate: #64748d;
+    --white: #ffffff;
+    --mist: #f8fafd;
+    --frost: #e5edf5;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1584px; height: 396px; }
+  body {
+    background: var(--mist);
+    font-family: 'Inter Tight', system-ui, sans-serif;
+    font-feature-settings: "ss01" on, "tnum" on;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* A white plate floating on mist, which is the site's own card treatment:
+     1px hairline, 4px radius, no shadow. */
+  .plate {
+    position: absolute;
+    left: 470px; top: 44px;
+    width: 1050px; height: 262px;
+    background: var(--white);
+    border: 1px solid var(--frost);
+    border-radius: 4px;
+    padding: 34px 38px;
+  }
+
+  .eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--indigo);
+    margin-bottom: 20px;
+  }
+  .mark { display: inline-flex; gap: 4px; align-items: flex-end; }
+  .mark i { width: 4px; background: var(--indigo); border-radius: 1px; }
+  .mark i:nth-child(1) { height: 18px; }
+  .mark i:nth-child(2) { height: 13px; opacity: 0.6; }
+  .mark i:nth-child(3) { height: 8px;  opacity: 0.35; }
+
+  h1 {
+    font-size: 46px;
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -1.2px;
+    color: var(--ink);
+  }
+  h1 em { font-style: normal; color: var(--indigo); }
+
+  /* The shelf, as a row of tiles. Five today, and the row reflows if a
+     sixth ships, which is the same rule the site follows. */
+  .shelf { display: flex; gap: 10px; margin-top: 26px; }
+  .tool {
+    flex: 1;
+    border-top: 2px solid var(--periwinkle);
+    padding-top: 10px;
+  }
+  .tool:first-child { border-top-color: var(--indigo); }
+  .tool b {
+    display: block;
+    font-size: 17px; font-weight: 400;
+    letter-spacing: -0.2px;
+    color: var(--ink);
+  }
+  .tool span {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--slate);
+    margin-top: 5px;
+  }
+
+  /* The URL used to sit below the plate at y=326, which is inside the bottom
+     dead zone and would have been covered on desktop and cropped on mobile.
+     It lives in the eyebrow now. */
+  .eyebrow b { color: var(--ink); font-weight: 500; }
+
+  .guide { display: none; }
+  body.guides .guide { display: block; }
+  .guide-avatar {
+    position: absolute; left: 76px; bottom: -40px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: rgba(220, 38, 38, .30); border: 3px solid #dc2626;
+  }
+  .guide-dead-left {
+    position: absolute; left: 0; top: 0; width: 430px; height: 100%;
+    background: repeating-linear-gradient(45deg, rgba(220,38,38,.10) 0 10px, transparent 10px 20px);
+    border-right: 2px dashed #dc2626;
+  }
+  .guide-dead-bottom {
+    position: absolute; left: 0; bottom: 0; width: 100%; height: 90px;
+    background: repeating-linear-gradient(45deg, rgba(220,38,38,.10) 0 10px, transparent 10px 20px);
+    border-top: 2px dashed #dc2626;
+  }
+</style>
+</head>
+<body>
+
+<div class="plate">
+  <p class="eyebrow">
+    <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+    <b>gledach.de</b> · five free tools
+  </p>
+  <h1>Tools that turn public noise into <em>structured signal.</em></h1>
+
+  <div class="shelf">
+    <div class="tool"><b>signal</b><span>competitive intel</span></div>
+    <div class="tool"><b>whenrun</b><span>cheap power windows</span></div>
+    <div class="tool"><b>phonehome</b><span>what your devices call</span></div>
+    <div class="tool"><b>recall</b><span>recalls on your things</span></div>
+    <div class="tool"><b>signal-patterns</b><span>how to build them</span></div>
+  </div>
+</div>
+
+<div class="guide guide-dead-left"></div>
+<div class="guide guide-dead-bottom"></div>
+<div class="guide guide-avatar"></div>
+
+<script>
+  if (location.hash === '#guides') document.body.classList.add('guides');
+</script>
+</body>
+</html>

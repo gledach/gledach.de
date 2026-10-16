@@ -24,8 +24,16 @@ not covered, match what is already on the page.
 **Two rules break the page loudest when missed:**
 
 - **No em dashes.** Not in copy, not in code comments, not in commit messages. Use a
-  colon, a comma, a period or a middle dot `·`. A grep for U+2014 across this
-  repository should return nothing, including this line.
+  colon, a comma, a period or a middle dot `·`. The check is over tracked files,
+  because that is what ships, and it should return nothing, including this line:
+
+  ```bash
+  git ls-files -z | xargs -0 grep -lP '\x{2014}'
+  ```
+
+  The one place U+2014 does appear is `.apsolut/`, whose templates come from
+  upstream and are gitignored in full. Do not rewrite them: they are not ours, they
+  never reach the site, and editing them only makes the next scaffold run diverge.
 - **Proof over promise.** Every claim is shown as product UI, data or evidence. A card
   with an icon and a blurb is not finished. The corollary that bites: do not invent
   output. Everything inside a `.console` is either real or labelled as a convention.
@@ -164,6 +172,25 @@ Plus one that is not a design rule:
 
 Anchor targets carry `scroll-margin-top: 96px` because the nav is sticky at 69px.
 
+### The nav, on every page
+
+`gledach │ <tool> ⋯`. The organisation, then the tool you are currently in, then
+the rest of the shelf behind a disclosure. The same component on all five pages
+plus the 404, because a visitor who lands on a satellite otherwise has nothing
+telling them whose tool it is.
+
+The overflow menu is a `<details>`, not a scripted dropdown, so it opens, closes
+and takes the keyboard with JavaScript off. `assets/site.js` adds only Escape and
+outside-click dismissal, which are the two things `<details>` lacks. Losing the
+script costs the reader nothing. Do not replace it with a click handler on a div.
+
+The tool name beside the brand is where you are, not somewhere to go, so it is ink
+and carries `aria-current="page"` rather than taking the link colour. The current
+tool is also marked in the menu list.
+
+`.nav-links` carries section anchors for the page you are on, never a list of
+tools: the dots own that job now. It hides under 1000px.
+
 ### Accessibility
 
 Text contrast 4.5:1 minimum, `#64748d` is the lightest permitted text colour. Real
@@ -203,6 +230,40 @@ line **and** the word "leading".
 - **Change a page, change its twins.** `index.html`, `llms.txt`, `index.md`,
   `sitemap.xml`, the JSON-LD in every page head, and the `Elsewhere on the shelf` block
   on every satellite. All of them go stale silently.
+
+## The notes vault
+
+Working notes live in `.apsolut/`, scaffolded on the **davinci** profile: a
+numbered notebook rather than a task tracker. It is gitignored in full, so none
+of it is in the repository and none of it reaches the site. `.assetsignore`
+excludes it too, which is the second lock rather than the first.
+
+```
+01-thinking/    raw capture, stream of consciousness
+02-ideas/       exploration, options, comparisons
+03-plan/        committed plans, broken into steps
+04-library/     markdown reading room: excerpts, transcripts, snippets
+05-decisions/   locked-in decisions and the reasoning
+06-knowledge/   reference: concepts, glossary, learned material
+07-files/       cold binaries: PDFs, audio, exports
+08-screenshots/ images, split into inspiration/ (keep) and bugs/ (ephemeral)
+```
+
+Flow is `01-thinking` promotes to `02-ideas`, which commits to `03-plan` or
+locks into `05-decisions`. Each folder's `000-template.md` is the shape for new
+entries, named `001-kebab-case.md`.
+
+**Do not bulk-load `07-files/` or `08-screenshots/`.** Each one's
+`000-template.md` is a manifest table: read it to find the single file a task
+needs, then open only that file. Pull an inspiration shot for related design
+work, a bug shot only when debugging that issue. Automated and Playwright
+captures are regenerated test output and do not belong in the vault at all.
+
+Two things that are deliberately absent: there is no `fires/`, because davinci
+is the creative track rather than the operations one, and there are no
+un-numbered drop zones, because binaries live in the numbered folders so the
+vault stays an all-numbered notebook. The pre-existing `.apsolut/screenshots/`
+holds design captures from before this scaffold and is left where it is.
 
 ## Local
 

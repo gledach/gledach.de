@@ -25,6 +25,39 @@ on localhost before anything reaches the live site.
 
 ## What changed last
 
+**The nav names the organisation, the dashboard is back, and setup is written
+for people who are not developers.**
+
+Three changes in one pass, all on top of the redesign described below.
+
+The nav is now `gledach │ <tool> ⋯` on all six pages. Before this, the index's
+chrome never said the word "signal" and a satellite showed five bare tool names
+with nothing saying they belonged to anyone. The overflow menu is a `<details>`
+so it works with JavaScript off; the script only adds Escape and outside-click
+dismissal.
+
+A `#views` section carries real captures of Live Feed, Compare and Battle. This
+closes the "no product screenshot anywhere" gap listed below: the two orphaned
+captures are in use again and `signal-battle.jpg` was copied across from
+`../signals/docs/images/`. Note that two of the three contain em dashes inside
+signal's own UI, as pixels. The tracked-file check is unaffected, but they are
+now on the landing page.
+
+"Point it anywhere" became "Set it up" and was rewritten for a marketer or a
+salesperson rather than an engineer. It had opened with "six layers resolve
+identically: an environment variable, then your local file, then the shipped
+default", which is accurate and tells that reader nothing. It is now three
+numbered steps, states what you need and how long it takes, and shows the roster
+file so you can see that configuring it means typing company names. The real
+shape of that file was read from `../signals/config/companies.default.mjs`
+rather than invented, which surfaced the `query` caveat now on the page.
+
+Also: a `.apsolut/` notes vault on the davinci profile, gitignored in full and
+excluded from deploy, and three LinkedIn cover variants in `assets/og/`
+rendering to the vault. Both are described in `CLAUDE.md` and `README.md`.
+
+## What changed before that
+
 **The whole site was redesigned and split into five pages.**
 
 The index used to be the shelf plus a featured signal section. It is now signal's page

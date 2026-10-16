@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LinkedIn cover A · statement</title>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     LinkedIn PERSONAL profile cover. Render at exactly 1584 x 396.
+
+     THE SAFE ZONE, which is the whole point of this file.
+     LinkedIn drops the profile photo over the BOTTOM LEFT of the banner and,
+     on desktop, the name block sits under it. On mobile the banner is cropped
+     shorter and the avatar moves, so the unusable region is bigger, not
+     smaller. Nothing readable may go in:
+
+       x  0 to 430px      the avatar column, plus margin
+       y  306 to 396px    the bottom strip, overlaid on desktop and clipped
+                          on mobile
+
+     Everything that must survive lives in x 470-1520, y 60-300. Open this
+     file with #guides on the URL to draw the avatar and the dead zones over
+     the design and check it yourself.
+
+     Render: serve the repo, set the viewport to exactly 1584x396, wait for
+     document.fonts.ready, screenshot. Same procedure as og-home.html.
+     ═══════════════════════════════════════════════════════════════════════ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+  /* Tokens copied, not imported. A card that silently restyles itself when
+     the site does is worse than one that holds still. */
+  :root {
+    --indigo: #533afd;
+    --lavender: #b9b9f9;
+    --lilac: #d6d9fc;
+    --periwinkle: #e8e9ff;
+    --ink: #061b31;
+    --steel: #50617a;
+    --white: #ffffff;
+    --mist: #f8fafd;
+    --frost: #e5edf5;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1584px; height: 396px; }
+  body {
+    background: var(--white);
+    font-family: 'Inter Tight', system-ui, sans-serif;
+    font-feature-settings: "ss01" on, "tnum" on;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* The tint progression from the site, as a stripe stack on the far right.
+     Purely decorative, so losing it to a mobile crop costs nothing. */
+  .stripes { position: absolute; inset: 0 0 0 auto; display: flex; height: 100%; }
+  .stripes i { display: block; width: 26px; height: 100%; }
+  .stripes i:nth-child(1) { background: var(--mist); }
+  .stripes i:nth-child(2) { background: var(--frost); }
+  .stripes i:nth-child(3) { background: var(--periwinkle); }
+  .stripes i:nth-child(4) { background: var(--lavender); }
+  .stripes i:nth-child(5) { background: var(--indigo); }
+
+  /* Content block, parked entirely clear of the avatar. */
+  .plate { position: absolute; left: 470px; top: 60px; width: 1050px; }
+
+  .eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--indigo);
+    margin-bottom: 26px;
+  }
+  .mark { display: inline-flex; gap: 4px; align-items: flex-end; }
+  .mark i { width: 4px; background: var(--indigo); border-radius: 1px; }
+  .mark i:nth-child(1) { height: 20px; }
+  .mark i:nth-child(2) { height: 14px; opacity: 0.6; }
+  .mark i:nth-child(3) { height: 9px;  opacity: 0.35; }
+
+  h1 {
+    font-size: 60px;
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -1.6px;
+    color: var(--ink);
+  }
+  /* On a banner nothing is clickable, so the rule that reserves indigo for
+     links does not apply. It carries the payoff phrase instead. */
+  h1 em { font-style: normal; color: var(--indigo); }
+
+  .meta {
+    display: flex; align-items: center; gap: 14px;
+    margin-top: 30px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    color: var(--steel);
+  }
+  .meta b { color: var(--ink); font-weight: 500; }
+  .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--lavender); }
+
+  /* ── guides, for checking clearance. Add #guides to the URL. ── */
+  .guide { display: none; }
+  body.guides .guide { display: block; }
+  .guide-avatar {
+    position: absolute; left: 76px; bottom: -40px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: rgba(220, 38, 38, .30);
+    border: 3px solid #dc2626;
+  }
+  .guide-dead-left {
+    position: absolute; left: 0; top: 0; width: 430px; height: 100%;
+    background: repeating-linear-gradient(45deg, rgba(220,38,38,.10) 0 10px, transparent 10px 20px);
+    border-right: 2px dashed #dc2626;
+  }
+  .guide-dead-bottom {
+    position: absolute; left: 0; bottom: 0; width: 100%; height: 90px;
+    background: repeating-linear-gradient(45deg, rgba(220,38,38,.10) 0 10px, transparent 10px 20px);
+    border-top: 2px dashed #dc2626;
+  }
+</style>
+</head>
+<body>
+
+<div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+<div class="plate">
+  <p class="eyebrow">
+    <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+    gledach · open source
+  </p>
+  <h1>I build tools that turn public<br>noise into <em>structured signal.</em></h1>
+  <p class="meta">
+    <b>gledach.de</b>
+    <span class="dot"></span> MIT licensed
+    <span class="dot"></span> no account to start
+    <span class="dot"></span> your machine is the runtime
+  </p>
+</div>
+
+<div class="guide guide-dead-left"></div>
+<div class="guide guide-dead-bottom"></div>
+<div class="guide guide-avatar"></div>
+
+<script>
+  if (location.hash === '#guides') document.body.classList.add('guides');
+</script>
+</body>
+</html>
