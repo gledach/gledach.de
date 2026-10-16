@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>recall · tell me when something I own is recalled</title>
+<meta name="description" content="Keeps a list of the things you actually own and checks it against four public registers: EU Safety Gate, German medicine shortages, US vehicle campaigns and software end of support. Every match is graded. Zero dependencies, no account.">
+<link rel="canonical" href="https://gledach.de/recall">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksandar Perisic">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gledach.de/recall">
+<meta property="og:site_name" content="gledach">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="recall · tell me when something I own is recalled">
+<meta property="og:description" content="Recalls are published. Nobody reads them, because they are published as a firehose about everyone's belongings. This checks four registers against your list, and grades every match.">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "recall",
+  "url": "https://gledach.de/recall",
+  "sameAs": "https://github.com/gledach/recall",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Windows, macOS, Linux",
+  "softwareRequirements": "Node.js 22 or newer",
+  "license": "https://opensource.org/licenses/MIT",
+  "description": "Watches EU Safety Gate, German medicine shortages, US vehicle campaigns and software end-of-support for the specific things you own, and grades how sure each match is.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "author": {
+    "@type": "Person",
+    "name": "Aleksandar Perisic",
+    "url": "https://www.linkedin.com/in/apsolut/"
+  },
+  "publisher": { "@type": "Organization", "name": "gledach", "url": "https://gledach.de/" }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#install">Skip to the install</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="/" aria-label="gledach, home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      gledach
+    </a>
+    <nav class="nav-links" aria-label="The shelf">
+      <a href="/">signal</a>
+      <a href="/signal-patterns">signal-patterns</a>
+      <a href="/whenrun">whenrun</a>
+      <a href="/phonehome">phonehome</a>
+      <a href="/recall" aria-current="page">recall</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="/#shelf">The shelf</a>
+      <a class="btn btn-fill" href="https://github.com/gledach/recall" rel="noopener">Repository</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══════════════════════════ hero ══════════════════════════ -->
+  <section class="hero sec sec-first">
+    <div class="wrap">
+      <p class="crumb"><a href="/">gledach</a> <span>/</span> <a href="/#shelf">the shelf</a> <span>/ recall</span></p>
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">recall · slot 05 · shipped</p>
+          <h1 class="t-display">
+            Tell me when something<br>I own is recalled.<br>
+            <em class="quiet">And how sure you are.</em>
+          </h1>
+          <p class="t-lg measure-tight" style="margin-top: var(--s-24)">
+            Recalls are published. Nobody reads them, because they are published as a
+            firehose about everyone's belongings. This keeps a list of the things you
+            actually own and checks it against four public registers.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-fill" href="#install">
+              Run it in three commands <span class="arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/gledach/recall" rel="noopener">Repository</a>
+          </div>
+          <p class="hero-meta">MIT licensed · no account for any of the four registers · 0 runtime dependencies · 98 offline tests</p>
+        </div>
+
+        <figure class="console">
+          <div class="console-bar">
+            <span>recall check</span>
+            <span class="tag tag-quiet">real output</span>
+          </div>
+<pre class="blocks">  HIGH  Something scanned off the box
+      Tickit Sensory Blocks Set of 16
+      The toy could rupture and the filling of the inside could come
+      out. The sand inside contains asbestos (measured value up to
+      1.92% by weight). Asbestos could cause cancer.
+      exact: barcode 5060138820289 matches exactly  ·  Fri, 25/09
+
+  HIGH  The stomach tablets
+      Shortage: Pantoprazol-Micro Labs 40 mg
+      Expected to last until 28.10.2026. Flagged as relevant to
+      hospital supply.
+      exact: PZN 10516704 matches exactly  ·  Mon, 28/09
+
+  Sources
+      source      checked  result
+  ──  ──────────  ───────  ──────────  ──────────────────
+  ok  safetygate  3 items  2 findings  EU register only
+  ok  bfarm       1 item   2 findings  DE register only
+  ok  endoflife   1 item   0 findings  every jurisdiction
+  ok  nhtsa       1 item   0 findings  US register only
+
+  Absence of a notice is not proof a product is safe.</pre>
+          <figcaption class="t-cap">
+            Both of those are genuine notices published that week, found by matching
+            digits printed on the packaging. That last line is the point of the tool.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ the situation ══════════════════════════ -->
+  <section class="sec tint-mist">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">The situation</p>
+          <h2 class="t-h-lg">The notice for the thing in your kitchen was published. Nobody sent it to you.</h2>
+        </div>
+        <p class="t-lg">
+          A regulator puts out a notice, a manufacturer writes to whoever registered a
+          warranty card in 2019, and the sand in your child's toy turns out to contain
+          asbestos. You find out because someone mentions it.
+        </p>
+      </div>
+
+      <table class="spec">
+        <thead>
+          <tr>
+            <th scope="col">Register</th>
+            <th scope="col">Covers</th>
+            <th scope="col">Scope</th>
+            <th scope="col">Account</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">EU Safety Gate<span class="mono">safetygate</span></th>
+            <td>Consumer products, toys, appliances, electronics, vehicles</td>
+            <td>EU</td>
+            <td>none</td>
+          </tr>
+          <tr>
+            <th scope="row">BfArM<span class="mono">bfarm</span></th>
+            <td>Medicine <b>supply shortages</b>, which is availability rather than safety</td>
+            <td>DE</td>
+            <td>none</td>
+          </tr>
+          <tr>
+            <th scope="row">NHTSA<span class="mono">nhtsa</span></th>
+            <td>Vehicle safety campaigns</td>
+            <td>US</td>
+            <td>none</td>
+          </tr>
+          <tr>
+            <th scope="row">endoflife.date<span class="mono">endoflife</span></th>
+            <td>Software past its security support date</td>
+            <td>everywhere</td>
+            <td>none</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="figure-note">
+        Safety Gate is the one that matters most in Europe. There is no documented
+        API, but there is a weekly report export in XML, which is better for this
+        purpose: a report reference is a stable cursor, so a refresh only fetches
+        weeks it has not seen, and a published week never changes so its cache never
+        expires. BfArM reports availability, not safety: a hit means a manufacturer
+        has declared a delivery shortage, so your pharmacy may not be able to fill a
+        repeat prescription. Every notice from that source carries that sentence with
+        it, because out of context <q>shortage</q> is easily misheard as
+        <q>unsafe</q>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ install ══════════════════════════ -->
+  <section class="sec" id="install">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Running it</p>
+          <h2 class="t-h-lg">Tell it what you own, then check.</h2>
+        </div>
+        <p class="t-lg">
+          The local inventory is gitignored, which is where a list of your
+          possessions belongs. It is a plain JS file, not a config format to learn.
+        </p>
+      </div>
+
+      <div class="cmd" data-copy>
+<pre><code><span class="c-bin">git</span> clone https://github.com/gledach/recall &amp;&amp; cd recall
+<span class="c-bin">npm</span> test                  <span class="c-cmt"># 98 tests, offline, about two seconds</span>
+<span class="c-bin">cp</span> config/inventory.default.mjs config/inventory.local.mjs
+<span class="c-bin">node</span> bin/recall.mjs check  <span class="c-cmt"># after listing what you own</span></code></pre>
+        <button type="button" class="copy" aria-label="Copy the install commands for recall">Copy</button>
+      </div>
+      <p class="figure-note">
+        No <code>npm install</code>. There is nothing to install, including its own
+        CSV and XML readers. Needs Node 22 or newer.
+      </p>
+
+      <h3 class="t-h-sm" style="margin-top: var(--s-64)">Five kinds, each with the fields it needs</h3>
+      <table class="spec" style="margin-top: var(--s-24)">
+        <thead>
+          <tr>
+            <th scope="col">Kind</th>
+            <th scope="col">Needs</th>
+            <th scope="col">Also accepts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row"><span class="mono">appliance</span></th><td>make, model</td><td>barcode</td></tr>
+          <tr><th scope="row"><span class="mono">device</span></th><td>make, model</td><td>barcode</td></tr>
+          <tr><th scope="row"><span class="mono">vehicle</span></th><td>make, model, year</td><td>vin</td></tr>
+          <tr><th scope="row"><span class="mono">software</span></th><td>product, as an endoflife.date slug</td><td>cycle</td></tr>
+          <tr><th scope="row"><span class="mono">medicine</span></th><td>name</td><td>pzn, the 8 digits on the pack</td></tr>
+        </tbody>
+      </table>
+
+      <p class="figure-note">
+        A missing required field is a startup error, not a skipped entry. An entry
+        silently ignored looks exactly like an entry with nothing wrong, and it would
+        be the one thing you cared about that never got checked.
+      </p>
+
+      <p class="figure-note">
+        <b>Add the barcode.</b> Everything else here is text matching: your spelling
+        of a model number against a regulator's. A barcode is not matching at all,
+        because the manufacturer printed those digits and the register reprinted
+        them. Roughly half the EU alerts carry one, and every German shortage report
+        carries a PZN. Only add digits you can read off the thing itself: a wrong
+        barcode is worse than no barcode, because it will match something unrelated
+        and be reported as certain.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ grading ══════════════════════════ -->
+  <section class="sec tint-frost">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">How sure is it</p>
+          <h2 class="t-h-lg">It reports generously and grades honestly.</h2>
+        </div>
+        <p class="t-lg">
+          Two failure modes, and they are not symmetrical. Match loosely and every run
+          reports a dozen unrelated things, people stop reading, then they miss the
+          real one. Match tightly and the recall that mattered is never mentioned,
+          which is worse and completely invisible.
+        </p>
+      </div>
+
+      <table class="spec">
+        <thead>
+          <tr>
+            <th scope="col">Grade</th>
+            <th scope="col">What it means</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row"><span class="mono">exact</span></th><td>A barcode, PZN or VIN matched, or the register matched it for us.</td></tr>
+          <tr><th scope="row"><span class="mono">strong</span></th><td>Make and model both appear in the notice.</td></tr>
+          <tr><th scope="row"><span class="mono">weak</span></th><td>A distinctive model number appears but the make does not. Check it yourself. Included by default.</td></tr>
+          <tr><th scope="row"><span class="mono">mention</span></th><td>Only the make appears. Almost always noise, and hidden unless you ask for it.</td></tr>
+        </tbody>
+      </table>
+
+      <p class="figure-note">
+        <code>weak</code> is shown by default, because missing a real recall is worse
+        than showing you something to dismiss. Nothing in the output ever says
+        <q>you are affected</q>. It says what matched and how.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ agents ══════════════════════════ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">For agents</p>
+          <h2 class="t-h-lg">Five read-only tools, and read only on purpose.</h2>
+        </div>
+        <p class="t-lg">
+          It cannot add to your inventory and it cannot acknowledge a notice.
+          Acknowledging is a person deciding they have dealt with something, and an
+          assistant should not make that call on your behalf, so it stays a command
+          you type.
+        </p>
+      </div>
+
+      <div class="cmd" data-copy>
+<pre><code><span class="c-bin">npm</span> run mcp
+<span class="c-bin">claude</span> mcp add recall -- node /absolute/path/to/recall/mcp-server.mjs
+
+check_inventory  ·  list_inventory  ·  notice_history
+describe_sources  ·  blind_spots</code></pre>
+        <button type="button" class="copy" aria-label="Copy the MCP commands for recall">Copy</button>
+      </div>
+      <p class="figure-note">
+        Every result carries its coverage and the confidence grade of each match,
+        because a model asked <q>is my car recalled?</q> will otherwise turn
+        <q>no notices found</q> into <q>your car is fine</q>, which is a much stronger
+        claim than the data supports.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ blind spots ══════════════════════════ -->
+  <section class="sec tint-peri">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What it cannot see</p>
+          <h2 class="t-h-lg">Stated here, because this tool is dangerous precisely when it is trusted more than it deserves.</h2>
+        </div>
+        <p class="t-lg">
+          A source that is unreachable is reported as unreachable, never as clean.
+          <q>Nothing found</q> and <q>could not look</q> must never render the same
+          way, and that distinction is the single most important thing in the
+          codebase.
+        </p>
+      </div>
+
+      <ul class="blind">
+        <li><p class="t-sm"><b>No UK, Swiss, Australian, Canadian or Japanese register.</b> Not covered at all.</p></li>
+        <li><p class="t-sm"><b>German vehicle recalls are not checked.</b> That register sits behind a proof-of-work challenge. Vehicle coverage is US campaigns plus whatever the EU register happens to carry, which is not the same thing as German coverage.</p></li>
+        <li><p class="t-sm"><b>Medicine coverage is German shortages only.</b> There is no medicine safety register wired in.</p></li>
+        <li><p class="t-sm"><b>Registers publish late.</b> Days to weeks after a decision. A recall agreed this morning is not here.</p></li>
+        <li><p class="t-sm"><b>Matching is text against text.</b> A regulator who describes your product differently from how you wrote it down produces a low grade or nothing at all.</p></li>
+        <li><p class="t-sm"><b>It checks your list, not your house.</b> Anything you did not write down does not exist as far as this is concerned.</p></li>
+      </ul>
+
+      <p class="figure-note">
+        Tests: 98, offline, no network. A separate live suite answers a different
+        question, namely whether the outside world still looks the way the parsers
+        assume, and it is kept apart because a gate that fails when a public API has
+        a bad afternoon teaches you to ignore the gate. The most dangerous bug this
+        tool can have is a parser that returns zero records from a document full of
+        them, because that is indistinguishable from good news. It has happened
+        twice, which is why the live suite fails on a suspiciously empty result
+        rather than reporting success.
+      </p>
+      <p class="figure-note">
+        This is not legal, medical or safety advice. If a notice concerns you, go to
+        the register's own page and read the original. Data belongs to the European
+        Commission, BfArM, NHTSA and endoflife.date respectively, and each source
+        carries its own attribution.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ elsewhere ══════════════════════════ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Elsewhere on the shelf</p>
+          <h2 class="t-h-lg">Same author. Different shapes.</h2>
+        </div>
+        <p class="t-lg">
+          They share no stack and no interface, only the promise: free, installable,
+          and honest about what each one cannot see.
+        </p>
+      </div>
+
+      <div class="cards">
+        <a class="card" href="/">
+          <p class="eyebrow eyebrow-quiet">Slot 01 · live preview</p>
+          <h3 class="t-h-sm">signal</h3>
+          <p class="t-sm">Ten watchers and one inbox on whichever market you name, scored and attributed, answerable by an agent over MCP.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/whenrun">
+          <p class="eyebrow eyebrow-quiet">Slot 03 · shipped</p>
+          <h3 class="t-h-sm">whenrun</h3>
+          <p class="t-sm">Day-ahead power prices turned into the window your job should run in, then it starts the job there.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/phonehome">
+          <p class="eyebrow eyebrow-quiet">Slot 04 · shipped</p>
+          <h3 class="t-h-sm">phonehome</h3>
+          <p class="t-sm">Which domains every device on your network contacts, and when one starts talking somewhere new.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/signal-patterns">
+          <p class="eyebrow eyebrow-quiet">Slot 02 · reference</p>
+          <h3 class="t-h-sm">signal-patterns</h3>
+          <p class="t-sm">What is watchable, what it costs, and eight engineering decisions each extracted from a bug that shipped.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div>
+        <a class="brand" href="/" aria-label="gledach, home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          gledach
+        </a>
+        <p class="t-cap" style="margin-top: var(--s-16); max-width: 34ch">
+          <em>gledati</em> (slav.): to watch. What a good analyst does before speaking.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">recall</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/recall" rel="noopener">Repository</a></li>
+          <li><a href="https://github.com/gledach/recall/blob/main/docs/roadmap.md" rel="noopener">What it cannot do</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">The shelf</p>
+        <ul class="foot-list">
+          <li><a href="/">signal</a></li>
+          <li><a href="/signal-patterns">signal-patterns</a></li>
+          <li><a href="/whenrun">whenrun</a></li>
+          <li><a href="/phonehome">phonehome</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">Contact</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
+          <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
+          <li><a href="mailto:request@gledach.de">request@gledach.de</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p class="t-cap">MIT licensed. Register data belongs to the European Commission, BfArM, NHTSA and endoflife.date.</p>
+      <p class="t-cap mono">if it ships to turso, it shipped</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

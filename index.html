@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>gledach · free tools that find things out</title>
-<meta name="description" content="Free, installable tools that turn public data into intelligence: signal, whenrun, phonehome, recall. MIT licensed, run on your machine, no account to start.">
+<title>signal · competitive intelligence your agents can query</title>
+<meta name="description" content="Ten watchers and one inbox read what a market publishes. signal types, scores and attributes every signal, correlates them into convergences, and answers your agent over MCP. Free, MIT, runs on your own machine.">
 <link rel="canonical" href="https://gledach.de/">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#F6F5F1">
+<meta name="theme-color" content="#ffffff">
 
-<!-- max-image-preview:large is the one that matters here. Without it Google shows
-     a thumbnail rather than the card, and the card is the whole point of drawing
-     one. The other two lift truncation limits on the snippet. -->
+<!-- max-image-preview:large is the one that matters here. Without it Google
+     shows a thumbnail rather than the card. The other two lift truncation
+     limits on the snippet. -->
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="author" content="Aleksandar Perisic">
 
@@ -19,12 +19,12 @@
 <meta property="og:url" content="https://gledach.de/">
 <meta property="og:site_name" content="gledach">
 <meta property="og:locale" content="en_GB">
-<meta property="og:title" content="gledach · free tools that find things out">
-<meta property="og:description" content="Each one watches something public and hands back an answer. Free, MIT licensed, running on your own machine, with no account to start.">
-<!-- A drawn card, not the dashboard capture that used to sit here. That capture
-     is 1519x784, so every crawler letterboxed or centre-cropped it to 1.91:1, and
-     its text is far too small to survive a timeline thumbnail. Source and render
-     instructions: assets/og/og-home.html. -->
+<meta property="og:title" content="signal · competitive intelligence your agents can query">
+<meta property="og:description" content="Ten watchers and one inbox read what a market publishes. Typed, scored, attributed, and answerable by a machine. Free, MIT, on your own machine.">
+<!-- OUTSTANDING: this card still carries the old "free tools that find things
+     out" headline and the five tool names. It is a rendered asset, source in
+     assets/og/og-home.html, and re-rendering it is the expensive half of the
+     redesign. See HANDOFF.md. -->
 <meta property="og:image" content="https://gledach.de/assets/img/og-home.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
@@ -32,22 +32,21 @@
 <meta property="og:image:alt" content="The gledach wordmark above the headline 'Free tools that find things out', with the five tool names underneath: signal, signal-patterns, whenrun, phonehome and recall.">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="gledach · free tools that find things out">
-<meta name="twitter:description" content="Each one watches something public and hands back an answer. Free, MIT licensed, running on your own machine, with no account to start.">
+<meta name="twitter:title" content="signal · competitive intelligence your agents can query">
+<meta name="twitter:description" content="Ten watchers and one inbox read what a market publishes. Typed, scored, attributed, and answerable by a machine.">
 <meta name="twitter:image" content="https://gledach.de/assets/img/og-home.png">
-<meta name="twitter:image:alt" content="The gledach wordmark above the headline 'Free tools that find things out', with the five tool names underneath: signal, signal-patterns, whenrun, phonehome and recall.">
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-<!-- The agent-readable twins, declared rather than only linked in the footer, so
-     a client that prefers one does not have to parse the page to find it. -->
+<!-- The agent-readable twins, declared rather than only linked in the footer,
+     so a client that prefers one does not have to parse the page to find it. -->
 <link rel="alternate" type="text/markdown" href="/index.md" title="This page as markdown">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="The shelf, as plain text for agents">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 
 <script type="application/ld+json">
@@ -64,20 +63,33 @@
     "publisher": { "@id": "https://gledach.de/#org" }
   },
   {
-    "@type": "CollectionPage",
+    "@type": "WebPage",
     "@id": "https://gledach.de/#webpage",
     "url": "https://gledach.de/",
-    "name": "gledach · free tools that find things out",
-    "description": "Each tool watches something public and hands back an answer.",
+    "name": "signal · competitive intelligence your agents can query",
+    "description": "Ten watchers and one inbox read what a market publishes, and the result is answerable by a machine over MCP.",
     "inLanguage": "en-GB",
     "isPartOf": { "@id": "https://gledach.de/#website" },
-    "about": { "@id": "https://gledach.de/#org" },
+    "about": { "@id": "https://gledach.de/#signal" },
     "primaryImageOfPage": {
       "@type": "ImageObject",
       "url": "https://gledach.de/assets/img/og-home.png",
       "width": 1200,
       "height": 630
     }
+  },
+  {
+    "@type": "SoftwareApplication",
+    "@id": "https://gledach.de/#signal",
+    "name": "signal",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "softwareRequirements": "Node.js 22 or newer, and git",
+    "license": "https://opensource.org/licenses/MIT",
+    "url": "https://github.com/gledach/signals",
+    "description": "Competitive intelligence your agents can query. Ten watchers and one Gmail inbox collect what a market publishes, scored and attributed, correlated into convergences, exposed over MCP. Point it at any market by editing one gitignored file.",
+    "author": { "@id": "https://gledach.de/#creator" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
   },
   {
   "@type": "Organization",
@@ -105,16 +117,7 @@
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "EUR",
-      "itemOffered": {
-        "@type": "SoftwareApplication",
-        "name": "signal",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Windows, macOS, Linux",
-        "softwareRequirements": "Node.js 22 or newer, and git",
-        "license": "https://opensource.org/licenses/MIT",
-        "url": "https://github.com/gledach/signals",
-        "description": "Competitive intelligence your agents can query. Watches a market, scores and attributes public signals, exposes them over MCP. Point it at any market by editing one gitignored file."
-      }
+      "itemOffered": { "@id": "https://gledach.de/#signal" }
     },
     {
       "@type": "Offer",
@@ -127,7 +130,8 @@
         "operatingSystem": "Windows, macOS, Linux",
         "license": "https://opensource.org/licenses/MIT",
         "url": "https://github.com/gledach/whenrun",
-        "description": "Watches day-ahead electricity prices and renewable share, then schedules jobs into the cheapest or greenest window. Zero dependencies, no account."
+        "sameAs": "https://gledach.de/whenrun",
+        "description": "Watches day-ahead electricity prices and renewable share, then schedules jobs into the cheapest or greenest window. Zero runtime dependencies, no account."
       }
     },
     {
@@ -141,6 +145,7 @@
         "operatingSystem": "Windows, macOS, Linux",
         "license": "https://opensource.org/licenses/MIT",
         "url": "https://github.com/gledach/phonehome",
+        "sameAs": "https://gledach.de/phonehome",
         "description": "A local DNS resolver that records which domains every device on your network contacts, classifies them, and says when one starts talking somewhere new. Nothing is uploaded and nothing is blocked."
       }
     },
@@ -155,6 +160,7 @@
         "operatingSystem": "Windows, macOS, Linux",
         "license": "https://opensource.org/licenses/MIT",
         "url": "https://github.com/gledach/recall",
+        "sameAs": "https://gledach.de/recall",
         "description": "Watches EU Safety Gate, German medicine shortages, US vehicle campaigns and software end-of-support for the specific things you own, and grades how sure each match is."
       }
     },
@@ -166,6 +172,7 @@
         "@type": "TechArticle",
         "name": "signal-patterns",
         "url": "https://github.com/gledach/signal-patterns",
+        "sameAs": "https://gledach.de/signal-patterns",
         "description": "How to build tools that watch the public web: what is watchable, what it costs, and the engineering decisions behind a watcher."
       }
     }
@@ -183,865 +190,650 @@
 </script>
 </head>
 <body>
-<a class="skip" href="#shelf">Skip to the shelf</a>
+<a class="skip" href="#collect">Skip to what it watches</a>
 
 <!-- ══════════════════════════ nav ══════════════════════════ -->
 <header class="nav">
   <div class="nav-in">
     <a class="brand" href="/" aria-label="gledach, home">
-      <span class="brand-mark" aria-hidden="true">
-        <i></i><i></i><i></i>
-      </span>
-      <span class="brand-word">gledach</span>
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      gledach
     </a>
     <nav class="nav-links" aria-label="Sections">
-      <a href="#signal">signal</a>
+      <a href="#collect">What it watches</a>
+      <a href="#pipeline">What it does with it</a>
+      <a href="#surfaces">Who consumes it</a>
+      <a href="#retarget">Point it anywhere</a>
       <a href="#shelf">The shelf</a>
-      <a href="#ladder">How far they go</a>
-      <a href="#previews">Previews</a>
-      <a href="#rules">House rules</a>
     </nav>
-    <div class="nav-right">
-      <a class="btn btn-ghost btn-sm" href="https://signal.gledach.de" rel="noopener">Live preview</a>
-      <a class="btn btn-primary btn-sm" href="https://github.com/gledach" rel="noopener">GitHub</a>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="https://signal.gledach.de" rel="noopener">Live preview</a>
+      <a class="btn btn-fill" href="https://github.com/gledach" rel="noopener">GitHub</a>
     </div>
   </div>
 </header>
 
 <main>
 
-  <!-- ══════════════════════════ hero: signal ══════════════════════════ -->
-  <!-- The page used to open on the shelf's own thesis, which is a sentence a
-       stranger has no reason to care about yet, and then sold signal anyway with
-       the first button and the first screenshot. So the opener is signal's claim,
-       stated plainly, with the view that proves it directly underneath. The shelf
-       follows immediately with its own H2. What carries "this is one of several"
-       up here is the eyebrow and the second button, which is enough: featuring one
-       tool reorders the shelf, it does not dissolve it.
-
-       Stacked rather than two columns. In the 525px column the old hero used, a
-       Compare capture can only show one of the two companies it is comparing,
-       which is a screenshot that disproves its own caption. -->
-  <section class="hero" id="signal">
-    <div class="container hero-stack">
-
-      <div class="hero-copy hero-lede">
-        <p class="eyebrow">signal · slot 01 on the gledach shelf</p>
-        <!-- Hard breaks, one sentence per line. Left to wrap on its own the
-             headline breaks mid-sentence at most widths, which turns three
-             claims into one run-on. The breaks do not stop the lines wrapping
-             again on a phone, they only fix where the sentences end. -->
-        <h1 class="h-hero"><span style="--i:0">Track</span> <span style="--i:1">anyone.</span><br>
-        <span style="--i:2">Compare</span> <span style="--i:3">anyone.</span><br>
-        <span style="--i:4">On</span> <em><span style="--i:5">your</span> <span style="--i:6">own</span> <span style="--i:7">machine.</span></em></h1>
-        <!-- "Anyone" is the hook and also the one word on this page that can be
-             read wrong, so the lead spends its first clause saying which anyone
-             it means rather than leaving it to the reader. -->
-        <p class="lead">
-          Anyone means any company you name in one file. signal watches what they
-          publish, scores and attributes it, and answers your agent over MCP. Your
-          machine keeps everything it collects.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="https://signal.gledach.de" rel="noopener">
-            Open the live preview <span class="arrow" aria-hidden="true">&rarr;</span>
-          </a>
-          <a class="btn btn-ghost" href="#shelf">Browse the shelf</a>
+  <!-- ══════════════════════════ hero ══════════════════════════ -->
+  <!-- The page opens on signal's own claim with the view that proves it
+       beside it. The shelf follows further down with its own heading. What
+       carries "this is one of several" up here is the eyebrow and the second
+       button, which is enough: featuring one tool reorders the shelf, it does
+       not dissolve it. -->
+  <section class="hero sec sec-first" id="signal">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">signal · slot 01 on the gledach shelf</p>
+          <h1 class="t-display">
+            Competitive intelligence<br>your agents can query.<br>
+            <em class="quiet">On your own machine.</em>
+          </h1>
+          <p class="t-lg measure-tight" style="margin-top: var(--s-24)">
+            Ten watchers and one inbox read what a market publishes. Everything
+            they find is typed, scored, attributed and handed to a machine as
+            structured data rather than a page to read.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-fill" href="https://signal.gledach.de" rel="noopener">
+              Open the live preview <span class="arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn-ghost" href="#collect">See what it watches</a>
+          </div>
+          <p class="hero-meta">MIT licensed · no account to start · 3 runtime dependencies · offline on a fresh clone</p>
         </div>
-        <p class="meta-line">MIT licensed · no account to start · your machine is the runtime</p>
+
+        <figure class="console">
+          <div class="console-bar">
+            <span>mcp · signal</span>
+            <span class="tag">coverage: fresh</span>
+          </div>
+<pre>&gt; <span class="c-bin">search_signals</span> { company: "cursor", since: "7d", minImpact: 70 }
+
+{
+  "signals": [
+    {
+      "hashId":      "8f2a1c…",
+      "signalType":  "pricing_change",
+      "impactScore":        84,
+      "source":      "email-google-alert",
+      "publishedAt": "2026-10-11T06:14:00Z"
+    }
+  ],
+  "coverage": {
+    "status":            "fresh",
+    "lastCollectedAt":   "2026-10-16T05:30:11Z",
+    "trustEmptyResult":  true,
+    "warnings":          []
+  }
+}</pre>
+          <figcaption class="t-cap">
+            Every signal-reporting tool returns that <code>coverage</code> block.
+            It is how an agent tells a quiet market apart from a watcher that
+            stopped running.
+          </figcaption>
+        </figure>
       </div>
-
-      <!-- The chip used to read "Live, read only" while the caption under it said
-           the thing is a dated static export. Both cannot be true. The export is
-           what it is, and saying so costs nothing. -->
-      <figure class="preview preview-wide" aria-labelledby="preview-cap">
-        <div class="preview-head">
-          <a class="preview-url" href="https://signal.gledach.de" rel="noopener">signal.gledach.de</a>
-          <span class="chip chip-neutral">Static export, read only</span>
-        </div>
-
-        <img class="preview-full" src="/assets/img/signal-compare.jpg"
-             width="1519" height="784" decoding="async" fetchpriority="high"
-             alt="Signal's Compare view: Claude Code as the anchor company beside Cursor, set against each other across positioning, target segment, pricing model, strengths and weaknesses.">
-
-        <figcaption id="preview-cap">
-          <b>Compare</b>, in a real deployment. Thirteen companies in the left rail, read
-          out of the one file you edit, and any of them can be the anchor. The
-          <code>[unverified against competitor signals]</code> in the pricing cell is the
-          tool declining to assert something its own evidence does not support.
-          <span class="preview-local">
-            <code>npm run view</code> puts this dashboard on <code>127.0.0.1:5180</code>,
-            pointed at your companies instead of these.
-          </span>
-        </figcaption>
-      </figure>
-
     </div>
   </section>
 
-  <!-- ══════════════════════════ 01 signal, in detail ══════════════════════════ -->
-  <!-- No second headline. The H1 above already made signal's claim, and a section
-       head here would restate it in smaller type. This block is only the evidence
-       for the claim: the situation, the mechanism, the figures, the install, and
-       the three things you do next. -->
-  <section class="section signal-detail" aria-label="What signal does">
-    <div class="container">
-
-      <p class="tool-problem">
-        You find out a competitor shipped something when a customer mentions it.
-      </p>
-      <p class="tool-line">Competitive intelligence your agents can query.</p>
-
-      <!-- One capture on the page before the shelf, and it is in the hero. A
-           second one here would be a second thing to look at in the same
-           argument, which is how a page starts feeling like a brochure. -->
-      <div class="tool-text">
-        <p>
-          Thirteen public sources are collected around one market, deduplicated and
-          attributed, scored for impact, then correlated into convergences: patterns
-          that several independent publishers corroborate. The result is exposed over
-          MCP, so Claude Code, Codex or any other MCP client can ask what changed this
-          week and get structured data back rather than a page to read. It ships
-          tracking thirteen AI coding agents and app builders, and that roster is
-          configuration, not code. The dashboard is one client, not the product.
+  <!-- ══════════════════════════ 01 collect ══════════════════════════ -->
+  <!-- Tiles rather than a table. The shelf is meant to grow and so is this:
+       a twelfth source is one more tile, where a twelfth row would keep
+       stretching a fixed column set. -->
+  <section class="sec" id="collect">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">The collection</p>
+          <h2 class="t-h-lg">Eleven ways in, and three of them speak before anyone announces anything.</h2>
+        </div>
+        <p class="t-lg">
+          Each tile says what the watcher actually reads and how often it runs, not
+          what it promises. The three marked <b>leading</b> hear a move while it is
+          still infrastructure, before anyone has written a sentence about it.
         </p>
-
-        <dl class="stats">
-          <div>
-            <dt>Sources</dt>
-            <dd>13</dd>
-            <p>RSS, Hacker News, GitHub, YouTube, certificate logs, sitemaps, search, trends</p>
-          </div>
-          <div>
-            <dt>Agent tools</dt>
-            <dd>8</dd>
-            <p>over MCP, read only until a deployment opts in</p>
-          </div>
-          <div>
-            <dt>Runtime deps</dt>
-            <dd>3</dd>
-            <p>no build step, no framework, offline on a fresh clone</p>
-          </div>
-          <div>
-            <dt>Signals stored</dt>
-            <dd>2,600+</dd>
-            <p>in the deployment behind the preview above</p>
-          </div>
-        </dl>
       </div>
 
-      <div class="cmd" data-copy>
-<code>git clone https://github.com/gledach/signals &amp;&amp; cd signals
-npm install
-npm run db:migrate   # local database and demo data. no account, no key
-npm run view         # a populated dashboard at 127.0.0.1:5180</code>
-        <button type="button" class="copy" aria-label="Copy the install commands for signal">Copy</button>
+      <div class="tiles">
+
+        <article class="tile">
+          <p class="tile-n">01</p>
+          <h3 class="tile-name">Feeds<span class="mono">npm run fetch</span></h3>
+          <p class="tile-what">
+            Around sixty RSS feeds across the roster and the whole category: Google
+            News, Reddit, vendor blogs, GitHub releases. The list derives from the
+            roster, so retargeting rewrites it rather than leaving it behind.
+          </p>
+          <p class="tile-cad">every 30 min</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">02</p>
+          <h3 class="tile-name">Google Alerts<span class="mono">npm run watch:gmail</span></h3>
+          <p class="tile-what">
+            Alerts arrive in a mailbox, a parser reads them, and the result fills a
+            local inbox database. Two zones, and the second is easy to forget:
+            nothing reaches the dashboard until <code>email:promote</code> runs. The
+            refresh token stays on your machine and is never shipped to the scheduler.
+          </p>
+          <p class="tile-cad">local only</p>
+        </article>
+
+        <article class="tile tile-lead">
+          <p class="tile-n">03</p>
+          <h3 class="tile-name">Certificate logs<span class="mono">npm run watch:certs</span></h3>
+          <p class="tile-what">
+            Public certificate transparency, per competitor domain. A new subdomain
+            gets a certificate before the thing on it is announced, which makes this
+            the earliest free view of a vertical launch there is.
+          </p>
+          <p class="tile-cad">every 6 h · leading</p>
+        </article>
+
+        <article class="tile tile-lead">
+          <p class="tile-n">04</p>
+          <h3 class="tile-name">Sitemaps, robots<span class="mono">npm run watch:sites</span></h3>
+          <p class="tile-what">
+            Fetch, diff against the last snapshot, emit on new paths, removed paths
+            and rule changes. A page exists before anything links to it.
+          </p>
+          <p class="tile-cad">every 6 h · leading</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">05</p>
+          <h3 class="tile-name">Hacker News<span class="mono">npm run watch:hn</span></h3>
+          <p class="tile-what">
+            Through the Algolia search API, filtered on points and recency. Points,
+            comments, author and timestamps arrive as structured fields rather than
+            prose scraped out of a feed summary.
+          </p>
+          <p class="tile-cad">daily</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">06</p>
+          <h3 class="tile-name">GitHub<span class="mono">npm run watch:github</span></h3>
+          <p class="tile-what">
+            Releases, breaking-change tags and issue complaints. Sixty requests an
+            hour unauthenticated, five thousand with a token.
+          </p>
+          <p class="tile-cad">daily</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">07</p>
+          <h3 class="tile-name">YouTube captions<span class="mono">npm run watch:youtube</span></h3>
+          <p class="tile-what">
+            Captions over HTTP: no audio download and no transcription, which is free
+            for roughly four videos in five. A caption-less video still gets a signal
+            recording that captions were unavailable. Local transcription is opt in.
+          </p>
+          <p class="tile-cad">daily</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">08</p>
+          <h3 class="tile-name">Answer engines<span class="mono">npm run watch:aeo</span></h3>
+          <p class="tile-what">
+            Asks the shortlist question a buyer asks and records which brands each
+            engine names back. Detection is a deterministic word-boundary match, not
+            a model judging another model's output.
+          </p>
+          <p class="tile-cad">weekly</p>
+        </article>
+
+        <article class="tile tile-lead">
+          <p class="tile-n">09</p>
+          <h3 class="tile-name">Model routing<span class="mono">npm run watch:routing</span></h3>
+          <p class="tile-what">
+            A public, openly licensed data API: which models the market routes its
+            tokens to, and which applications process them. Only movement past a
+            threshold is emitted, so a flat week is silent instead of noisy.
+          </p>
+          <p class="tile-cad">daily · leading</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">10</p>
+          <h3 class="tile-name">Search discovery<span class="mono">npm run watch:tavily</span></h3>
+          <p class="tile-what">
+            Mention discovery past the feeds, two queries per company, guarded
+            against a free monthly credit tier with a cooldown between runs.
+          </p>
+          <p class="tile-cad">daily</p>
+        </article>
+
+        <article class="tile">
+          <p class="tile-n">11</p>
+          <h3 class="tile-name">Search interest<span class="mono">npm run watch:trends</span></h3>
+          <p class="tile-what">
+            Brand queries and <q>alternative to</q> queries, batched to the eight
+            stalest per run. The upstream limiter refuses thirty two in a row, so the
+            full set rotates across four passes.
+          </p>
+          <p class="tile-cad">weekly, 4 passes</p>
+        </article>
+
+        <article class="tile tile-empty">
+          <p class="tile-n">12</p>
+          <h3 class="tile-name">[UNDECIDED]</h3>
+          <p class="tile-what">
+            A watcher is added when a source is public, readable without an account,
+            and says something the eleven above do not. Those three questions are the
+            whole bar.
+          </p>
+          <p class="tile-cad">not built</p>
+        </article>
+
       </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ 02 lead time ══════════════════════════ -->
+  <section class="sec tint-mist">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Why those eleven</p>
+          <h2 class="t-h-lg">Infrastructure moves weeks before the press release does.</h2>
+        </div>
+        <p class="t-lg">
+          The list is not long for its own sake. It is ordered by how early each
+          source speaks, and most monitoring products start at the bottom of it.
+        </p>
+      </div>
+
+      <ul class="bars">
+        <li style="--w: 100%"><span>Infrastructure</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">weeks ahead</span></li>
+        <li style="--w: 74%"><span>Hiring</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">months, vague</span></li>
+        <li style="--w: 46%"><span>Documentation</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">hours</span></li>
+        <li style="--w: 38%"><span>Changelog</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">hours</span></li>
+        <li style="--w: 20%"><span>Marketing</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">at launch</span></li>
+        <li style="--w: 8%"><span>Press</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-lag">after</span></li>
+      </ul>
       <p class="figure-note">
-        That runs offline on a fresh clone, on Windows, macOS or Linux. An LLM key turns on
-        classification, battlecards and analyst briefs. Without one, a keyword classifier
-        runs instead and everything else still works.
+        Lead time before a move becomes public knowledge. The three watchers flagged
+        leading above are the three at the top of this chart. The reasoning, with
+        measured precision per source, is in <a href="/signal-patterns">signal-patterns</a>.
       </p>
-
-      <ol class="focus-steps">
-        <li>
-          <span class="mono-label">01 · Point it at anyone</span>
-          <p>
-            The roster is one gitignored file, so you can pull upstream forever without a
-            conflict in the only file you changed. Feeds, GitHub repository mappings, Hacker
-            News queries and classifier collision warnings all derive from it, and
-            <code>npm test</code> fails if a brand name appears anywhere outside
-            <code>config/</code>. Retargeting cannot leave someone else's market behind in a
-            watcher or a prompt.
-          </p>
-          <p class="focus-cmd"><code>cp config/companies.default.mjs config/companies.local.mjs</code></p>
-        </li>
-        <li>
-          <span class="mono-label">02 · Let the agent install it</span>
-          <p>
-            The repository ships <code>AGENTS.md</code>, <code>CLAUDE.md</code> and five
-            skills, so Codex or Claude Code can clone it, migrate the database and wire
-            itself in without you reading the install guide first. Node 22 and git still
-            have to be on the machine: an agent can run the commands, it cannot conjure a
-            runtime.
-          </p>
-          <p class="focus-cmd"><code>claude mcp add signal -- node /path/to/signals/mcp-server.mjs</code></p>
-        </li>
-        <li>
-          <span class="mono-label">03 · Then it feeds whatever asks</span>
-          <p>
-            One scheduled pass runs every watcher and leaves the day in a database file you
-            own. Eight MCP tools and <code>signal://</code> resources serve it to an agent,
-            JSON endpoints serve it to anything else, briefs and battlecards come out as
-            markdown. All read only: the single tool that spends money ships disabled, and
-            stays under a ceiling shared with cron.
-          </p>
-          <p class="focus-cmd"><code>npm run start</code></p>
-        </li>
-      </ol>
-
-      <nav class="tool-links" aria-label="signal links">
-        <a href="https://github.com/gledach/signals" rel="noopener">Repository</a>
-        <a href="https://signal.gledach.de" rel="noopener">Live preview</a>
-        <a href="https://github.com/gledach/signals/blob/main/docs/start.md" rel="noopener">Install guide</a>
-        <a href="https://github.com/gledach/signals/blob/main/docs/mcp.md" rel="noopener">Agent surface</a>
-        <a href="https://github.com/gledach/signals/blob/main/docs/blindspots.md" rel="noopener">What it cannot see</a>
-      </nav>
     </div>
   </section>
 
-  <!-- ══════════════════════════ 02 shelf ══════════════════════════ -->
-  <section class="section" id="shelf">
-    <div class="container">
-      <div class="section-head">
+  <!-- ══════════════════════════ 03 pipeline ══════════════════════════ -->
+  <section class="sec" id="pipeline">
+    <div class="wrap">
+      <div class="head">
         <div>
-          <p class="eyebrow">The shelf</p>
-          <!-- The headline used to count the slots, and the chip below it counts
-               them again in different words a hundred pixels away. The chip is the
-               better place for a number, because it is the one that does not have
-               to be rewritten as a sentence every time a tool ships. So the
-               headline carries the idea instead, and it never goes stale. -->
-          <h2 class="h2">Same author. Different <em>shapes.</em></h2>
+          <p class="eyebrow">What happens to one item</p>
+          <h2 class="t-h-lg">Five stages between a feed entry and an answer.</h2>
         </div>
-        <p class="lead">
-          A tool earns a slot here when it runs on someone else's machine, not only on mine.
-          They share no stack and no interface, only the promise: free, installable, and
-          honest about what each one cannot see. Everything is on GitHub under
-          <a href="https://github.com/gledach" rel="noopener">gledach</a>.
+        <p class="t-lg">
+          The panel below darkens as it goes, which is the point: each stage is one
+          step further from raw data, and the tool reports which one it reached.
         </p>
       </div>
 
-      <!-- The whole shelf in one screen, as input and output rather than as blurbs.
-           A reader who wants the difference between five tools should not have to
-           read five cards to find it. Rows are the growth unit: adding a tool is a
-           row here and a card below. -->
-      <figure class="index-wrap" aria-labelledby="index-cap">
-        <div class="index-head">
-          <p class="mono-label">What each one watches, and what it hands back</p>
-          <span class="chip chip-neutral">5 of 12 slots filled</span>
+      <div class="rail">
+        <div class="rail-step">
+          <p class="rail-label">Stage 01<span>Classify</span></p>
+          <div class="rail-body">
+            <p>
+              Haiku reads the item and types it: product launch, pricing change,
+              funding, customer win, review complaint. With no model key a keyword
+              classifier runs instead, free and less precise, and the method used is
+              recorded on the row either way so you can re-run the ones that matter.
+            </p>
+          </div>
         </div>
-
-        <!-- The scan the hero rack used to carry, moved to the only list that is
-             left. It says the same thing it always said: a shelf with capacity,
-             being watched. Scroll-driven now rather than fired on load, because
-             this sits below the fold and a pass nobody sees is a pass wasted. -->
-        <div class="index-body">
-          <span class="index-scan" aria-hidden="true"></span>
-          <table class="shelf-index">
-            <thead>
-              <tr>
-                <th scope="col">Tool</th>
-                <th scope="col">Watches</th>
-                <th scope="col">Tells you</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row" data-label="Tool">
-                  <span class="idx-n">01</span><a href="#signal">signal</a>
-                </th>
-                <td data-label="Watches">Thirteen public sources around whichever market you name</td>
-                <td data-label="Tells you">What changed, scored and attributed, over MCP</td>
-                <td data-label="Status"><span class="idx-status is-live">Live preview</span></td>
-              </tr>
-              <tr>
-                <th scope="row" data-label="Tool">
-                  <span class="idx-n">02</span><a href="#signal-patterns">signal-patterns</a>
-                </th>
-                <td data-label="Watches">Nothing. It is the written reasoning</td>
-                <td data-label="Tells you">What is watchable, what it costs, how to build it</td>
-                <td data-label="Status"><span class="idx-status">Docs</span></td>
-              </tr>
-              <tr>
-                <th scope="row" data-label="Tool">
-                  <span class="idx-n">03</span><a href="#whenrun">whenrun</a>
-                </th>
-                <td data-label="Watches">Day-ahead power prices and renewable share</td>
-                <td data-label="Tells you">The cheapest or greenest window, then starts the job in it</td>
-                <td data-label="Status"><span class="idx-status is-live">Shipped</span></td>
-              </tr>
-              <tr>
-                <th scope="row" data-label="Tool">
-                  <span class="idx-n">04</span><a href="#phonehome">phonehome</a>
-                </th>
-                <td data-label="Watches">Every DNS query on your own network</td>
-                <td data-label="Tells you">Which device talked where, and when that changed</td>
-                <td data-label="Status"><span class="idx-status is-live">Shipped</span></td>
-              </tr>
-              <tr>
-                <th scope="row" data-label="Tool">
-                  <span class="idx-n">05</span><a href="#recall">recall</a>
-                </th>
-                <td data-label="Watches">Four public registers, against a list of what you own</td>
-                <td data-label="Tells you">Which of your things has a notice, and how sure the match is</td>
-                <td data-label="Status"><span class="idx-status is-live">Shipped</span></td>
-              </tr>
-              <tr class="is-empty">
-                <th scope="row" data-label="Tool">
-                  <span class="idx-n">06</span><a href="#slot-06">[UNNAMED]</a>
-                </th>
-                <td data-label="Watches">[UNDECIDED]</td>
-                <td data-label="Tells you">[UNDECIDED]</td>
-                <td data-label="Status"><span class="idx-status">Empty</span></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="rail-step">
+          <p class="rail-label">Stage 02<span>Score</span></p>
+          <div class="rail-body">
+            <p>
+              Business impact from 0 to 100, re-weighted for this job rather than for
+              news: a product launch outranks generic press coverage, which is the
+              opposite of how a headline ranker would order the same two items.
+            </p>
+          </div>
         </div>
-
-        <figcaption id="index-cap">
-          Row 01 is <a href="#signal">the section above</a>. Every other row is a card below,
-          and every claim in one is shown there as real output. Each card also carries the
-          rung it reaches, and <a href="#ladder">the ladder</a> says what the rungs are. The
-          empty row is written the same way the empty card is, because a slot with nothing in
-          it is a fact rather than a gap to fill with copy.
-        </figcaption>
-      </figure>
-
-      <div class="tools">
-
-        <!-- Slot 01 is not here. signal has the section above, because it is the one
-             tool on the shelf you aim at a subject of your own. -->
-
-        <!-- ─────────── signal-patterns ─────────── -->
-        <article class="tool card" id="signal-patterns">
-          <div class="tool-head">
-            <h3 class="h3">signal-patterns</h3>
-            <span class="chip chip-neutral">Reference</span>
-            <span class="chip chip-neutral">Docs</span>
+        <div class="rail-step">
+          <p class="rail-label">Stage 03<span>Store</span></p>
+          <div class="rail-body">
+            <p>
+              One row, keyed on a hash of its own content, so every write is
+              idempotent and two operators plus a scheduler can run the same pass
+              without producing duplicates. A local file by default. A hosted
+              database only once you point it at one.
+            </p>
           </div>
-
-          <p class="tool-problem">
-            You want to build one of these, and the hard part is knowing what is watchable
-            at all.
-          </p>
-          <p class="tool-line">How to build tools that watch the public web.</p>
-
-          <div class="tool-grid">
-            <div class="tool-text">
-              <p>
-                What is watchable, what it costs, how to build a watcher, and the engineering
-                decisions that only become obvious after something has broken. Nothing to
-                install and nothing to version, because the reasoning is the reusable part and
-                the code around it usually is not.
-              </p>
-
-              <dl class="stats">
-                <div><dt>Guides</dt><dd>4</dd><p>sources, cost, building, agent integration</p></div>
-                <div><dt>Patterns</dt><dd>8</dd><p>each one extracted from a bug that shipped</p></div>
-                <div><dt>To install</dt><dd>Nothing</dd><p>no package, no version, prose and diagrams</p></div>
-                <div><dt>Reference</dt><dd>signal</dd><p>the implementation the writing describes</p></div>
-              </dl>
-            </div>
-
-            <figure class="leadtime">
-              <figcaption class="leadtime-title">
-                Infrastructure moves weeks before the press release does.
-              </figcaption>
-              <ul class="leadtime-bars">
-                <li style="--w: 100%"><span class="lt-name">Infrastructure</span><span class="lt-bar"></span><span class="lt-lag">weeks</span></li>
-                <li style="--w: 74%"><span class="lt-name">Hiring</span><span class="lt-bar"></span><span class="lt-lag">months, vague</span></li>
-                <li style="--w: 46%"><span class="lt-name">Documentation</span><span class="lt-bar"></span><span class="lt-lag">hours</span></li>
-                <li style="--w: 38%"><span class="lt-name">Changelog</span><span class="lt-bar"></span><span class="lt-lag">hours</span></li>
-                <li style="--w: 20%"><span class="lt-name">Marketing</span><span class="lt-bar"></span><span class="lt-lag">at launch</span></li>
-                <li style="--w: 8%"><span class="lt-name">Press</span><span class="lt-bar"></span><span class="lt-lag">after</span></li>
-              </ul>
-              <p class="leadtime-note">
-                Lead time before a move becomes public knowledge. Most tools start at the
-                bottom of this list, which is where everyone is already looking.
-              </p>
-            </figure>
+        </div>
+        <div class="rail-step">
+          <p class="rail-label">Stage 04<span>Correlate</span></p>
+          <div class="rail-body">
+            <p>
+              Theme and count rules fire a <b>convergence</b>: a pattern several
+              independent publishers corroborate. A launch, a hiring push and a
+              certificate change all pointing at the same vertical is one finding
+              rather than three unread rows. Each carries a structured citation graph
+              back to its evidence and dedupes per calendar week.
+            </p>
           </div>
-
-          <nav class="tool-links" aria-label="signal-patterns links">
-            <a href="https://github.com/gledach/signal-patterns" rel="noopener">Repository</a>
-            <a href="https://github.com/gledach/signal-patterns/blob/main/sources.md" rel="noopener">What is watchable</a>
-            <a href="https://github.com/gledach/signal-patterns/blob/main/techniques.md" rel="noopener">What it costs</a>
-            <a href="https://github.com/gledach/signal-patterns/blob/main/building-a-watcher.md" rel="noopener">Building a watcher</a>
-            <a href="https://github.com/gledach/signal-patterns/blob/main/agent-integration.md" rel="noopener">Being consumable by agents</a>
-          </nav>
-        </article>
-
-        <!-- ─────────── whenrun ─────────── -->
-        <article class="tool card" id="whenrun">
-          <div class="tool-head">
-            <h3 class="h3">whenrun</h3>
-            <span class="chip chip-accent">Rung 04 · Intelligence</span>
-            <span class="chip chip-good">Shipped</span>
+        </div>
+        <div class="rail-step">
+          <p class="rail-label">Stage 05<span>Synthesise, and label it</span></p>
+          <div class="rail-body">
+            <p>
+              Battlecards from Sonnet, deep research from Opus across a hundred and
+              eighty days of signal, five analyst modes driven by a written persona,
+              and a weekly report that uses no model at all because its arithmetic is
+              deterministic. Every piece of model output is marked as model output,
+              and a claim the evidence does not support is published as unverified
+              rather than asserted quietly.
+            </p>
           </div>
-
-          <p class="tool-problem">
-            Power can cost three times more in the evening than it does at midday, and your
-            backup job does not care when it runs.
-          </p>
-          <p class="tool-line">Run it when the power is cheap.</p>
-
-          <div class="tool-body">
-            <div class="tool-text">
-              <p>
-                Watches day-ahead electricity prices and the renewable-share forecast, works
-                out the cheapest or greenest window that still meets a job's deadline, and
-                starts the job there. Backups, builds, an EV charger, a heat pump. It is the
-                first tool here that acts on what it sees rather than reporting it, and the
-                only one with nothing at all to install: no account, no key, and zero runtime
-                dependencies.
-              </p>
-
-              <dl class="stats">
-                <div>
-                  <dt>Price sources</dt>
-                  <dd>2</dd>
-                  <p>both keyless, cross-checked against each other by <code>doctor</code></p>
-                </div>
-                <div>
-                  <dt>Bidding zones</dt>
-                  <dd>16</dd>
-                  <p>verified live in DE-LU, AT, FR, CH, NL, ES and PL</p>
-                </div>
-                <div>
-                  <dt>Runtime deps</dt>
-                  <dd>0</dd>
-                  <p>no npm install, storage is a file on disk</p>
-                </div>
-                <div>
-                  <dt>Tests</dt>
-                  <dd>142</dd>
-                  <p>fully offline, against fixtures captured from the real APIs</p>
-                </div>
-              </dl>
-            </div>
-
-            <figure class="termshot">
-              <pre>DE-LU · 82319 Starnberg · energy-charts · 15min slots
-
-  today     ▆▅▅▅▅▅▇█▇▆▅▃▂▁▁▃▅▇██▇▅▅▄  72 to 231 EUR/MWh
-            00:00 06:00 12:00 18:00
-
-  Cheapest window from now
-
-  len  when                  spot          you pay
-  ───  ────────────────────  ────────────  ─────────────
-  1h   today 13:15 to 14:15  68.3 EUR/MWh  31.3 ct/kWh
-  4h   today 11:30 to 15:30  86.6 EUR/MWh  33.5 ct/kWh
-
-  Greenest 2h  today 12:30 to 14:30  101% renewable</pre>
-              <figcaption>
-                Real output. German power moved by a factor of three that day, and the
-                renewable share passed 100% because exported surplus counts against
-                domestic load.
-              </figcaption>
-            </figure>
-          </div>
-
-          <div class="cmd" data-copy>
-<code>git clone https://github.com/gledach/whenrun &amp;&amp; cd whenrun
-node bin/whenrun.mjs prices          # what power costs today
-node bin/whenrun.mjs where           # your location, and every zone</code>
-            <button type="button" class="copy" aria-label="Copy the install commands for whenrun">Copy</button>
-          </div>
-          <p class="figure-note">
-            No <code>npm install</code>, because there is nothing to install. Savings are
-            reported against the delivered bill rather than the spot price, since grid fees
-            and tax do not move by the hour and a spot-only figure flatters the tool.
-          </p>
-
-          <nav class="tool-links" aria-label="whenrun links">
-            <a href="https://github.com/gledach/whenrun" rel="noopener">Repository</a>
-            <a href="https://github.com/gledach/whenrun/blob/main/docs/running-it.md" rel="noopener">Running it for real</a>
-            <a href="https://github.com/gledach/whenrun/blob/main/docs/roadmap.md" rel="noopener">What it cannot do</a>
-          </nav>
-        </article>
-
-        <!-- ─────────── phonehome ─────────── -->
-        <article class="tool card" id="phonehome">
-          <div class="tool-head">
-            <h3 class="h3">phonehome</h3>
-            <span class="chip chip-accent">Rung 04 · Intelligence</span>
-            <span class="chip chip-good">Shipped</span>
-          </div>
-
-          <p class="tool-problem">
-            Nothing on your network tells you where it has been sending data, or when that
-            changed.
-          </p>
-          <p class="tool-line">See what your devices talk to.</p>
-
-          <div class="tool-body">
-            <div class="tool-text">
-              <p>
-                A local DNS resolver that records which domains every device on your network
-                contacts, classifies them, and tells you when one starts talking somewhere
-                new. It does not block anything and it does not upload anything: the point is
-                to find out, which is a different job from filtering. If you already run
-                Pi-hole, AdGuard Home, dnsmasq or Unbound, it reads your existing logs
-                instead, so you can see months of history without touching your network.
-              </p>
-
-              <dl class="stats">
-                <div>
-                  <dt>Log formats read</dt>
-                  <dd>4</dd>
-                  <p>dnsmasq, Pi-hole, Unbound, AdGuard Home, detected automatically</p>
-                </div>
-                <div>
-                  <dt>Categories</dt>
-                  <dd>11</dd>
-                  <p>including one for televisions reporting what is on the screen</p>
-                </div>
-                <div>
-                  <dt>Runtime deps</dt>
-                  <dd>0</dd>
-                  <p>a resolver and a JSONL file, nothing else</p>
-                </div>
-                <div>
-                  <dt>Tests</dt>
-                  <dd>67</dd>
-                  <p>offline, including the DNS wire format and the forwarder</p>
-                </div>
-              </dl>
-            </div>
-
-            <figure class="termshot">
-              <pre>report  last 1 day
-
-  device           queries  domains  busiest category  unknown
-  ───────────────  ───────  ───────  ────────────────  ───────
-  living room TV   198      10       telemetry         29%
-  kitchen speaker  184      6        unknown           36%
-  robot vacuum     161      3        assistant         24%
-  laptop           157      3        unknown           72%
-
-  Where the queries went
-
-  category   queries  share
-  ─────────  ───────  ─────  ──────────────────────────────────────
-  unknown    275      39%
-  assistant  131      19%    Voice assistants and smart-home backends
-  telemetry  120      17%    Product telemetry and crash reporting
-  doh        65       9%     Encrypted DNS, which routes around this tool
-  acr        21       3%     What is on your screen, reported</pre>
-              <figcaption>
-                Real output, from a sample log rather than anyone's house. The last line is a
-                television fingerprinting what is on screen. It gets its own category because
-                filed under telemetry nobody would notice it.
-              </figcaption>
-            </figure>
-          </div>
-
-          <div class="cmd" data-copy>
-<code>git clone https://github.com/gledach/phonehome &amp;&amp; cd phonehome
-node bin/phonehome.mjs import /var/log/pihole.log --execute
-node bin/phonehome.mjs report        # what talked to what</code>
-            <button type="button" class="copy" aria-label="Copy the install commands for phonehome">Copy</button>
-          </div>
-          <p class="figure-note">
-            <code>unknown</code> stays visible and is counted. A classifier that quietly
-            labels everything looks better and tells you less, and 9% of that traffic used
-            encrypted DNS, which routes around this tool entirely. It says so rather than
-            reporting a total it cannot see.
-          </p>
-
-          <nav class="tool-links" aria-label="phonehome links">
-            <a href="https://github.com/gledach/phonehome" rel="noopener">Repository</a>
-            <a href="https://github.com/gledach/phonehome/blob/main/docs/roadmap.md" rel="noopener">What it cannot do</a>
-          </nav>
-        </article>
-
-        <!-- ─────────── recall ─────────── -->
-        <article class="tool card" id="recall">
-          <div class="tool-head">
-            <h3 class="h3">recall</h3>
-            <span class="chip chip-accent">Rung 04 · Intelligence</span>
-            <span class="chip chip-good">Shipped</span>
-          </div>
-
-          <p class="tool-problem">
-            The notice for the thing in your kitchen was published. Nobody sent it to you.
-          </p>
-          <p class="tool-line">Tell me when something I own is recalled.</p>
-
-          <div class="tool-body">
-            <div class="tool-text">
-              <p>
-                Recalls are published. Nobody reads them, because they are published as a
-                firehose about everyone's belongings. This keeps a list of the things you
-                actually own and checks it against four public registers: European product
-                alerts, German medicine shortages, American vehicle campaigns and software
-                past its security support date. None of them needs an account.
-              </p>
-              <p>
-                Matching a label someone copied off the back of an appliance against prose a
-                regulator wrote is not exact, so every result is graded and the grade is shown.
-                Add the barcode off the box and it stops being a guess entirely.
-              </p>
-
-              <dl class="stats">
-                <div>
-                  <dt>Registers</dt>
-                  <dd>4</dd>
-                  <p>EU, Germany, United States, and vendor support dates</p>
-                </div>
-                <div>
-                  <dt>Keys needed</dt>
-                  <dd>0</dd>
-                  <p>no account for any of the four</p>
-                </div>
-                <div>
-                  <dt>Runtime deps</dt>
-                  <dd>0</dd>
-                  <p>including its own CSV and XML readers</p>
-                </div>
-                <div>
-                  <dt>Tests</dt>
-                  <dd>98</dd>
-                  <p>offline, against fixtures cut from real register downloads</p>
-                </div>
-              </dl>
-            </div>
-
-            <figure class="termshot">
-              <pre>check  5 things
-
-  HIGH  Something scanned off the box
-      Tickit Sensory Blocks Set of 16
-      The toy could rupture and the filling could come out. The
-      sand inside contains asbestos (up to 1.92% by weight).
-      exact: barcode 5060138820289 matches exactly
-
-  HIGH  The stomach tablets
-      Shortage: Pantoprazol-Micro Labs 40 mg
-      Expected to last until 28.10.2026.
-      exact: PZN 10516704 matches exactly
-
-  Sources
-      source      checked  result
-  ──  ──────────  ───────  ──────────  ──────────────────
-  ok  safetygate  3 items  2 findings  EU register only
-  ok  bfarm       1 item   2 findings  DE register only
-  ok  endoflife   1 item   0 findings  every jurisdiction
-  ok  nhtsa       1 item   0 findings  US register only
-
-  Absence of a notice is not proof a product is safe.</pre>
-              <figcaption>
-                Real output against the live registers. Both of those are genuine notices
-                published that week, found by matching digits printed on the packaging.
-              </figcaption>
-            </figure>
-          </div>
-
-          <div class="cmd" data-copy>
-<code>git clone https://github.com/gledach/recall &amp;&amp; cd recall
-cp config/inventory.default.mjs config/inventory.local.mjs
-node bin/recall.mjs check            # after listing what you own</code>
-            <button type="button" class="copy" aria-label="Copy the install commands for recall">Copy</button>
-          </div>
-          <p class="figure-note">
-            The last line of every run is the important one. A register that could not be
-            reached is reported as unreachable, never as clean, because a person who reads a
-            quiet screen as a guarantee has been actively misled.
-          </p>
-
-          <nav class="tool-links" aria-label="recall links">
-            <a href="https://github.com/gledach/recall" rel="noopener">Repository</a>
-            <a href="https://github.com/gledach/recall/blob/main/docs/roadmap.md" rel="noopener">What it cannot do</a>
-          </nav>
-        </article>
-
-        <!-- ─────────── empty slot ─────────── -->
-        <article class="tool card is-slot" id="slot-06">
-          <div class="tool-head">
-            <h3 class="h3">[TOOL NAME]</h3>
-            <span class="chip chip-draft">Slot 06</span>
-            <span class="chip chip-draft">Not built</span>
-          </div>
-
-          <p class="tool-line">Empty, and staying that way until something runs.</p>
-
-          <p class="slot-body">
-            The shelf is built to hold a dozen. What lands here next is not decided, and the
-            honest version of this card is a placeholder rather than a roadmap. Candidate
-            subject: <code>[SUBJECT]</code>. When one ships it gets a card in this shape, a
-            repository, and a preview subdomain if there is anything worth looking at.
-            Watching <a href="https://github.com/gledach" rel="noopener">the organisation on
-            GitHub</a> or following <a href="https://www.linkedin.com/company/gledach/"
-            rel="noopener">gledach on LinkedIn</a> is how you hear that it did.
-          </p>
-
-          <!-- The ask used to be a mailto and an issue link pointed at signal's own
-               tracker, which is the wrong repository for a tool that does not exist
-               yet. It also promised a queue nobody could see. Both are fixed: the
-               queue is a public repository, and email still works for anyone who
-               does not want a GitHub account. -->
-          <p class="slot-ask">
-            Is there something you keep checking by hand that a tool could watch for you?
-            <a href="https://github.com/gledach/requests/issues/new?template=tool-request.yml"
-               rel="noopener">Ask in the open</a>. The form puts the three questions that
-            decide whether anything is watchable at all: what you check by hand, where it is
-            published, and whether seeing it needs an account. Without a GitHub account,
-            <a href="mailto:request@gledach.de">request@gledach.de</a> takes the same three
-            answers.
-          </p>
-          <p class="figure-note">
-            <a href="https://github.com/gledach/requests/issues" rel="noopener">The queue is
-            public</a>, including what was turned down and why. A request that would help more
-            people than the person asking is built first, and anything arriving by email is
-            filed there too, so the list stays the whole list.
-          </p>
-
-          <nav class="tool-links" aria-label="Slot 06 links">
-            <a href="https://github.com/gledach/requests/issues/new?template=tool-request.yml" rel="noopener">Request a tool</a>
-            <a href="https://github.com/gledach/requests/issues" rel="noopener">The queue</a>
-            <a href="mailto:request@gledach.de">By email instead</a>
-          </nav>
-        </article>
-
+        </div>
       </div>
+
+      <dl class="stats" style="margin-top: var(--s-64)">
+        <div>
+          <dt>Signals stored</dt>
+          <dd>2,600+</dd>
+          <p>in the deployment behind the live preview</p>
+        </div>
+        <div>
+          <dt>Companies tracked</dt>
+          <dd>13</dd>
+          <p>across two segments, and it is configuration</p>
+        </div>
+        <div>
+          <dt>Runtime deps</dt>
+          <dd>3</dd>
+          <p>no build step, offline on a fresh clone</p>
+        </div>
+        <div>
+          <dt>Monthly spend</dt>
+          <dd>$15&ndash;25</dd>
+          <p>at the shipped models. Database and search on free tiers</p>
+        </div>
+      </dl>
     </div>
   </section>
 
-  <!-- ══════════════════════════ 03 ladder ══════════════════════════ -->
-  <!-- Sits after the shelf, not before it. The ladder is the argument for why the
-       tools stop where they stop, and that argument only lands on a reader who has
-       already seen what the tools are. -->
-  <section class="section" id="ladder">
-    <div class="container">
-      <div class="section-head">
+  <!-- ══════════════════════════ 04 surfaces ══════════════════════════ -->
+  <section class="sec tint-frost" id="surfaces">
+    <div class="wrap">
+      <div class="head">
         <div>
-          <p class="eyebrow">How far they go</p>
-          <h2 class="h2">Four rungs between raw data and an <em>answer.</em></h2>
+          <p class="eyebrow">Who consumes it</p>
+          <h2 class="t-h-lg">Three consumers. The dashboard is only one of them.</h2>
         </div>
-        <p class="lead">
-          The tools above do not share a stack, an interface or a release cadence. They share a
-          destination. Each one moves something public up this ladder, and tells you where it
-          stopped.
+        <p class="t-lg">
+          The agent surface is what this is built for. A person looking at a
+          dashboard is a second client, and the scheduler is a third.
         </p>
       </div>
 
-      <ol class="ladder">
-        <li>
-          <span class="mono-label">01 · Data</span>
-          <p>What is already public: feeds, filings, certificate logs, pages that changed
-          overnight. Free to anyone who goes and collects it.</p>
-        </li>
-        <li>
-          <span class="mono-label">02 · Information</span>
-          <p>Collected, deduplicated, attributed. You know what was said, when it was said,
-          and who said it.</p>
-        </li>
-        <li>
-          <span class="mono-label">03 · Insight</span>
-          <p>Scored and correlated. You know which of it matters, and what it is evidence
-          of.</p>
-        </li>
-        <li class="is-reached">
-          <span class="mono-label">04 · Intelligence</span>
-          <p>Queryable by something other than a person. An answer to a question you had not
-          thought to ask yet.</p>
-          <span class="ladder-flag">signal, whenrun, phonehome and recall reach here</span>
-        </li>
-      </ol>
+      <div class="cards">
+        <article class="card card-emph">
+          <p class="eyebrow">For agents</p>
+          <h3 class="t-h-sm">Eight tools over MCP</h3>
+          <p class="t-sm">
+            <code>list_companies</code>, <code>search_signals</code>,
+            <code>get_convergences</code>, <code>get_battlecard</code>,
+            <code>list_briefs</code>, <code>get_brief</code>,
+            <code>run_analyst</code>, <code>market_summary</code>, plus
+            <code>signal://</code> resources for a battlecard or a brief.
+          </p>
+          <p class="t-sm">
+            Read only by default and not just by convention: the single tool that
+            spends money ships with permission withheld, and opting in binds it to a
+            rolling daily ceiling shared with the scheduler and the command line.
+          </p>
+          <p class="card-go"><a href="https://github.com/gledach/signals/blob/main/docs/mcp.md" rel="noopener">The agent surface &rarr;</a></p>
+        </article>
+
+        <article class="card">
+          <p class="eyebrow eyebrow-quiet">For people</p>
+          <h3 class="t-h-sm">Eight views on localhost</h3>
+          <p class="t-sm">
+            Feed, Battle, Compare, Market, Intel, Report, Briefs and Inbox. Number
+            keys switch mode, a command palette jumps anywhere, and Compare takes an
+            anchor plus up to three rivals in a URL you can share.
+          </p>
+          <p class="t-sm">
+            Battlecards and briefs come out as markdown you can edit in anything. A
+            regeneration never overwrites the part a person wrote.
+          </p>
+          <p class="card-go"><a href="https://signal.gledach.de" rel="noopener">Open the preview &rarr;</a></p>
+        </article>
+
+        <article class="card">
+          <p class="eyebrow eyebrow-quiet">For the scheduler</p>
+          <h3 class="t-h-sm">One pass, tiered by cost</h3>
+          <p class="t-sm">
+            A single entry point runs every watcher on the cadence it deserves: the
+            expensive passes weekly, the cheap ones every half hour.
+          </p>
+          <p class="t-sm">
+            Cadence moves the bill far more than model choice. A job making one model
+            call per tracked company costs four times as much on a six-hourly tier as
+            on a daily one and the output is no fresher. That mistake cost this
+            deployment around two hundred dollars a month before it was caught.
+          </p>
+          <p class="card-go"><a href="https://github.com/gledach/signals/blob/main/docs/cost.md" rel="noopener">What it costs &rarr;</a></p>
+        </article>
+      </div>
 
       <p class="figure-note">
-        Most monitoring products stop at rung 02 and call the result a feed. The distance
-        between rung 02 and rung 04 is the whole job.
+        There is also a Chrome side panel that checks whatever page you are reading
+        against your own intel, on device. It is experimental, it needs the dashboard
+        running, and the test gate does not cover it. Stated here rather than
+        discovered later.
       </p>
     </div>
   </section>
 
-  <!-- ══════════════════════════ 04 previews ══════════════════════════ -->
-  <section class="section" id="previews">
-    <div class="container">
-      <div class="section-head">
+  <!-- ══════════════════════════ 05 retarget ══════════════════════════ -->
+  <section class="sec" id="retarget">
+    <div class="wrap">
+      <div class="band">
+        <div>
+          <p class="eyebrow">Point it anywhere</p>
+          <h2 class="t-h">Nothing in here knows which market it is watching.</h2>
+          <p class="t-lg" style="margin-top: var(--s-16)">
+            It ships pointed at thirteen AI coding tools. That is a configuration
+            file, not the product.
+          </p>
+          <p class="t-sm" style="margin-top: var(--s-24)">
+            Six layers resolve identically: an environment variable, then your local
+            file, then the shipped default. The roster, the feeds, the deal-context
+            axes, subdomain scoring, the agent policy and the answer-engine prompts.
+            Your file is ignored by git, so you can pull upstream forever without a
+            conflict in the one file you changed.
+          </p>
+          <p class="t-sm">
+            The gate is mechanical rather than a promise: the test suite fails if a
+            brand name appears anywhere outside the configuration directory, or if
+            the dashboard's own labels drift from the roster. Retargeting cannot
+            leave somebody else's market behind in a watcher or a prompt.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-reverse" href="https://github.com/gledach/signals/blob/main/docs/start.md" rel="noopener">Read the install guide</a>
+          </div>
+        </div>
+        <div>
+<pre><span class="c-bin">git</span> clone https://github.com/gledach/signals &amp;&amp; cd signals
+<span class="c-bin">npm</span> install
+<span class="c-bin">npm</span> run db:migrate   <span class="c-cmt"># local database and demo data. no account, no key</span>
+<span class="c-bin">npm</span> run doctor       <span class="c-cmt"># what worked, and what each missing key unlocks</span>
+<span class="c-bin">npm</span> run view         <span class="c-cmt"># a populated dashboard at 127.0.0.1:5180</span>
+
+<span class="c-bin">cp</span> config/companies.default.mjs config/companies.local.mjs
+<span class="c-bin">npm</span> run companies    <span class="c-cmt"># confirm what is live, and where it came from</span>
+<span class="c-bin">npm</span> test             <span class="c-cmt"># 15 smoke sections, 5 fixture suites, all offline</span></pre>
+          <p class="t-cap" style="margin-top: var(--s-16)">
+            That runs offline on a fresh clone, on Windows, macOS or Linux. A model
+            key turns on classification, battlecards and briefs. Without one the
+            keyword classifier runs and everything else still works.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ 06 previews ══════════════════════════ -->
+  <section class="sec tint-mist" id="previews">
+    <div class="wrap">
+      <div class="head">
         <div>
           <p class="eyebrow">Seeing it first</p>
-          <h2 class="h2">Anything worth looking at gets <em>its own subdomain.</em></h2>
+          <h2 class="t-h-lg">Anything worth looking at gets its own subdomain.</h2>
         </div>
-        <p class="lead">
+        <p class="t-lg">
           You should be able to watch a tool work before you decide to install it.
+          The convention is one address per tool, replaced in place.
         </p>
       </div>
 
-      <div class="convention">
-        <p class="convention-rule"><span class="c-tool">&lt;tool&gt;</span>.gledach.de</p>
-        <p class="convention-eg">
-          <a href="https://signal.gledach.de" rel="noopener"><span class="c-tool type-in">signal</span>.gledach.de</a>
-          <span class="convention-note">a real deployment, exported to a single static file</span>
+      <figure class="console" style="max-width: 560px">
+        <div class="console-bar">
+          <span>convention</span>
+          <span class="tag tag-quiet">read only</span>
+        </div>
+<pre>&lt;tool&gt;.gledach.de
+
+<span class="c-bin">signal</span>.gledach.de     <span class="c-cmt">a real deployment, exported to one static file</span></pre>
+      </figure>
+
+      <div class="cards" style="margin-top: var(--s-48)">
+        <article class="card">
+          <h3 class="t-sub">Real data, not a mock</h3>
+          <p class="t-sm">The export asks the running viewer the same questions a browser asks and inlines the answers, so a preview cannot drift from the thing it was taken from.</p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">Dated and read only</h3>
+          <p class="t-sm">A snapshot, not a live instance. Nothing you click reaches a database, and every number is true as of the export.</p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">One per tool, replaced in place</h3>
+          <p class="t-sm">A re-export overwrites the preview, so you are looking at the most recent snapshot rather than an archive of all of them.</p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">Generated text is labelled</h3>
+          <p class="t-sm">Battlecards, briefs and convergences are model output, not verified fact. They are a starting point for a person, which is how the tool itself describes them.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ 07 the shelf ══════════════════════════ -->
+  <!-- Design for growth: adding a tool is one more <a class="card"> here and
+       one more page. Never introduce a layout that hardcodes the count. -->
+  <section class="sec" id="shelf">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">The rest of the shelf · 5 of 12 slots filled</p>
+          <h2 class="t-h-lg">Same author. Different shapes.</h2>
+        </div>
+        <p class="t-lg">
+          A tool earns a slot when it runs on someone else's machine, not only on
+          mine. They share no stack and no interface, only the promise: free,
+          installable, and honest about what each one cannot see.
         </p>
       </div>
 
-      <ul class="rules-list">
-        <li>
-          <b>Real data, not a mock.</b> The export asks the running viewer the same questions a
-          browser asks and inlines the answers, so a preview cannot drift from the thing it was
-          taken from.
-        </li>
-        <li>
-          <b>Dated and read only.</b> It is a snapshot, not a live instance. Nothing you click
-          reaches a database, and every number is true as of the export.
-        </li>
-        <li>
-          <b>One per tool, replaced in place.</b> A re-export overwrites the preview, so what
-          you are looking at is the most recent snapshot rather than an archive of every one.
-        </li>
-        <li>
-          <b>Generated text is labelled as generated.</b> Battlecards, briefs and convergences
-          are model output, not verified fact. They are a starting point for a person, which is
-          how the tool itself describes them.
-        </li>
-      </ul>
-
-      <p class="cta-line">
-        <a class="btn btn-primary" href="https://signal.gledach.de" rel="noopener">
-          Open signal.gledach.de <span class="arrow" aria-hidden="true">&rarr;</span>
+      <div class="cards">
+        <a class="card" href="/whenrun">
+          <p class="eyebrow eyebrow-quiet">Slot 03 · shipped</p>
+          <h3 class="t-h-sm">whenrun</h3>
+          <p class="t-sm">Watches day-ahead power prices and renewable share, then starts your job in the cheapest or greenest window that still meets its deadline. Zero runtime dependencies and nothing to install.</p>
+          <p class="card-go">Open the page &rarr;</p>
         </a>
+        <a class="card" href="/phonehome">
+          <p class="eyebrow eyebrow-quiet">Slot 04 · shipped</p>
+          <h3 class="t-h-sm">phonehome</h3>
+          <p class="t-sm">A local resolver that records which domains every device on your network contacts, and says when one starts talking somewhere new. Blocks nothing, uploads nothing.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/recall">
+          <p class="eyebrow eyebrow-quiet">Slot 05 · shipped</p>
+          <h3 class="t-h-sm">recall</h3>
+          <p class="t-sm">Checks four public registers against a list of the things you actually own, and grades how sure each match is. A register it could not reach is reported as unreachable, never as clean.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/signal-patterns">
+          <p class="eyebrow eyebrow-quiet">Slot 02 · reference</p>
+          <h3 class="t-h-sm">signal-patterns</h3>
+          <p class="t-sm">The written reasoning behind all of it: what is watchable, what it costs, and the eight engineering decisions that only became obvious after something broke. Nothing to install.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <article class="card card-slot" id="slot-06">
+          <p class="eyebrow eyebrow-quiet">Slot 06 · not built</p>
+          <h3 class="t-h-sm">[UNNAMED]</h3>
+          <p class="t-sm">
+            The shelf holds a dozen. What lands here next is not decided, and the
+            honest version of this card is a placeholder rather than a roadmap. Is
+            there something you keep checking by hand that a tool could watch for you?
+          </p>
+          <p class="card-go">
+            <a href="https://github.com/gledach/requests/issues/new?template=tool-request.yml" rel="noopener">Ask in the open &rarr;</a>
+          </p>
+        </article>
+      </div>
+
+      <p class="figure-note">
+        <a href="https://github.com/gledach/requests/issues" rel="noopener">The queue is
+        public</a>, including what was turned down and why. The form asks the three
+        questions that decide whether anything is watchable at all: what you check by
+        hand, where it is published, and whether seeing it needs an account. Without a
+        GitHub account, <a href="mailto:request@gledach.de">request@gledach.de</a> takes
+        the same three answers and they are filed in the queue too, so the list stays
+        the whole list.
       </p>
     </div>
   </section>
 
-  <!-- ══════════════════════════ 05 house rules ══════════════════════════ -->
-  <section class="section band" id="rules">
-    <div class="container">
-      <div class="section-head">
+  <!-- ══════════════════════════ 08 house rules ══════════════════════════ -->
+  <section class="sec tint-peri" id="rules">
+    <div class="wrap">
+      <div class="head">
         <div>
           <p class="eyebrow">House rules</p>
-          <h2 class="h2">What is true of everything <em>on this shelf.</em></h2>
+          <h2 class="t-h-lg">What is true of everything on this shelf.</h2>
         </div>
-        <p class="lead">
-          The tools vary. These six do not. They are the reason a tool gets published here at
-          all.
+        <p class="t-lg">
+          The tools vary. These six do not. They are the reason a tool gets
+          published here at all.
         </p>
       </div>
 
-      <ul class="house">
+      <ul class="rules">
         <li>
-          <span class="mono-label">Free, and the source is public</span>
-          <p>MIT unless a dependency makes that impossible, in which case the licence is stated
-          on the card.</p>
+          <h3>Free, and the source is public</h3>
+          <p class="t-sm">MIT unless a dependency makes that impossible, in which case the licence is stated on the tool's own page.</p>
         </li>
         <li>
-          <span class="mono-label">Your machine is the runtime</span>
-          <p>Cloud is for sharing state between machines you own. It is not where your data has
-          to live.</p>
+          <h3>Your machine is the runtime</h3>
+          <p class="t-sm">Cloud is for sharing state between machines you own. It is not where your data has to live.</p>
         </li>
         <li>
-          <span class="mono-label">No account to start</span>
-          <p>Clone it and see something real. Keys, hosted databases and schedules are opt in,
-          later, and each one is listed with what it buys you.</p>
+          <h3>No account to start</h3>
+          <p class="t-sm">Clone it and see something real. Keys, hosted databases and schedules are opt in, later, each listed with what it buys you.</p>
         </li>
         <li>
-          <span class="mono-label">Honest about blind spots</span>
-          <p>Every tool ships a written audit of what it cannot see, kept next to the
-          documentation rather than buried in it.</p>
+          <h3>Honest about blind spots</h3>
+          <p class="t-sm">Every tool ships a written audit of what it cannot see, kept beside the documentation rather than buried in it.</p>
         </li>
         <li>
-          <span class="mono-label">Read only until you say otherwise</span>
-          <p>Nothing spends your money because an agent found a button. Paid actions ship
-          disabled and behind a spend ceiling.</p>
+          <h3>Read only until you say otherwise</h3>
+          <p class="t-sm">Nothing spends your money because an agent found a button. Paid actions ship disabled and behind a ceiling.</p>
         </li>
         <li>
-          <span class="mono-label">Generated text is labelled</span>
-          <p>Model output is marked as model output. A tool that cannot tell you what it does
-          not know is not finished.</p>
+          <h3>Generated text is labelled</h3>
+          <p class="t-sm">Model output is marked as model output. A tool that cannot tell you what it does not know is not finished.</p>
         </li>
       </ul>
     </div>
@@ -1051,40 +843,38 @@ node bin/recall.mjs check            # after listing what you own</code>
 
 <!-- ══════════════════════════ footer ══════════════════════════ -->
 <footer class="foot">
-  <div class="container">
+  <div class="wrap">
     <div class="foot-cols">
-      <div class="foot-brand">
+      <div>
         <a class="brand" href="/" aria-label="gledach, home">
           <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="brand-word">gledach</span>
+          gledach
         </a>
-        <p class="foot-etym">
-          <em>gledati</em> (slav.): to watch. What a good analyst does before speaking.
+        <p class="t-cap" style="margin-top: var(--s-16); max-width: 34ch">
+          <em>gledati</em> (slav.): to watch. What a good analyst does before
+          speaking.
         </p>
       </div>
-
       <div>
-        <p class="mono-label">Tools</p>
+        <p class="eyebrow eyebrow-quiet">Tools</p>
         <ul class="foot-list">
-          <li><a href="https://github.com/gledach/signals" rel="noopener">signal</a></li>
-          <li><a href="https://github.com/gledach/signal-patterns" rel="noopener">signal-patterns</a></li>
-          <li><a href="https://github.com/gledach/whenrun" rel="noopener">whenrun</a></li>
-          <li><a href="https://github.com/gledach/phonehome" rel="noopener">phonehome</a></li>
-          <li><a href="https://github.com/gledach/recall" rel="noopener">recall</a></li>
+          <li><a href="/">signal</a></li>
+          <li><a href="/signal-patterns">signal-patterns</a></li>
+          <li><a href="/whenrun">whenrun</a></li>
+          <li><a href="/phonehome">phonehome</a></li>
+          <li><a href="/recall">recall</a></li>
           <li><a href="https://github.com/gledach" rel="noopener">All repositories</a></li>
         </ul>
       </div>
-
       <div>
-        <p class="mono-label">Previews</p>
+        <p class="eyebrow eyebrow-quiet">Previews</p>
         <ul class="foot-list">
           <li><a href="https://signal.gledach.de" rel="noopener">signal.gledach.de</a></li>
           <li><a href="#previews">How previews work</a></li>
         </ul>
       </div>
-
       <div>
-        <p class="mono-label">Contact</p>
+        <p class="eyebrow eyebrow-quiet">Contact</p>
         <ul class="foot-list">
           <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
           <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
@@ -1097,12 +887,10 @@ node bin/recall.mjs check            # after listing what you own</code>
     </div>
 
     <div class="foot-bottom">
-      <p>MIT licensed. Signals are gathered from public sources.</p>
-      <p class="mono-label">if it ships to turso, it shipped</p>
+      <p class="t-cap">MIT licensed. Signals are gathered from public sources. Generated analysis is model output, not verified fact.</p>
+      <p class="t-cap mono">if it ships to turso, it shipped</p>
     </div>
   </div>
-
-  <p class="foot-wordmark" aria-hidden="true">gledach</p>
 </footer>
 
 <script src="/assets/site.js" defer></script>

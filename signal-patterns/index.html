@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>signal-patterns · how to build tools that watch the public web</title>
+<meta name="description" content="What is watchable, what it costs, how to build a watcher, and how to be consumable by an agent. Plus eight engineering patterns, each extracted from a bug that shipped. Nothing to install.">
+<link rel="canonical" href="https://gledach.de/signal-patterns">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksandar Perisic">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://gledach.de/signal-patterns">
+<meta property="og:site_name" content="gledach">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="signal-patterns · how to build tools that watch the public web">
+<meta property="og:description" content="The useful signals are the ones a company exposes before it means to. What is watchable, what it costs, and eight patterns each earned by a bug that shipped.">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "signal-patterns: how to build tools that watch the public web",
+  "url": "https://gledach.de/signal-patterns",
+  "sameAs": "https://github.com/gledach/signal-patterns",
+  "description": "What to watch, what it costs, how to build it, and the engineering decisions that only become obvious after something has broken.",
+  "inLanguage": "en-GB",
+  "license": "https://opensource.org/licenses/MIT",
+  "author": {
+    "@type": "Person",
+    "name": "Aleksandar Perisic",
+    "url": "https://www.linkedin.com/in/apsolut/"
+  },
+  "publisher": { "@type": "Organization", "name": "gledach", "url": "https://gledach.de/" }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#guides">Skip to the guides</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="/" aria-label="gledach, home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      gledach
+    </a>
+    <nav class="nav-links" aria-label="The shelf">
+      <a href="/">signal</a>
+      <a href="/signal-patterns" aria-current="page">signal-patterns</a>
+      <a href="/whenrun">whenrun</a>
+      <a href="/phonehome">phonehome</a>
+      <a href="/recall">recall</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="/#shelf">The shelf</a>
+      <a class="btn btn-fill" href="https://github.com/gledach/signal-patterns" rel="noopener">Repository</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══════════════════════════ hero ══════════════════════════ -->
+  <section class="hero sec sec-first">
+    <div class="wrap">
+      <p class="crumb"><a href="/">gledach</a> <span>/</span> <a href="/#shelf">the shelf</a> <span>/ signal-patterns</span></p>
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">signal-patterns · slot 02 · reference</p>
+          <h1 class="t-display">
+            How to build tools that<br>watch the public web.<br>
+            <em class="quiet">Nothing to install.</em>
+          </h1>
+          <p class="t-lg measure-tight" style="margin-top: var(--s-24)">
+            What to watch, what it costs, how to build it, and the engineering
+            decisions that only become obvious after something has broken.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-fill" href="#guides">
+              Read the guides <span class="arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/gledach/signal-patterns" rel="noopener">Repository</a>
+          </div>
+          <p class="hero-meta">MIT licensed · no package, no version · 4 guides · 8 patterns</p>
+        </div>
+
+        <figure class="console">
+          <div class="console-bar">
+            <span>the thesis, in one line</span>
+            <span class="tag">ordered by lead time</span>
+          </div>
+<pre>infrastructure  →  hiring  →  documentation  →  changelog  →  marketing  →  press
+   (weeks)         (months,      (hours)         (hours)      (at launch)   (after)
+                    vague)</pre>
+          <figcaption class="t-cap">
+            A company is only as visible as what it exposes publicly, and the useful
+            signals are the ones it exposes before it means to. Most tools start at
+            the press end, which is the last place anything appears and where every
+            competitor is already looking.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ not a framework ══════════════════════════ -->
+  <section class="sec tint-mist">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What this is</p>
+          <h2 class="t-h-lg">Not a framework. The reasoning is the reusable part.</h2>
+        </div>
+        <p class="t-lg">
+          There is no package to install and nothing to version, because the code
+          around a decision like this usually is not the part worth keeping. The
+          reference implementation is <a href="/">signal</a>, which does all of it
+          against a real market.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card card-emph">
+          <h3 class="t-sub">Watch what leaks</h3>
+          <p class="t-sm">
+            Certificates, documentation and changelogs beat press releases.
+            Certificate logs run twenty to thirty days ahead, and changelog pages
+            change on 73% of monitors within ninety days.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">Hand it to an agent</h3>
+          <p class="t-sm">
+            A dashboard needs someone to open it. What you actually want is an answer
+            to a question you have not thought to ask yet, which means structured
+            output, stable ids, and the ability to say <q>I am not in a position to
+            answer</q>.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">Two open standards settle it</h3>
+          <p class="t-sm">
+            MCP is how an agent queries you, Agent Skills is how it learns to use
+            you. Both of the most-used open personal-agent runtimes of 2026 speak
+            both, and both are local first, so a local process with a queryable store
+            fits them with no work.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ guides ══════════════════════════ -->
+  <section class="sec" id="guides">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Four guides</p>
+          <h2 class="t-h-lg">Start wherever the question you have lives.</h2>
+        </div>
+        <p class="t-lg">
+          Each one is a markdown file in the repository. Nothing here renders
+          differently to how it reads on GitHub, which is deliberate.
+        </p>
+      </div>
+
+      <div class="cards">
+        <a class="card" href="https://github.com/gledach/signal-patterns/blob/main/sources.md" rel="noopener">
+          <p class="eyebrow eyebrow-quiet">01</p>
+          <h3 class="t-h-sm">What is watchable</h3>
+          <p class="t-sm">
+            A catalogue of public sources ranked by lead time, cost and precision.
+            Certificate logs run twenty to thirty days ahead, changelog pages change
+            on 73% of monitors within ninety days, news is the last place anything
+            appears. Includes what to refuse.
+          </p>
+          <p class="card-go">Read it &rarr;</p>
+        </a>
+        <a class="card" href="https://github.com/gledach/signal-patterns/blob/main/techniques.md" rel="noopener">
+          <p class="eyebrow eyebrow-quiet">02</p>
+          <h3 class="t-h-sm">What it costs</h3>
+          <p class="t-sm">
+            Model capabilities as of September 2026, and the cost levers ranked by
+            return. The top three are not model choice: batch APIs at a flat half,
+            prefix caching at a tenth on reads, and not buying output you discard.
+          </p>
+          <p class="card-go">Read it &rarr;</p>
+        </a>
+        <a class="card" href="https://github.com/gledach/signal-patterns/blob/main/building-a-watcher.md" rel="noopener">
+          <p class="eyebrow eyebrow-quiet">03</p>
+          <h3 class="t-h-sm">Building a watcher</h3>
+          <p class="t-sm">
+            The shape of one, and the decisions that are easy to get wrong: the
+            choice of hash id, where state lives, cadence, and what it does when it
+            fails.
+          </p>
+          <p class="card-go">Read it &rarr;</p>
+        </a>
+        <a class="card" href="https://github.com/gledach/signal-patterns/blob/main/agent-integration.md" rel="noopener">
+          <p class="eyebrow eyebrow-quiet">04</p>
+          <h3 class="t-h-sm">Being consumable by agents</h3>
+          <p class="t-sm">
+            MCP so an agent can query you, Agent Skills so it knows how to use you,
+            and why permission must not scale with capability.
+          </p>
+          <p class="card-go">Read it &rarr;</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ patterns ══════════════════════════ -->
+  <section class="sec tint-frost">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Eight patterns</p>
+          <h2 class="t-h-lg">Each one earned its place by failing first.</h2>
+        </div>
+        <p class="t-lg">
+          The bias throughout: an AI pipeline fails silently and pleasantly. The
+          dashboard fills up, nothing throws, and it looks healthy right until you
+          check. Most of these are machinery for turning a quiet failure into a loud
+          one.
+        </p>
+      </div>
+
+      <table class="spec">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Pattern</th>
+            <th scope="col">The failure it prevents</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mono">1</td>
+            <th scope="row"><a href="https://github.com/gledach/signal-patterns/blob/main/patterns/01-store-chokepoint.md" rel="noopener">Store chokepoint</a></th>
+            <td>Schema changes with unbounded blast radius</td>
+          </tr>
+          <tr>
+            <td class="mono">2</td>
+            <th scope="row"><a href="https://github.com/gledach/signal-patterns/blob/main/patterns/02-canonical-and-mirror.md" rel="noopener">Canonical and mirror</a></th>
+            <td>Regeneration silently destroying human-written content</td>
+          </tr>
+          <tr>
+            <td class="mono">3</td>
+            <th scope="row"><a href="https://github.com/gledach/signal-patterns/blob/main/patterns/03-uncomputed-verdicts.md" rel="noopener">Never store an uncomputed verdict</a></th>
+            <td>A dead model writing guesses into permanent storage</td>
+          </tr>
+          <tr>
+            <td class="mono">4</td>
+            <th scope="row"><a href="https://github.com/gledach/signal-patterns/blob/main/patterns/04-read-only-agents.md" rel="noopener">Read-only agent surface</a></th>
+            <td>An agent spending your money because it found a button</td>
+          </tr>
+          <tr>
+            <td class="mono">5</td>
+            <th scope="row"><a href="https://github.com/gledach/signal-patterns/blob/main/patterns/05-coverage-block.md" rel="noopener">The coverage block</a></th>
+            <td>An agent reporting <q>nothing happened</q> when collection is broken</td>
+          </tr>
+          <tr>
+            <td class="mono">6</td>
+            <th scope="row"><a href="https://github.com/gledach/signal-patterns/blob/main/patterns/06-zone-separation.md" rel="noopener">Zone separation</a></th>
+            <td>The lethal trifecta, when your input is attacker-reachable</td>
+          </tr>
+          <tr>
+            <td class="mono">7</td>
+            <th scope="row"><a href="https://github.com/gledach/signal-patterns/blob/main/patterns/07-assertions.md" rel="noopener">Assertions as guardrails</a></th>
+            <td>Every pattern above quietly eroding</td>
+          </tr>
+          <tr>
+            <td class="mono">8</td>
+            <th scope="row"><a href="https://github.com/gledach/signal-patterns/blob/main/patterns/08-collect-dont-write.md" rel="noopener">Collect, do not write</a></th>
+            <td>Untestable sources, and shared logic wrong in several ways at once</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="figure-note">
+        Where one says <q>the incident</q>, that is a real one, with real numbers,
+        from a single deployment over about two months.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ shortest version ══════════════════════════ -->
+  <section class="sec tint-peri">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">The shortest version</p>
+          <h2 class="t-h-lg">If you read nothing else.</h2>
+        </div>
+        <p class="t-lg">
+          Eight lines. Every one of them is the compressed form of something that
+          went wrong first.
+        </p>
+      </div>
+
+      <ul class="blind">
+        <li><p class="t-sm"><b>Watch what leaks, not what is announced.</b> Certificates, docs and changelogs beat press releases.</p></li>
+        <li><p class="t-sm"><b>Cadence is the cost dial, not model choice.</b> A per-subject job on the wrong tier cost one deployment around two hundred dollars a month for no added freshness.</p></li>
+        <li><p class="t-sm"><b>Batch and cache before you optimise anything else.</b> A flat half, then reads at a tenth.</p></li>
+        <li><p class="t-sm"><b>A failed model writes nothing.</b> A halted run announces itself. A run that writes guesses does not.</p></li>
+        <li><p class="t-sm"><b>Return <q>I do not know</q> as data.</b> Empty and broken look identical to an agent.</p></li>
+        <li><p class="t-sm"><b>Agents read by default.</b> Every paid or state-changing action is opt in, behind a shared ceiling, and permission must not scale with capability.</p></li>
+        <li><p class="t-sm"><b>A skill is a supply chain.</b> 341 malicious skills were found among roughly 13,000 in one 2026 marketplace audit.</p></li>
+        <li><p class="t-sm"><b>Every rule above needs an assertion,</b> or it is a comment.</p></li>
+      </ul>
+
+      <p class="figure-note">
+        If one of these is wrong, or you have a counter-example where it cost more
+        than it saved, <a href="https://github.com/gledach/signal-patterns/issues" rel="noopener">open
+        an issue</a>. A pattern that has never been argued with has not been tested.
+        New sources worth watching are equally welcome, especially ones with a lead
+        time and a measured precision attached.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ elsewhere ══════════════════════════ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Elsewhere on the shelf</p>
+          <h2 class="t-h-lg">Same author. Different shapes.</h2>
+        </div>
+        <p class="t-lg">
+          This page is the reasoning. The other four are the tools it describes, and
+          signal is the one it was written alongside.
+        </p>
+      </div>
+
+      <div class="cards">
+        <a class="card" href="/">
+          <p class="eyebrow eyebrow-quiet">Slot 01 · live preview</p>
+          <h3 class="t-h-sm">signal</h3>
+          <p class="t-sm">The reference implementation: ten watchers and one inbox on whichever market you name, answerable by an agent over MCP.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/whenrun">
+          <p class="eyebrow eyebrow-quiet">Slot 03 · shipped</p>
+          <h3 class="t-h-sm">whenrun</h3>
+          <p class="t-sm">Day-ahead power prices turned into the window your job should run in, then it starts the job there.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/phonehome">
+          <p class="eyebrow eyebrow-quiet">Slot 04 · shipped</p>
+          <h3 class="t-h-sm">phonehome</h3>
+          <p class="t-sm">Which domains every device on your network contacts, and when one starts talking somewhere new.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/recall">
+          <p class="eyebrow eyebrow-quiet">Slot 05 · shipped</p>
+          <h3 class="t-h-sm">recall</h3>
+          <p class="t-sm">Four public registers checked against a list of the things you own, with every match graded.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div>
+        <a class="brand" href="/" aria-label="gledach, home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          gledach
+        </a>
+        <p class="t-cap" style="margin-top: var(--s-16); max-width: 34ch">
+          <em>gledati</em> (slav.): to watch. What a good analyst does before speaking.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">signal-patterns</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/signal-patterns" rel="noopener">Repository</a></li>
+          <li><a href="https://github.com/gledach/signal-patterns/blob/main/sources.md" rel="noopener">What is watchable</a></li>
+          <li><a href="https://github.com/gledach/signal-patterns/blob/main/techniques.md" rel="noopener">What it costs</a></li>
+          <li><a href="https://github.com/gledach/signal-patterns/blob/main/building-a-watcher.md" rel="noopener">Building a watcher</a></li>
+          <li><a href="https://github.com/gledach/signal-patterns/blob/main/agent-integration.md" rel="noopener">Being consumable by agents</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">The shelf</p>
+        <ul class="foot-list">
+          <li><a href="/">signal</a></li>
+          <li><a href="/whenrun">whenrun</a></li>
+          <li><a href="/phonehome">phonehome</a></li>
+          <li><a href="/recall">recall</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">Contact</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
+          <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
+          <li><a href="mailto:request@gledach.de">request@gledach.de</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p class="t-cap">MIT licensed. Part of gledach: tools that turn public noise into structured signal.</p>
+      <p class="t-cap mono">if it ships to turso, it shipped</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

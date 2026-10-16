@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>phonehome · see what your devices talk to</title>
+<meta name="description" content="A local DNS resolver that records which domains every device on your network contacts, classifies them, and tells you when one starts talking somewhere new. Blocks nothing, uploads nothing, zero dependencies.">
+<link rel="canonical" href="https://gledach.de/phonehome">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksandar Perisic">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gledach.de/phonehome">
+<meta property="og:site_name" content="gledach">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="phonehome · see what your devices talk to">
+<meta property="og:description" content="Which domains every device on your network contacts, and when one starts talking somewhere new. It observes. It does not block and it does not upload.">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "phonehome",
+  "url": "https://gledach.de/phonehome",
+  "sameAs": "https://github.com/gledach/phonehome",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Windows, macOS, Linux",
+  "softwareRequirements": "Node.js 22 or newer",
+  "license": "https://opensource.org/licenses/MIT",
+  "description": "A local DNS resolver that records which domains every device on your network contacts, classifies them, and says when one starts talking somewhere new. Nothing is uploaded and nothing is blocked.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "author": {
+    "@type": "Person",
+    "name": "Aleksandar Perisic",
+    "url": "https://www.linkedin.com/in/apsolut/"
+  },
+  "publisher": { "@type": "Organization", "name": "gledach", "url": "https://gledach.de/" }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#install">Skip to the install</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="/" aria-label="gledach, home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      gledach
+    </a>
+    <nav class="nav-links" aria-label="The shelf">
+      <a href="/">signal</a>
+      <a href="/signal-patterns">signal-patterns</a>
+      <a href="/whenrun">whenrun</a>
+      <a href="/phonehome" aria-current="page">phonehome</a>
+      <a href="/recall">recall</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="/#shelf">The shelf</a>
+      <a class="btn btn-fill" href="https://github.com/gledach/phonehome" rel="noopener">Repository</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══════════════════════════ hero ══════════════════════════ -->
+  <section class="hero sec sec-first">
+    <div class="wrap">
+      <p class="crumb"><a href="/">gledach</a> <span>/</span> <a href="/#shelf">the shelf</a> <span>/ phonehome</span></p>
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">phonehome · slot 04 · shipped</p>
+          <h1 class="t-display">
+            See what your<br>devices talk to.<br>
+            <em class="quiet">Nothing is uploaded.</em>
+          </h1>
+          <p class="t-lg measure-tight" style="margin-top: var(--s-24)">
+            A local DNS resolver that records which domains every device on your
+            network contacts, classifies them, and tells you when one starts talking
+            somewhere new.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-fill" href="#install">
+              See something real in two commands <span class="arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/gledach/phonehome" rel="noopener">Repository</a>
+          </div>
+          <p class="hero-meta">MIT licensed · no account · 0 runtime dependencies · 64 offline tests</p>
+        </div>
+
+        <figure class="console">
+          <div class="console-bar">
+            <span>phonehome report</span>
+            <span class="tag tag-quiet">real output</span>
+          </div>
+<pre>  device        queries  domains  busiest category  unknown
+  living room   144      12       telemetry         40%
+  doorbell      130      12       unknown           45%
+
+  category     queries  share
+  unknown      172      43%
+  telemetry     59      15%   Product telemetry and crash reporting
+  advertising   41      10%   Ad serving and real-time bidding
+  doh           33       8%   Encrypted DNS, which routes around this tool
+
+  Encrypted DNS
+    doorbell -&gt; dns.google
+    A device that switches to encrypted DNS stops appearing here at all.</pre>
+          <figcaption class="t-cap">
+            <code>unknown</code> stays visible and is counted. A classifier that
+            quietly labels everything looks better and tells you less.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ the point ══════════════════════════ -->
+  <section class="sec tint-mist">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">The situation</p>
+          <h2 class="t-h-lg">Finding out is a different job from filtering.</h2>
+        </div>
+        <p class="t-lg">
+          Nothing on your network tells you where it has been sending data, or when
+          that changed. Plenty of tools will block traffic for you. Almost none will
+          simply show you what is happening.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card card-emph">
+          <h3 class="t-sub"><code>new</code> is the one that earns its keep</h3>
+          <p class="t-sm">
+            A steady list of domains is background noise. A doorbell that contacts
+            something at 03:00 which it has never contacted before is the thing worth
+            knowing, and that is the command that reports it.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">It observes, it does not act</h3>
+          <p class="t-sm">
+            It never blocks anything and it never modifies a response. It forwards
+            packets and returns the upstream answer unchanged, so it cannot break
+            name resolution by inventing one.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">Nothing leaves the machine</h3>
+          <p class="t-sm">
+            Everything it observes stays on the machine you ran it on, and the default
+            upstream is whatever your machine was already using. It does not send your
+            queries anywhere new.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ install ══════════════════════════ -->
+  <section class="sec" id="install">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">The fastest way to see something real</p>
+          <h2 class="t-h-lg">You may already have months of history on disk.</h2>
+        </div>
+        <p class="t-lg">
+          If you run Pi-hole, AdGuard Home, dnsmasq or Unbound, read those logs rather
+          than re-pointing your network. The format is detected automatically.
+        </p>
+      </div>
+
+      <div class="cmd" data-copy>
+<pre><code><span class="c-bin">git</span> clone https://github.com/gledach/phonehome &amp;&amp; cd phonehome
+<span class="c-bin">node</span> bin/phonehome.mjs import /var/log/pihole.log --execute
+<span class="c-bin">node</span> bin/phonehome.mjs report      <span class="c-cmt"># what talked to what</span>
+<span class="c-bin">node</span> bin/phonehome.mjs new         <span class="c-cmt"># what started somewhere new</span></code></pre>
+        <button type="button" class="copy" aria-label="Copy the install commands for phonehome">Copy</button>
+      </div>
+      <p class="figure-note">
+        There is no <code>npm install</code>, because there is nothing to install.
+        A resolver and a JSONL file, and nothing else.
+      </p>
+
+      <h3 class="t-h-sm" style="margin-top: var(--s-64)">Otherwise, run the resolver</h3>
+      <div class="cmd" data-copy style="margin-top: var(--s-24)">
+<pre><code><span class="c-bin">node</span> bin/phonehome.mjs watch                        <span class="c-cmt"># binds 127.0.0.1:5335</span>
+<span class="c-bin">node</span> bin/phonehome.mjs watch --host=0.0.0.0 --port=5335</code></pre>
+        <button type="button" class="copy" aria-label="Copy the resolver commands for phonehome">Copy</button>
+      </div>
+      <p class="figure-note">
+        By default it binds <code>127.0.0.1:5335</code>, which only this machine can
+        use. That is deliberate: serving the whole house is a decision you make, not
+        something that happens because you tried the tool. To see every device, bind
+        the network and point your router's DHCP at that address. Port 53 is the one
+        devices expect and needs privileges on most systems. Many routers let you set
+        a custom DNS port, and where they do not, forward 53 to 5335.
+      </p>
+
+      <h3 class="t-h-sm" style="margin-top: var(--s-64)">The commands</h3>
+      <table class="spec" style="margin-top: var(--s-24)">
+        <thead>
+          <tr>
+            <th scope="col">Command</th>
+            <th scope="col">What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row"><span class="mono">phonehome watch</span></th><td>Run the resolver and record what asks for what.</td></tr>
+          <tr><th scope="row"><span class="mono">phonehome report</span></th><td>What happened, per device and per category.</td></tr>
+          <tr><th scope="row"><span class="mono">phonehome new</span></th><td>What started contacting somewhere it never had before.</td></tr>
+          <tr><th scope="row"><span class="mono">phonehome devices</span></th><td>Everything that has asked, so you can name it.</td></tr>
+          <tr><th scope="row"><span class="mono">phonehome import</span></th><td>Read a DNS log you already have. Four formats, detected automatically.</td></tr>
+          <tr><th scope="row"><span class="mono">phonehome doctor</span></th><td>Config, ports, upstream, and what this cannot see.</td></tr>
+        </tbody>
+      </table>
+
+      <p class="figure-note">
+        A report of IP addresses tells you almost nothing. A report of names tells you
+        everything, so <code>cp config/devices.default.mjs config/devices.local.mjs</code>
+        and map addresses to names. Run <code>devices</code> first: it prints the exact
+        lines to paste. The local copy is gitignored, because your network layout is
+        nobody else's business.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ agents ══════════════════════════ -->
+  <section class="sec tint-frost">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">For agents</p>
+          <h2 class="t-h-lg">Five read-only tools over MCP.</h2>
+        </div>
+        <p class="t-lg">
+          Every result carries the blind-spot list and a
+          <code>trustEmptyResult</code> flag, so an agent cannot report a clean bill
+          of health that the data does not support.
+        </p>
+      </div>
+
+      <div class="cmd" data-copy>
+<pre><code><span class="c-bin">node</span> mcp-server.mjs
+
+list_devices  ·  get_report  ·  new_contacts
+classify_domain  ·  blind_spots</code></pre>
+        <button type="button" class="copy" aria-label="Copy the MCP server command for phonehome">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ blind spots ══════════════════════════ -->
+  <section class="sec tint-peri">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What it cannot see</p>
+          <h2 class="t-h-lg">This matters more than the feature list.</h2>
+        </div>
+        <p class="t-lg">
+          So it is not buried at the bottom of a wiki. A tool like this is dangerous
+          precisely when it is trusted more than it deserves.
+        </p>
+      </div>
+
+      <ul class="blind">
+        <li>
+          <p class="t-sm"><b>Encrypted DNS.</b> A device using DoH or DoT resolves
+          over HTTPS and never asks this resolver anything, so it becomes completely
+          invisible. <code>watch</code> flags the moment a device looks up a known DoH
+          endpoint, because that is usually the last thing you will ever see from it.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Content.</b> This reads the question in a DNS packet and
+          nothing else. A domain being contacted is not the same as data being sent.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Devices with hardcoded resolvers.</b> Some hardware
+          ignores DHCP and talks to a public resolver directly. Only a firewall rule
+          catches that. This tool cannot.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Who, as opposed to what.</b> It sees devices, not people.
+          It is not a way to find out what somebody in your house is doing, and the
+          report is built around devices and domains for that reason.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Classification coverage.</b> The bundled list is
+          deliberately short. Every report prints the share that landed in
+          <code>unknown</code>, because a classifier that labels everything looks
+          better and tells you less.</p>
+        </li>
+      </ul>
+
+      <p class="figure-note">
+        Tests: 64, fully offline, no network. The resolver is tested against a fake
+        upstream and a documentation-range address, so the gate never sends a packet
+        off the machine. That file alone found three real bugs: a <code>reuseAddr</code>
+        flag that let two resolvers bind one port and split the queries between them,
+        TCP listen errors being swallowed, and in-flight sockets leaking on shutdown.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ elsewhere ══════════════════════════ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Elsewhere on the shelf</p>
+          <h2 class="t-h-lg">Same author. Different shapes.</h2>
+        </div>
+        <p class="t-lg">
+          They share no stack and no interface, only the promise: free, installable,
+          and honest about what each one cannot see.
+        </p>
+      </div>
+
+      <div class="cards">
+        <a class="card" href="/">
+          <p class="eyebrow eyebrow-quiet">Slot 01 · live preview</p>
+          <h3 class="t-h-sm">signal</h3>
+          <p class="t-sm">Ten watchers and one inbox on whichever market you name, scored and attributed, answerable by an agent over MCP.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/whenrun">
+          <p class="eyebrow eyebrow-quiet">Slot 03 · shipped</p>
+          <h3 class="t-h-sm">whenrun</h3>
+          <p class="t-sm">Day-ahead power prices turned into the window your job should run in, then it starts the job there.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/recall">
+          <p class="eyebrow eyebrow-quiet">Slot 05 · shipped</p>
+          <h3 class="t-h-sm">recall</h3>
+          <p class="t-sm">Four public registers checked against a list of the things you own, with every match graded.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/signal-patterns">
+          <p class="eyebrow eyebrow-quiet">Slot 02 · reference</p>
+          <h3 class="t-h-sm">signal-patterns</h3>
+          <p class="t-sm">What is watchable, what it costs, and eight engineering decisions each extracted from a bug that shipped.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div>
+        <a class="brand" href="/" aria-label="gledach, home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          gledach
+        </a>
+        <p class="t-cap" style="margin-top: var(--s-16); max-width: 34ch">
+          <em>gledati</em> (slav.): to watch. What a good analyst does before speaking.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">phonehome</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/phonehome" rel="noopener">Repository</a></li>
+          <li><a href="https://github.com/gledach/phonehome/blob/main/docs/roadmap.md" rel="noopener">What it cannot do</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">The shelf</p>
+        <ul class="foot-list">
+          <li><a href="/">signal</a></li>
+          <li><a href="/signal-patterns">signal-patterns</a></li>
+          <li><a href="/whenrun">whenrun</a></li>
+          <li><a href="/recall">recall</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">Contact</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
+          <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
+          <li><a href="mailto:request@gledach.de">request@gledach.de</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p class="t-cap">MIT licensed. Nothing this tool observes leaves the machine it runs on.</p>
+      <p class="t-cap mono">if it ships to turso, it shipped</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

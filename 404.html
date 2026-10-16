@@ -6,11 +6,11 @@
 <title>Not here · gledach</title>
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#F6F5F1">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
@@ -19,27 +19,34 @@
   <div class="nav-in">
     <a class="brand" href="/" aria-label="gledach, home">
       <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span class="brand-word">gledach</span>
+      gledach
     </a>
-    <div class="nav-right">
-      <a class="btn btn-primary btn-sm" href="https://github.com/gledach" rel="noopener">GitHub</a>
+    <nav class="nav-links" aria-label="The shelf">
+      <a href="/">signal</a>
+      <a href="/signal-patterns">signal-patterns</a>
+      <a href="/whenrun">whenrun</a>
+      <a href="/phonehome">phonehome</a>
+      <a href="/recall">recall</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-fill" href="https://github.com/gledach" rel="noopener">GitHub</a>
     </div>
   </div>
 </header>
 
 <main class="lost">
-  <div class="container">
+  <div class="wrap">
     <p class="eyebrow">404</p>
-    <h1 class="h2">Nothing is watching <em>this path.</em></h1>
-    <p class="lead">
-      The page you asked for is not here. Tool previews live on their own subdomains,
-      <code>&lt;tool&gt;.gledach.de</code>, rather than under this one, so a link
-      to a preview path on <code>gledach.de</code> will always land here.
+    <h1 class="t-h-lg measure-tight">Nothing is watching <em class="quiet">this path.</em></h1>
+    <p class="t-lg measure" style="margin-top: var(--s-24)">
+      The page you asked for is not here. Tool previews live on their own
+      subdomains, <code>&lt;tool&gt;.gledach.de</code>, rather than under this one, so
+      a link to a preview path on <code>gledach.de</code> will always land here.
     </p>
-    <p class="cta-line">
-      <a class="btn btn-primary" href="/#shelf">The shelf <span class="arrow" aria-hidden="true">&rarr;</span></a>
+    <div class="btn-row">
+      <a class="btn btn-fill" href="/#shelf">The shelf <span class="arrow" aria-hidden="true">&rarr;</span></a>
       <a class="btn btn-ghost" href="https://signal.gledach.de" rel="noopener">Open signal.gledach.de</a>
-    </p>
+    </div>
   </div>
 </main>
 

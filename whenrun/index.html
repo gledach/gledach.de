@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>whenrun · run it when the power is cheap</title>
+<meta name="description" content="Watches day-ahead electricity prices and the renewable-share forecast, finds the cheapest or greenest window that still meets your deadline, and starts the job there. Zero runtime dependencies, no account, no key.">
+<link rel="canonical" href="https://gledach.de/whenrun">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksandar Perisic">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gledach.de/whenrun">
+<meta property="og:site_name" content="gledach">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="whenrun · run it when the power is cheap">
+<meta property="og:description" content="Day-ahead prices and renewable share, turned into the window your job should run in. Zero dependencies, no account.">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "whenrun",
+  "url": "https://gledach.de/whenrun",
+  "sameAs": "https://github.com/gledach/whenrun",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Windows, macOS, Linux",
+  "softwareRequirements": "Node.js 22 or newer",
+  "license": "https://opensource.org/licenses/MIT",
+  "description": "Watches day-ahead electricity prices and the renewable-share forecast, works out the cheapest or greenest window that still meets a job's deadline, and starts the job there. Zero runtime dependencies, no account and no API key.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "author": {
+    "@type": "Person",
+    "name": "Aleksandar Perisic",
+    "url": "https://www.linkedin.com/in/apsolut/"
+  },
+  "publisher": { "@type": "Organization", "name": "gledach", "url": "https://gledach.de/" }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#install">Skip to the install</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="/" aria-label="gledach, home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      gledach
+    </a>
+    <nav class="nav-links" aria-label="The shelf">
+      <a href="/">signal</a>
+      <a href="/signal-patterns">signal-patterns</a>
+      <a href="/whenrun" aria-current="page">whenrun</a>
+      <a href="/phonehome">phonehome</a>
+      <a href="/recall">recall</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="/#shelf">The shelf</a>
+      <a class="btn btn-fill" href="https://github.com/gledach/whenrun" rel="noopener">Repository</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══════════════════════════ hero ══════════════════════════ -->
+  <section class="hero sec sec-first">
+    <div class="wrap">
+      <p class="crumb"><a href="/">gledach</a> <span>/</span> <a href="/#shelf">the shelf</a> <span>/ whenrun</span></p>
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">whenrun · slot 03 · shipped</p>
+          <h1 class="t-display">
+            Run it when the<br>power is cheap.<br>
+            <em class="quiet">Nothing to install.</em>
+          </h1>
+          <p class="t-lg measure-tight" style="margin-top: var(--s-24)">
+            Watches day-ahead electricity prices and the renewable-share forecast,
+            works out the cheapest or greenest window that still meets your
+            deadline, and starts the job there.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-fill" href="#install">
+              Run it in two commands <span class="arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/gledach/whenrun" rel="noopener">Repository</a>
+          </div>
+          <p class="hero-meta">MIT licensed · no account, no API key · 0 runtime dependencies · 128 offline tests</p>
+        </div>
+
+        <figure class="console">
+          <div class="console-bar">
+            <span>whenrun prices</span>
+            <span class="tag tag-quiet">real output</span>
+          </div>
+<pre class="blocks">  today     ▄                          176 EUR/MWh  (1h left)
+  tomorrow  ▆▅▅▅▅▅▇█▇▆▅▃▂▁▁▃▅▇██▇▅▅▄     72 to 231 EUR/MWh
+            00:00 06:00 12:00 18:00
+
+  len  when                     spot          you pay
+  1h   tomorrow 13:15 to 14:15  68.3 EUR/MWh  31.3 ct/kWh delivered
+  4h   tomorrow 11:30 to 15:30  86.6 EUR/MWh  33.5 ct/kWh delivered
+
+  Greenest 2h  tomorrow 12:30 to 14:30  101% renewable</pre>
+          <figcaption class="t-cap">
+            German power moved by a factor of three that day. The renewable share
+            passed 100% because exported surplus counts against domestic load.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ why ══════════════════════════ -->
+  <section class="sec tint-mist">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">The situation</p>
+          <h2 class="t-h-lg">The information has been free the whole time.</h2>
+        </div>
+        <p class="t-lg">
+          Power can cost three times more in the evening than it does at midday, and
+          your backup job does not care when it runs.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <h3 class="t-sub">The auction is public</h3>
+          <p class="t-sm">
+            Day-ahead prices for the next twenty four hours are published every
+            afternoon, free, for anyone who goes and collects them. So is the
+            renewable-share forecast.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">The tariff exists</h3>
+          <p class="t-sm">
+            Since January 2025 every German electricity supplier has had to offer a
+            dynamic tariff. The price you pay can follow the auction if you ask it to.
+          </p>
+        </article>
+        <article class="card card-emph">
+          <h3 class="t-sub">What was missing</h3>
+          <p class="t-sm">
+            Something that acts on both without tying you to one supplier's app. That
+            is the whole of this tool, and it is the first one on this shelf that acts
+            rather than reports.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ install ══════════════════════════ -->
+  <section class="sec" id="install">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Running it</p>
+          <h2 class="t-h-lg">There is no npm install, because there is nothing to install.</h2>
+        </div>
+        <p class="t-lg">
+          A fresh clone with Node 22 on it does everything below. Storage is a file
+          on disk. No account, no key, no build step.
+        </p>
+      </div>
+
+      <div class="cmd" data-copy>
+<pre><code><span class="c-bin">git</span> clone https://github.com/gledach/whenrun &amp;&amp; cd whenrun
+<span class="c-bin">node</span> bin/whenrun.mjs prices     <span class="c-cmt"># what power costs today</span>
+<span class="c-bin">node</span> bin/whenrun.mjs where      <span class="c-cmt"># your location, and every zone</span>
+<span class="c-bin">node</span> bin/whenrun.mjs doctor     <span class="c-cmt"># config, connectivity, data freshness</span></code></pre>
+        <button type="button" class="copy" aria-label="Copy the install commands for whenrun">Copy</button>
+      </div>
+      <p class="figure-note">
+        It ships set to postcode 82319 Starnberg in bidding zone DE-LU.
+        <code>where</code> prints that and every zone it supports, and
+        <code>cp config/location.default.mjs config/location.local.mjs</code> changes
+        it for good. The local copy is gitignored, which is the right place for your
+        postcode if you would rather it were not in a published repository.
+      </p>
+
+      <h3 class="t-h-sm" style="margin-top: var(--s-64)">The commands</h3>
+      <table class="spec" style="margin-top: var(--s-24)">
+        <thead>
+          <tr>
+            <th scope="col">Command</th>
+            <th scope="col">What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><span class="mono">whenrun prices</span></th>
+            <td>Today and tomorrow, with the cheap windows marked.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">whenrun plan</span></th>
+            <td>When should this run, and what will it cost. Takes <code>--duration</code>, <code>--kw</code>, <code>--by</code> and <code>--objective</code>, or runs every task in your config.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">whenrun run --task=backup</span></th>
+            <td>A dry run. Add <code>--execute</code> and it waits for the window, then starts the job.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">whenrun daemon --execute</span></th>
+            <td>All enabled tasks, continuously. <code>--once</code> makes it a single pass for cron or Task Scheduler.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">whenrun report</span></th>
+            <td>What it actually saved, against the delivered bill rather than the spot price.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">whenrun where</span></th>
+            <td>Your location and every bidding zone it knows.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">whenrun doctor</span></th>
+            <td>Config, connectivity and data freshness. Warns while you are still on the shipped tariff defaults.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="figure-note">
+        Three objectives: <code>cheapest</code> minimises price, <code>greenest</code>
+        maximises renewable share, <code>balanced</code> blends the two. A job marked
+        <code>interruptible</code> may be scattered across non-adjacent slots.
+        Otherwise it gets one unbroken block. Your task is told what it was scheduled
+        into through the environment: <code>WHENRUN_WINDOW_START</code>,
+        <code>WHENRUN_WINDOW_END</code>, <code>WHENRUN_SPOT_EUR_MWH</code>,
+        <code>WHENRUN_RENEWABLE_PCT</code> and <code>WHENRUN_SLOTS</code>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ safety ══════════════════════════ -->
+  <section class="sec tint-frost">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Safety</p>
+          <h2 class="t-h-lg">This tool runs commands unattended.</h2>
+        </div>
+        <p class="t-lg">
+          Which is a thing worth being careful about rather than quiet about. Four
+          rules it holds to, all of them mechanical.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <h3 class="t-sub">The command comes from your task file</h3>
+          <p class="t-sm">
+            Never from a price feed, never from an argument, never from the network.
+            There is no code path that builds a command out of fetched data.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">Two independent locks</h3>
+          <p class="t-sm">
+            A task needs <code>enabled: true</code> <b>and</b> the command needs
+            <code>--execute</code>. A dry run is the default everywhere.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">It refuses rather than guesses</h3>
+          <p class="t-sm">
+            Stale price data, an impossible deadline, or a window that closed while
+            the daemon was asleep each produce a refusal with a reason, not a best
+            effort.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">The agent surface is read only</h3>
+          <p class="t-sm">
+            An agent can ask when power is cheap. It cannot start anything.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ savings ══════════════════════════ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What the savings number means</p>
+          <h2 class="t-h-lg">The spot price is not your bill.</h2>
+        </div>
+        <p class="t-lg">
+          A German bill is roughly spot plus supplier markup plus grid fees plus
+          levies plus taxes plus VAT, and only the first of those moves by the hour.
+          So if spot halves, your bill does not.
+        </p>
+      </div>
+
+      <figure class="console" style="max-width: 640px">
+        <div class="console-bar">
+          <span>whenrun report</span>
+          <span class="tag tag-quiet">real output</span>
+        </div>
+<pre>saving   0.04 EUR (31.5% of this job's bill)   11% of its energy component</pre>
+      </figure>
+      <p class="figure-note">
+        Both numbers, both labelled. The flattering one is always the figure marked
+        as the energy component. <code>report</code> also prints your standing charge
+        for the period, because no amount of load shifting changes it and a savings
+        figure without that context flatters the tool.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ data ══════════════════════════ -->
+  <section class="sec tint-mist">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Where the numbers come from</p>
+          <h2 class="t-h-lg">Two sources, neither of which needs a key.</h2>
+        </div>
+        <p class="t-lg">
+          <code>doctor</code> cross-checks the two against each other and warns when
+          they disagree by more than a rounding error.
+        </p>
+      </div>
+
+      <table class="spec">
+        <thead>
+          <tr>
+            <th scope="col">Source</th>
+            <th scope="col">Zones</th>
+            <th scope="col">Key</th>
+            <th scope="col">Resolution</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Energy-Charts<span class="mono">Fraunhofer ISE</span></th>
+            <td>DE-LU, AT, FR, NL and more</td>
+            <td>none</td>
+            <td>15 min</td>
+          </tr>
+          <tr>
+            <th scope="row">aWATTar</th>
+            <td>DE, AT</td>
+            <td>none</td>
+            <td>60 min</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="figure-note">
+        Price data is CC BY 4.0 from Bundesnetzagentur and SMARD.de by way of
+        Energy-Charts. Verified against live data for DE-LU, AT, FR, CH, NL, ES and
+        PL. A bidding zone is not a country: Germany and Luxembourg share DE-LU,
+        Denmark is split at the Great Belt, and Italy and Norway have several. The
+        renewable-share forecast is published per country and derived from the zone,
+        so you only set one thing.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ agents ══════════════════════════ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">For agents</p>
+          <h2 class="t-h-lg">Six read-only tools over MCP.</h2>
+        </div>
+        <p class="t-lg">
+          Every result carries a coverage block with a freshness status and a
+          <code>trustEmptyResult</code> flag, so an agent can tell <q>prices are
+          flat</q> from <q>I have not been able to look since Tuesday</q>.
+        </p>
+      </div>
+
+      <div class="cmd" data-copy>
+<pre><code><span class="c-bin">node</span> mcp-server.mjs
+
+get_prices  ·  cheapest_window  ·  greenest_window
+list_tasks  ·  plan_task        ·  savings_report</code></pre>
+        <button type="button" class="copy" aria-label="Copy the MCP server command for whenrun">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ blind spots ══════════════════════════ -->
+  <section class="sec tint-peri">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What it cannot see</p>
+          <h2 class="t-h-lg">Stated here rather than buried in a wiki.</h2>
+        </div>
+        <p class="t-lg">
+          Every tool on this shelf ships a written audit of its own blind spots. This
+          is whenrun's, in full.
+        </p>
+      </div>
+
+      <ul class="blind">
+        <li>
+          <p class="t-sm"><b>Your actual tariff.</b> It uses the numbers in your
+          tariff file. If those are wrong, every euro it reports is wrong by the same
+          proportion. <code>doctor</code> warns while you are still on the shipped
+          defaults.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Whether you are on a dynamic tariff at all.</b> On a
+          fixed tariff it will still tell you when power is cheap, and you will still
+          be charged the same.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Your own generation.</b> Solar on your roof changes the
+          answer completely and is not modelled.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Grid fees that vary by time.</b> Modelled as flat. Where
+          a time-varying network tariff applies, the cheap window may not be exactly
+          where this says it is.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Whether your job really draws what you declared.</b>
+          <code>kw</code> is your estimate, not a measurement.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>It cannot pause a running command.</b>
+          <code>interruptible</code> shapes which slots are chosen and passes the list
+          to your task in <code>WHENRUN_SLOTS</code>. Honouring the split is your
+          script's job.</p>
+        </li>
+      </ul>
+
+      <p class="figure-note">
+        Tests: 128, fully offline, no network. A separate live suite checks that the
+        real APIs still answer in the expected shape, and refreshes the captured
+        fixtures. The offline fixtures are captured from the live APIs rather than
+        handwritten, so they test what the API does rather than what someone
+        remembered it doing.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ elsewhere ══════════════════════════ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Elsewhere on the shelf</p>
+          <h2 class="t-h-lg">Same author. Different shapes.</h2>
+        </div>
+        <p class="t-lg">
+          They share no stack and no interface, only the promise: free, installable,
+          and honest about what each one cannot see.
+        </p>
+      </div>
+
+      <div class="cards">
+        <a class="card" href="/">
+          <p class="eyebrow eyebrow-quiet">Slot 01 · live preview</p>
+          <h3 class="t-h-sm">signal</h3>
+          <p class="t-sm">Ten watchers and one inbox on whichever market you name, scored and attributed, answerable by an agent over MCP.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/phonehome">
+          <p class="eyebrow eyebrow-quiet">Slot 04 · shipped</p>
+          <h3 class="t-h-sm">phonehome</h3>
+          <p class="t-sm">Which domains every device on your network contacts, and when one starts talking somewhere new.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/recall">
+          <p class="eyebrow eyebrow-quiet">Slot 05 · shipped</p>
+          <h3 class="t-h-sm">recall</h3>
+          <p class="t-sm">Four public registers checked against a list of the things you own, with every match graded.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/signal-patterns">
+          <p class="eyebrow eyebrow-quiet">Slot 02 · reference</p>
+          <h3 class="t-h-sm">signal-patterns</h3>
+          <p class="t-sm">What is watchable, what it costs, and eight engineering decisions each extracted from a bug that shipped.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div>
+        <a class="brand" href="/" aria-label="gledach, home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          gledach
+        </a>
+        <p class="t-cap" style="margin-top: var(--s-16); max-width: 34ch">
+          <em>gledati</em> (slav.): to watch. What a good analyst does before speaking.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">whenrun</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/whenrun" rel="noopener">Repository</a></li>
+          <li><a href="https://github.com/gledach/whenrun/blob/main/docs/running-it.md" rel="noopener">Running it for real</a></li>
+          <li><a href="https://github.com/gledach/whenrun/blob/main/docs/roadmap.md" rel="noopener">What it cannot do</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">The shelf</p>
+        <ul class="foot-list">
+          <li><a href="/">signal</a></li>
+          <li><a href="/signal-patterns">signal-patterns</a></li>
+          <li><a href="/phonehome">phonehome</a></li>
+          <li><a href="/recall">recall</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">Contact</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
+          <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
+          <li><a href="mailto:request@gledach.de">request@gledach.de</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p class="t-cap">MIT licensed. Price data is CC BY 4.0 from Bundesnetzagentur and SMARD.de by way of Energy-Charts.</p>
+      <p class="t-cap mono">if it ships to turso, it shipped</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
