@@ -139,13 +139,38 @@ because nothing has elevation to lift from: a card border goes lavender instead.
 Motion has exactly two jobs here. It explains a mechanism, or it confirms that
 something you did registered. Nothing else qualifies.
 
-**Explaining a mechanism**, scroll-driven:
+**Entry and mechanism**, scroll-driven:
 
-| Motion | What it explains |
-|---|---|
-| Section blocks rise on entry | Ordinary reveal, the only decorative one, kept subtle |
-| Lead-time bars grow left to right | The ordering the chart is arguing for |
-| The sticky nav gains its border past 64px | It is now floating over content rather than sitting in the page |
+| Motion | Range | Note |
+|---|---|---|
+| Non-grid blocks rise 10px | `entry 0%` to `55%` | Heads, consoles, bands, notes |
+| Grid children rise 14px, one at a time | `entry 0%` to `50%`, offset 5% per column | The thing that makes the page feel alive |
+| Captures settle 16px and scale from 0.985 | `entry 0%` to `46%` | Reads as weight, not as a zoom |
+| Lead-time bars grow left to right | `entry 10%` to `60%` | The ordering the chart is arguing for |
+| The sticky nav gains its border | `scroll() 0` to `64px` | It is now floating over content rather than sitting in the page |
+
+**The hero is a timed cascade, not scroll-driven.** It is above the fold, where a
+view timeline has already finished before the first paint. Children stage 70ms
+apart over 560ms. This is the one place the system accepts `both` hiding content
+before the animation runs, and only because it is a single paint on a static file.
+
+**Two things about the grid stagger that are easy to get wrong:**
+
+- **Animate the children, never the container as well.** `.sec > .wrap > *`
+  excludes every grid for exactly this reason. Animating both compounds the
+  transform and the row visibly double-moves. The exclusion list in the
+  stylesheet is load-bearing: add a new grid class there when you add one.
+- **A view timeline staggers rows for free and columns not at all.** Items in one
+  row share a scroll position, so without help they fire together and the row
+  arrives as a slab. `--wave` offsets the range per column, cycling every four so
+  the wave repeats per row instead of running away on a twelve-item grid.
+
+Percentages are of the element's **own** entry span, which is its height, so a
+short card resolves over a shorter scroll than a tall one. A first pass at 36%
+had a 264px tile finishing inside 140px of scrolling, which at any real scroll
+speed is a pop rather than a wave. Measure before tuning: park the scroll
+mid-range and read the computed opacity of four adjacent items. They should
+differ by roughly 0.10 each.
 
 **Confirming interaction**, 120ms to 150ms:
 
