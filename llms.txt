@@ -30,6 +30,7 @@ the same dashboard on 127.0.0.1:5180 against your own subject.
 
 | Path | Tool | Slot |
 |---|---|---|
+| https://gledach.de/about | the organisation, previews, requests | n/a |
 | https://gledach.de/ | signal | 01 |
 | https://gledach.de/signal-patterns | signal-patterns | 02 |
 | https://gledach.de/whenrun | whenrun | 03 |
@@ -445,6 +446,11 @@ stays the whole list. A request that would help more people than the person aski
 is built first, and the open issues are how you check that.
 
 ## Previews
+
+Explained in full at https://gledach.de/about#previews, which is where this
+lives on the site: it describes a deployment convention, which matters to
+someone deciding whether to trust a preview and not to someone who just wants
+the tool.
 
 Convention: `<tool>.gledach.de`. One per tool, replaced in place. A preview is a
 static export of a real deployment: real data, dated, read only. The export asks

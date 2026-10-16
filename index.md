@@ -262,22 +262,6 @@ remembers about the market.
   briefs. Without one a simpler keyword classifier runs instead and everything
   else still works exactly the same.
 
-## Previews
-
-Anything worth looking at gets its own subdomain. The convention is
-`<tool>.gledach.de`, one address per tool, replaced in place.
-
-- **Real data, not a mock.** The export asks the running viewer the same
-  questions a browser asks and inlines the answers, so a preview cannot drift
-  from the thing it was taken from.
-- **Dated and read only.** A snapshot, not a live instance. Nothing you click
-  reaches a database, and every number is true as of the export.
-- **One per tool, replaced in place.** A re-export overwrites the preview, so you
-  are looking at the most recent snapshot rather than an archive of all of them.
-- **Generated text is labelled.** Battlecards, briefs and convergences are model
-  output, not verified fact. They are a starting point for a person, which is how
-  the tool itself describes them.
-
 ## The rest of the shelf
 
 Five of twelve slots filled. Same author, different shapes. They share no stack
@@ -325,6 +309,9 @@ at all.
 - gledach on LinkedIn: <https://www.linkedin.com/company/gledach/>
 - Creator: Aleksandar Perisic, <https://www.linkedin.com/in/apsolut/>
 - <https://github.com/gledach>
+
+More about the shelf, how previews work and how requests are handled:
+<https://gledach.de/about>
 
 *gledati* (slav.): to watch. What a good analyst does before speaking.
 

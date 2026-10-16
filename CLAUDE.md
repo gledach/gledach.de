@@ -1,10 +1,11 @@
 # gledach.de
 
-The landing page for [github.com/gledach](https://github.com/gledach). Static: five HTML
+The landing page for [github.com/gledach](https://github.com/gledach). Static: six HTML
 pages, `assets/site.css`, `assets/site.js`. No build step, no framework, no dependencies.
 
 ```
 /                    index.html                  signal, slot 01, shelf index at the foot
+/about               about/index.html            the org, previews, requests
 /signal-patterns     signal-patterns/index.html  slot 02
 /whenrun             whenrun/index.html          slot 03
 /phonehome           phonehome/index.html        slot 04
@@ -175,7 +176,7 @@ Anchor targets carry `scroll-margin-top: 96px` because the nav is sticky at 69px
 ### The nav, on every page
 
 `gledach │ <tool> ⋯`. The organisation, then the tool you are currently in, then
-the rest of the shelf behind a disclosure. The same component on all five pages
+the rest of the shelf behind a disclosure. The same component on all six pages
 plus the 404, because a visitor who lands on a satellite otherwise has nothing
 telling them whose tool it is.
 

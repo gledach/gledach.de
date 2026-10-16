@@ -6,22 +6,23 @@ Rewritten 2026-10-16. The landing page for the gledach organisation.
 
 1. `CLAUDE.md`: the design system, the content rules, and the traps already paid for
 2. `README.md`: how to run it, deploy it, add a tool, and re-render the social cards
-3. `index.html`: signal's page. The other four are satellites in the same shape
+3. `index.html`: signal's page. Four tool satellites and `/about` share its shape
 
 ## Current state
 
 | | |
 |---|---|
 | Branch | `main` |
-| Build | none. Five HTML pages, one stylesheet, one script |
+| Build | none. Six HTML pages, one stylesheet, one script |
 | Deploy | Cloudflare Workers static assets, built from git on push to `main` |
 | Serving | **Live at https://gledach.de.** Push is publish, about a minute end to end |
 
 Run it with `python -m http.server 8080` from the repo root. Opening a page from disk
 will not load the stylesheet, because asset paths are absolute.
 
-**Nothing in this change has been committed or pushed.** It is a working tree. Review it
-on localhost before anything reaches the live site.
+The redesign and everything described below is committed and live. Verify a deploy by
+fetching a page and diffing it against the local file: it should match exactly, apart
+from one challenge-platform script Cloudflare injects before `</body>`.
 
 ## What changed last
 
@@ -51,6 +52,12 @@ numbered steps, states what you need and how long it takes, and shows the roster
 file so you can see that configuring it means typing company names. The real
 shape of that file was read from `../signals/config/companies.default.mjs`
 rather than invented, which surfaced the `query` caveat now on the page.
+
+The subdomain-preview section left the landing page. It explained a
+deployment convention, which is of real interest to someone deciding whether to
+trust a preview and of none to someone who just wants the tool. It now lives on
+a new `/about` page alongside what the shelf is, how requests are handled and
+who makes it, linked from the footer of every page.
 
 Also: a `.apsolut/` notes vault on the davinci profile, gitignored in full and
 excluded from deploy, and three LinkedIn cover variants in `assets/og/`
@@ -94,7 +101,7 @@ Cloudflare's `auto-trailing-slash` resolves either, but `python -m http.server` 
 `/whenrun` with a 404 and that broke every local preview of the new cross-links. A
 directory gets a 301 from both servers. Do not flatten them.
 
-All five pages share `assets/site.css`. `assets/site.js` is unchanged and still does one
+All pages share `assets/site.css`. `assets/site.js` is unchanged and still does one
 job, the copy buttons, which the satellite install blocks use.
 
 ## What is open, in priority order
@@ -105,16 +112,13 @@ job, the copy buttons, which the satellite install blocks use.
    need rewriting against the tokens at the top of `assets/site.css` before re-rendering.
    This is the largest outstanding piece and it is what every social share currently shows.
 
-2. **There is no product screenshot anywhere on the site.** The ledger hero carries the
-   MCP response instead of the Compare capture, and every satellite proves itself with
-   terminal output. That satisfies the proof rule, and it also means a visitor never sees
-   the dashboard. This was a consequence of the redesign rather than a decision, so make
-   it one.
+2. **Two of the three dashboard captures carry em dashes as pixels.** They are
+   signal's own UI, so the tracked-file check is unaffected, but they are now on the
+   landing page. Fixing it means changing signal and recapturing.
 
-3. **`assets/img/signal-compare.jpg` and `signal-live-feed.jpg` are both unreferenced**
-   and still deployed. Use them or delete them. Note that Compare's prose cells contain
-   U+2014, so putting that one back puts em dashes on the page as pixels. The grep rule
-   over this repository is unaffected either way, because it is not text here.
+3. **The captions are the only thing making a 1519px capture legible on a phone.**
+   At 390px the dashboard is a grey texture. The caption sits above the image and
+   carries the meaning, which is the lesser evil rather than a solved problem.
 
 4. **Confirm `request@gledach.de` actually routes.** `gledach.de` has Cloudflare Email
    Routing MX records and SPF, so the domain takes mail, but whether that specific address
@@ -203,7 +207,7 @@ job, the copy buttons, which the satellite install blocks use.
 
 ## Suggested first move
 
-Read the five pages on localhost, in order, as a stranger would. The redesign is a large
+Read the six pages on localhost, in order, as a stranger would. The redesign is a large
 change to a live site and it has not been committed, so the cheapest moment to disagree
 with any of it is before the first commit.
 

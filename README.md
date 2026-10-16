@@ -3,12 +3,13 @@
 The landing page for [github.com/gledach](https://github.com/gledach): free, installable
 tools that turn public data into information, insight and intelligence.
 
-Static. No build step, no framework, no dependencies. Five pages, one stylesheet and one
+Static. No build step, no framework, no dependencies. Six pages, one stylesheet and one
 script.
 
 | Path | File | What it is |
 |---|---|---|
 | `/` | `index.html` | signal, slot 01, and the shelf index at the foot |
+| `/about` | `about/index.html` | the organisation, previews, requests |
 | `/signal-patterns` | `signal-patterns/index.html` | slot 02, the written reasoning |
 | `/whenrun` | `whenrun/index.html` | slot 03 |
 | `/phonehome` | `phonehome/index.html` | slot 04 |
