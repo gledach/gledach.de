@@ -404,34 +404,53 @@ a:focus-visible, button:focus-visible {
    the rendered size of the capture to the width of its frame. These scale as
    a whole image, and the figcaption carries the meaning on a phone, where a
    1519px dashboard cannot be read at any scale. */
+/* The caption goes ABOVE the capture, which is both a legibility fix and a
+   better reading order. A dashboard screenshot is wall-to-wall small text, so
+   a prose caption butted underneath it with a hairline between competes with
+   the image instead of explaining it, and 14px steel loses that fight to the
+   image's own type. Reading the claim first and then looking for it in the
+   picture is also simply the right order. <figcaption> may legally be the
+   first child of a <figure>, so the semantics are unchanged. */
 .shot {
-  margin: 0 0 var(--s-24);
+  margin: 0 0 var(--s-32);
   background: var(--white);
   border: 1px solid var(--frost);
   border-radius: var(--radius);
   overflow: clip;
 }
-.shot-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--s-16);
-  padding: 10px var(--s-16);
-  border-bottom: 1px solid var(--frost);
+.shot-cap { padding: var(--s-24) var(--s-32); }
+.shot-label {
   font-family: var(--font-mono);
   font-size: 11px; font-weight: 500;
   text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--steel);
+  color: var(--indigo-ink);
+  margin: 0 0 10px;
 }
-.shot img { display: block; width: 100%; height: auto; }
-.shot figcaption {
-  padding: var(--s-16);
+.shot-say {
+  margin: 0;
+  max-width: 82ch;
+  font-size: var(--text-body-lg);
+  line-height: 1.45;
+  letter-spacing: var(--tracking-body-lg);
+  font-weight: 300;
+  color: var(--midnight-ink);
+}
+.shot-say b { font-weight: 500; }
+/* A mist mat under the capture. The quiet border of space is what stops a
+   busy screenshot bleeding into the card edge, and it is a tint rather than
+   a shadow, which this system does not have. */
+.shot-mat {
+  background: var(--mist);
   border-top: 1px solid var(--frost);
-  font-size: var(--text-body-sm);
-  line-height: var(--leading-body-sm);
-  letter-spacing: var(--tracking-body-sm);
-  color: var(--steel);
-  max-width: 88ch;
+  padding: var(--s-16);
 }
-.shot figcaption b { color: var(--midnight-ink); font-weight: 500; }
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--frost);
+  border-radius: 2px;
+}
 
 /* ── numbered setup steps ────────────────────────────────────────── */
 .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-16); }
