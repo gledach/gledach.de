@@ -26,29 +26,195 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 
+<!-- Four nodes, and the FAQ is the one that earns its keep. Every answer in
+     it is a sentence that is visibly on this page: a FAQPage whose answers are
+     not on screen is against the spec and is the kind of thing that gets a site
+     demoted. Keep them in step with the copy, or delete the node. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "AboutPage",
-  "url": "https://gledach.de/about",
-  "name": "About gledach",
-  "description": "How the gledach shelf works, how tool previews work, and how to request a tool.",
-  "inLanguage": "en-GB",
-  "mainEntity": {
-    "@type": "Organization",
-    "name": "gledach",
-    "url": "https://gledach.de/",
-      "description": "Publisher of free, installable tools that turn public data into information, insight and intelligence.",
-    "sameAs": [
-      "https://github.com/gledach",
-      "https://www.linkedin.com/company/gledach/"
-    ],
-    "founder": {
-      "@type": "Person",
-      "name": "Aleksandar Perisic",
-      "url": "https://www.linkedin.com/in/apsolut/"
+  "@graph": [
+    {
+      "@type": "AboutPage",
+      "@id": "https://gledach.de/about#page",
+      "url": "https://gledach.de/about",
+      "name": "About gledach",
+      "description": "What gledach is, what its five free tools are for, how previews work, and how to request a tool.",
+      "inLanguage": "en-GB",
+      "mainEntity": {
+        "@id": "https://gledach.de/#org"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://gledach.de/#org",
+      "name": "gledach",
+      "url": "https://gledach.de/",
+      "description": "Publisher of free, MIT-licensed tools that turn public data into information, insight and intelligence. Every tool runs on the user's own machine and needs no account.",
+      "sameAs": [
+        "https://github.com/gledach",
+        "https://www.linkedin.com/company/gledach/"
+      ],
+      "founder": {
+        "@type": "Person",
+        "name": "Aleksandar Perisic",
+        "url": "https://www.linkedin.com/in/apsolut/"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://gledach.de/about#tools",
+      "name": "The gledach shelf",
+      "description": "Five free, MIT-licensed tools. Five of twelve slots filled.",
+      "numberOfItems": 5,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "signal",
+            "url": "https://gledach.de/",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux",
+            "license": "https://opensource.org/licenses/MIT",
+            "description": "Competitive intelligence your agents can query. Watches eleven public sources around the companies you name, scores and attributes what it finds, and answers an AI assistant over MCP.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "EUR"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "TechArticle",
+            "name": "signal-patterns",
+            "url": "https://gledach.de/signal-patterns",
+            "description": "How to build tools that watch the public web: what is watchable, what it costs, and eight engineering patterns each extracted from a bug that shipped."
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "whenrun",
+            "url": "https://gledach.de/whenrun",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Windows, macOS, Linux",
+            "license": "https://opensource.org/licenses/MIT",
+            "description": "Reads day-ahead electricity prices and the renewable-share forecast, finds the cheapest or greenest window that meets a job's deadline, and starts the job there. Zero runtime dependencies.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "EUR"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "phonehome",
+            "url": "https://gledach.de/phonehome",
+            "applicationCategory": "SecurityApplication",
+            "operatingSystem": "Windows, macOS, Linux",
+            "license": "https://opensource.org/licenses/MIT",
+            "description": "A local DNS resolver that records which domains every device on your network contacts and says when one starts talking somewhere new. Blocks nothing and uploads nothing.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "EUR"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "recall",
+            "url": "https://gledach.de/recall",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Windows, macOS, Linux",
+            "license": "https://opensource.org/licenses/MIT",
+            "description": "Checks four public registers against a list of the things you own: EU product alerts, German medicine shortages, US vehicle campaigns and software end of support. Every match is graded.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "EUR"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://gledach.de/about#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is gledach?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "gledach is a shelf, not a platform: five free tools, written by the same person, that do not pretend to be one product. Each takes whatever shape suits it, from a command you type to a dashboard you open to an API an assistant queries. What they share is the promise, not the plumbing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is moving in my market, and what did I miss?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "signal watches eleven public sources around the companies you name: news and Reddit feeds, Hacker News, GitHub releases, YouTube captions, certificate logs, sitemap changes and search interest. It scores what it finds, groups the things several publishers corroborate, and answers your AI assistant over MCP. Three of those sources see a move weeks before anyone announces it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should this job run so it costs less?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "whenrun reads day-ahead electricity prices and the renewable-share forecast, works out the cheapest or greenest window that still meets your deadline, and starts the job there. German power can cost three times more in the evening than at midday, and since 2025 every supplier there has had to offer a dynamic tariff."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is my own stuff doing, and is any of it recalled?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "phonehome records which domains every device on your network contacts and tells you when one starts talking somewhere new. recall checks four public registers against a list of the things you own: EU product alerts, German medicine shortages, US vehicle campaigns and software past its security support date. Every match is graded."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are the gledach tools free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. MIT licensed and public on GitHub, with no account, no tier and nothing that turns out to cost money later. Where a tool can do more with a paid API key, it says which part and keeps working without one."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much do I have to install?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Three of the five install nothing at all: no npm install, no build step and no framework. recall ships its own CSV and XML readers rather than pull in two dependencies for forty lines of work. signal needs three runtime dependencies, and that is the heaviest thing on the shelf."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can an AI assistant use these tools?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Four of the five answer an AI assistant directly over MCP, in structured data with a freshness flag attached, so it can tell a quiet week from a broken collector. You can wire one into Claude Code or any other MCP client in a single line."
+          }
+        }
+      ]
     }
-  }
+  ]
 }
 </script>
 </head>
@@ -85,7 +251,7 @@
     </div>
     <nav class="nav-links" aria-label="Sections">
       <a href="#what-this-is">What this is</a>
-      <a href="#shelf-works">The shelf</a>
+      <a href="#use-for">What they are for</a>
       <a href="#previews">Previews</a>
       <a href="#requests">Requests</a>
     </nav>
@@ -190,49 +356,88 @@
   </section>
 
   <!-- ══════════════════════════ how the shelf works ══════════════════════════ -->
-  <section class="sec" id="shelf-works">
+  <!-- This replaced a section on how a tool earns a shelf slot. That is
+       process, interesting to exactly one person, and it gave a search
+       engine or a model nothing to retrieve. The three boxes are now
+       question-shaped and name the tool that answers each, and the same
+       three questions are in the FAQPage block in the head, so the
+       structured data and the visible text are the same sentences. -->
+  <section class="sec" id="use-for">
     <div class="wrap">
       <div class="head">
         <div>
-          <p class="eyebrow">How the shelf works</p>
-          <h2 class="t-h-lg">A tool goes up when it runs on someone else's machine.</h2>
+          <p class="eyebrow">What they are for</p>
+          <h2 class="t-h-lg">Three questions, five tools, nothing to buy.</h2>
         </div>
         <p class="t-lg">
-          Five of twelve slots are filled. The other seven are empty and stay that
-          way until something runs, which is the whole of the process.
+          Every tool here started as something somebody was checking by hand. If one
+          of the questions below is yours, the tool that answers it is free, runs on
+          your own machine, and takes about fifteen minutes to set up.
         </p>
       </div>
 
       <div class="cards">
-        <article class="card">
-          <h3 class="t-sub">That is the bar, and it is the only one</h3>
+
+        <article class="card card-emph">
+          <h3 class="t-sub">Who is moving in my market, and what did I miss?</h3>
           <p class="t-sm">
-            Working on my laptop is not shipped. A tool goes on the shelf when
-            somebody else can clone it and get a real answer out of it, on Windows,
-            macOS or Linux, without asking me anything.
+            <a href="/">signal</a> watches eleven public sources around the companies
+            you name: news and Reddit feeds, Hacker News, GitHub releases, YouTube
+            captions, certificate logs, sitemap changes, search interest and more. It
+            scores what it finds, groups the things several publishers corroborate,
+            and answers your AI assistant over MCP. Three of those sources see a move
+            weeks before anyone announces it.
           </p>
-        </article>
-        <article class="card">
-          <h3 class="t-sub">Then it gets a page, not a card</h3>
           <p class="t-sm">
-            With real output on it, the commands to run it, and a written audit of
-            what it cannot see. If there is nothing real to show yet, it is not
-            finished, and an icon with a paragraph underneath does not count.
+            Useful if you do competitive intelligence, product marketing, sales
+            enablement or investing, and you keep finding out late.
+            <a href="/signal-patterns">signal-patterns</a> is the written version if
+            you would rather build your own.
           </p>
+          <p class="card-go"><a href="/">signal &rarr;</a></p>
         </article>
+
         <article class="card">
-          <h3 class="t-sub">Empty slots stay empty</h3>
+          <h3 class="t-sub">When should this job run so it costs less?</h3>
           <p class="t-sm">
-            Seven are free. There is no roadmap to quote and no list of things coming
-            soon, because there is no list. What fills the next one is usually
-            something somebody asked for.
+            <a href="/whenrun">whenrun</a> reads day-ahead electricity prices and the
+            renewable-share forecast, works out the cheapest or greenest window that
+            still meets your deadline, and starts the job there. Backups, builds, an
+            EV charger, a heat pump.
           </p>
+          <p class="t-sm">
+            German power can cost three times more in the evening than at midday, and
+            since 2025 every supplier there has had to offer a dynamic tariff. This
+            acts on that without tying you to one supplier's app.
+          </p>
+          <p class="card-go"><a href="/whenrun">whenrun &rarr;</a></p>
         </article>
+
+        <article class="card">
+          <h3 class="t-sub">What is my own stuff doing, and is any of it recalled?</h3>
+          <p class="t-sm">
+            <a href="/phonehome">phonehome</a> records which domains every device on
+            your network contacts and tells you when one starts talking somewhere new.
+            It blocks nothing and uploads nothing: the job is finding out, which is
+            different from filtering.
+          </p>
+          <p class="t-sm">
+            <a href="/recall">recall</a> checks four public registers against a list
+            of the things you actually own: EU product alerts, German medicine
+            shortages, US vehicle campaigns, and software past its security support
+            date. Every match is graded, and a register it could not reach is reported
+            as unreachable rather than clean.
+          </p>
+          <p class="card-go"><a href="/phonehome">phonehome &rarr;</a> <a href="/recall">recall &rarr;</a></p>
+        </article>
+
       </div>
 
       <p class="figure-note">
-        The six rules every tool here follows are on
-        <a href="/#rules">the home page</a>, next to the shelf itself.
+        Five of twelve slots are filled. A tool goes up when it runs on someone
+        else's machine rather than only on mine, and the empty slots stay empty until
+        one does. The six rules every tool follows are on
+        <a href="/#rules">the home page</a>.
       </p>
     </div>
   </section>
