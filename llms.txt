@@ -10,8 +10,9 @@
 gledati (slav.): to watch. What a good analyst does before speaking.
 
 gledach is a shelf, not a platform. The tools published here are written by the
-same author but do not share a stack, an interface or a release cadence. What
-they share is the promise below.
+same author but do not share a stack, a codebase or a release cadence, and each
+takes whatever shape suits it: a command you type, a dashboard you open, an API
+an assistant queries, or just writing. What they share is the promise below.
 
 Look at one before installing it: https://signal.gledach.de is a real signal
 deployment exported to one static file, dated and read only. `npm run view` puts
@@ -440,9 +441,9 @@ is no roadmap to quote.
 Requests go to https://github.com/gledach/requests, a public queue. The form asks
 the three questions that decide whether a thing is watchable at all: what you
 check by hand and how often, where it is published, and whether seeing it needs an
-account. Without a GitHub account, request@gledach.de takes the same three
-answers, and anything worth building is filed in the queue afterwards, so the list
-stays the whole list. A request that would help more people than the person asking
+account. There is no request address: a request sent privately is invisible to
+everyone else and cannot be labelled or linked, so the public queue is the only
+channel and therefore the whole list. A request that would help more people than the person asking
 is built first, and the open issues are how you check that.
 
 ## Previews
@@ -461,7 +462,6 @@ preview is the most recent snapshot rather than an archive.
 ## Contact
 
 - Request a tool: https://github.com/gledach/requests (public queue)
-- request@gledach.de if you would rather not use GitHub
 - Creator: Aleksandar Perisic, https://www.linkedin.com/in/apsolut/
 - Organisation: https://www.linkedin.com/company/gledach/
 - https://github.com/gledach

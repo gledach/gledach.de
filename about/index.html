@@ -38,8 +38,7 @@
     "@type": "Organization",
     "name": "gledach",
     "url": "https://gledach.de/",
-    "email": "request@gledach.de",
-    "description": "Publisher of free, installable tools that turn public data into information, insight and intelligence.",
+      "description": "Publisher of free, installable tools that turn public data into information, insight and intelligence.",
     "sameAs": [
       "https://github.com/gledach",
       "https://www.linkedin.com/company/gledach/"
@@ -54,7 +53,7 @@
 </script>
 </head>
 <body>
-<a class="skip" href="#shelf-works">Skip to how the shelf works</a>
+<a class="skip" href="#what-this-is">Skip to what this is</a>
 
 <header class="nav">
   <div class="nav-in">
@@ -85,7 +84,8 @@
       </details>
     </div>
     <nav class="nav-links" aria-label="Sections">
-      <a href="#shelf-works">How the shelf works</a>
+      <a href="#what-this-is">What this is</a>
+      <a href="#shelf-works">The shelf</a>
       <a href="#previews">Previews</a>
       <a href="#requests">Requests</a>
     </nav>
@@ -107,10 +107,10 @@
         gledach is a shelf,<br><em class="quiet">not a platform.</em>
       </h1>
       <p class="t-lg measure" style="margin-top: var(--s-24)">
-        The tools here are written by the same person but share no stack, no
-        interface and no release cadence. What they share is the promise: free,
-        installable, running on your own machine, and honest about what each one
-        cannot see.
+        Five free tools, written by the same person, that do not pretend to be one
+        product. Each takes whatever shape suits it: a command you type, a dashboard
+        you open, an API an assistant queries, or just writing. What they share is
+        the promise, not the plumbing.
       </p>
       <p class="t-cap" style="margin-top: var(--s-32); max-width: 52ch">
         <em>gledati</em> (slav.): to watch. What a good analyst does before speaking.
@@ -118,43 +118,114 @@
     </div>
   </section>
 
+  <!-- ══════════════════════════ what this is ══════════════════════════ -->
+  <!-- The six rules on the home page are about what a tool promises the
+       reader. These five are about how it is built, which is a different
+       question and the one people actually ask about this shelf. -->
+  <section class="sec tint-mist" id="what-this-is">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What this is</p>
+          <h2 class="t-h-lg">Free, small, and built out of things that already exist.</h2>
+        </div>
+        <p class="t-lg">
+          The home page lists six rules about what every tool promises you. These
+          five are about how they are made, which is the part people usually want to
+          know before they trust one.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card card-emph">
+          <h3 class="t-sub">Free, and that is the end of it</h3>
+          <p class="t-sm">
+            MIT licensed and public on GitHub. No account, no tier, nothing that
+            turns out to cost money later. Where a tool can do more with a paid key,
+            it says which part and keeps working without one.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3 class="t-sub">As few moving parts as possible</h3>
+          <p class="t-sm">
+            Three of the five install nothing at all: no <code>npm install</code>, no
+            build step, no framework. recall ships its own CSV and XML readers rather
+            than pull in two dependencies for forty lines of work. signal needs
+            three, and that is the heaviest thing on the shelf.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3 class="t-sub">Do not reinvent what already exists</h3>
+          <p class="t-sm">
+            These read public registers, public feeds and public APIs that were
+            already published. None of it is scraped out of somewhere it should not
+            be, and none of it is a database somebody rebuilt. The work is reading
+            what is there properly and saying how sure it is.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3 class="t-sub">Made for an assistant as much as a person</h3>
+          <p class="t-sm">
+            Four of the five answer an AI assistant directly over MCP, in structured
+            data with a freshness flag attached, so it can tell a quiet week from a
+            broken collector. You can wire one into Claude Code or any other MCP
+            client in a single line.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3 class="t-sub">Small enough to copy</h3>
+          <p class="t-sm">
+            Each one is a worked example of a single idea, kept readable on purpose.
+            If you want to build something like this rather than use it,
+            <a href="/signal-patterns">signal-patterns</a> is the written version and
+            every tool here is the code that goes with it.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ══════════════════════════ how the shelf works ══════════════════════════ -->
-  <section class="sec tint-mist" id="shelf-works">
+  <section class="sec" id="shelf-works">
     <div class="wrap">
       <div class="head">
         <div>
           <p class="eyebrow">How the shelf works</p>
-          <h2 class="t-h-lg">Twelve slots. Five of them have something in.</h2>
+          <h2 class="t-h-lg">A tool goes up when it runs on someone else's machine.</h2>
         </div>
         <p class="t-lg">
-          A tool earns a slot when it runs on someone else's machine, not only on
-          mine. Until then it is not on the shelf, however good the idea was.
+          Five of twelve slots are filled. The other seven are empty and stay that
+          way until something runs, which is the whole of the process.
         </p>
       </div>
 
       <div class="cards">
         <article class="card">
-          <h3 class="t-sub">The count is honest</h3>
+          <h3 class="t-sub">That is the bar, and it is the only one</h3>
           <p class="t-sm">
-            Five filled and seven empty is stated plainly rather than hidden. An
-            empty slot is a fact about capacity, which is the opposite of a roadmap:
-            there is no list of things coming soon, because there is no list.
+            Working on my laptop is not shipped. A tool goes on the shelf when
+            somebody else can clone it and get a real answer out of it, on Windows,
+            macOS or Linux, without asking me anything.
           </p>
         </article>
         <article class="card">
-          <h3 class="t-sub">Each one gets its own page</h3>
+          <h3 class="t-sub">Then it gets a page, not a card</h3>
           <p class="t-sm">
-            Not a card with an icon and a blurb. A page with real output on it, the
-            commands to run it, and a written audit of what the tool cannot see. If
-            there is nothing real to show, it is not finished.
+            With real output on it, the commands to run it, and a written audit of
+            what it cannot see. If there is nothing real to show yet, it is not
+            finished, and an icon with a paragraph underneath does not count.
           </p>
         </article>
         <article class="card">
-          <h3 class="t-sub">They do not share a stack</h3>
+          <h3 class="t-sub">Empty slots stay empty</h3>
           <p class="t-sm">
-            One is a database and an agent surface. Two are zero-dependency command
-            line tools. One is written reasoning with nothing to install. Forcing
-            them into one framework would make four of them worse.
+            Seven are free. There is no roadmap to quote and no list of things coming
+            soon, because there is no list. What fills the next one is usually
+            something somebody asked for.
           </p>
         </article>
       </div>
@@ -170,7 +241,7 @@
   <!-- Moved off the landing page. It explains a deployment convention, which
        is of real interest to someone deciding whether to trust a preview and
        of no interest at all to someone who just wants the tool. -->
-  <section class="sec" id="previews">
+  <section class="sec tint-mist" id="previews">
     <div class="wrap">
       <div class="head">
         <div>
@@ -259,12 +330,12 @@
           </p>
         </article>
         <article class="card">
-          <h3 class="t-sub">No GitHub account needed</h3>
+          <h3 class="t-sub">In the open, not in an inbox</h3>
           <p class="t-sm">
-            <a href="mailto:request@gledach.de">request@gledach.de</a> takes the same
-            three answers. Anything that arrives there is filed in the public queue
-            afterwards, so the list stays the whole list rather than the part that
-            came through one channel.
+            There is no request address to write to. A request sent privately is
+            invisible to everyone else, cannot be labelled, linked or voted on, and
+            quietly becomes a list only one person can see. The queue is the whole
+            list precisely because there is nowhere else for one to go.
           </p>
         </article>
       </div>
@@ -347,7 +418,6 @@
           <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
           <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
           <li><a href="https://www.linkedin.com/in/apsolut/" rel="noopener">Creator, on LinkedIn</a></li>
-          <li><a href="mailto:request@gledach.de">request@gledach.de</a></li>
           <li><a href="/llms.txt">llms.txt</a></li>
         </ul>
       </div>

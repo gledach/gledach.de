@@ -125,9 +125,9 @@ is shipped there yet, which is the opposite of a roadmap.
 [`gledach/requests`](https://github.com/gledach/requests) is the public intake queue. The
 empty slot card links at its issue form, which asks the three questions that decide whether
 anything is watchable at all: what the reader checks by hand, where it is published, and
-whether seeing it needs an account. `request@gledach.de` is the fallback for anyone who will
-not open a GitHub account, and what arrives there gets filed in the queue afterwards, so the
-open issues are the whole list.
+whether seeing it needs an account. There is deliberately no email fallback: a request sent
+privately cannot be labelled, linked or seen by anyone else, so the open issues are the whole
+list by construction. Do not reintroduce a `mailto:` anywhere on the site.
 
 **Do not point a request link at a tool's own repository.** A request for a tool that does
 not exist is not an issue in a tool that does. That was the wiring until `requests` existed,

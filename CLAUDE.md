@@ -213,7 +213,9 @@ line **and** the word "leading".
 ## Content rules
 
 - **gledach is a shelf, not a platform.** Same author, varied shapes. Do not write copy
-  promising that every tool shares a stack, a licence or an interface. What they share is
+  promising that every tool shares a stack, a licence or one interface. They do have
+  interfaces, and signal has a dashboard, so "no interface" is wrong as well as
+  unappealing: the claim is that they are not forced into one shape. What they share is
   the promise: free, installable, runs on the reader's machine, honest about limits.
 - **Design for growth.** The shelf has five tools today and must reflow to a dozen
   without a redesign. Adding one is a copy of a satellite directory plus one more

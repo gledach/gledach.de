@@ -265,8 +265,9 @@ remembers about the market.
 ## The rest of the shelf
 
 Five of twelve slots filled. Same author, different shapes. They share no stack
-and no interface, only the promise: free, installable, and honest about what each
-one cannot see.
+and no codebase. Each takes whatever shape suits it, from a single command to a
+dashboard, and what they share is the promise rather than the plumbing: free,
+installable, and honest about what each one cannot see.
 
 | Slot | Tool | Page | What it does |
 |---|---|---|---|
@@ -280,9 +281,8 @@ Is there something you keep checking by hand that a tool could watch for you?
 [The queue is public](https://github.com/gledach/requests/issues), including what
 was turned down and why. The form asks the three questions that decide whether
 anything is watchable at all: what you check by hand, where it is published, and
-whether seeing it needs an account. Without a GitHub account,
-<request@gledach.de> takes the same three answers and they are filed in the queue
-too, so the list stays the whole list.
+whether seeing it needs an account. Requests go there rather than to an inbox,
+so everyone can see what was asked and what happened to it.
 
 ## House rules
 
@@ -305,7 +305,6 @@ at all.
 ## Contact
 
 - Request a tool: <https://github.com/gledach/requests/issues> (public queue)
-- <request@gledach.de> if you would rather not use GitHub
 - gledach on LinkedIn: <https://www.linkedin.com/company/gledach/>
 - Creator: Aleksandar Perisic, <https://www.linkedin.com/in/apsolut/>
 - <https://github.com/gledach>

@@ -120,12 +120,11 @@ job, the copy buttons, which the satellite install blocks use.
    At 390px the dashboard is a grey texture. The caption sits above the image and
    carries the meaning, which is the lesser evil rather than a solved problem.
 
-4. **Confirm `request@gledach.de` actually routes.** `gledach.de` has Cloudflare Email
-   Routing MX records and SPF, so the domain takes mail, but whether that specific address
-   has a rule is only visible in the dashboard under **Email, Email Routing, Routing
-   rules**. Every page offers it as the no-GitHub fallback and the JSON-LD publishes it as
-   the organisation's email, so a missing rule is a silent dead end in six places now
-   rather than two.
+4. **`request@gledach.de` is gone from the site and may still exist as a route.**
+   Every `mailto:`, the JSON-LD `email` fields and the prose fallbacks were removed:
+   requests go to the public queue only. If a Cloudflare Email Routing rule still
+   forwards that address, it is now an unadvertised inbox rather than a published
+   one. Delete the rule or leave it, but nothing links to it.
 
 5. **Fonts load from Google Fonts.** Two families now rather than four, so this is
    cheaper than it was, but it is still the one third-party request the pages make.
