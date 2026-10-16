@@ -37,18 +37,23 @@ not covered, match what is already on the page.
   never reach the site, and editing them only makes the next scaffold run diverge.
 - **Proof over promise.** Every claim is shown as product UI, data or evidence. A card
   with an icon and a blurb is not finished. The corollary that bites: do not invent
-  output. Everything inside a `.console` or a `.panel` is either real or labelled as
-  a convention.
+  output. Everything inside a `.console` is either real or labelled as a convention,
+  and every `.view-shot` is a capture of a running deployment.
 
-  **Prefer rebuilding a product view to screenshotting it.** A 1519px dashboard
-  scaled to fit the container renders its own 11px interface text at about 9px,
-  which no background colour or framing will rescue. The `.panel` components on
-  the index are the same real data from the deployment behind the live preview,
-  set in the site's own type: legible, reflowing on a phone, selectable,
-  indexable and far lighter. Transcription normalises exactly two things, the
-  emoji prefix and the em dashes, because U+2014 is banned here and a dash is
-  typography rather than data. Keep one real capture for the job a rebuild
-  cannot do, which is showing the whole screen at once.
+  **A product capture stays a capture.** Someone deciding whether to run a tool
+  needs to see the screen they will actually get, and a rebuilt facsimile does
+  not prove that. The three dashboard captures on the index were briefly
+  replaced with HTML panels built from the same real data; they were more
+  legible and they were the wrong call, because the thing being proved is
+  "this is what you get", not "here is some data".
+
+  **Fix the prose, not the picture.** The readability problem with a dense
+  capture is almost always that its explanation is competing with it. Put the
+  words outside the image's frame, above it rather than below, and give them a
+  ground of their own. On the index that means prose in white at 22px on the
+  ink section, and the capture in a white mat beside it. They stop competing
+  because they are no longer the same object. A 1519px capture is still a
+  texture on a phone: the words carry the meaning there and should say so.
 
 ### Ground
 

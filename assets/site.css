@@ -399,13 +399,14 @@ a:focus-visible, button:focus-visible {
 .figure-note { font-size: var(--text-caption); line-height: var(--leading-caption); color: var(--steel); margin-top: var(--s-16); max-width: 76ch; }
 
 /* ── the ink ground, for the product views ───────────────────────────
-   The views section used to be tint-mist, a very pale blue, behind
-   screenshots that are themselves mostly pale. The whole block read as
-   one low-contrast wash. Ink gives the light panels something to sit
-   against, and it is the one section on the site that gets it.
+   This section used to be tint-mist, a very pale blue, behind captures
+   that are themselves mostly pale. The whole block read as one
+   low-contrast wash and the prose sitting against it had nothing to
+   push off. Ink fixes both: the captures pop in a white frame, and
+   white text on ink is the most readable combination on the site.
 
-   Indigo scores 1.6:1 on ink and is unusable here, so eyebrows and links
-   take lavender (8.9:1) and body copy takes white or lilac. */
+   Indigo scores 1.6:1 on ink and is unusable here, so labels and links
+   take lavender (8.9:1) and prose takes white (17.4:1) or lilac. */
 .tint-ink { background: var(--midnight-ink); color: var(--white); }
 .tint-ink h2, .tint-ink h3, .tint-ink .t-lg { color: var(--white); }
 .tint-ink .eyebrow { color: var(--lavender); }
@@ -414,172 +415,60 @@ a:focus-visible, button:focus-visible {
 .tint-ink a { color: var(--lavender); }
 .tint-ink a:hover { color: var(--white); }
 
-/* ── panel: a product view, rebuilt rather than screenshotted ────────
-   These were three 1519px captures. At the width they rendered, their
-   native 11px UI text landed around 9px, which no background colour was
-   ever going to fix. They are the same real data, rendered in the site's
-   own type at a size a person can read, which also makes them reflow on
-   a phone, selectable, searchable and about 450KB lighter.
+/* ── product capture, and the words that go with it ──────────────────
+   The captures stay. A reader deciding whether to run `npm run view`
+   needs to see the actual screen they will get, and a rebuilt facsimile
+   does not prove that.
 
-   The data is real, from the deployment behind signal.gledach.de. Two
-   things are normalised in transcription and nothing else: the emoji is
-   dropped, and the em dashes in the source strings become colons or
-   middle dots, because U+2014 is banned in this repository and a dash is
-   typography rather than data. */
-.panel {
-  background: var(--white);
-  border-radius: var(--radius);
-  overflow: clip;
+   What was wrong was never the image, it was the prose. It sat inside
+   the same white card as the capture at 14px steel, so a dense
+   screenshot and its explanation were competing inside one box with a
+   hairline between them, and the explanation lost.
+
+   So the words now live outside the card entirely, on the ink ground,
+   in white at 22px. Maximum separation: prose on dark, image in a white
+   frame. They stop competing because they are no longer the same
+   object. The caption also comes first, so you read what to look for
+   before you look. */
+.view { margin: 0 0 var(--s-64); }
+.view:last-of-type { margin-bottom: 0; }
+
+.view-label {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--lavender);
+  margin: 0 0 var(--s-12);
+}
+.view-say {
+  margin: 0 0 var(--s-16);
+  max-width: 74ch;
+  font-size: var(--text-subheading);
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-subheading);
+  color: var(--white);
+}
+.view-say b { font-weight: 500; }
+.view-note {
   margin: 0 0 var(--s-24);
-  color: var(--midnight-ink);
+  max-width: 82ch;
+  font-size: var(--text-body-sm);
+  line-height: 1.55;
+  letter-spacing: var(--tracking-body-sm);
+  color: var(--lilac);
 }
-.panel-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--s-16);
-  padding: 11px var(--s-20);
-  background: var(--mist);
-  border-bottom: 1px solid var(--frost);
-  font-family: var(--font-mono);
-  font-size: 11px; font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--steel);
-}
-.panel-body { padding: var(--s-8) var(--s-20) var(--s-20); }
+.view-note code { color: var(--white); }
 
-/* ── Live Feed: convergence rows ─────────────────────────────────── */
-.feed { list-style: none; margin: 0; padding: 0; }
-.feed > li {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 72px;
-  gap: var(--s-16);
-  padding: var(--s-16) 0;
-  border-bottom: 1px solid var(--frost);
-}
-.feed > li:last-child { border-bottom: 0; }
-.feed-head { display: flex; align-items: center; gap: var(--s-8); margin: 0 0 6px; }
-.feed-co {
-  font-family: var(--font-mono);
-  font-size: 11px; font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--steel);
-}
-.feed-title {
-  font-size: var(--text-body);
-  font-weight: 400;
-  letter-spacing: var(--tracking-body);
-  line-height: 1.35;
-  margin: 0 0 6px;
-}
-.feed-rule, .feed-ev {
-  margin: 0;
-  font-size: var(--text-caption);
-  line-height: var(--leading-caption);
-  color: var(--steel);
-}
-.feed-ev { margin-top: 3px; }
-.feed-ev cite { font-style: normal; color: var(--midnight-ink); }
-.feed-score { text-align: right; margin: 0; }
-.feed-score b {
-  display: block;
-  font-size: var(--text-heading-sm);
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: var(--tracking-heading-sm);
-  color: var(--indigo-ink);
-}
-.feed-score span {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--slate);
-  margin-top: 4px;
-}
-
-/* ── Compare: the anchor beside a rival, row by row ──────────────── */
-.cmp { width: 100%; border-collapse: collapse; font-size: var(--text-body-sm); }
-.cmp th, .cmp td {
-  text-align: left; vertical-align: top;
-  padding: var(--s-16) var(--s-16) var(--s-16) 0;
-  border-bottom: 1px solid var(--frost);
-}
-.cmp thead th {
-  font-family: var(--font-mono);
-  font-size: 11px; font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--steel);
-  border-bottom-color: var(--lilac);
-  padding-top: 0;
-}
-.cmp thead th.is-anchor { color: var(--indigo-ink); }
-.cmp tbody th {
-  width: 150px; font-weight: 400; color: var(--steel);
-  font-size: var(--text-caption);
-}
-.cmp tr:last-child th, .cmp tr:last-child td { border-bottom: 0; }
-.cmp .unverified {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--slate);
-}
-
-/* ── Battle: kill shots and the objections back ──────────────────── */
-.battle { list-style: none; margin: 0; padding: 0; }
-.battle > li { padding: var(--s-16) 0; border-bottom: 1px solid var(--frost); }
-.battle > li:last-child { border-bottom: 0; }
-.battle b { display: block; font-weight: 500; font-size: var(--text-body); margin-bottom: 5px; }
-.battle p { margin: 0; font-size: var(--text-body-sm); line-height: var(--leading-body-sm); color: var(--steel); }
-.battle q { color: var(--midnight-ink); }
-.battle .reply { margin-top: 6px; }
-.battle .reply::before { content: "\2192\00a0"; color: var(--indigo-ink); }
-
-/* ── product capture ─────────────────────────────────────────────────
-   Uncropped, so `width: 100%` is correct here and the pinning rule in
-   CLAUDE.md does not apply: that one is about crops, where a percentage ties
-   the rendered size of the capture to the width of its frame. These scale as
-   a whole image, and the figcaption carries the meaning on a phone, where a
-   1519px dashboard cannot be read at any scale. */
-/* The caption goes ABOVE the capture, which is both a legibility fix and a
-   better reading order. A dashboard screenshot is wall-to-wall small text, so
-   a prose caption butted underneath it with a hairline between competes with
-   the image instead of explaining it, and 14px steel loses that fight to the
-   image's own type. Reading the claim first and then looking for it in the
-   picture is also simply the right order. <figcaption> may legally be the
-   first child of a <figure>, so the semantics are unchanged. */
-.shot {
-  margin: 0 0 var(--s-32);
+/* A white mat around the capture, so a busy screenshot has a quiet
+   border rather than bleeding to the edge of its own frame. */
+.view-shot {
   background: var(--white);
-  border: 1px solid var(--frost);
   border-radius: var(--radius);
+  padding: 14px;
   overflow: clip;
 }
-.shot-cap { padding: var(--s-24) var(--s-32); }
-.shot-label {
-  font-family: var(--font-mono);
-  font-size: 11px; font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--indigo-ink);
-  margin: 0 0 10px;
-}
-.shot-say {
-  margin: 0;
-  max-width: 82ch;
-  font-size: var(--text-body-lg);
-  line-height: 1.45;
-  letter-spacing: var(--tracking-body-lg);
-  font-weight: 300;
-  color: var(--midnight-ink);
-}
-.shot-say b { font-weight: 500; }
-/* A mist mat under the capture. The quiet border of space is what stops a
-   busy screenshot bleeding into the card edge, and it is a tint rather than
-   a shadow, which this system does not have. */
-.shot-mat {
-  background: var(--mist);
-  border-top: 1px solid var(--frost);
-  padding: var(--s-16);
-}
-.shot img {
+.view-shot img {
   display: block;
   width: 100%;
   height: auto;
@@ -822,7 +711,6 @@ a.card .card-go { color: var(--indigo-ink); }
   .nav-links a,
   .foot-list a,
   .brand-tool,
-  .shot-cap a,
   a:not(.card):not(.btn) {
     transition: color 120ms ease, background-color 120ms ease,
                 border-color 120ms ease;
@@ -870,7 +758,7 @@ a.card .card-go { color: var(--indigo-ink); }
 @media (prefers-reduced-motion: no-preference) {
 
   .is-pre { opacity: 0; transform: translateY(14px); }
-  .shot.is-pre { transform: translateY(16px) scale(0.985); }
+  .view-shot.is-pre { transform: translateY(16px) scale(0.985); }
   .bars.is-pre .bar-fill { width: 0; }
 
   .is-in {
@@ -884,7 +772,7 @@ a.card .card-go { color: var(--indigo-ink); }
 
   /* A capture settles rather than appears. The scale is 0.985, small
      enough to register as weight rather than as a zoom. */
-  .shot.is-in { animation-name: reveal-shot; animation-duration: 720ms; }
+  .view-shot.is-in { animation-name: reveal-shot; animation-duration: 720ms; }
   @keyframes reveal-shot {
     from { opacity: 0; transform: translateY(16px) scale(0.985); }
   }

@@ -585,18 +585,18 @@
   </section>
 
   <!-- ══════════════════════════ 04 the dashboard ══════════════════════════ -->
-  <!-- These were three 1519px screenshots. At the width they rendered, their
-       native 11px UI text landed around 9px, which is below readable, and no
-       background colour was going to change that. They are rebuilt here from
-       the same real data in the site's own type: legible, reflowing on a
-       phone, selectable, indexable, and about 450KB lighter.
+  <!-- The captures stay, all three of them. Someone deciding whether to run
+       `npm run view` needs to see the screen they will actually get, and a
+       rebuilt facsimile does not prove that.
 
-       The data is real, out of the deployment behind signal.gledach.de. Two
-       normalisations in transcription and nothing else: the emoji prefix is
-       dropped, and em dashes in the source strings become colons or middle
-       dots, because U+2014 is banned here and a dash is typography rather
-       than data. One real capture stays at the foot of the section, doing
-       the one job a screenshot still does better than a rebuild. -->
+       What was wrong here was never the image, it was the prose. It sat
+       inside the same white card as the capture, at 14px steel, so a dense
+       screenshot and its explanation competed inside one box with a hairline
+       between them and the explanation lost. The words now live outside the
+       card, on the ink ground, in white at 22px. Prose on dark, image in a
+       white frame: they stop competing because they are no longer the same
+       object. The caption also comes first, so you read what to look for
+       before you look. -->
   <section class="sec tint-ink" id="views">
     <div class="wrap">
       <div class="head">
@@ -605,194 +605,90 @@
           <h2 class="t-h-lg">Three views, running on your own machine.</h2>
         </div>
         <p class="t-lg">
-          Every row below is real output from the deployment behind the live
-          preview, rebuilt here so you can read it. <code>npm run view</code> puts
-          the same three views on <code>127.0.0.1:5180</code>, pointed at your
-          companies instead of these.
+          Real captures of a real deployment, not mockups. <code>npm run view</code>
+          puts this exact dashboard on <code>127.0.0.1:5180</code>, pointed at your
+          companies instead of these, and
+          <a href="https://signal.gledach.de" rel="noopener">signal.gledach.de</a> is
+          the same thing live if you would rather click around than read.
         </p>
       </div>
 
       <!-- ─────────── Live Feed ─────────── -->
-      <figure class="panel">
-        <figcaption class="panel-bar">
-          <span>Live Feed</span>
-          <span>2,649 signals · 13 companies tracked</span>
-        </figcaption>
-        <div class="panel-body">
-          <ol class="feed">
-
-            <li>
-              <div>
-                <p class="feed-head">
-                  <span class="tag">convergence</span>
-                  <span class="feed-co">Tabnine</span>
-                </p>
-                <h4 class="feed-title">Capital and corporate event cluster, a raise plus M&amp;A, corroborated across channels</h4>
-                <p class="feed-rule">19 distinct events reported by 22 independent publishers in 90 days, from 25 raw signals.</p>
-                <p class="feed-ev">Evidence 10 · first <cite>Tricentis Acquires Tabnine to Further Scale Agentic Quality Engineering for the Enterprise</cite> · search / mna</p>
-              </div>
-              <p class="feed-score"><b>97</b><span>impact</span></p>
-            </li>
-
-            <li>
-              <div>
-                <p class="feed-head">
-                  <span class="tag">convergence</span>
-                  <span class="feed-co">Replit</span>
-                </p>
-                <h4 class="feed-title">Customer dissatisfaction clustering: switching pressure in the category</h4>
-                <p class="feed-rule">5 distinct events reported by 5 independent publishers in 30 days, from 5 raw signals.</p>
-                <p class="feed-ev">Evidence 5 · first <cite>Is Replit HIPAA Compliant? What Healthcare Apps Must Know</cite> · search / review complaint</p>
-              </div>
-              <p class="feed-score"><b>96</b><span>impact</span></p>
-            </li>
-
-            <li>
-              <div>
-                <p class="feed-head">
-                  <span class="tag">convergence</span>
-                  <span class="feed-co">Sourcegraph Cody</span>
-                </p>
-                <h4 class="feed-title">Moving upmarket toward enterprise, on security and governance posture</h4>
-                <p class="feed-rule">4 distinct events reported by 4 independent publishers in 45 days, from 4 raw signals.</p>
-                <p class="feed-ev">Evidence 4 · first <cite>Sourcegraph Cody Review 2026: Features and Pricing</cite> · search / pricing change</p>
-              </div>
-              <p class="feed-score"><b>96</b><span>impact</span></p>
-            </li>
-
-          </ol>
-        </div>
-      </figure>
-      <p class="figure-note">
-        <b>Not a list of headlines.</b> A convergence is the unit: a pattern
-        several independent publishers corroborate. The score is derived from its
-        own evidence, from how many events, how independent the publishers are and
-        how recent it is, rather than against a fixed floor. The rule that fired it
-        is on the row, and every convergence keeps a citation graph back to the
-        signals underneath it. One line to read instead of forty.
-      </p>
-
-      <!-- ─────────── Compare ─────────── -->
-      <figure class="panel" style="margin-top: var(--s-48)">
-        <figcaption class="panel-bar">
-          <span>Compare</span>
-          <span>anchor plus up to 3 rivals</span>
-        </figcaption>
-        <div class="panel-body">
-          <table class="cmp">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col" class="is-anchor">Claude Code · anchor</th>
-                <th scope="col">Cursor</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Positioning</th>
-                <td>Terminal-first agentic coding collaborator that goes beyond autocomplete, running full-repo edits, tests and builds autonomously from the CLI, IDE or browser.</td>
-                <td>AI-native code editor, a VS Code fork, emphasising deep codebase indexing, multi-model agentic editing and an expanding platform play through an SDK other products embed.</td>
-              </tr>
-              <tr>
-                <th scope="row">Target segment</th>
-                <td>Professional engineers and engineering organisations, from individual developers up to large enterprises.</td>
-                <td>Individual developers and small to mid engineering teams already inside a VS Code-style IDE, with an emerging platform motion through its SDK.</td>
-              </tr>
-              <tr>
-                <th scope="row">Pricing model</th>
-                <td><span class="unverified">[unverified against competitor signals]</span></td>
-                <td><span class="unverified">[unverified against competitor signals]</span></td>
-              </tr>
-              <tr>
-                <th scope="row">Weakness, from signals</th>
-                <td>No enterprise vertical specialisation is evident in the collected signals.</td>
-                <td>A 30-day convergence of 20 distinct dissatisfaction events across 4 independent publishers shows active switching pressure, plus reports of sessions silently moving to a more expensive model.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </figure>
-      <p class="figure-note">
-        <b>One company as the anchor, against up to three rivals,</b> section by
-        section. Where the collected evidence does not support a claim the cell
-        says <code>[unverified]</code> rather than filling the gap, which is the
-        whole reason to trust the cells that are filled. Thirteen companies sit in
-        the rail, read out of the one file you edit, and any of them can be the
-        anchor.
-      </p>
-
-      <!-- ─────────── Battle ─────────── -->
-      <figure class="panel" style="margin-top: var(--s-48)">
-        <figcaption class="panel-bar">
-          <span>Battle · Cursor</span>
-          <span class="tag tag-quiet">generated, verify before a call</span>
-        </figcaption>
-        <div class="panel-body">
-          <ul class="battle">
-            <li>
-              <b>Unconsented model-switching cost risk</b>
-              <p>
-                Users report the product silently switching an active session to a
-                more expensive model without explicit action, with one citing a $200
-                loss traced to this behaviour. A documented cost-control gap that
-                does not appear as a described failure mode for the anchor in the
-                available signals.
-              </p>
-            </li>
-            <li>
-              <b>Active, measured displacement</b>
-              <p>
-                A 30-day convergence of 20 distinct customer-dissatisfaction events
-                across 4 independent publishers shows users naming Claude Code,
-                Codex and Copilot as migration targets. Documented switching intent
-                rather than anecdotal churn.
-              </p>
-            </li>
-            <li>
-              <b>The objection you should expect back</b>
-              <p>
-                <q>Cursor is the most mature AI-native IDE, a VS Code fork with deep
-                large-codebase indexing and a UX teams already know, which lowers
-                onboarding friction versus a CLI-first tool.</q>
-              </p>
-              <p class="reply">
-                Fair and real for teams standardised on VS Code, but the same review
-                coverage documents recurring UI churn and bugs, so pilot against a
-                specific workflow before assuming stability.
-              </p>
-            </li>
-          </ul>
-        </div>
-      </figure>
-      <p class="figure-note">
-        <b>Call prep for one competitor:</b> the strongest points to make and the
-        objections you should expect back, ranked against the deal in front of you
-        rather than dumped as a list. This view is model output, which is why the
-        panel says so on its own title bar and why every claim carries the evidence
-        it came from.
-      </p>
-
-      <!-- One capture survives, doing the job a rebuild cannot: showing what
-           the whole screen looks like at once. It is deliberately not
-           full width, because it is here as an artifact rather than as
-           something to read. -->
-      <figure class="shot" style="margin-top: var(--s-64); max-width: 760px">
-        <figcaption class="shot-cap">
-          <p class="shot-label">The actual screen · real deployment</p>
-          <p class="shot-say">
-            <b>And this is all of it at once.</b> Eight views down the left, every
-            tracked company under them, the feed in the middle. Too small to read
-            here, which is the point of the three panels above.
-            <a href="https://signal.gledach.de" rel="noopener">The live preview</a>
-            is the readable version.
+      <figure class="view">
+        <figcaption>
+          <p class="view-label">Live Feed · the one you leave open</p>
+          <p class="view-say">
+            <b>Not a list of headlines.</b> A convergence is the unit: a pattern
+            several independent publishers corroborate, scored from its own
+            evidence rather than against a fixed floor.
+          </p>
+          <p class="view-note">
+            Each row states the rule that fired it and how many independent
+            publishers back it, so you can judge the finding without opening it.
+            The top row in this capture is a convergence at impact 96 built from
+            events across independent outlets in 45 days. One line to read instead
+            of forty.
           </p>
         </figcaption>
-        <div class="shot-mat">
+        <div class="view-shot">
           <img src="/assets/img/signal-live-feed.jpg" width="1519" height="784"
-               loading="lazy" decoding="async"
-               alt="The full signal dashboard: a sidebar of eight views and thirteen tracked companies, with the Live Feed in the main column showing convergences ranked by impact.">
+               decoding="async"
+               alt="Signal's Live Feed: convergences ranked by business impact, each one showing the rule that fired it and how many independent pieces of evidence support it, with eight views and thirteen tracked companies in the left rail.">
         </div>
       </figure>
+
+      <!-- ─────────── Compare ─────────── -->
+      <figure class="view">
+        <figcaption>
+          <p class="view-label">Compare · anchor plus up to three rivals</p>
+          <p class="view-say">
+            <b>One company set against another, section by section:</b>
+            positioning, target segment, pricing, strengths, weaknesses.
+          </p>
+          <p class="view-note">
+            Thirteen companies sit in the left rail, read out of the one file you
+            edit, and any of them can be the anchor. The
+            <code>[unverified against competitor signals]</code> in the pricing
+            cell is the tool declining to assert something its own evidence does
+            not support, which is the reason to believe the cells that are filled.
+          </p>
+        </figcaption>
+        <div class="view-shot">
+          <img src="/assets/img/signal-compare.jpg" width="1519" height="784"
+               loading="lazy" decoding="async"
+               alt="Signal's Compare view: Claude Code as the anchor company beside Cursor, set against each other across positioning, target segment, pricing model, strengths and weaknesses.">
+        </div>
+      </figure>
+
+      <!-- ─────────── Battle ─────────── -->
+      <figure class="view">
+        <figcaption>
+          <p class="view-label">Battle · call prep for one competitor</p>
+          <p class="view-say">
+            <b>The strongest points to make, and the objections you should expect
+            back,</b> ranked against the deal in front of you rather than dumped
+            as a list.
+          </p>
+          <p class="view-note">
+            Filtered by deal context, so a two-person team and a thousand-engineer
+            org do not get the same page. This view is model output and the tool
+            labels it as model output, which is why every claim on it carries the
+            collected evidence it came from.
+          </p>
+        </figcaption>
+        <div class="view-shot">
+          <img src="/assets/img/signal-battle.jpg" width="1519" height="784"
+               loading="lazy" decoding="async"
+               alt="Signal's Battle view: kill shots and the objections to expect back for a single competitor, ranked against deal context such as codebase size and team size.">
+        </div>
+      </figure>
+
+      <p class="figure-note">
+        These are 1519px captures. On a phone they are a texture rather than a
+        screen, which is why the words above each one carry the meaning and the
+        <a href="https://signal.gledach.de" rel="noopener">live preview</a> is
+        where you go to actually read it.
+      </p>
     </div>
   </section>
 

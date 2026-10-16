@@ -54,12 +54,12 @@
   var REVEAL = [
     /* blocks that are not grids: heads, consoles, bands, notes */
     '.sec:not(.hero) > .wrap > *:not(.cards):not(.tiles):not(.rules)' +
-      ':not(.blind):not(.steps):not(.stats):not(.shot):not(.bars)',
+      ':not(.blind):not(.steps):not(.stats):not(.view):not(.bars)',
     /* grid children, one at a time */
     '.cards > *', '.tiles > *', '.rules > li', '.blind > li',
     '.steps > li', '.stats > div', '.rail-step',
     /* and the two that animate something other than themselves */
-    '.shot', '.bars'
+    '.view', '.bars'
   ].join(',');
 
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

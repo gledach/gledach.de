@@ -148,36 +148,29 @@ later.
 
 ## What you actually look at
 
-Three views, running on your own machine. Every row on the page is real output
-from the deployment behind the live preview, rebuilt in the page's own type
-rather than shown as a screenshot, because a 1519px dashboard scaled to fit puts
-its interface text around 9px and nobody can read that. `npm run view` puts the
-same three views on `127.0.0.1:5180`, pointed at your companies instead of these.
+Three views, running on your own machine. The page carries a real capture of
+each, not a mockup. `npm run view` puts this exact dashboard on
+`127.0.0.1:5180`, pointed at your companies instead of these, and
+<https://signal.gledach.de> is the same thing live.
 
-A sample of what Live Feed actually shows:
-
-| Company | Convergence | Evidence | Impact |
-|---|---|---|---|
-| Tabnine | Capital and corporate event cluster, a raise plus M&A, corroborated across channels | 19 events, 22 independent publishers, 90 days | 97 |
-| Replit | Customer dissatisfaction clustering: switching pressure in the category | 5 events, 5 independent publishers, 30 days | 96 |
-| Sourcegraph Cody | Moving upmarket toward enterprise, on security and governance posture | 4 events, 4 independent publishers, 45 days | 96 |
-
-- **Live Feed.** Not a list of headlines. A convergence is the unit here: a
-  pattern several independent publishers corroborate, scored from its own
-  evidence rather than against a fixed floor, with the rule that fired it stated
-  on the row. One line to read instead of forty.
-- **Compare.** One company as the anchor against up to three rivals, section by
-  section: positioning, segment, pricing, strengths, weaknesses. Where the
-  collected evidence does not support a claim, the cell says `[unverified]`
-  rather than asserting it.
+- **Live Feed.** Not a list of headlines. A convergence is the unit: a pattern
+  several independent publishers corroborate, scored from its own evidence
+  rather than against a fixed floor. Each row states the rule that fired it and
+  how many independent publishers back it, so you can judge a finding without
+  opening it. One line to read instead of forty.
+- **Compare.** One company set against another, section by section: positioning,
+  target segment, pricing, strengths, weaknesses. Thirteen companies sit in the
+  left rail, read out of the one file you edit, and any of them can be the
+  anchor. The `[unverified against competitor signals]` in the pricing cell is
+  the tool declining to assert something its own evidence does not support.
 - **Battle.** Call prep for one competitor: the strongest points to make and the
-  objections you should expect back, ranked against the deal in front of you
-  rather than dumped as a list. This is generated text, and the page says so.
+  objections you should expect back, filtered by deal context so a two-person
+  team and a thousand-engineer org do not get the same page. This view is model
+  output and the tool labels it as such.
 
-One real capture stays on the page under those three, showing the whole screen
-at once, which is the one job a screenshot still does better than a rebuild. It
-is not legible at that size and says so. The readable, clickable version is
-<https://signal.gledach.de>.
+These are 1519px captures, so on a phone they are a texture rather than a
+screen. The words beside each one carry the meaning there, and the live preview
+is where you go to actually read it.
 
 ## Set it up
 
