@@ -747,13 +747,9 @@
           </p>
           <p class="t-sm">
             YouTube transcripts are archived as excerpts and searchable on their
-            own, which is the kind of question that is impossible against a feed:
+            own, which is a question you cannot ask a feed at all. The two
+            commands for that are under these cards.
           </p>
-          <div class="cmd" data-copy>
-<pre><code><span class="c-bin">npm</span> run transcripts -- --stats       <span class="c-cmt"># word counts per competitor</span>
-<span class="c-bin">npm</span> run transcripts -- "pricing"     <span class="c-cmt"># every mention, with snippets</span></code></pre>
-            <button type="button" class="copy" aria-label="Copy the transcript search commands">Copy</button>
-          </div>
         </article>
 
         <article class="card">
@@ -772,6 +768,16 @@
           <p class="card-go"><a href="https://github.com/gledach/signals/blob/main/docs/howto.md" rel="noopener">The manual &rarr;</a></p>
         </article>
 
+      </div>
+
+      <!-- Full width rather than inside the middle card. At a third of the
+           container the copy button overlapped the command and the trailing
+           comments were cut off, which is the sort of thing that only shows
+           up once the grid is real. -->
+      <div class="cmd" data-copy style="margin-top: var(--s-32)">
+<pre><code><span class="c-bin">npm</span> run transcripts -- --stats       <span class="c-cmt"># word counts per competitor</span>
+<span class="c-bin">npm</span> run transcripts -- "pricing"     <span class="c-cmt"># every mention, with up to 3 snippets each</span></code></pre>
+        <button type="button" class="copy" aria-label="Copy the transcript search commands">Copy</button>
       </div>
 
       <p class="figure-note">
