@@ -305,6 +305,17 @@ line **and** the word "leading".
   interfaces, and signal has a dashboard, so "no interface" is wrong as well as
   unappealing: the claim is that they are not forced into one shape. What they share is
   the promise: free, installable, runs on the reader's machine, honest about limits.
+  They also share a command prefix, and that is not a shared program. There is no
+  `gledach` binary that dispatches the others.
+- **Commands are `gledach-<tool>`.** The shelf word stays the product, the page, the
+  folder and the repository: whenrun, phonehome, recall, signal, talk. The npm package
+  name and the PATH command are `gledach-whenrun`, `gledach-phonehome`,
+  `gledach-recall`, `gledach-signal`, `gledach-talk`. A clone still runs with
+  `node bin/<tool>.mjs` and needs no link. Do not document a bare `whenrun prices`,
+  `phonehome watch`, `recall check`, `signal` or `talk once`. Those words are already
+  other people's packages or programs, or they are ordinary words the next publisher
+  can take. signal-patterns has no command. signal has no bin: inside that clone the
+  commands stay `npm run`.
 - **Design for growth.** The shelf has six tools today and must reflow to a dozen
   without a redesign. Adding one is a copy of a satellite directory plus one more
   `<a class="card">`. Tiles and cards are `auto-fit` grids for the same reason. Never

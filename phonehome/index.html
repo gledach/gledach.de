@@ -123,7 +123,7 @@
 
         <figure class="console">
           <div class="console-bar">
-            <span>phonehome report</span>
+            <span>gledach-phonehome report</span>
             <span class="tag tag-quiet">real output</span>
           </div>
 <pre>  device        queries  domains  busiest category  unknown
@@ -242,16 +242,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr><th scope="row"><span class="mono">phonehome watch</span></th><td>Run the resolver and record what asks for what.</td></tr>
-          <tr><th scope="row"><span class="mono">phonehome report</span></th><td>What happened, per device and per category.</td></tr>
-          <tr><th scope="row"><span class="mono">phonehome new</span></th><td>What started contacting somewhere it never had before.</td></tr>
-          <tr><th scope="row"><span class="mono">phonehome devices</span></th><td>Everything that has asked, so you can name it.</td></tr>
-          <tr><th scope="row"><span class="mono">phonehome import</span></th><td>Read a DNS log you already have. Four formats, detected automatically.</td></tr>
-          <tr><th scope="row"><span class="mono">phonehome doctor</span></th><td>Config, ports, upstream, and what this cannot see.</td></tr>
+          <tr><th scope="row"><span class="mono">gledach-phonehome watch</span></th><td>Run the resolver and record what asks for what.</td></tr>
+          <tr><th scope="row"><span class="mono">gledach-phonehome report</span></th><td>What happened, per device and per category.</td></tr>
+          <tr><th scope="row"><span class="mono">gledach-phonehome new</span></th><td>What started contacting somewhere it never had before.</td></tr>
+          <tr><th scope="row"><span class="mono">gledach-phonehome devices</span></th><td>Everything that has asked, so you can name it.</td></tr>
+          <tr><th scope="row"><span class="mono">gledach-phonehome import</span></th><td>Read a DNS log you already have. Four formats, detected automatically.</td></tr>
+          <tr><th scope="row"><span class="mono">gledach-phonehome doctor</span></th><td>Config, ports, upstream, and what this cannot see.</td></tr>
         </tbody>
       </table>
 
       <p class="figure-note">
+        The command is <code>gledach-phonehome</code>. <code>npm link</code> puts that
+        name on your PATH. The copy blocks above call the same file and need no link.
+        Nothing named <code>phonehome</code> is installed: npm already publishes an
+        unrelated package under that name.
         A report of IP addresses tells you almost nothing. A report of names tells you
         everything, so <code>cp config/devices.default.mjs config/devices.local.mjs</code>
         and map addresses to names. Run <code>devices</code> first: it prints the exact

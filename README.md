@@ -121,6 +121,9 @@ existing satellite page plus six edits elsewhere.
 Keep the empty-slot card last on the index, and keep it honest. It exists to say nothing
 is shipped there yet, which is the opposite of a roadmap.
 
+Command names on a new page are `gledach-<tool>`, never the bare shelf word. The clone
+block stays `node bin/<tool>.mjs`, which needs no link. See the command rule in CLAUDE.md.
+
 ## Requests live in their own repository
 
 [`gledach/requests`](https://github.com/gledach/requests) is the public intake queue. The

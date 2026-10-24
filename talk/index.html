@@ -215,11 +215,14 @@ Pid     Alive  Total  Name          Parent
         <button type="button" class="copy" aria-label="Copy the install commands for talk">Copy</button>
       </div>
       <p class="figure-note">
-        <code>node bin/talk.mjs once --no-cert</code> skips the certificate read.
-        <code>node bin/talk.mjs watch --interval=30 --peeks=4</code> changes the cadence
+        The command is <code>gledach-talk</code>. <code>npm link</code> puts that name
+        on your PATH. The copy block above calls the same file and needs no link.
+        Nothing named <code>talk</code> is installed. That name is an npm package and
+        a Unix program.
+        <code>gledach-talk once --no-cert</code> skips the certificate read.
+        <code>gledach-talk watch --interval=30 --peeks=4</code> changes the cadence
         and how many new hosts are named per sample.
-        <code>node bin/talk.mjs report</code> prints the last one. There is no
-        <code>talk</code> command on the PATH. That name is already taken.
+        <code>gledach-talk report</code> prints the last one.
       </p>
 
       <h3 class="t-h-sm" style="margin-top: var(--s-64)">The commands</h3>
@@ -232,19 +235,19 @@ Pid     Alive  Total  Name          Parent
         </thead>
         <tbody>
           <tr>
-            <th scope="row"><span class="mono">node bin/talk.mjs once</span></th>
+            <th scope="row"><span class="mono">gledach-talk once</span></th>
             <td>One sample. Prints the agents, the hosts it could name, and any alert.</td>
           </tr>
           <tr>
-            <th scope="row"><span class="mono">node bin/talk.mjs watch</span></th>
+            <th scope="row"><span class="mono">gledach-talk watch</span></th>
             <td>The same sample on a loop. The default is 60 seconds. It stays in the terminal. It does not install a service.</td>
           </tr>
           <tr>
-            <th scope="row"><span class="mono">node bin/talk.mjs report</span></th>
+            <th scope="row"><span class="mono">gledach-talk report</span></th>
             <td>The last sample, from <code>data/latest.json</code>.</td>
           </tr>
           <tr>
-            <th scope="row"><span class="mono">node bin/talk.mjs doctor</span></th>
+            <th scope="row"><span class="mono">gledach-talk doctor</span></th>
             <td>Node, the platform, PowerShell, and whether the sampler file is in this clone.</td>
           </tr>
         </tbody>

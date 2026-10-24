@@ -124,7 +124,7 @@
 
         <figure class="console">
           <div class="console-bar">
-            <span>whenrun prices</span>
+            <span>gledach-whenrun prices</span>
             <span class="tag tag-quiet">real output</span>
           </div>
 <pre class="blocks">  today     ▄                          176 EUR/MWh  (1h left)
@@ -226,37 +226,40 @@
         </thead>
         <tbody>
           <tr>
-            <th scope="row"><span class="mono">whenrun prices</span></th>
+            <th scope="row"><span class="mono">gledach-whenrun prices</span></th>
             <td>Today and tomorrow, with the cheap windows marked.</td>
           </tr>
           <tr>
-            <th scope="row"><span class="mono">whenrun plan</span></th>
+            <th scope="row"><span class="mono">gledach-whenrun plan</span></th>
             <td>When should this run, and what will it cost. Takes <code>--duration</code>, <code>--kw</code>, <code>--by</code> and <code>--objective</code>, or runs every task in your config.</td>
           </tr>
           <tr>
-            <th scope="row"><span class="mono">whenrun run --task=backup</span></th>
+            <th scope="row"><span class="mono">gledach-whenrun run --task=backup</span></th>
             <td>A dry run. Add <code>--execute</code> and it waits for the window, then starts the job.</td>
           </tr>
           <tr>
-            <th scope="row"><span class="mono">whenrun daemon --execute</span></th>
+            <th scope="row"><span class="mono">gledach-whenrun daemon --execute</span></th>
             <td>All enabled tasks, continuously. <code>--once</code> makes it a single pass for cron or Task Scheduler.</td>
           </tr>
           <tr>
-            <th scope="row"><span class="mono">whenrun report</span></th>
+            <th scope="row"><span class="mono">gledach-whenrun report</span></th>
             <td>What it actually saved, against the delivered bill rather than the spot price.</td>
           </tr>
           <tr>
-            <th scope="row"><span class="mono">whenrun where</span></th>
+            <th scope="row"><span class="mono">gledach-whenrun where</span></th>
             <td>Your location and every bidding zone it knows.</td>
           </tr>
           <tr>
-            <th scope="row"><span class="mono">whenrun doctor</span></th>
+            <th scope="row"><span class="mono">gledach-whenrun doctor</span></th>
             <td>Config, connectivity and data freshness. Warns while you are still on the shipped tariff defaults.</td>
           </tr>
         </tbody>
       </table>
 
       <p class="figure-note">
+        The command is <code>gledach-whenrun</code>. <code>npm link</code> puts that name
+        on your PATH. The copy block above calls the same file and needs no link. Nothing
+        named <code>whenrun</code> is installed.
         Three objectives: <code>cheapest</code> minimises price, <code>greenest</code>
         maximises renewable share, <code>balanced</code> blends the two. A job marked
         <code>interruptible</code> may be scattered across non-adjacent slots.
@@ -332,7 +335,7 @@
 
       <figure class="console" style="max-width: 640px">
         <div class="console-bar">
-          <span>whenrun report</span>
+          <span>gledach-whenrun report</span>
           <span class="tag tag-quiet">real output</span>
         </div>
 <pre>saving   0.04 EUR (31.5% of this job's bill)   11% of its energy component</pre>

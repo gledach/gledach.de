@@ -93,6 +93,11 @@ That runs offline on a fresh clone, on Windows, macOS or Linux. A model key turn
 on classification, battlecards and analyst briefs; without one a keyword
 classifier runs instead and everything else still works.
 
+The package name is gledach-signal. There is no signal command. npm already
+publishes unrelated packages named signal and signals, and Signal the messenger
+is a different product. Inside the clone the commands are npm run. The
+repository stays gledach/signals.
+
 The eleven ways in, with what each actually reads:
 
 1. Feeds (`npm run fetch`, every 30 min). Around sixty RSS feeds across the
@@ -288,7 +293,12 @@ Install:
 
 There is no `npm install`, because there is nothing to install.
 
-Commands: prices, plan, run, daemon, report, where, doctor. Three objectives:
+The command is gledach-whenrun. npm link puts that name on your PATH. The lines
+above call the same file and need no link. Nothing named whenrun is installed.
+The package name is gledach-whenrun.
+
+Commands, as gledach-whenrun or as node bin/whenrun.mjs: prices, plan, run,
+daemon, report, where, doctor. Three objectives:
 cheapest minimises price, greenest maximises renewable share, balanced blends the
 two. A job marked interruptible may be scattered across non-adjacent slots;
 otherwise it gets one unbroken block. The task is told what it was scheduled into
@@ -350,7 +360,13 @@ Install:
     node bin/phonehome.mjs report
     node bin/phonehome.mjs new
 
-Commands: watch, report, new, devices, import, doctor. `new` is the one that earns
+The command is gledach-phonehome. npm link puts that name on your PATH. The
+lines above call the same file and need no link. Nothing named phonehome is
+installed: npm already publishes an unrelated package under that name. This
+package is gledach-phonehome.
+
+Commands, as gledach-phonehome or as node bin/phonehome.mjs: watch, report, new,
+devices, import, doctor. `new` is the one that earns
 its keep: a steady list of domains is background noise, but a doorbell contacting
 something at 03:00 that it has never contacted before is worth knowing.
 
@@ -403,6 +419,11 @@ Install:
     npm test
     cp config/inventory.default.mjs config/inventory.local.mjs
     node bin/recall.mjs check
+
+The command is gledach-recall. npm link puts that name on your PATH. The line
+above calls the same file and needs no link. Nothing named recall is installed:
+npm already publishes an unrelated package under that name. This package is
+gledach-recall.
 
 Registers: EU Safety Gate (consumer products, toys, appliances, electronics,
 vehicles, EU scope); BfArM (German medicine supply shortages, which is
@@ -481,10 +502,13 @@ Install:
 There is no `npm install`, because there is nothing to install. The sampler is
 core/win-snapshot.ps1, in the repository. Logs go to data/, which is gitignored.
 
-Commands, always as node bin/talk.mjs, never as a bare talk command: once,
-watch, report, doctor. watch stays in the terminal. It does not
-install a Windows service or a scheduled task. The name talk is already an
-npm package and a Unix program, so this tool does not install a talk command. A line is written when a process
+The command is gledach-talk. npm link puts that name on your PATH. The lines
+above call the same file and need no link. Nothing named talk is installed.
+That name is an npm package and a Unix program. This package is gledach-talk.
+
+Commands, as gledach-talk or as node bin/talk.mjs: once, watch, report, doctor.
+watch stays in the terminal. It does not install a Windows service or a
+scheduled task. A line is written when a process
 holds 500 connections or more, when an agent's count climbs by 30 in one
 interval, when orphaned sockets grow, or when an agent asks for a host it has
 not used before.
