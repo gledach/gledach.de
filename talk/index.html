@@ -120,7 +120,7 @@
 
         <figure class="console">
           <div class="console-bar">
-            <span>talk once</span>
+            <span>node bin/talk.mjs once</span>
             <span class="tag tag-quiet">real output</span>
           </div>
 <pre>== 2026-10-24 01:24:30
@@ -215,9 +215,11 @@ Pid     Alive  Total  Name          Parent
         <button type="button" class="copy" aria-label="Copy the install commands for talk">Copy</button>
       </div>
       <p class="figure-note">
-        <code>once --no-cert</code> skips the certificate read.
-        <code>watch --interval=30 --peeks=4</code> changes the cadence and how many
-        new hosts are named per sample. <code>report</code> prints the last one.
+        <code>node bin/talk.mjs once --no-cert</code> skips the certificate read.
+        <code>node bin/talk.mjs watch --interval=30 --peeks=4</code> changes the cadence
+        and how many new hosts are named per sample.
+        <code>node bin/talk.mjs report</code> prints the last one. There is no
+        <code>talk</code> command on the PATH. That name is already taken.
       </p>
 
       <h3 class="t-h-sm" style="margin-top: var(--s-64)">The commands</h3>
@@ -230,19 +232,19 @@ Pid     Alive  Total  Name          Parent
         </thead>
         <tbody>
           <tr>
-            <th scope="row"><span class="mono">talk once</span></th>
+            <th scope="row"><span class="mono">node bin/talk.mjs once</span></th>
             <td>One sample. Prints the agents, the hosts it could name, and any alert.</td>
           </tr>
           <tr>
-            <th scope="row"><span class="mono">talk watch</span></th>
+            <th scope="row"><span class="mono">node bin/talk.mjs watch</span></th>
             <td>The same sample on a loop. The default is 60 seconds. It stays in the terminal. It does not install a service.</td>
           </tr>
           <tr>
-            <th scope="row"><span class="mono">talk report</span></th>
+            <th scope="row"><span class="mono">node bin/talk.mjs report</span></th>
             <td>The last sample, from <code>data/latest.json</code>.</td>
           </tr>
           <tr>
-            <th scope="row"><span class="mono">talk doctor</span></th>
+            <th scope="row"><span class="mono">node bin/talk.mjs doctor</span></th>
             <td>Node, the platform, PowerShell, and whether the sampler file is in this clone.</td>
           </tr>
         </tbody>

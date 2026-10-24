@@ -481,8 +481,10 @@ Install:
 There is no `npm install`, because there is nothing to install. The sampler is
 core/win-snapshot.ps1, in the repository. Logs go to data/, which is gitignored.
 
-Commands: once, watch, report, doctor. watch stays in the terminal. It does not
-install a Windows service or a scheduled task. A line is written when a process
+Commands, always as node bin/talk.mjs, never as a bare talk command: once,
+watch, report, doctor. watch stays in the terminal. It does not
+install a Windows service or a scheduled task. The name talk is already an
+npm package and a Unix program, so this tool does not install a talk command. A line is written when a process
 holds 500 connections or more, when an agent's count climbs by 30 in one
 interval, when orphaned sockets grow, or when an agent asks for a host it has
 not used before.
