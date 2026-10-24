@@ -37,10 +37,11 @@ the same dashboard on 127.0.0.1:5180 against your own subject.
 | https://gledach.de/whenrun | whenrun | 03 |
 | https://gledach.de/phonehome | phonehome | 04 |
 | https://gledach.de/recall | recall | 05 |
+| https://gledach.de/talk | talk | 06 |
 
 ## The shelf, in one table
 
-Twelve slots, five filled. What each tool watches, and what it hands back.
+Twelve slots, six filled. What each tool watches, and what it hands back.
 
 | Slot | Tool | Watches | Tells you | Status |
 |---|---|---|---|---|
@@ -49,7 +50,8 @@ Twelve slots, five filled. What each tool watches, and what it hands back.
 | 03 | whenrun | Day-ahead power prices and renewable share | The cheapest or greenest window, then starts the job in it | Shipped |
 | 04 | phonehome | Every DNS query on your own network | Which device talked where, and when that changed | Shipped |
 | 05 | recall | Four public registers, against a list of what you own | Which of your things has a notice, and how sure the match is | Shipped |
-| 06 | [UNNAMED] | [UNDECIDED] | [UNDECIDED] | Empty |
+| 06 | talk | TCP connections owned by local coding agents, on Windows | Which API host, and whether the count is climbing | Shipped |
+| 07 | [UNNAMED] | [UNDECIDED] | [UNDECIDED] | Empty |
 
 ## Tools
 
@@ -65,9 +67,10 @@ convergences, and the result is exposed over MCP. Ships tracking thirteen AI
 coding agents and app builders across two segments. Node, three runtime
 dependencies, no build step, libSQL storage that is a local file by default.
 
-It is the only tool on this shelf whose subject is a list the operator writes.
-The other four watch something fixed: a power market, a home network, four
-public registers. The landing page is signal for that reason.
+It is the only tool on this shelf whose subject is a market the operator names.
+whenrun, phonehome and recall watch a power market, a home network, and four
+public registers. talk records whichever coding agents are running on the
+machine. The landing page is signal for that reason.
 
 - Page: https://gledach.de/
 - Repository: https://github.com/gledach/signals
@@ -451,7 +454,65 @@ is the single most important thing in the codebase.
 This is not legal, medical or safety advice. If a notice concerns you, go to the
 register's own page and read the original.
 
-### Slot 06 · not built
+### talk · slot 06 · shipped
+
+Situation: a long coding-agent session opens connections and never closes them.
+When the Windows client port range fills, other programs fail in about 20
+milliseconds, and it looks like the network died.
+
+Which API hosts your local coding agents connect to. Samples TCP connections on
+Windows, follows each process up to its parent, and reads the certificate name
+of a new public host once. A Node helper under Cursor counts as Cursor. The URL
+path stays encrypted. Prompts and Authorization headers are never stored. Zero
+runtime dependencies, and the sampler ships inside the clone.
+
+- Page: https://gledach.de/talk
+- Repository: https://github.com/gledach/talk
+- What it cannot see: https://github.com/gledach/talk#what-it-cannot-see
+- Licence: MIT. Price: 0. Needs Node 22 or newer, and Windows for a sample.
+
+Install:
+
+    git clone https://github.com/gledach/talk && cd talk
+    node bin/talk.mjs once
+    node bin/talk.mjs watch
+    node bin/talk.mjs doctor
+
+There is no `npm install`, because there is nothing to install. The sampler is
+core/win-snapshot.ps1, in the repository. Logs go to data/, which is gitignored.
+
+Commands: once, watch, report, doctor. watch stays in the terminal. It does not
+install a Windows service or a scheduled task. A line is written when a process
+holds 500 connections or more, when an agent's count climbs by 30 in one
+interval, when orphaned sockets grow, or when an agent asks for a host it has
+not used before.
+
+It does not close sockets and it does not restart anything. Restarting the agent
+releases sockets it still owns. Orphans from a dead process stay until reboot or
+an admin restart of winnat.
+
+One real sample, 2026-10-24: 13,380 TCP connections, 3,647 of them orphaned. A
+Cursor helper held 9,113 to us4p.cursorvm.com and us3p.cursorvm.com. A process
+that had already exited still held 3,591 to us3p.cursorvm.com, and could no
+longer be named. The default client port range on Windows is 16,384.
+
+Agents it tags: Cursor, Claude, Grok, Codex, Windsurf, Aider, and a child whose
+parent is one of them. VS Code uses the same Node helper subtype and is not
+tagged on that fact alone.
+
+Figures: 0 runtime dependencies, 0 accounts, 4 certificate reads per sample by
+default, spent on the busiest agent first.
+
+Blind spots: a hostname that was never sent in the TLS handshake, because the
+certificate read connects to the IP and a server that requires the right
+hostname comes back blank; the path after the host, which stays encrypted; an
+agent that resolves names through its own encrypted DNS and never presents a
+certificate name; a process that exited before the first sample, whose sockets
+still count but whose owner can no longer be named; anything that is not TCP;
+any operating system other than Windows, where report can print a log you
+already have and once and watch cannot take a sample.
+
+### Slot 07 · not built
 
 Empty. The shelf is built to hold a dozen. Nothing is planned publicly, and there
 is no roadmap to quote.

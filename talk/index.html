@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>talk · which API hosts your coding agents connect to</title>
+<meta name="description" content="Samples TCP connections on Windows, follows each process up to its parent, and reads the certificate name of a new public host. A Node helper under Cursor counts as Cursor. Zero runtime dependencies, no account.">
+<link rel="canonical" href="https://gledach.de/talk">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksandar Perisic">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gledach.de/talk">
+<meta property="og:site_name" content="gledach">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="talk · which API hosts your coding agents connect to">
+<meta property="og:description" content="A local record of which API hosts your coding agents connect to, and whether one of them is leaking sockets. Zero dependencies, no account, Windows.">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "talk",
+  "url": "https://gledach.de/talk",
+  "sameAs": "https://github.com/gledach/talk",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Windows",
+  "softwareRequirements": "Node.js 22 or newer, and Windows for a sample",
+  "license": "https://opensource.org/licenses/MIT",
+  "description": "Samples TCP connections on Windows, follows each process up to its parent, and reads the certificate name of a new public host. Notices when one agent is leaking sockets. Zero runtime dependencies, no account. It does not close a socket.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "author": {
+    "@type": "Person",
+    "name": "Aleksandar Perisic",
+    "url": "https://www.linkedin.com/in/apsolut/"
+  },
+  "publisher": { "@type": "Organization", "name": "gledach", "url": "https://gledach.de/" }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#install">Skip to the install</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <div class="brandbar">
+      <a class="brand" href="/" aria-label="gledach, the organisation behind these tools">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        gledach
+      </a>
+      <span class="brand-sep" aria-hidden="true"></span>
+      <a class="brand-tool" href="/talk" aria-current="page">talk</a>
+      <details class="toolmenu">
+        <summary aria-label="The other tools on the gledach shelf">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        </summary>
+        <div class="toolmenu-panel">
+          <p class="toolmenu-head">The gledach shelf · 6 of 12 slots filled</p>
+          <ul class="toolmenu-list">
+            <li><a href="/"><b>signal <span class="tm-slot">slot 01</span></b><span>Competitive intelligence your agents can query</span></a></li>
+            <li><a href="/signal-patterns"><b>signal-patterns <span class="tm-slot">slot 02</span></b><span>How to build tools that watch the public web</span></a></li>
+            <li><a href="/whenrun"><b>whenrun <span class="tm-slot">slot 03</span></b><span>Run it when the power is cheap</span></a></li>
+            <li><a href="/phonehome"><b>phonehome <span class="tm-slot">slot 04</span></b><span>See what your devices talk to</span></a></li>
+            <li><a href="/recall"><b>recall <span class="tm-slot">slot 05</span></b><span>Tell me when something I own is recalled</span></a></li>
+            <li><a href="/talk" aria-current="page"><b>talk <span class="tm-slot">slot 06</span></b><span>Which API hosts your coding agents connect to</span></a></li>
+          </ul>
+          <p class="toolmenu-foot">
+            <a href="/#shelf">Why these six</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
+          </p>
+        </div>
+      </details>
+    </div>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#install">Set it up</a>
+      <a href="#record">What it records</a>
+      <a href="#limits">What it cannot see</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="/#shelf">The shelf</a>
+      <a class="btn btn-fill" href="https://github.com/gledach/talk" rel="noopener">Repository</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero sec sec-first">
+    <div class="wrap">
+      <p class="crumb"><a href="/">gledach</a> <span>/</span> <a href="/#shelf">the shelf</a> <span>/ talk</span></p>
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">talk · slot 06 · shipped</p>
+          <h1 class="t-display">
+            Which API hosts your<br>coding agents connect to.<br>
+            <em class="quiet">On your own machine.</em>
+          </h1>
+          <p class="t-lg measure-tight" style="margin-top: var(--s-24)">
+            Samples TCP connections on Windows, follows each process up to its
+            parent, and reads the certificate name of a new public host. A Node
+            helper under Cursor counts as Cursor.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-fill" href="#install">
+              Run it in one command <span class="arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/gledach/talk" rel="noopener">Repository</a>
+          </div>
+          <p class="hero-meta">MIT licensed · no account · 0 runtime dependencies · Windows</p>
+        </div>
+
+        <figure class="console">
+          <div class="console-bar">
+            <span>talk once</span>
+            <span class="tag tag-quiet">real output</span>
+          </div>
+<pre>== 2026-10-24 01:24:30
+conns 13380   orphaned 3647   agents 15
+
+ALERT  22124  Cursor.exe  9113
+       us4p.cursorvm.com
+       us3p.cursorvm.com
+ALERT  32664  died before the first sample  3591
+       us3p.cursorvm.com
+
+Pid     Alive  Total  Name          Parent
+22124   true   9113   Cursor.exe    Cursor.exe
+22736   true   16     Cursor.exe    Cursor.exe
+34332   true   12     claude.exe    pwsh.exe
+8728    true   10     grok.exe      pwsh.exe
+43492   true   8      Grok Bot.exe  explorer.exe</pre>
+          <figcaption class="t-cap">
+            One sample, top of the table. A Cursor helper held 9,113 connections
+            to two of its own hosts. A process that had already exited still held
+            3,591, and could no longer be named. The client port range on Windows
+            is 16,384.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec tint-mist">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">The situation</p>
+          <h2 class="t-h-lg">It looks like the network died.</h2>
+        </div>
+        <p class="t-lg">
+          A long agent session can open connections and never close them. When the
+          port range fills, <code>curl</code> fails in about 20 milliseconds and tests
+          die with <code>EADDRINUSE</code>.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <h3 class="t-sub">The owner is a helper</h3>
+          <p class="t-sm">
+            The process in that sample was not the window you clicked. It was
+            <code>Cursor.exe</code> running as a Node helper. The same helper type
+            is used by VS Code, so the name of the utility is not enough. talk
+            walks up to the parent.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">The host is on the certificate</h3>
+          <p class="t-sm">
+            The URL path stays encrypted. The certificate name does not. talk
+            opens one extra connection to a new public address, reads that name,
+            and stores the name. It does not store a prompt or a header.
+          </p>
+        </article>
+        <article class="card card-emph">
+          <h3 class="t-sub">What was missing</h3>
+          <p class="t-sm">
+            A record you can leave running, so the next leak is caught while the
+            process is still alive: who, which host, and whether the count is
+            climbing. It does not close a socket and it does not restart anything.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="install">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Running it</p>
+          <h2 class="t-h-lg">There is no npm install, because there is nothing to install.</h2>
+        </div>
+        <p class="t-lg">
+          A fresh clone with Node 22 does everything below. The sampler is
+          <code>core/win-snapshot.ps1</code>, inside the repository. Logs go to
+          <code>data/</code>, which is gitignored.
+        </p>
+      </div>
+
+      <div class="cmd" data-copy>
+<pre><code><span class="c-bin">git</span> clone https://github.com/gledach/talk &amp;&amp; cd talk
+<span class="c-bin">node</span> bin/talk.mjs once       <span class="c-cmt"># one sample</span>
+<span class="c-bin">node</span> bin/talk.mjs watch      <span class="c-cmt"># every 60 seconds, until you stop it</span>
+<span class="c-bin">node</span> bin/talk.mjs doctor     <span class="c-cmt"># node, powershell, and the sampler in this clone</span></code></pre>
+        <button type="button" class="copy" aria-label="Copy the install commands for talk">Copy</button>
+      </div>
+      <p class="figure-note">
+        <code>once --no-cert</code> skips the certificate read.
+        <code>watch --interval=30 --peeks=4</code> changes the cadence and how many
+        new hosts are named per sample. <code>report</code> prints the last one.
+      </p>
+
+      <h3 class="t-h-sm" style="margin-top: var(--s-64)">The commands</h3>
+      <table class="spec" style="margin-top: var(--s-24)">
+        <thead>
+          <tr>
+            <th scope="col">Command</th>
+            <th scope="col">What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><span class="mono">talk once</span></th>
+            <td>One sample. Prints the agents, the hosts it could name, and any alert.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">talk watch</span></th>
+            <td>The same sample on a loop. The default is 60 seconds. It stays in the terminal. It does not install a service.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">talk report</span></th>
+            <td>The last sample, from <code>data/latest.json</code>.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">talk doctor</span></th>
+            <td>Node, the platform, PowerShell, and whether the sampler file is in this clone.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="figure-note">
+        A line is written when a process holds 500 connections or more, when an
+        agent's count climbs by 30 in one interval, when orphaned sockets grow, or
+        when an agent asks for a host it has not used before.
+      </p>
+    </div>
+  </section>
+
+  <section class="sec tint-frost" id="record">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What it records</p>
+          <h2 class="t-h-lg">Who, which host, and whether the count is climbing.</h2>
+        </div>
+        <p class="t-lg">
+          The sampler is read only. It never closes a socket and it never kills a
+          process. Restarting the agent releases sockets it still owns. Orphans from
+          a dead process stay until reboot, or an admin restart of <code>winnat</code>.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <h3 class="t-sub">The parent, not the subtype</h3>
+          <p class="t-sm">
+            Cursor, Claude, Grok, Codex, Windsurf and Aider count, and so does a
+            child whose parent is one of them. VS Code's Node helper uses the same
+            utility subtype and does not count, unless the path or the parent says
+            otherwise.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">The name, once</h3>
+          <p class="t-sm">
+            A new public address on port 443 is looked up by reading its certificate,
+            then cached. The default budget is four lookups a sample, spent on the
+            busiest agent first. Private addresses are left alone.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">The log stays local</h3>
+          <p class="t-sm">
+            <code>samples.jsonl</code>, <code>alerts.log</code>, and a small cache of
+            hosts already named. Nothing is uploaded. There is no account and no key.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec tint-peri" id="limits">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What it cannot see</p>
+          <h2 class="t-h-lg">Stated here rather than buried in a wiki.</h2>
+        </div>
+        <p class="t-lg">
+          Every tool on this shelf ships a written audit of its own blind spots. This
+          is talk's, in full, from its own README.
+        </p>
+      </div>
+
+      <ul class="blind">
+        <li>
+          <p class="t-sm"><b>A hostname that was never sent in the TLS handshake.</b>
+          The certificate read connects to the IP, a few times per sample, heaviest
+          agent first. A server that will not present a name without the right
+          hostname comes back blank.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>The path after the host.</b>
+          <code>/v1/messages</code> versus a telemetry route is encrypted, and this
+          tool does not decrypt it. Prompts and <code>Authorization</code> headers
+          are never stored.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Encrypted DNS that never presents a certificate name.</b>
+          An agent that resolves names that way, and never shows a name on the
+          certificate, is a gap.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>A process that exited before the first sample.</b>
+          Its sockets still count, and the owner can no longer be named.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Anything that is not TCP.</b>
+          The sampler reads the Windows TCP table.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Any operating system other than Windows.</b>
+          <code>report</code> can print a log you already have. <code>once</code> and
+          <code>watch</code> cannot take a sample elsewhere.</p>
+        </li>
+      </ul>
+
+      <p class="figure-note">
+        0 runtime dependencies. The offline tests check who counts as an agent,
+        including a Cursor helper and a VS Code helper that must not match, and they
+        check that a one-element parent chain still counts. They do not open a socket.
+      </p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Elsewhere on the shelf</p>
+          <h2 class="t-h-lg">Same author. Different shapes.</h2>
+        </div>
+        <p class="t-lg">
+          Each takes whatever shape suits it, from a single command to a dashboard.
+          What they share is the promise rather than the plumbing: free, installable,
+          and honest about what each one cannot see.
+        </p>
+      </div>
+
+      <div class="cards">
+        <a class="card" href="/">
+          <p class="eyebrow eyebrow-quiet">Slot 01 · live preview</p>
+          <h3 class="t-h-sm">signal</h3>
+          <p class="t-sm">Ten watchers and one inbox on whichever market you name, scored and attributed, answerable by an agent over MCP.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/whenrun">
+          <p class="eyebrow eyebrow-quiet">Slot 03 · shipped</p>
+          <h3 class="t-h-sm">whenrun</h3>
+          <p class="t-sm">Day-ahead power prices turned into the window your job should run in, then it starts the job there.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/phonehome">
+          <p class="eyebrow eyebrow-quiet">Slot 04 · shipped</p>
+          <h3 class="t-h-sm">phonehome</h3>
+          <p class="t-sm">Which domains every device on your network contacts, and when one starts talking somewhere new.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/recall">
+          <p class="eyebrow eyebrow-quiet">Slot 05 · shipped</p>
+          <h3 class="t-h-sm">recall</h3>
+          <p class="t-sm">Four public registers checked against a list of the things you own, with every match graded.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/signal-patterns">
+          <p class="eyebrow eyebrow-quiet">Slot 02 · reference</p>
+          <h3 class="t-h-sm">signal-patterns</h3>
+          <p class="t-sm">What is watchable, what it costs, and eight engineering decisions each extracted from a bug that shipped.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div>
+        <a class="brand" href="/" aria-label="gledach, home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          gledach
+        </a>
+        <p class="t-cap" style="margin-top: var(--s-16); max-width: 34ch">
+          <em>gledati</em> (slav.): to watch. What a good analyst does before speaking.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">talk</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/talk" rel="noopener">Repository</a></li>
+          <li><a href="https://github.com/gledach/talk#what-it-cannot-see" rel="noopener">What it cannot see</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">The shelf</p>
+        <ul class="foot-list">
+          <li><a href="/about">About gledach</a></li>
+          <li><a href="/">signal</a></li>
+          <li><a href="/signal-patterns">signal-patterns</a></li>
+          <li><a href="/whenrun">whenrun</a></li>
+          <li><a href="/phonehome">phonehome</a></li>
+          <li><a href="/recall">recall</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">Contact</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
+          <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p class="t-cap">MIT licensed. Nothing this tool observes leaves the machine it runs on.</p>
+      <p class="t-cap mono">if it ships to turso, it shipped</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

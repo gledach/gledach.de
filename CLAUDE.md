@@ -1,6 +1,6 @@
 # gledach.de
 
-The landing page for [github.com/gledach](https://github.com/gledach). Static: six HTML
+The landing page for [github.com/gledach](https://github.com/gledach). Static: seven HTML
 pages, `assets/site.css`, `assets/site.js`. No build step, no framework, no dependencies.
 
 ```
@@ -10,6 +10,7 @@ pages, `assets/site.css`, `assets/site.js`. No build step, no framework, no depe
 /whenrun             whenrun/index.html          slot 03
 /phonehome           phonehome/index.html        slot 04
 /recall              recall/index.html           slot 05
+/talk                talk/index.html             slot 06
 ```
 
 Satellite pages are directories, not `whenrun.html`. Cloudflare would resolve either, but
@@ -263,7 +264,7 @@ Anchor targets carry `scroll-margin-top: 96px` because the nav is sticky at 69px
 ### The nav, on every page
 
 `gledach │ <tool> ⋯`. The organisation, then the tool you are currently in, then
-the rest of the shelf behind a disclosure. The same component on all six pages
+the rest of the shelf behind a disclosure. The same component on all seven pages
 plus the 404, because a visitor who lands on a satellite otherwise has nothing
 telling them whose tool it is.
 
@@ -304,7 +305,7 @@ line **and** the word "leading".
   interfaces, and signal has a dashboard, so "no interface" is wrong as well as
   unappealing: the claim is that they are not forced into one shape. What they share is
   the promise: free, installable, runs on the reader's machine, honest about limits.
-- **Design for growth.** The shelf has five tools today and must reflow to a dozen
+- **Design for growth.** The shelf has six tools today and must reflow to a dozen
   without a redesign. Adding one is a copy of a satellite directory plus one more
   `<a class="card">`. Tiles and cards are `auto-fit` grids for the same reason. Never
   introduce a layout that hardcodes the current count.

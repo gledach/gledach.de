@@ -151,16 +151,17 @@ job, the copy buttons, which the satellite install blocks use.
 - **No shadows.** Depth is the tint progression and the hairline. This is not a stylistic
   preference, it is the only depth mechanism the system has, so a shadow anywhere makes
   everything else look unfinished.
-- **signal is the index, the other four are satellites.** Not a reward for being the
-  favourite: signal is the only tool here whose subject is a list the reader writes. The
-  other four watch something fixed. If a second pointable tool ships, it gets a satellite
-  page first and this gets reopened, rather than the site growing a second index.
+- **signal is the index.** talk shipped as slot 06, a satellite, because its subject is
+  the coding agents on the machine rather than a market the reader names. A second tool
+  whose subject is a market the reader names would reopen whether the index stays signal,
+  rather than the site growing a second index.
 - **Satellite pages are directories.** See above. This is a local-preview correctness
   issue, not a style choice.
 - **Every tool page ships its blind spots in full**, taken from the tool's own README.
   Not a summary and not a link. It is the reason the rest of the page can be believed.
-- **The empty slot stays.** Both the twelfth collection tile and slot 06 on the shelf.
-  They are the page being honest about capacity, which is the argument the shelf rests on.
+- **The empty slot stays.** The twelfth collection tile on the signal page stays empty.
+  The shelf's empty card is slot 07. They are the page being honest about capacity,
+  which is the argument the shelf rests on.
 - **The slot count lives in an eyebrow, never in a headline.** A chip or an eyebrow does
   not have to be rewritten as prose when a tool ships.
 - **No em dashes anywhere**, including code comments and commit messages. `grep` for

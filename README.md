@@ -3,7 +3,7 @@
 The landing page for [github.com/gledach](https://github.com/gledach): free, installable
 tools that turn public data into information, insight and intelligence.
 
-Static. No build step, no framework, no dependencies. Six pages, one stylesheet and one
+Static. No build step, no framework, no dependencies. Seven pages, one stylesheet and one
 script.
 
 | Path | File | What it is |
@@ -14,6 +14,7 @@ script.
 | `/whenrun` | `whenrun/index.html` | slot 03 |
 | `/phonehome` | `phonehome/index.html` | slot 04 |
 | `/recall` | `recall/index.html` | slot 05 |
+| `/talk` | `talk/index.html` | slot 06 |
 
 **Satellite pages are directories, not `whenrun.html`.** Cloudflare's
 `auto-trailing-slash` would resolve either, but `python -m http.server` has no
@@ -205,7 +206,7 @@ read by agents.
 | `index.md` | Markdown twin of the landing page, with the shelf table at the foot |
 | JSON-LD in `index.html` | `WebSite`, `WebPage`, `SoftwareApplication` for signal, `Organization` with an `Offer` per tool, `Person` |
 | JSON-LD per satellite | One `SoftwareApplication` or `TechArticle` in each page's own head |
-| `sitemap.xml` | Five pages plus the two agent-readable files |
+| `sitemap.xml` | The pages, plus the two agent-readable files |
 
 All of them are maintained by hand and all of them go stale silently. Change a page,
 change its twins.

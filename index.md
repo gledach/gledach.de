@@ -292,7 +292,7 @@ remembers about the market.
 
 ## The rest of the shelf
 
-Five of twelve slots filled. Same author, different shapes. They share no stack
+Six of twelve slots filled. Same author, different shapes. They share no stack
 and no codebase. Each takes whatever shape suits it, from a single command to a
 dashboard, and what they share is the promise rather than the plumbing: free,
 installable, and honest about what each one cannot see.
@@ -303,7 +303,8 @@ installable, and honest about what each one cannot see.
 | 03 | whenrun | <https://gledach.de/whenrun> | Watches day-ahead power prices and renewable share, then starts your job in the cheapest or greenest window that still meets its deadline. Zero runtime dependencies. |
 | 04 | phonehome | <https://gledach.de/phonehome> | A local resolver that records which domains every device on your network contacts, and says when one starts talking somewhere new. Blocks nothing, uploads nothing. |
 | 05 | recall | <https://gledach.de/recall> | Checks four public registers against a list of the things you actually own, and grades how sure each match is. A register it could not reach is reported as unreachable, never as clean. |
-| 06 | [UNNAMED] | not built | The shelf holds a dozen. What lands here next is not decided, and the honest version is a placeholder rather than a roadmap. |
+| 06 | talk | <https://gledach.de/talk> | Samples TCP connections on Windows, follows each process up to its parent, and reads the certificate name of a new public host. A Node helper under Cursor counts as Cursor. It does not close a socket. |
+| 07 | [UNNAMED] | not built | The shelf holds a dozen. What lands here next is not decided, and the honest version is a placeholder rather than a roadmap. |
 
 Is there something you keep checking by hand that a tool could watch for you?
 [The queue is public](https://github.com/gledach/requests/issues), including what

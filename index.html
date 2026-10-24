@@ -22,14 +22,14 @@
 <meta property="og:title" content="signal · competitive intelligence your agents can query">
 <meta property="og:description" content="Ten watchers and one inbox read what a market publishes. Typed, scored, attributed, and answerable by a machine. Free, MIT, on your own machine.">
 <!-- OUTSTANDING: this card still carries the old "free tools that find things
-     out" headline and the five tool names. It is a rendered asset, source in
-     assets/og/og-home.html, and re-rendering it is the expensive half of the
-     redesign. See HANDOFF.md. -->
+     out" headline and the pre-October faces. The tool names and the slot count
+     are current: six, including talk. Source is assets/og/og-home.html. See
+     HANDOFF.md. -->
 <meta property="og:image" content="https://gledach.de/assets/img/og-home.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="The gledach wordmark above the headline 'Free tools that find things out', with the five tool names underneath: signal, signal-patterns, whenrun, phonehome and recall.">
+<meta property="og:image:alt" content="The gledach wordmark above the headline 'Free tools that find things out', with the six tool names underneath: signal, signal-patterns, whenrun, phonehome, recall and talk. Six of twelve slots filled.">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="signal · competitive intelligence your agents can query">
@@ -168,6 +168,21 @@
       "price": "0",
       "priceCurrency": "EUR",
       "itemOffered": {
+        "@type": "SoftwareApplication",
+        "name": "talk",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Windows",
+        "license": "https://opensource.org/licenses/MIT",
+        "url": "https://github.com/gledach/talk",
+        "sameAs": "https://gledach.de/talk",
+        "description": "Samples TCP connections on Windows, follows each process up to its parent, and reads the certificate name of a new public host. Notices when a local coding agent is leaking sockets. Zero runtime dependencies. It does not close a socket."
+      }
+    },
+    {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR",
+      "itemOffered": {
         "@type": "TechArticle",
         "name": "signal-patterns",
         "url": "https://github.com/gledach/signal-patterns",
@@ -209,16 +224,17 @@
           <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
         </summary>
         <div class="toolmenu-panel">
-          <p class="toolmenu-head">The gledach shelf · 5 of 12 slots filled</p>
+          <p class="toolmenu-head">The gledach shelf · 6 of 12 slots filled</p>
           <ul class="toolmenu-list">
             <li><a href="/" aria-current="page"><b>signal <span class="tm-slot">slot 01</span></b><span>Competitive intelligence your agents can query</span></a></li>
             <li><a href="/signal-patterns"><b>signal-patterns <span class="tm-slot">slot 02</span></b><span>How to build tools that watch the public web</span></a></li>
             <li><a href="/whenrun"><b>whenrun <span class="tm-slot">slot 03</span></b><span>Run it when the power is cheap</span></a></li>
             <li><a href="/phonehome"><b>phonehome <span class="tm-slot">slot 04</span></b><span>See what your devices talk to</span></a></li>
             <li><a href="/recall"><b>recall <span class="tm-slot">slot 05</span></b><span>Tell me when something I own is recalled</span></a></li>
+            <li><a href="/talk"><b>talk <span class="tm-slot">slot 06</span></b><span>Which API hosts your coding agents connect to</span></a></li>
           </ul>
           <p class="toolmenu-foot">
-            <a href="#shelf">Why these five</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
+            <a href="#shelf">Why these six</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
           </p>
         </div>
       </details>
@@ -951,7 +967,7 @@
     <div class="wrap">
       <div class="head">
         <div>
-          <p class="eyebrow">The rest of the shelf · 5 of 12 slots filled</p>
+          <p class="eyebrow">The rest of the shelf · 6 of 12 slots filled</p>
           <h2 class="t-h-lg">Same author. Different shapes.</h2>
         </div>
         <p class="t-lg">
@@ -987,8 +1003,14 @@
           <p class="t-sm">The written reasoning behind all of it: what is watchable, what it costs, and the eight engineering decisions that only became obvious after something broke. Nothing to install.</p>
           <p class="card-go">Open the page &rarr;</p>
         </a>
-        <article class="card card-slot" id="slot-06">
-          <p class="eyebrow eyebrow-quiet">Slot 06 · not built</p>
+        <a class="card" href="/talk">
+          <p class="eyebrow eyebrow-quiet">Slot 06 · shipped</p>
+          <h3 class="t-h-sm">talk</h3>
+          <p class="t-sm">Samples TCP connections on Windows, follows each process up to its parent, and reads the certificate name of a new public host. A Node helper under Cursor counts as Cursor. It does not close a socket.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <article class="card card-slot" id="slot-07">
+          <p class="eyebrow eyebrow-quiet">Slot 07 · not built</p>
           <h3 class="t-h-sm">[UNNAMED]</h3>
           <p class="t-sm">
             The shelf holds a dozen. What lands here next is not decided, and the
@@ -1079,6 +1101,7 @@
           <li><a href="/whenrun">whenrun</a></li>
           <li><a href="/phonehome">phonehome</a></li>
           <li><a href="/recall">recall</a></li>
+          <li><a href="/talk">talk</a></li>
           <li><a href="https://github.com/gledach" rel="noopener">All repositories</a></li>
         </ul>
       </div>

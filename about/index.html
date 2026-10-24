@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About gledach · a shelf, not a platform</title>
-<meta name="description" content="gledach makes five free, MIT-licensed tools that run on your own machine: competitive intelligence over MCP, cheap-power job scheduling, home network DNS visibility, and product recall checks. No account, and three of the five install nothing at all.">
+<meta name="description" content="gledach makes six free, MIT-licensed tools that run on your own machine: competitive intelligence over MCP, cheap-power job scheduling, home network DNS visibility, product recall checks, and a record of which APIs local coding agents connect to. No account, and four of the six install nothing at all.">
 <link rel="canonical" href="https://gledach.de/about">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#ffffff">
@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="gledach">
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="About gledach · a shelf, not a platform">
-<meta property="og:description" content="Five free tools that run on your own machine: who is moving in my market, when should this job run so it costs less, and what is my own stuff doing. No account, nothing to buy.">
+<meta property="og:description" content="Six free tools that run on your own machine: who is moving in my market, when should this job run so it costs less, what is my own stuff doing, and which API a local coding agent just hit. No account, nothing to buy.">
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -39,7 +39,7 @@
       "@id": "https://gledach.de/about#page",
       "url": "https://gledach.de/about",
       "name": "About gledach",
-      "description": "What gledach is, what its five free tools are for, how previews work, and how to request a tool.",
+      "description": "What gledach is, what its six free tools are for, how previews work, and how to request a tool.",
       "inLanguage": "en-GB",
       "mainEntity": {
         "@id": "https://gledach.de/#org"
@@ -65,8 +65,8 @@
       "@type": "ItemList",
       "@id": "https://gledach.de/about#tools",
       "name": "The gledach shelf",
-      "description": "Five free, MIT-licensed tools. Five of twelve slots filled.",
-      "numberOfItems": 5,
+      "description": "Six free, MIT-licensed tools. Six of twelve slots filled.",
+      "numberOfItems": 6,
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -149,6 +149,24 @@
               "priceCurrency": "EUR"
             }
           }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "talk",
+            "url": "https://gledach.de/talk",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Windows",
+            "license": "https://opensource.org/licenses/MIT",
+            "description": "Samples TCP connections on Windows, follows each process up to its parent, and reads the certificate name of a new public host. Notices when a local coding agent is leaking sockets.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "EUR"
+            }
+          }
         }
       ]
     },
@@ -161,7 +179,7 @@
           "name": "What is gledach?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "gledach is a shelf, not a platform: five free tools, written by the same person, that do not pretend to be one product. Each takes whatever shape suits it, from a command you type to a dashboard you open to an API an assistant queries. What they share is the promise, not the plumbing."
+            "text": "gledach is a shelf, not a platform: six free tools, written by the same person, that do not pretend to be one product. Each takes whatever shape suits it, from a command you type to a dashboard you open to an API an assistant queries. What they share is the promise, not the plumbing."
           }
         },
         {
@@ -190,6 +208,14 @@
         },
         {
           "@type": "Question",
+          "name": "Which API did my coding agent hit, and is it leaking sockets?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "talk samples TCP connections on Windows, follows each process up to its parent, and reads the certificate name of a new public host. A long session can open connections and never close them. When the client port range fills, other programs fail in a way that looks like a dead network. talk leaves a record of who, which host, and whether the count is climbing. It does not close a socket."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Are the gledach tools free?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -201,7 +227,7 @@
           "name": "How much do I have to install?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Three of the five install nothing at all: no npm install, no build step and no framework. recall ships its own CSV and XML readers rather than pull in two dependencies for forty lines of work. signal needs three runtime dependencies, and that is the heaviest thing on the shelf."
+            "text": "Four of the six install nothing at all: no npm install, no build step and no framework. whenrun, phonehome, signal-patterns and talk are those four. recall ships its own CSV and XML readers rather than pull in two dependencies for forty lines of work. signal needs three runtime dependencies, and that is the heaviest thing on the shelf."
           }
         },
         {
@@ -209,7 +235,7 @@
           "name": "Can an AI assistant use these tools?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Four of the five answer an AI assistant directly over MCP, in structured data with a freshness flag attached, so it can tell a quiet week from a broken collector. You can wire one into Claude Code or any other MCP client in a single line."
+            "text": "Four of the six answer an AI assistant directly over MCP: signal, whenrun, phonehome and recall. Each result is structured data with a freshness flag attached, so the assistant can tell a quiet week from a broken collector. talk records on the machine and does not speak MCP. signal-patterns is the writing."
           }
         }
       ]
@@ -235,16 +261,17 @@
           <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
         </summary>
         <div class="toolmenu-panel">
-          <p class="toolmenu-head">The gledach shelf · 5 of 12 slots filled</p>
+          <p class="toolmenu-head">The gledach shelf · 6 of 12 slots filled</p>
           <ul class="toolmenu-list">
             <li><a href="/"><b>signal <span class="tm-slot">slot 01</span></b><span>Competitive intelligence your agents can query</span></a></li>
             <li><a href="/signal-patterns"><b>signal-patterns <span class="tm-slot">slot 02</span></b><span>How to build tools that watch the public web</span></a></li>
             <li><a href="/whenrun"><b>whenrun <span class="tm-slot">slot 03</span></b><span>Run it when the power is cheap</span></a></li>
             <li><a href="/phonehome"><b>phonehome <span class="tm-slot">slot 04</span></b><span>See what your devices talk to</span></a></li>
             <li><a href="/recall"><b>recall <span class="tm-slot">slot 05</span></b><span>Tell me when something I own is recalled</span></a></li>
+            <li><a href="/talk"><b>talk <span class="tm-slot">slot 06</span></b><span>Which API hosts your coding agents connect to</span></a></li>
           </ul>
           <p class="toolmenu-foot">
-            <a href="/#shelf">Why these five</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
+            <a href="/#shelf">Why these six</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
           </p>
         </div>
       </details>
@@ -273,7 +300,7 @@
         gledach is a shelf,<br><em class="quiet">not a platform.</em>
       </h1>
       <p class="t-lg measure" style="margin-top: var(--s-24)">
-        Five free tools, written by the same person, that do not pretend to be one
+        Six free tools, written by the same person, that do not pretend to be one
         product. Each takes whatever shape suits it: a command you type, a dashboard
         you open, an API an assistant queries, or just writing. What they share is
         the promise, not the plumbing.
@@ -315,19 +342,21 @@
         <article class="card">
           <h3 class="t-sub">As few moving parts as possible</h3>
           <p class="t-sm">
-            Three of the five install nothing at all: no <code>npm install</code>, no
-            build step, no framework. recall ships its own CSV and XML readers rather
-            than pull in two dependencies for forty lines of work. signal needs
-            three, and that is the heaviest thing on the shelf.
+            Four of the six install nothing at all: no <code>npm install</code>, no
+            build step, no framework. whenrun, phonehome, signal-patterns and talk are
+            those four. recall ships its own CSV and XML readers rather than pull in
+            two dependencies for forty lines of work. signal needs three runtime
+            dependencies, and that is the heaviest thing on the shelf.
           </p>
         </article>
 
         <article class="card">
           <h3 class="t-sub">Do not reinvent what already exists</h3>
           <p class="t-sm">
-            These read public registers, public feeds and public APIs that were
-            already published. None of it is scraped out of somewhere it should not
-            be, and none of it is a database somebody rebuilt. The work is reading
+            The ones pointed at the outside world read public registers, public feeds
+            and public APIs that were already published. talk reads the TCP table on
+            the machine it runs on. None of it is scraped out of somewhere it should
+            not be, and none of it is a database somebody rebuilt. The work is reading
             what is there properly and saying how sure it is.
           </p>
         </article>
@@ -335,10 +364,11 @@
         <article class="card">
           <h3 class="t-sub">Made for an assistant as much as a person</h3>
           <p class="t-sm">
-            Four of the five answer an AI assistant directly over MCP, in structured
-            data with a freshness flag attached, so it can tell a quiet week from a
-            broken collector. You can wire one into Claude Code or any other MCP
-            client in a single line.
+            Four of the six answer an AI assistant directly over MCP: signal, whenrun,
+            phonehome and recall. Each result is structured data with a freshness
+            flag attached, so the assistant can tell a quiet week from a broken
+            collector. talk records on the machine and does not speak MCP.
+            signal-patterns is the writing.
           </p>
         </article>
 
@@ -367,7 +397,7 @@
       <div class="head">
         <div>
           <p class="eyebrow">What they are for</p>
-          <h2 class="t-h-lg">Three questions, five tools, nothing to buy.</h2>
+          <h2 class="t-h-lg">Four questions, six tools, nothing to buy.</h2>
         </div>
         <p class="t-lg">
           Every tool here started as something somebody was checking by hand. If one
@@ -431,10 +461,23 @@
           <p class="card-go"><a href="/phonehome">phonehome &rarr;</a> <a href="/recall">recall &rarr;</a></p>
         </article>
 
+        <article class="card">
+          <h3 class="t-sub">Which API did my coding agent hit, and is it leaking sockets?</h3>
+          <p class="t-sm">
+            <a href="/talk">talk</a> samples TCP connections on Windows, follows each
+            process up to its parent, and reads the certificate name of a new public
+            host. A long session can open connections and never close them. When the
+            client port range fills, other programs fail in a way that looks like a
+            dead network. talk leaves a record of who, which host, and whether the
+            count is climbing. It does not close a socket.
+          </p>
+          <p class="card-go"><a href="/talk">talk &rarr;</a></p>
+        </article>
+
       </div>
 
       <p class="figure-note">
-        Five of twelve slots are filled. A tool goes up when it runs on someone
+        Six of twelve slots are filled. A tool goes up when it runs on someone
         else's machine rather than only on mine, and the empty slots stay empty until
         one does. The six rules every tool follows are on
         <a href="/#rules">the home page</a>.
@@ -607,6 +650,7 @@
           <li><a href="/whenrun">whenrun</a></li>
           <li><a href="/phonehome">phonehome</a></li>
           <li><a href="/recall">recall</a></li>
+          <li><a href="/talk">talk</a></li>
         </ul>
       </div>
       <div>
