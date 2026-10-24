@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About gledach · a shelf, not a platform</title>
-<meta name="description" content="gledach makes six free, MIT-licensed tools that run on your own machine: competitive intelligence over MCP, cheap-power job scheduling, home network DNS visibility, product recall checks, and a record of which APIs local coding agents connect to. No account, and four of the six install nothing at all.">
+<meta name="description" content="gledach makes seven free, MIT-licensed tools that run on your own machine: competitive intelligence over MCP, cheap-power job scheduling, home network DNS visibility, product recall checks, a record of which APIs local coding agents connect to, and a baseline of the hooks they run at startup. No account, and five of the seven install nothing at all.">
 <link rel="canonical" href="https://gledach.de/about">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#ffffff">
@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="gledach">
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="About gledach · a shelf, not a platform">
-<meta property="og:description" content="Six free tools that run on your own machine: who is moving in my market, when should this job run so it costs less, what is my own stuff doing, and which API a local coding agent just hit. No account, nothing to buy.">
+<meta property="og:description" content="Seven free tools that run on your own machine: who is moving in my market, when should this job run so it costs less, what is my own stuff doing, which API a local coding agent just hit, and whether a startup hook appeared. No account, nothing to buy.">
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -39,7 +39,7 @@
       "@id": "https://gledach.de/about#page",
       "url": "https://gledach.de/about",
       "name": "About gledach",
-      "description": "What gledach is, what its six free tools are for, how previews work, and how to request a tool.",
+      "description": "What gledach is, what its seven free tools are for, how previews work, and how to request a tool.",
       "inLanguage": "en-GB",
       "mainEntity": {
         "@id": "https://gledach.de/#org"
@@ -65,8 +65,8 @@
       "@type": "ItemList",
       "@id": "https://gledach.de/about#tools",
       "name": "The gledach shelf",
-      "description": "Six free, MIT-licensed tools. Six of twelve slots filled.",
-      "numberOfItems": 6,
+      "description": "Seven free, MIT-licensed tools. Seven of twelve slots filled.",
+      "numberOfItems": 7,
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -167,6 +167,24 @@
               "priceCurrency": "EUR"
             }
           }
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "snare",
+            "url": "https://gledach.de/snare",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Windows, macOS, Linux",
+            "license": "https://opensource.org/licenses/MIT",
+            "description": "Remembers the hooks a coding agent runs at startup, and the editor tasks that run when a folder opens. Prints only when that set changes. It does not delete a hook.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "EUR"
+            }
+          }
         }
       ]
     },
@@ -179,7 +197,7 @@
           "name": "What is gledach?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "gledach is a shelf, not a platform: six free tools, written by the same person, that do not pretend to be one product. Each takes whatever shape suits it, from a command you type to a dashboard you open to an API an assistant queries. What they share is the promise, not the plumbing."
+            "text": "gledach is a shelf, not a platform: seven free tools, written by the same person, that do not pretend to be one product. Each takes whatever shape suits it, from a command you type to a dashboard you open to an API an assistant queries. What they share is the promise, not the plumbing."
           }
         },
         {
@@ -211,7 +229,7 @@
           "name": "Which API did my coding agent hit, and is it leaking sockets?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "talk samples TCP connections on Windows, follows each process up to its parent, and reads the certificate name of a new public host. A long session can open connections and never close them. When the client port range fills, other programs fail in a way that looks like a dead network. talk leaves a record of who, which host, and whether the count is climbing. It does not close a socket."
+            "text": "talk samples TCP connections on Windows, follows each process up to its parent, and reads the certificate name of a new public host. A long session can open connections and never close them. When the client port range fills, other programs fail in a way that looks like a dead network. talk leaves a record of who, which host, and whether the count is climbing. It does not close a socket. snare remembers the hooks a coding agent runs at startup, and the editor tasks that run when a folder opens. It prints only when that set changes, and it does not delete a hook."
           }
         },
         {
@@ -227,7 +245,7 @@
           "name": "How much do I have to install?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Four of the six install nothing at all: no npm install, no build step and no framework. whenrun, phonehome, signal-patterns and talk are those four. recall ships its own CSV and XML readers rather than pull in two dependencies for forty lines of work. signal needs three runtime dependencies, and that is the heaviest thing on the shelf."
+            "text": "Five of the seven install nothing at all: no npm install, no build step and no framework. whenrun, phonehome, signal-patterns, talk and snare are those five. recall ships its own CSV and XML readers rather than pull in two dependencies for forty lines of work. signal needs three runtime dependencies, and that is the heaviest thing on the shelf."
           }
         },
         {
@@ -235,7 +253,7 @@
           "name": "Can an AI assistant use these tools?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Four of the six answer an AI assistant directly over MCP: signal, whenrun, phonehome and recall. Each result is structured data with a freshness flag attached, so the assistant can tell a quiet week from a broken collector. talk records on the machine and does not speak MCP. signal-patterns is the writing."
+            "text": "Four of the seven answer an AI assistant directly over MCP: signal, whenrun, phonehome and recall. Each result is structured data with a freshness flag attached, so the assistant can tell a quiet week from a broken collector. talk and snare record on the machine and do not speak MCP. signal-patterns is the writing."
           }
         }
       ]
@@ -261,7 +279,7 @@
           <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
         </summary>
         <div class="toolmenu-panel">
-          <p class="toolmenu-head">The gledach shelf · 6 of 12 slots filled</p>
+          <p class="toolmenu-head">The gledach shelf · 7 of 12 slots filled</p>
           <ul class="toolmenu-list">
             <li><a href="/"><b>signal <span class="tm-slot">slot 01</span></b><span>Competitive intelligence your agents can query</span></a></li>
             <li><a href="/signal-patterns"><b>signal-patterns <span class="tm-slot">slot 02</span></b><span>How to build tools that watch the public web</span></a></li>
@@ -269,9 +287,10 @@
             <li><a href="/phonehome"><b>phonehome <span class="tm-slot">slot 04</span></b><span>See what your devices talk to</span></a></li>
             <li><a href="/recall"><b>recall <span class="tm-slot">slot 05</span></b><span>Tell me when something I own is recalled</span></a></li>
             <li><a href="/talk"><b>talk <span class="tm-slot">slot 06</span></b><span>Which API hosts your coding agents connect to</span></a></li>
+            <li><a href="/snare"><b>snare <span class="tm-slot">slot 07</span></b><span>A startup hook that was not there yesterday</span></a></li>
           </ul>
           <p class="toolmenu-foot">
-            <a href="/#shelf">Why these six</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
+            <a href="/#shelf">Why these seven</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
           </p>
         </div>
       </details>
@@ -300,7 +319,7 @@
         gledach is a shelf,<br><em class="quiet">not a platform.</em>
       </h1>
       <p class="t-lg measure" style="margin-top: var(--s-24)">
-        Six free tools, written by the same person, that do not pretend to be one
+        Seven free tools, written by the same person, that do not pretend to be one
         product. Each takes whatever shape suits it: a command you type, a dashboard
         you open, an API an assistant queries, or just writing. What they share is
         the promise, not the plumbing.
@@ -342,9 +361,9 @@
         <article class="card">
           <h3 class="t-sub">As few moving parts as possible</h3>
           <p class="t-sm">
-            Four of the six install nothing at all: no <code>npm install</code>, no
-            build step, no framework. whenrun, phonehome, signal-patterns and talk are
-            those four. recall ships its own CSV and XML readers rather than pull in
+            Five of the seven install nothing at all: no <code>npm install</code>, no
+            build step, no framework. whenrun, phonehome, signal-patterns, talk and
+            snare are those five. recall ships its own CSV and XML readers rather than pull in
             two dependencies for forty lines of work. signal needs three runtime
             dependencies, and that is the heaviest thing on the shelf.
           </p>
@@ -355,7 +374,8 @@
           <p class="t-sm">
             The ones pointed at the outside world read public registers, public feeds
             and public APIs that were already published. talk reads the TCP table on
-            the machine it runs on. None of it is scraped out of somewhere it should
+            the machine it runs on. snare reads the hook files already on that machine.
+            None of it is scraped out of somewhere it should
             not be, and none of it is a database somebody rebuilt. The work is reading
             what is there properly and saying how sure it is.
           </p>
@@ -364,10 +384,10 @@
         <article class="card">
           <h3 class="t-sub">Made for an assistant as much as a person</h3>
           <p class="t-sm">
-            Four of the six answer an AI assistant directly over MCP: signal, whenrun,
+            Four of the seven answer an AI assistant directly over MCP: signal, whenrun,
             phonehome and recall. Each result is structured data with a freshness
             flag attached, so the assistant can tell a quiet week from a broken
-            collector. talk records on the machine and does not speak MCP.
+            collector. talk and snare record on the machine and do not speak MCP.
             signal-patterns is the writing.
           </p>
         </article>
@@ -397,7 +417,7 @@
       <div class="head">
         <div>
           <p class="eyebrow">What they are for</p>
-          <h2 class="t-h-lg">Four questions, six tools, nothing to buy.</h2>
+          <h2 class="t-h-lg">Four questions, seven tools, nothing to buy.</h2>
         </div>
         <p class="t-lg">
           Every tool here started as something somebody was checking by hand. If one
@@ -471,13 +491,18 @@
             dead network. talk leaves a record of who, which host, and whether the
             count is climbing. It does not close a socket.
           </p>
-          <p class="card-go"><a href="/talk">talk &rarr;</a></p>
+          <p class="t-sm">
+            <a href="/snare">snare</a> remembers the hooks a coding agent runs at
+            startup, and the editor tasks that run when a folder opens. It prints
+            only when that set changes, and it does not delete a hook.
+          </p>
+          <p class="card-go"><a href="/talk">talk &rarr;</a> <a href="/snare">snare &rarr;</a></p>
         </article>
 
       </div>
 
       <p class="figure-note">
-        Six of twelve slots are filled. A tool goes up when it runs on someone
+        Seven of twelve slots are filled. A tool goes up when it runs on someone
         else's machine rather than only on mine, and the empty slots stay empty until
         one does. The six rules every tool follows are on
         <a href="/#rules">the home page</a>.
@@ -651,6 +676,7 @@
           <li><a href="/phonehome">phonehome</a></li>
           <li><a href="/recall">recall</a></li>
           <li><a href="/talk">talk</a></li>
+          <li><a href="/snare">snare</a></li>
         </ul>
       </div>
       <div>

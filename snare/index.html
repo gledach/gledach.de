@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>snare · a startup hook that was not there yesterday</title>
+<meta name="description" content="Remembers the hooks a coding agent runs at startup, and the editor tasks that run when a folder opens. Prints only when that set changes. Zero runtime dependencies, no account. It does not delete a hook.">
+<link rel="canonical" href="https://gledach.de/snare">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksandar Perisic">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gledach.de/snare">
+<meta property="og:site_name" content="gledach">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="snare · a startup hook that was not there yesterday">
+<meta property="og:description" content="A local baseline of the hooks a coding agent runs at startup, and the tasks an editor runs when a folder opens. Quiet when the set matches. It does not delete a hook.">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "snare",
+  "url": "https://gledach.de/snare",
+  "sameAs": "https://github.com/gledach/snare",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Windows, macOS, Linux",
+  "softwareRequirements": "Node.js 22 or newer",
+  "license": "https://opensource.org/licenses/MIT",
+  "description": "Remembers the hooks a coding agent runs at startup, and the editor tasks that run when a folder opens. The first run records that set. Later runs print nothing when it matches. It does not delete a hook.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "author": {
+    "@type": "Person",
+    "name": "Aleksandar Perisic",
+    "url": "https://www.linkedin.com/in/apsolut/"
+  },
+  "publisher": { "@type": "Organization", "name": "gledach", "url": "https://gledach.de/" }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#install">Skip to the install</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <div class="brandbar">
+      <a class="brand" href="/" aria-label="gledach, the organisation behind these tools">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        gledach
+      </a>
+      <span class="brand-sep" aria-hidden="true"></span>
+      <a class="brand-tool" href="/snare" aria-current="page">snare</a>
+      <details class="toolmenu">
+        <summary aria-label="The other tools on the gledach shelf">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        </summary>
+        <div class="toolmenu-panel">
+          <p class="toolmenu-head">The gledach shelf · 7 of 12 slots filled</p>
+          <ul class="toolmenu-list">
+            <li><a href="/"><b>signal <span class="tm-slot">slot 01</span></b><span>Competitive intelligence your agents can query</span></a></li>
+            <li><a href="/signal-patterns"><b>signal-patterns <span class="tm-slot">slot 02</span></b><span>How to build tools that watch the public web</span></a></li>
+            <li><a href="/whenrun"><b>whenrun <span class="tm-slot">slot 03</span></b><span>Run it when the power is cheap</span></a></li>
+            <li><a href="/phonehome"><b>phonehome <span class="tm-slot">slot 04</span></b><span>See what your devices talk to</span></a></li>
+            <li><a href="/recall"><b>recall <span class="tm-slot">slot 05</span></b><span>Tell me when something I own is recalled</span></a></li>
+            <li><a href="/talk"><b>talk <span class="tm-slot">slot 06</span></b><span>Which API hosts your coding agents connect to</span></a></li>
+            <li><a href="/snare" aria-current="page"><b>snare <span class="tm-slot">slot 07</span></b><span>A startup hook that was not there yesterday</span></a></li>
+          </ul>
+          <p class="toolmenu-foot">
+            <a href="/#shelf">Why these seven</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
+          </p>
+        </div>
+      </details>
+    </div>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#install">Set it up</a>
+      <a href="#record">What it reads</a>
+      <a href="#limits">What it cannot see</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="/#shelf">The shelf</a>
+      <a class="btn btn-fill" href="https://github.com/gledach/snare" rel="noopener">Repository</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero sec sec-first">
+    <div class="wrap">
+      <p class="crumb"><a href="/">gledach</a> <span>/</span> <a href="/#shelf">the shelf</a> <span>/ snare</span></p>
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">snare · slot 07 · shipped</p>
+          <h1 class="t-display">
+            A hook that was not<br>there yesterday.<br>
+            <em class="quiet">On your own machine.</em>
+          </h1>
+          <p class="t-lg measure-tight" style="margin-top: var(--s-24)">
+            Remembers the hooks a coding agent runs when it starts, and the
+            editor tasks that run when a folder opens. The first run records
+            that set. Later runs print nothing when it matches.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-fill" href="#install">
+              Run it in one command <span class="arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/gledach/snare" rel="noopener">Repository</a>
+          </div>
+          <p class="hero-meta">MIT licensed · no account · 0 runtime dependencies</p>
+        </div>
+
+        <figure class="console">
+          <div class="console-bar">
+            <span>node bin/snare.mjs check</span>
+            <span class="tag tag-quiet">real output</span>
+          </div>
+<pre>ADDED   start SessionStart  home/.claude/settings.json  matcher startup
+         node C:/Fixtures/gledach-snare/added-hook.mjs</pre>
+          <figcaption class="t-cap">
+            A second check against the fixtures in <code>test/fixtures</code>.
+            One <code>SessionStart</code> command had been added since the
+            baseline. A check that matches prints nothing and exits 0. This one
+            exits 1. The path is the fixture, and the line is what the program
+            printed.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec tint-mist">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">The situation</p>
+          <h2 class="t-h-lg">The next session runs it, and the window looks normal.</h2>
+        </div>
+        <p class="t-lg">
+          A package, a pull request, or a plugin can leave a command in an
+          agent's settings, or a task that runs when the editor opens the
+          folder. You have already moved on.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <h3 class="t-sub">The command is in the settings</h3>
+          <p class="t-sm">
+            Claude Code, Codex and Cursor each keep hooks in a file under your
+            home directory, and again inside a project. A hook on
+            <code>SessionStart</code> runs when the agent starts. A hook on any
+            other event is still a change, and the line says when it would run.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">The editor opens the folder</h3>
+          <p class="t-sm">
+            VS Code and Cursor can run a task when a folder opens, from
+            <code>runOptions.runOn</code> set to <code>folderOpen</code>. On
+            Windows the command that runs is <code>windows.command</code> when
+            the task has one. Tasks that entry depends on run too.
+          </p>
+        </article>
+        <article class="card card-emph">
+          <h3 class="t-sub">What was missing</h3>
+          <p class="t-sm">
+            A baseline of that set, so the change is the thing that speaks.
+            snare does not edit, disable, or delete a hook.
+            <code>accept</code> only updates the baseline on this machine.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="install">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Running it</p>
+          <h2 class="t-h-lg">There is no npm install, because there is nothing to install.</h2>
+        </div>
+        <p class="t-lg">
+          A fresh clone with Node 22 does everything below. It reads the folder
+          you name, and it does not open child folders. The baseline goes to
+          <code>data/</code>, which is gitignored.
+        </p>
+      </div>
+
+      <div class="cmd" data-copy>
+<pre><code><span class="c-bin">git</span> clone https://github.com/gledach/snare &amp;&amp; cd snare
+<span class="c-bin">node</span> bin/snare.mjs check       <span class="c-cmt"># quiet when the set matches</span>
+<span class="c-bin">node</span> bin/snare.mjs accept      <span class="c-cmt"># remember the current set</span>
+<span class="c-bin">node</span> bin/snare.mjs doctor      <span class="c-cmt"># node, and which taught files exist</span></code></pre>
+        <button type="button" class="copy" aria-label="Copy the install commands for snare">Copy</button>
+      </div>
+      <p class="figure-note">
+        The command is <code>gledach-snare</code>. <code>npm link</code> puts that
+        name on your PATH. The copy block above calls the same file and needs no
+        link. Nothing named <code>snare</code> is installed. That name is an npm
+        package. <code>gledach-snare check D:\work\repo</code> also reads that
+        folder. <code>gledach-snare list</code> prints the current set.
+        <code>gledach-snare report</code> prints <code>data/latest.json</code>.
+      </p>
+
+      <h3 class="t-h-sm" style="margin-top: var(--s-64)">The commands</h3>
+      <table class="spec" style="margin-top: var(--s-24)">
+        <thead>
+          <tr>
+            <th scope="col">Command</th>
+            <th scope="col">What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><span class="mono">gledach-snare check</span></th>
+            <td>Compare the current set with the baseline. The first run records it and says so. A match prints nothing and exits 0. A difference prints <code>ADDED</code>, <code>REMOVED</code>, or <code>CHANGED</code> and exits 1.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">gledach-snare accept</span></th>
+            <td>Remember the current set. It does not edit, disable, or delete a hook.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">gledach-snare list</span></th>
+            <td>Print the current set, including when it matches the baseline.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">gledach-snare report</span></th>
+            <td>Print <code>data/latest.json</code>. Every <code>check</code> refreshes that file.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">gledach-snare doctor</span></th>
+            <td>Node, the data directory, and which of the taught files exist. It does not print a hook command.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="figure-note">
+        Exit 2 means the command was not recognized, or <code>data/baseline.json</code>
+        could not be read. A corrupt baseline is left in place. <code>accept</code>
+        replaces it. There is no scheduled task and no service. Run <code>check</code>
+        when you want the comparison.
+      </p>
+    </div>
+  </section>
+
+  <section class="sec tint-frost" id="record">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What it reads</p>
+          <h2 class="t-h-lg">The command, hashed. The line, redacted.</h2>
+        </div>
+        <p class="t-lg">
+          The comparison hashes the command, its arguments, a Windows override,
+          a url, and a prompt. <code>data/</code> keeps the hash and a shortened
+          redacted line. It does not keep the raw command.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <h3 class="t-sub">Every hook event</h3>
+          <p class="t-sm">
+            Claude settings, user and project, including <code>settings.local.json</code>
+            and the two Windows managed paths when they exist.
+            <code>SessionStart</code>, <code>Setup</code> and
+            <code>InstructionsLoaded</code> are marked <code>start</code>.
+            The status line command and the helper commands are included.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">Codex and Cursor</h3>
+          <p class="t-sm">
+            Codex hooks in <code>hooks.json</code> and <code>config.toml</code>,
+            including <code>commandWindows</code>. <code>notify</code> is marked
+            <code>auto</code>, because it runs at the end of a turn. Cursor
+            <code>hooks.json</code> marks <code>sessionStart</code> and
+            <code>workspaceOpen</code> as <code>start</code>.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">One folder, not its children</h3>
+          <p class="t-sm">
+            User tasks, one level of editor profiles, a workspace
+            <code>.vscode/tasks.json</code>, and a <code>.code-workspace</code>
+            file sitting in a folder you passed. A hook under
+            <code>node_modules</code> is missed unless you pass that folder.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec tint-peri" id="limits">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What it cannot see</p>
+          <h2 class="t-h-lg">Stated here rather than buried in a wiki.</h2>
+        </div>
+        <p class="t-lg">
+          Every tool on this shelf ships a written audit of its own blind spots. This
+          is snare's, in full, from its own README.
+        </p>
+      </div>
+
+      <ul class="blind">
+        <li>
+          <p class="t-sm"><b>A hook written and removed between two runs.</b></p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Plugin hooks in a cache, and hooks on a skill or a subagent.</b>
+          They run when that plugin or skill is enabled. snare does not walk those trees.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>An MCP server command.</b>
+          Those processes start with the client too. Claude keeps them in a user file
+          that also holds account data, so this tool does not open that file.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>A PowerShell profile, a startup entry, a service, or a scheduled task.</b></p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Whether the hook will actually run.</b>
+          <code>disableAllHooks: true</code> is recorded, and the hooks beside it are
+          still listed. A <code>folderOpen</code> task can be blocked by workspace
+          trust or by <code>task.allowAutomaticTasks</code>. A Codex hook can sit in
+          the file and still not run: some builds want <code>codex_hooks</code> on,
+          some skip a hook until it is trusted, and older Windows builds did not run
+          hooks. snare reports the file either way.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>A timeout-only edit.</b>
+          The command is the same, so the run stays quiet.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>A binary replaced on disk when the command string is unchanged.</b></p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Claude hooks that Cursor imported.</b>
+          Cursor can run those <code>SessionStart</code> commands. The Claude files
+          are already in the baseline.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Anything outside the user locations and the folders you named.</b></p>
+        </li>
+      </ul>
+
+      <p class="figure-note">
+        Redaction covers <code>sk-ant-</code>, <code>sk-</code>, <code>github_pat_</code>,
+        <code>ghp_</code>, <code>glpat-</code>, <code>AKIA</code>, <code>xox</code> and
+        <code>Bearer</code>. It is not a secret scanner. The hash still changes when a
+        redacted value changes. The printed line stops at 160 characters.
+      </p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Elsewhere on the shelf</p>
+          <h2 class="t-h-lg">Same author. Different shapes.</h2>
+        </div>
+        <p class="t-lg">
+          Each takes whatever shape suits it, from a single command to a dashboard.
+          What they share is the promise rather than the plumbing: free, installable,
+          and honest about what each one cannot see.
+        </p>
+      </div>
+
+      <div class="cards">
+        <a class="card" href="/">
+          <p class="eyebrow eyebrow-quiet">Slot 01 · live preview</p>
+          <h3 class="t-h-sm">signal</h3>
+          <p class="t-sm">Ten watchers and one inbox on whichever market you name, scored and attributed, answerable by an agent over MCP.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/whenrun">
+          <p class="eyebrow eyebrow-quiet">Slot 03 · shipped</p>
+          <h3 class="t-h-sm">whenrun</h3>
+          <p class="t-sm">Day-ahead power prices turned into the window your job should run in, then it starts the job there.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/phonehome">
+          <p class="eyebrow eyebrow-quiet">Slot 04 · shipped</p>
+          <h3 class="t-h-sm">phonehome</h3>
+          <p class="t-sm">Which domains every device on your network contacts, and when one starts talking somewhere new.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/recall">
+          <p class="eyebrow eyebrow-quiet">Slot 05 · shipped</p>
+          <h3 class="t-h-sm">recall</h3>
+          <p class="t-sm">Four public registers checked against a list of the things you own, with every match graded.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/talk">
+          <p class="eyebrow eyebrow-quiet">Slot 06 · shipped</p>
+          <h3 class="t-h-sm">talk</h3>
+          <p class="t-sm">Which API hosts your local coding agents connect to, and whether one of them is leaking sockets.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/signal-patterns">
+          <p class="eyebrow eyebrow-quiet">Slot 02 · reference</p>
+          <h3 class="t-h-sm">signal-patterns</h3>
+          <p class="t-sm">What is watchable, what it costs, and eight engineering decisions each extracted from a bug that shipped.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div>
+        <a class="brand" href="/" aria-label="gledach, home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          gledach
+        </a>
+        <p class="t-cap" style="margin-top: var(--s-16); max-width: 34ch">
+          <em>gledati</em> (slav.): to watch. What a good analyst does before speaking.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">snare</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/snare" rel="noopener">Repository</a></li>
+          <li><a href="https://github.com/gledach/snare#what-it-cannot-see" rel="noopener">What it cannot see</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">The shelf</p>
+        <ul class="foot-list">
+          <li><a href="/about">About gledach</a></li>
+          <li><a href="/">signal</a></li>
+          <li><a href="/signal-patterns">signal-patterns</a></li>
+          <li><a href="/whenrun">whenrun</a></li>
+          <li><a href="/phonehome">phonehome</a></li>
+          <li><a href="/recall">recall</a></li>
+          <li><a href="/talk">talk</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">Contact</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
+          <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p class="t-cap">MIT licensed. The baseline stays on the machine that recorded it.</p>
+      <p class="t-cap mono">if it ships to turso, it shipped</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

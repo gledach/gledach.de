@@ -160,7 +160,7 @@ job, the copy buttons, which the satellite install blocks use.
 - **Every tool page ships its blind spots in full**, taken from the tool's own README.
   Not a summary and not a link. It is the reason the rest of the page can be believed.
 - **The empty slot stays.** The twelfth collection tile on the signal page stays empty.
-  The shelf's empty card is slot 07. They are the page being honest about capacity,
+  The shelf's empty card is slot 08. They are the page being honest about capacity,
   which is the argument the shelf rests on.
 - **The slot count lives in an eyebrow, never in a headline.** A chip or an eyebrow does
   not have to be rewritten as prose when a tool ships.

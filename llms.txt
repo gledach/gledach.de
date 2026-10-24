@@ -38,10 +38,11 @@ the same dashboard on 127.0.0.1:5180 against your own subject.
 | https://gledach.de/phonehome | phonehome | 04 |
 | https://gledach.de/recall | recall | 05 |
 | https://gledach.de/talk | talk | 06 |
+| https://gledach.de/snare | snare | 07 |
 
 ## The shelf, in one table
 
-Twelve slots, six filled. What each tool watches, and what it hands back.
+Twelve slots, seven filled. What each tool watches, and what it hands back.
 
 | Slot | Tool | Watches | Tells you | Status |
 |---|---|---|---|---|
@@ -51,7 +52,8 @@ Twelve slots, six filled. What each tool watches, and what it hands back.
 | 04 | phonehome | Every DNS query on your own network | Which device talked where, and when that changed | Shipped |
 | 05 | recall | Four public registers, against a list of what you own | Which of your things has a notice, and how sure the match is | Shipped |
 | 06 | talk | TCP connections owned by local coding agents, on Windows | Which API host, and whether the count is climbing | Shipped |
-| 07 | [UNNAMED] | [UNDECIDED] | [UNDECIDED] | Empty |
+| 07 | snare | Hooks a coding agent runs at startup, and editor tasks that run when a folder opens | When that set changes. It does not delete a hook | Shipped |
+| 08 | [UNNAMED] | [UNDECIDED] | [UNDECIDED] | Empty |
 
 ## Tools
 
@@ -70,7 +72,8 @@ dependencies, no build step, libSQL storage that is a local file by default.
 It is the only tool on this shelf whose subject is a market the operator names.
 whenrun, phonehome and recall watch a power market, a home network, and four
 public registers. talk records whichever coding agents are running on the
-machine. The landing page is signal for that reason.
+machine. snare remembers the hooks those agents run when they start. The
+landing page is signal for that reason.
 
 - Page: https://gledach.de/
 - Repository: https://github.com/gledach/signals
@@ -538,7 +541,93 @@ still count but whose owner can no longer be named; anything that is not TCP;
 any operating system other than Windows, where report can print a log you
 already have and once and watch cannot take a sample.
 
-### Slot 07 · not built
+### snare · slot 07 · shipped
+
+Situation: a coding agent will run a command from its settings the next time it
+starts. An editor will run a task when it opens a folder. A package, a pull
+request, or a plugin can write that command, and the session looks normal
+afterwards.
+
+Remembers the hooks a coding agent runs at startup, and the editor tasks that
+run when a folder opens. The first check records that set and says so. Later
+checks print nothing when it matches. A new hook, a removed hook, or an edited
+command prints and exits 1. It does not delete a hook. Zero runtime
+dependencies. No account, no build step. Everything stays on the machine.
+
+- Page: https://gledach.de/snare
+- Repository: https://github.com/gledach/snare
+- What it cannot see: https://github.com/gledach/snare#what-it-cannot-see
+- Licence: MIT. Price: 0. Needs Node 22 or newer.
+
+Install:
+
+    git clone https://github.com/gledach/snare.git && cd snare
+    node bin/snare.mjs check
+
+There is no `npm install`, because there is nothing to install. The baseline
+goes to data/, which is gitignored.
+
+The command is gledach-snare. npm link puts that name on your PATH. The line
+above calls the same file and needs no link. Nothing named snare is installed.
+That name is an npm package. This package is gledach-snare.
+
+Commands, as gledach-snare or as node bin/snare.mjs: check, accept, list,
+report, doctor. check with no folder reads the user settings and the current
+directory. Extra folders are arguments, or SNARE_ROOTS. It reads each folder
+you name and does not open child folders. The first check writes
+data/baseline.json and data/latest.json and prints the count. A match prints
+nothing and exits 0. A difference prints ADDED, REMOVED, or CHANGED and exits
+1. accept updates the baseline. It does not edit, disable, or delete a hook.
+Exit 2 means the command was not recognized, or the baseline file is corrupt.
+A corrupt baseline is left in place. accept replaces it.
+
+It reads Claude Code settings.json and settings.local.json, for the user and
+for each folder you pass. Every hook event is recorded. SessionStart, Setup,
+and InstructionsLoaded are marked start. A hook on any other event is still a
+change. The same files contribute statusLine.command and the helper commands
+apiKeyHelper, awsAuthRefresh, awsCredentialExport, and otelHeadersHelper. On
+Windows, two managed settings paths are read when they exist.
+
+Codex hooks.json, config.toml, and a profile file named *.config.toml, in the
+Codex home folder and in each folder you pass. commandWindows and
+command_windows are the Windows command. notify is marked auto because it runs
+at the end of a turn. features.codex_hooks is recorded when the file sets it.
+
+Cursor hooks.json for the user and for each folder. sessionStart and
+workspaceOpen are marked start.
+
+VS Code and Cursor tasks whose runOptions.runOn is folderOpen, plus tasks those
+entries depend on. The Windows command is windows.command. Paths are the user
+tasks.json, one level of profiles, Code - Insiders, a workspace
+.vscode/tasks.json, and a .code-workspace file sitting in a folder you passed.
+The files may contain comments.
+
+The comparison hashes the command, its arguments, the Windows override, a url,
+and a prompt. data/ keeps the hash and a shortened redacted line. It does not
+keep the raw command. On Windows the printed line prefers commandWindows when
+the hook has one. Editing either command is a change.
+
+Figures: 0 runtime dependencies, Node 22, printed lines stop at 160 characters.
+
+Blind spots: a hook written and removed between two runs; plugin hooks in a
+cache, and hooks declared on a skill or a subagent; an MCP server command,
+because Claude keeps those in a user file that also holds account data and
+this tool does not open that file; a PowerShell profile, a startup entry, a
+service, or a scheduled task; whether the hook will actually run.
+disableAllHooks set to true is recorded, and the hooks beside it are still
+listed. A folderOpen task can be blocked by workspace trust or by
+task.allowAutomaticTasks. A Codex hook can sit in the file and still not run.
+A timeout-only edit stays quiet, because the command is the same. A binary
+replaced on disk stays quiet when the command string is unchanged. Cursor can
+run Claude SessionStart hooks it imported, and those Claude files are already
+in the baseline. Anything outside the user locations above and the folders you
+named is not read.
+
+Redaction covers sk-ant-, sk-, github_pat_, ghp_, glpat-, AKIA, xox, and
+Bearer. It is not a secret scanner. The hash still changes when a redacted
+value changes.
+
+### Slot 08 · not built
 
 Empty. The shelf is built to hold a dozen. Nothing is planned publicly, and there
 is no roadmap to quote.

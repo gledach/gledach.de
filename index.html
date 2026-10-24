@@ -23,13 +23,13 @@
 <meta property="og:description" content="Ten watchers and one inbox read what a market publishes. Typed, scored, attributed, and answerable by a machine. Free, MIT, on your own machine.">
 <!-- OUTSTANDING: this card still carries the old "free tools that find things
      out" headline and the pre-October faces. The tool names and the slot count
-     are current: six, including talk. Source is assets/og/og-home.html. See
+     are current: seven, including snare. Source is assets/og/og-home.html. See
      HANDOFF.md. -->
 <meta property="og:image" content="https://gledach.de/assets/img/og-home.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="The gledach wordmark above the headline 'Free tools that find things out', with the six tool names underneath: signal, signal-patterns, whenrun, phonehome, recall and talk. Six of twelve slots filled.">
+<meta property="og:image:alt" content="The gledach wordmark above the headline 'Free tools that find things out', with the seven tool names underneath: signal, signal-patterns, whenrun, phonehome, recall, talk and snare. Seven of twelve slots filled.">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="signal · competitive intelligence your agents can query">
@@ -183,6 +183,21 @@
       "price": "0",
       "priceCurrency": "EUR",
       "itemOffered": {
+        "@type": "SoftwareApplication",
+        "name": "snare",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Windows, macOS, Linux",
+        "license": "https://opensource.org/licenses/MIT",
+        "url": "https://github.com/gledach/snare",
+        "sameAs": "https://gledach.de/snare",
+        "description": "Remembers the hooks a coding agent runs at startup, and the editor tasks that run when a folder opens. Prints only when that set changes. It does not delete a hook. Zero runtime dependencies."
+      }
+    },
+    {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR",
+      "itemOffered": {
         "@type": "TechArticle",
         "name": "signal-patterns",
         "url": "https://github.com/gledach/signal-patterns",
@@ -224,7 +239,7 @@
           <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
         </summary>
         <div class="toolmenu-panel">
-          <p class="toolmenu-head">The gledach shelf · 6 of 12 slots filled</p>
+          <p class="toolmenu-head">The gledach shelf · 7 of 12 slots filled</p>
           <ul class="toolmenu-list">
             <li><a href="/" aria-current="page"><b>signal <span class="tm-slot">slot 01</span></b><span>Competitive intelligence your agents can query</span></a></li>
             <li><a href="/signal-patterns"><b>signal-patterns <span class="tm-slot">slot 02</span></b><span>How to build tools that watch the public web</span></a></li>
@@ -232,9 +247,10 @@
             <li><a href="/phonehome"><b>phonehome <span class="tm-slot">slot 04</span></b><span>See what your devices talk to</span></a></li>
             <li><a href="/recall"><b>recall <span class="tm-slot">slot 05</span></b><span>Tell me when something I own is recalled</span></a></li>
             <li><a href="/talk"><b>talk <span class="tm-slot">slot 06</span></b><span>Which API hosts your coding agents connect to</span></a></li>
+            <li><a href="/snare"><b>snare <span class="tm-slot">slot 07</span></b><span>A startup hook that was not there yesterday</span></a></li>
           </ul>
           <p class="toolmenu-foot">
-            <a href="#shelf">Why these six</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
+            <a href="#shelf">Why these seven</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
           </p>
         </div>
       </details>
@@ -970,7 +986,7 @@
     <div class="wrap">
       <div class="head">
         <div>
-          <p class="eyebrow">The rest of the shelf · 6 of 12 slots filled</p>
+          <p class="eyebrow">The rest of the shelf · 7 of 12 slots filled</p>
           <h2 class="t-h-lg">Same author. Different shapes.</h2>
         </div>
         <p class="t-lg">
@@ -1012,8 +1028,14 @@
           <p class="t-sm">Samples TCP connections on Windows, follows each process up to its parent, and reads the certificate name of a new public host. A Node helper under Cursor counts as Cursor. It does not close a socket.</p>
           <p class="card-go">Open the page &rarr;</p>
         </a>
-        <article class="card card-slot" id="slot-07">
-          <p class="eyebrow eyebrow-quiet">Slot 07 · not built</p>
+        <a class="card" href="/snare">
+          <p class="eyebrow eyebrow-quiet">Slot 07 · shipped</p>
+          <h3 class="t-h-sm">snare</h3>
+          <p class="t-sm">Remembers the hooks a coding agent runs at startup, and the editor tasks that run when a folder opens. The first check records a baseline. Later checks print only when that set changes. It does not delete a hook.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <article class="card card-slot" id="slot-08">
+          <p class="eyebrow eyebrow-quiet">Slot 08 · not built</p>
           <h3 class="t-h-sm">[UNNAMED]</h3>
           <p class="t-sm">
             The shelf holds a dozen. What lands here next is not decided, and the
@@ -1105,6 +1127,7 @@
           <li><a href="/phonehome">phonehome</a></li>
           <li><a href="/recall">recall</a></li>
           <li><a href="/talk">talk</a></li>
+          <li><a href="/snare">snare</a></li>
           <li><a href="https://github.com/gledach" rel="noopener">All repositories</a></li>
         </ul>
       </div>

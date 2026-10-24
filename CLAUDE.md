@@ -1,6 +1,6 @@
 # gledach.de
 
-The landing page for [github.com/gledach](https://github.com/gledach). Static: seven HTML
+The landing page for [github.com/gledach](https://github.com/gledach). Static: eight HTML
 pages, `assets/site.css`, `assets/site.js`. No build step, no framework, no dependencies.
 
 ```
@@ -11,6 +11,7 @@ pages, `assets/site.css`, `assets/site.js`. No build step, no framework, no depe
 /phonehome           phonehome/index.html        slot 04
 /recall              recall/index.html           slot 05
 /talk                talk/index.html             slot 06
+/snare               snare/index.html            slot 07
 ```
 
 Satellite pages are directories, not `whenrun.html`. Cloudflare would resolve either, but
@@ -264,7 +265,7 @@ Anchor targets carry `scroll-margin-top: 96px` because the nav is sticky at 69px
 ### The nav, on every page
 
 `gledach │ <tool> ⋯`. The organisation, then the tool you are currently in, then
-the rest of the shelf behind a disclosure. The same component on all seven pages
+the rest of the shelf behind a disclosure. The same component on all eight pages
 plus the 404, because a visitor who lands on a satellite otherwise has nothing
 telling them whose tool it is.
 
@@ -308,15 +309,16 @@ line **and** the word "leading".
   They also share a command prefix, and that is not a shared program. There is no
   `gledach` binary that dispatches the others.
 - **Commands are `gledach-<tool>`.** The shelf word stays the product, the page, the
-  folder and the repository: whenrun, phonehome, recall, signal, talk. The npm package
-  name and the PATH command are `gledach-whenrun`, `gledach-phonehome`,
-  `gledach-recall`, `gledach-signal`, `gledach-talk`. A clone still runs with
-  `node bin/<tool>.mjs` and needs no link. Do not document a bare `whenrun prices`,
-  `phonehome watch`, `recall check`, `signal` or `talk once`. Those words are already
+  folder and the repository: whenrun, phonehome, recall, signal, talk, snare. The npm
+  package name and the PATH command are `gledach-whenrun`, `gledach-phonehome`,
+  `gledach-recall`, `gledach-signal`, `gledach-talk`, `gledach-snare`. A clone still
+  runs with `node bin/<tool>.mjs` and needs no link. Do not document a bare
+  `whenrun prices`, `phonehome watch`, `recall check`, `signal`, `talk once` or
+  `snare check`. Those words are already
   other people's packages or programs, or they are ordinary words the next publisher
   can take. signal-patterns has no command. signal has no bin: inside that clone the
   commands stay `npm run`.
-- **Design for growth.** The shelf has six tools today and must reflow to a dozen
+- **Design for growth.** The shelf has seven tools today and must reflow to a dozen
   without a redesign. Adding one is a copy of a satellite directory plus one more
   `<a class="card">`. Tiles and cards are `auto-fit` grids for the same reason. Never
   introduce a layout that hardcodes the current count.
