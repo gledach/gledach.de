@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>leash · see what your AI coding agent changed outside the repo</title>
-<meta name="description" content="Takes a snapshot of the machine before an agent session and another after, then shows what changed outside that repo: files, startup entries, services, packages and ports. A single Windows exe. Read-only, no account, stays on your machine.">
+<meta name="description" content="Takes a snapshot of the machine before an agent session and another after, then shows what changed outside that repo. In this preview the report is system-wide: other apps running at the same time appear too. Read-only, no account, stays on your machine.">
 <link rel="canonical" href="https://gledach.de/leash">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#ffffff">
@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="gledach">
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="leash · see what your AI coding agent changed outside the repo">
-<meta property="og:description" content="A before-and-after snapshot of what a coding agent changed on your Windows PC outside the repo. Read-only, no account, stays on your machine.">
+<meta property="og:description" content="A before-and-after snapshot of what changed on your Windows PC outside the repo during an agent session. In this preview the report is system-wide. Read-only, no account, stays on your machine.">
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -37,7 +37,7 @@
   "operatingSystem": "Windows",
   "softwareRequirements": "Windows 11. Administrator is needed for full file coverage.",
   "license": "https://opensource.org/licenses/MIT",
-  "description": "Takes a snapshot of the machine before an AI coding agent session and another after, then shows what changed outside that repo: files, startup entries, services, packages and ports. A single Windows exe. Read-only, no account. It never deletes, kills or blocks anything.",
+  "description": "Takes a snapshot of the machine before an AI coding agent session and another after, then shows what changed outside that repo. In this preview the report is system-wide: other apps running at the same time appear too. A single Windows exe. Read-only, no account. It never deletes, kills or blocks anything.",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
   "author": {
     "@type": "Person",
@@ -109,7 +109,8 @@
           <p class="t-lg measure-tight" style="margin-top: var(--s-24)">
             A snapshot before the session, another after, and a filtered report
             of what changed outside that project: files, startup entries,
-            services, packages and ports.
+            services, packages and ports. In this preview the report is
+            system-wide: other apps running at the same time appear too.
           </p>
           <div class="btn-row">
             <a class="btn btn-fill" href="#install">
@@ -152,6 +153,16 @@
       </div>
 
       <div class="cards">
+        <article class="card">
+          <h3 class="t-sub">The whole machine, for now</h3>
+          <p class="t-sm">
+            The report lists every change on the PC between start and stop,
+            not only the agent's. A browser, VS Code, Steam or another dev
+            server running at the same time will show up too. Close other
+            apps and keep sessions short if you want a quieter report.
+            Naming the process that made each change is being built.
+          </p>
+        </article>
         <article class="card">
           <h3 class="t-sub">A snapshot, not a watcher</h3>
           <p class="t-sm">
@@ -334,11 +345,15 @@
           Opening or reading a file does not show up.</p>
         </li>
         <li>
-          <p class="t-sm"><b>No process attribution in v1.</b>
-          A deleted folder or a new Run key is listed as a fact, not as
-          “Cursor did this.” That needs ETW, planned for v2. Short-lived helper
-          processes may be gone by <code>leash stop</code> and will not appear
-          under leftover processes.</p>
+          <p class="t-sm"><b>No process attribution in this preview.</b>
+          The report lists every change on the PC between start and stop, not
+          only the agent's. A browser, VS Code, Steam or another dev server
+          running at the same time will show up too. A deleted folder or a new
+          Run key is listed as a fact, not as “Cursor did this.” Close other
+          apps and keep sessions short if you want a quieter report.
+          Per-process attribution is being built. Short-lived helper processes
+          may be gone by <code>leash stop</code> and will not appear under
+          leftover processes.</p>
         </li>
         <li>
           <p class="t-sm"><b>USN journal reads need Administrator.</b>
@@ -388,8 +403,9 @@
       <p class="figure-note">
         leash does not open a network connection and does not ask for an account.
         Reports and logs stay under <code>%LOCALAPPDATA%\leash\</code>.
+        Naming the process that made each change is being built.
         Live mode, with an alert when lots of files are deleted outside the repo,
-        is the next step, not this preview.
+        comes after that.
       </p>
     </div>
   </section>

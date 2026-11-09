@@ -305,7 +305,7 @@ installable, and honest about what each one cannot see.
 | 05 | recall | <https://gledach.de/recall> | Checks four public registers against a list of the things you actually own, and grades how sure each match is. A register it could not reach is reported as unreachable, never as clean. |
 | 06 | talk | <https://gledach.de/talk> | Samples TCP connections on Windows, follows each process up to its parent, and reads the certificate name of a new public host. A Node helper under Cursor counts as Cursor. It does not close a socket. |
 | 07 | snare | <https://gledach.de/snare> | Remembers the hooks a coding agent runs at startup, and the editor tasks that run when a folder opens. The first check records a baseline. Later checks print only when that set changes. It does not delete a hook. |
-| 08 | leash | <https://gledach.de/leash> | Takes a snapshot of the machine before an agent session and another after, then shows what changed outside that repo: files, startup entries, services, packages and ports. It never deletes, kills or blocks anything. |
+| 08 | leash | <https://gledach.de/leash> | Takes a snapshot of the machine before an agent session and another after, then shows what changed outside that repo. In this preview the report is system-wide: other apps running at the same time appear too. It never deletes, kills or blocks anything. |
 | 09 | [UNNAMED] | not built | The shelf holds a dozen. What lands here next is not decided, and the honest version is a placeholder rather than a roadmap. |
 
 Is there something you keep checking by hand that a tool could watch for you?

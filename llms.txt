@@ -54,7 +54,7 @@ Twelve slots, eight filled. What each tool watches, and what it hands back.
 | 05 | recall | Four public registers, against a list of what you own | Which of your things has a notice, and how sure the match is | Shipped |
 | 06 | talk | TCP connections owned by local coding agents, on Windows | Which API host, and whether the count is climbing | Shipped |
 | 07 | snare | Hooks a coding agent runs at startup, and editor tasks that run when a folder opens | When that set changes. It does not delete a hook | Shipped |
-| 08 | leash | Files, startup entries, services, packages and ports outside the repo, on Windows | What changed between a before and after snapshot. It does not delete, kill or block anything | Shipped |
+| 08 | leash | Files, startup entries, services, packages and ports outside the repo, on Windows | What changed between a before and after snapshot. In this preview the report is system-wide: other apps running at the same time appear too. It does not delete, kill or block anything | Shipped |
 | 09 | [UNNAMED] | [UNDECIDED] | [UNDECIDED] | Empty |
 
 ## Tools
@@ -640,9 +640,12 @@ and they are easy to miss.
 See what your AI coding agent changed outside the repo. Takes a snapshot of the
 machine before the session, another after, and shows a filtered report of what
 changed outside that project: files, startup entries, scheduled tasks, services,
-environment variables, global packages and listening ports. A single Windows
-exe. No account, no network connection. It is read-only: it never deletes, kills
-or blocks anything. Everything it observes stays on the machine.
+environment variables, global packages and listening ports. In this preview the
+report is system-wide: other apps running at the same time appear too. Close
+other apps and keep sessions short if you want a quieter report. Per-process
+attribution is being built. A single Windows exe. No account, no network
+connection. It is read-only: it never deletes, kills or blocks anything.
+Everything it observes stays on the machine.
 
 - Page: https://gledach.de/leash
 - Repository: https://github.com/gledach/leash
@@ -686,14 +689,16 @@ The published preview is unsigned, so Windows SmartScreen will likely warn the
 first time. A SHA256SUMS file is published next to the zip.
 
 Blind spots: changes inside the watched repo are ignored on purpose, except
-for a few high-priority names such as .env; file reads are invisible; v1
-cannot name the process that made a change (ETW is planned for v2); USN
-journal reads need Administrator; the journal can wrap or be recreated between
-start and stop; non-NTFS volumes, network shares and WSL files are limited or
-invisible to the USN path; registry, task and service coverage is the common
-persistence set, not a complete catalogue; global package detection follows
-PATH; default filters can hide something planted in a cache or node_modules;
-there is no network tracing; leash never deletes, kills or blocks anything.
+for a few high-priority names such as .env; file reads are invisible; this
+preview cannot name the process that made a change, so the report is
+system-wide and other apps running at the same time appear too (per-process
+attribution is being built); USN journal reads need Administrator; the journal
+can wrap or be recreated between start and stop; non-NTFS volumes, network
+shares and WSL files are limited or invisible to the USN path; registry, task
+and service coverage is the common persistence set, not a complete catalogue;
+global package detection follows PATH; default filters can hide something
+planted in a cache or node_modules; there is no network tracing; leash never
+deletes, kills or blocks anything.
 
 ### Slot 09 · not built
 
