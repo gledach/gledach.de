@@ -12,6 +12,7 @@ pages, `assets/site.css`, `assets/site.js`. No build step, no framework, no depe
 /recall              recall/index.html           slot 05
 /talk                talk/index.html             slot 06
 /snare               snare/index.html            slot 07
+/leash               leash/index.html            slot 08
 ```
 
 Satellite pages are directories, not `whenrun.html`. Cloudflare would resolve either, but
@@ -317,8 +318,10 @@ line **and** the word "leading".
   `snare check`. Those words are already
   other people's packages or programs, or they are ordinary words the next publisher
   can take. signal-patterns has no command. signal has no bin: inside that clone the
-  commands stay `npm run`.
-- **Design for growth.** The shelf has seven tools today and must reflow to a dozen
+  commands stay `npm run`. leash is the exception: it is a standalone Windows exe
+  named `leash`, not a Node package, so its commands are `leash start`, `leash stop`
+  and `leash open`. Do not invent a `gledach-leash` command that does not exist.
+- **Design for growth.** The shelf has eight tools today and must reflow to a dozen
   without a redesign. Adding one is a copy of a satellite directory plus one more
   `<a class="card">`. Tiles and cards are `auto-fit` grids for the same reason. Never
   introduce a layout that hardcodes the current count.

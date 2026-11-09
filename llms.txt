@@ -39,10 +39,11 @@ the same dashboard on 127.0.0.1:5180 against your own subject.
 | https://gledach.de/recall | recall | 05 |
 | https://gledach.de/talk | talk | 06 |
 | https://gledach.de/snare | snare | 07 |
+| https://gledach.de/leash | leash | 08 |
 
 ## The shelf, in one table
 
-Twelve slots, seven filled. What each tool watches, and what it hands back.
+Twelve slots, eight filled. What each tool watches, and what it hands back.
 
 | Slot | Tool | Watches | Tells you | Status |
 |---|---|---|---|---|
@@ -53,7 +54,8 @@ Twelve slots, seven filled. What each tool watches, and what it hands back.
 | 05 | recall | Four public registers, against a list of what you own | Which of your things has a notice, and how sure the match is | Shipped |
 | 06 | talk | TCP connections owned by local coding agents, on Windows | Which API host, and whether the count is climbing | Shipped |
 | 07 | snare | Hooks a coding agent runs at startup, and editor tasks that run when a folder opens | When that set changes. It does not delete a hook | Shipped |
-| 08 | [UNNAMED] | [UNDECIDED] | [UNDECIDED] | Empty |
+| 08 | leash | Files, startup entries, services, packages and ports outside the repo, on Windows | What changed between a before and after snapshot. It does not delete, kill or block anything | Shipped |
+| 09 | [UNNAMED] | [UNDECIDED] | [UNDECIDED] | Empty |
 
 ## Tools
 
@@ -72,7 +74,8 @@ dependencies, no build step, libSQL storage that is a local file by default.
 It is the only tool on this shelf whose subject is a market the operator names.
 whenrun, phonehome and recall watch a power market, a home network, and four
 public registers. talk records whichever coding agents are running on the
-machine. snare remembers the hooks those agents run when they start. The
+machine. snare remembers the hooks those agents run when they start. leash
+shows what they changed on the machine outside the repo. The
 landing page is signal for that reason.
 
 - Page: https://gledach.de/
@@ -627,7 +630,72 @@ Redaction covers sk-ant-, sk-, github_pat_, ghp_, glpat-, AKIA, xox, and
 Bearer. It is not a secret scanner. The hash still changes when a redacted
 value changes.
 
-### Slot 08 · not built
+
+### leash · slot 08 · shipped
+
+Situation: a coding agent can change more than the repo you opened. Startup
+entries, scheduled tasks, global packages, dotfiles and ports live outside it,
+and they are easy to miss.
+
+See what your AI coding agent changed outside the repo. Takes a snapshot of the
+machine before the session, another after, and shows a filtered report of what
+changed outside that project: files, startup entries, scheduled tasks, services,
+environment variables, global packages and listening ports. A single Windows
+exe. No account, no network connection. It is read-only: it never deletes, kills
+or blocks anything. Everything it observes stays on the machine.
+
+- Page: https://gledach.de/leash
+- Repository: https://github.com/gledach/leash
+- What it cannot see: https://github.com/gledach/leash#what-it-cannot-see
+- Licence: MIT. Price: 0. Needs Windows 11. Administrator is needed for full file coverage. The published preview is unsigned.
+
+Install:
+
+    Download leash-0.1.0-win64.zip from https://github.com/gledach/leash/releases/tag/v0.1.0
+    unzip it and double-click leash.exe
+    # or, in the project folder, from PowerShell:
+    .\leash.exe start --path .
+    .\leash.exe stop
+    .\leash.exe open
+
+The same exe is the window and the command line. Opening it with no arguments
+shows a folder picker, Start, Stop, Open report, past sessions, Add to Start
+menu, and Restart as admin for full coverage. Passing any argument makes it a
+CLI. There is no runtime to install, and there is no gledach-leash command: the
+program is called leash.
+
+Commands: doctor, start --path ., stop, open, last, report --json. stop writes
+report.html, report.md and report.json under %LOCALAPPDATA%\leash\sessions\<id>\
+and prints a short summary, not the full listing. open opens the HTML report
+in the browser. You can start a session in the window and stop it from the
+CLI, or the other way around. stop exits with code 1 if there is any High
+finding.
+
+Elevated, file changes come from the NTFS USN journal. Unelevated, that part
+falls back to a hash and mtime scan of key folders (profile dotfiles,
+AppData\Roaming, Startup, nearby projects). Registry Run and RunOnce keys,
+scheduled tasks, services, environment variables, global npm/pnpm/pip/cargo
+packages, listening ports and leftover processes still appear without
+Administrator. Shell profiles, .gitconfig and ~/.ssh are recorded as names and
+hashes, never as key material. Default filters drop the watched repo,
+node_modules, .git, temp, caches, and busy editor or agent state folders.
+Changes to agent configuration such as settings.json, mcp.json, CLAUDE.md,
+Claude hooks or Codex config are ranked High.
+
+The published preview is unsigned, so Windows SmartScreen will likely warn the
+first time. A SHA256SUMS file is published next to the zip.
+
+Blind spots: changes inside the watched repo are ignored on purpose, except
+for a few high-priority names such as .env; file reads are invisible; v1
+cannot name the process that made a change (ETW is planned for v2); USN
+journal reads need Administrator; the journal can wrap or be recreated between
+start and stop; non-NTFS volumes, network shares and WSL files are limited or
+invisible to the USN path; registry, task and service coverage is the common
+persistence set, not a complete catalogue; global package detection follows
+PATH; default filters can hide something planted in a cache or node_modules;
+there is no network tracing; leash never deletes, kills or blocks anything.
+
+### Slot 09 · not built
 
 Empty. The shelf is built to hold a dozen. Nothing is planned publicly, and there
 is no roadmap to quote.

@@ -3,7 +3,7 @@
 The landing page for [github.com/gledach](https://github.com/gledach): free, installable
 tools that turn public data into information, insight and intelligence.
 
-Static. No build step, no framework, no dependencies. Eight pages, one stylesheet and one
+Static. No build step, no framework, no dependencies. Nine pages, one stylesheet and one
 script.
 
 | Path | File | What it is |
@@ -16,6 +16,7 @@ script.
 | `/recall` | `recall/index.html` | slot 05 |
 | `/talk` | `talk/index.html` | slot 06 |
 | `/snare` | `snare/index.html` | slot 07 |
+| `/leash` | `leash/index.html` | slot 08 |
 
 **Satellite pages are directories, not `whenrun.html`.** Cloudflare's
 `auto-trailing-slash` would resolve either, but `python -m http.server` has no

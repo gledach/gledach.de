@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>leash · see what your AI coding agent changed outside the repo</title>
+<meta name="description" content="Takes a snapshot of the machine before an agent session and another after, then shows what changed outside that repo: files, startup entries, services, packages and ports. A single Windows exe. Read-only, no account, stays on your machine.">
+<link rel="canonical" href="https://gledach.de/leash">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksandar Perisic">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gledach.de/leash">
+<meta property="og:site_name" content="gledach">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="leash · see what your AI coding agent changed outside the repo">
+<meta property="og:description" content="A before-and-after snapshot of what a coding agent changed on your Windows PC outside the repo. Read-only, no account, stays on your machine.">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "leash",
+  "url": "https://gledach.de/leash",
+  "sameAs": "https://github.com/gledach/leash",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Windows",
+  "softwareRequirements": "Windows 11. Administrator is needed for full file coverage.",
+  "license": "https://opensource.org/licenses/MIT",
+  "description": "Takes a snapshot of the machine before an AI coding agent session and another after, then shows what changed outside that repo: files, startup entries, services, packages and ports. A single Windows exe. Read-only, no account. It never deletes, kills or blocks anything.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "author": {
+    "@type": "Person",
+    "name": "Aleksandar Perisic",
+    "url": "https://www.linkedin.com/in/apsolut/"
+  },
+  "publisher": { "@type": "Organization", "name": "gledach", "url": "https://gledach.de/" }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#install">Skip to the install</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <div class="brandbar">
+      <a class="brand" href="/" aria-label="gledach, the organisation behind these tools">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        gledach
+      </a>
+      <span class="brand-sep" aria-hidden="true"></span>
+      <a class="brand-tool" href="/leash" aria-current="page">leash</a>
+      <details class="toolmenu">
+        <summary aria-label="The other tools on the gledach shelf">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        </summary>
+        <div class="toolmenu-panel">
+          <p class="toolmenu-head">The gledach shelf · 8 of 12 slots filled</p>
+          <ul class="toolmenu-list">
+            <li><a href="/"><b>signal <span class="tm-slot">slot 01</span></b><span>Competitive intelligence your agents can query</span></a></li>
+            <li><a href="/signal-patterns"><b>signal-patterns <span class="tm-slot">slot 02</span></b><span>How to build tools that watch the public web</span></a></li>
+            <li><a href="/whenrun"><b>whenrun <span class="tm-slot">slot 03</span></b><span>Run it when the power is cheap</span></a></li>
+            <li><a href="/phonehome"><b>phonehome <span class="tm-slot">slot 04</span></b><span>See what your devices talk to</span></a></li>
+            <li><a href="/recall"><b>recall <span class="tm-slot">slot 05</span></b><span>Tell me when something I own is recalled</span></a></li>
+            <li><a href="/talk"><b>talk <span class="tm-slot">slot 06</span></b><span>Which API hosts your coding agents connect to</span></a></li>
+            <li><a href="/snare"><b>snare <span class="tm-slot">slot 07</span></b><span>A startup hook that was not there yesterday</span></a></li>
+            <li><a href="/leash" aria-current="page"><b>leash <span class="tm-slot">slot 08</span></b><span>What your coding agent changed outside the repo</span></a></li>
+          </ul>
+          <p class="toolmenu-foot">
+            <a href="/#shelf">Why these eight</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
+          </p>
+        </div>
+      </details>
+    </div>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#install">Set it up</a>
+      <a href="#record">What it records</a>
+      <a href="#limits">What it cannot see</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="/#shelf">The shelf</a>
+      <a class="btn btn-fill" href="https://github.com/gledach/leash" rel="noopener">Repository</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero sec sec-first">
+    <div class="wrap">
+      <p class="crumb"><a href="/">gledach</a> <span>/</span> <a href="/#shelf">the shelf</a> <span>/ leash</span></p>
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">leash · slot 08 · shipped</p>
+          <h1 class="t-display">
+            See what your AI coding<br>agent changed outside the repo.<br>
+            <em class="quiet">On your own machine.</em>
+          </h1>
+          <p class="t-lg measure-tight" style="margin-top: var(--s-24)">
+            A snapshot before the session, another after, and a filtered report
+            of what changed outside that project: files, startup entries,
+            services, packages and ports.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-fill" href="#install">
+              Download the preview <span class="arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/gledach/leash" rel="noopener">Repository</a>
+          </div>
+          <p class="hero-meta">MIT licensed · no account · a single Windows exe · read only</p>
+        </div>
+
+        <figure class="console">
+          <div class="console-bar">
+            <span>report.html</span>
+            <span class="tag tag-quiet">sample report</span>
+          </div>
+          <img src="/assets/img/leash-report.png" width="888" height="1100" alt="A leash HTML report with a High, Medium and Info summary and colour-coded cards for the areas that changed." style="width:100%;height:auto;display:block;background:#fff">
+          <figcaption class="t-cap">
+            A self-contained HTML report from one session, opened in the
+            browser. This is a sample, so you can see the shape of it. A real
+            run writes the same file under <code>%LOCALAPPDATA%\leash\sessions\</code>,
+            with no network and no tracking.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec tint-mist">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">The situation</p>
+          <h2 class="t-h-lg">The agent can change more than the repo you opened.</h2>
+        </div>
+        <p class="t-lg">
+          A session looks like it stayed in the project. Startup entries,
+          scheduled tasks, global packages, dotfiles and ports live outside it,
+          and they are easy to miss.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <h3 class="t-sub">A snapshot, not a watcher</h3>
+          <p class="t-sm">
+            <code>start</code> writes a before snapshot and exits.
+            <code>stop</code> writes an after snapshot and compares the two.
+            Between them, nothing of leash is running. Windows already keeps
+            the volume change log.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">The report ignores the project</h3>
+          <p class="t-sm">
+            The folder you pick is left out on purpose, along with
+            <code>node_modules</code>, <code>.git</code>, temp folders and
+            editor caches, so the interesting changes are not buried in noise.
+          </p>
+        </article>
+        <article class="card card-emph">
+          <h3 class="t-sub">It does not intervene</h3>
+          <p class="t-sm">
+            leash never deletes, kills or blocks anything. It is an observer,
+            not ransomware protection, not a sandbox, and not an EDR. If
+            something looks wrong, you decide what to do.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="install">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Running it</p>
+          <h2 class="t-h-lg">Double-click the exe, or run it from PowerShell.</h2>
+        </div>
+        <p class="t-lg">
+          One unsigned Windows preview, a single <code>leash.exe</code>. Opening
+          it with no arguments shows a window. Passing any argument makes it a
+          command line. There is no runtime to install.
+        </p>
+      </div>
+
+      <div class="cmd" data-copy>
+<pre><code><span class="c-cmt"># unzip leash-0.1.0-win64.zip, then either double-click leash.exe</span>
+<span class="c-cmt"># or, in the project folder, from PowerShell:</span>
+.\leash.exe start --path .
+<span class="c-cmt"># use Cursor, Claude Code or Codex as usual</span>
+.\leash.exe stop
+.\leash.exe open              <span class="c-cmt"># report.html in your browser</span></code></pre>
+        <button type="button" class="copy" aria-label="Copy the leash commands">Copy</button>
+      </div>
+      <p class="figure-note">
+        Download <a href="https://github.com/gledach/leash/releases/tag/v0.1.0" rel="noopener"><code>leash-0.1.0-win64.zip</code></a>
+        from the v0.1.0 pre-release. The exe is unsigned, so SmartScreen will
+        likely warn the first time: choose <b>More info</b>, then <b>Run anyway</b>.
+        A <code>SHA256SUMS</code> file is published next to the zip.
+        The window has a folder picker, Start and Stop, Open report, a list of
+        past sessions, Add to Start menu, and Restart as admin for full coverage.
+        Without Administrator, file coverage falls back to a scan of key folders;
+        startup entries, packages and ports still appear.
+      </p>
+
+      <h3 class="t-h-sm" style="margin-top: var(--s-64)">The commands</h3>
+      <table class="spec" style="margin-top: var(--s-24)">
+        <thead>
+          <tr>
+            <th scope="col">Command</th>
+            <th scope="col">What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><span class="mono">leash doctor</span></th>
+            <td>Whether you are elevated, and what file coverage that gives you.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">leash start --path .</span></th>
+            <td>The before snapshot. The path is the project to ignore in the report.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">leash stop</span></th>
+            <td>The after snapshot and the report. Prints a short summary and the file paths, not the full listing.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">leash open</span></th>
+            <td>Opens <code>report.html</code> in your browser. <code>--json</code>, <code>--md</code> and <code>--folder</code> open the other forms.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">leash last</span></th>
+            <td>Reprints the short summary of the latest session.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">leash report --json</span></th>
+            <td>The JSON report on stdout. <code>--verbose</code> prints the full text in the terminal.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="figure-note">
+        Reports land in <code>%LOCALAPPDATA%\leash\sessions\&lt;id&gt;\</code> as
+        <code>report.html</code>, <code>report.md</code> and <code>report.json</code>.
+        <code>stop</code> exits with code 1 if there is any High finding.
+        You can start a session in the window and stop it from the command line,
+        or the other way around. The program is called <code>leash</code>, not
+        <code>gledach-leash</code>: it is a standalone Windows exe, not a Node
+        package.
+      </p>
+    </div>
+  </section>
+
+  <section class="sec tint-frost" id="record">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What it records</p>
+          <h2 class="t-h-lg">Files, startup, packages, ports, and a few other corners.</h2>
+        </div>
+        <p class="t-lg">
+          Elevated, file changes come from the NTFS USN journal on your drives.
+          Unelevated, that part falls back to a hash and mtime scan of key
+          folders. The rest of the collectors work as a normal user.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <h3 class="t-sub">Persistence and environment</h3>
+          <p class="t-sm">
+            Registry Run and RunOnce keys, scheduled tasks, services, and user
+            and system environment variables, with PATH split into entries.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">Packages, ports and leftovers</h3>
+          <p class="t-sm">
+            Global npm, pnpm, pip and cargo packages, if those tools are on
+            PATH. Listening TCP and UDP ports, with the owning process when it
+            can be seen. Processes that appeared during the session and are
+            still running.
+          </p>
+        </article>
+        <article class="card">
+          <h3 class="t-sub">Dotfiles, hashed</h3>
+          <p class="t-sm">
+            Shell profiles, <code>.gitconfig</code>, and <code>~/.ssh</code>
+            as file names and hashes only, never as key material. Changes to
+            agent configuration such as <code>settings.json</code>,
+            <code>mcp.json</code>, <code>CLAUDE.md</code>, Claude hooks or
+            Codex config are ranked High.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec tint-peri" id="limits">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">What it cannot see</p>
+          <h2 class="t-h-lg">Stated here rather than buried in a wiki.</h2>
+        </div>
+        <p class="t-lg">
+          Every tool on this shelf ships a written audit of its own blind spots. This
+          is leash's, in full, from its own documentation.
+        </p>
+      </div>
+
+      <ul class="blind">
+        <li>
+          <p class="t-sm"><b>Changes inside the watched repo are ignored by design,</b>
+          except for a few high-priority names such as <code>.env</code>. If an agent
+          only edits the project you pointed it at, the file section of the report
+          will be quiet on purpose.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Reads are invisible.</b>
+          The USN journal records creates, deletes, renames and data writes.
+          Opening or reading a file does not show up.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>No process attribution in v1.</b>
+          A deleted folder or a new Run key is listed as a fact, not as
+          “Cursor did this.” That needs ETW, planned for v2. Short-lived helper
+          processes may be gone by <code>leash stop</code> and will not appear
+          under leftover processes.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>USN journal reads need Administrator.</b>
+          Without elevation, leash falls back to a hash and mtime scan of
+          priority folders: profile dotfiles, <code>AppData\Roaming</code>,
+          Startup, nearby projects. It will not see the rest of the disk.
+          <code>leash doctor</code> explains the current mode.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>The journal can wrap or be recreated.</b>
+          If Windows recycles the journal between start and stop, early events
+          can be missing. leash stores the cursor and warns when that happens.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Non-NTFS volumes, network shares and WSL files</b>
+          are limited or invisible to the USN path.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Registry, task and service coverage is the common persistence set,</b>
+          not a complete catalogue. v1 does not look at WMI event subscriptions,
+          Image File Execution Options, Winlogon notifications, or similar corners.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Global package detection is a PATH heuristic.</b>
+          If <code>npm</code>, <code>pnpm</code>, <code>pip</code> or
+          <code>cargo</code> is missing or renamed, that list is skipped and noted.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>Filtered noise can hide something real.</b>
+          Malice dropped inside another project's <code>node_modules</code>, a
+          browser cache, or <code>%TEMP%</code> is ignored by the default rules.
+          You can tighten or loosen this with
+          <code>%LOCALAPPDATA%\leash\config.toml</code>.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>No network tracing.</b>
+          A process that only talks to the network, without installing a file or
+          opening a local listen port, is out of scope.</p>
+        </li>
+        <li>
+          <p class="t-sm"><b>leash never deletes, kills or blocks anything.</b>
+          Observation only — it is not ransomware protection, not a sandbox,
+          and not an EDR.</p>
+        </li>
+      </ul>
+
+      <p class="figure-note">
+        leash does not open a network connection and does not ask for an account.
+        Reports and logs stay under <code>%LOCALAPPDATA%\leash\</code>.
+        Live mode, with an alert when lots of files are deleted outside the repo,
+        is the next step, not this preview.
+      </p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="eyebrow">Elsewhere on the shelf</p>
+          <h2 class="t-h-lg">Same author. Different shapes.</h2>
+        </div>
+        <p class="t-lg">
+          Each takes whatever shape suits it, from a single command to a dashboard.
+          What they share is the promise rather than the plumbing: free, installable,
+          and honest about what each one cannot see.
+        </p>
+      </div>
+
+      <div class="cards">
+        <a class="card" href="/">
+          <p class="eyebrow eyebrow-quiet">Slot 01 · live preview</p>
+          <h3 class="t-h-sm">signal</h3>
+          <p class="t-sm">Ten watchers and one inbox on whichever market you name, scored and attributed, answerable by an agent over MCP.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/whenrun">
+          <p class="eyebrow eyebrow-quiet">Slot 03 · shipped</p>
+          <h3 class="t-h-sm">whenrun</h3>
+          <p class="t-sm">Day-ahead power prices turned into the window your job should run in, then it starts the job there.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/phonehome">
+          <p class="eyebrow eyebrow-quiet">Slot 04 · shipped</p>
+          <h3 class="t-h-sm">phonehome</h3>
+          <p class="t-sm">Which domains every device on your network contacts, and when one starts talking somewhere new.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/recall">
+          <p class="eyebrow eyebrow-quiet">Slot 05 · shipped</p>
+          <h3 class="t-h-sm">recall</h3>
+          <p class="t-sm">Four public registers checked against a list of the things you own, with every match graded.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/signal-patterns">
+          <p class="eyebrow eyebrow-quiet">Slot 02 · reference</p>
+          <h3 class="t-h-sm">signal-patterns</h3>
+          <p class="t-sm">What is watchable, what it costs, and eight engineering decisions each extracted from a bug that shipped.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/talk">
+          <p class="eyebrow eyebrow-quiet">Slot 06 · shipped</p>
+          <h3 class="t-h-sm">talk</h3>
+          <p class="t-sm">Samples TCP connections on Windows, follows each process up to its parent, and reads the certificate name of a new public host. It does not close a socket.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+        <a class="card" href="/snare">
+          <p class="eyebrow eyebrow-quiet">Slot 07 · shipped</p>
+          <h3 class="t-h-sm">snare</h3>
+          <p class="t-sm">Remembers the hooks a coding agent runs at startup, and the editor tasks that run when a folder opens. Prints only when that set changes. It does not delete a hook.</p>
+          <p class="card-go">Open the page &rarr;</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div>
+        <a class="brand" href="/" aria-label="gledach, home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          gledach
+        </a>
+        <p class="t-cap" style="margin-top: var(--s-16); max-width: 34ch">
+          <em>gledati</em> (slav.): to watch. What a good analyst does before speaking.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">leash</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/leash" rel="noopener">Repository</a></li>
+          <li><a href="https://github.com/gledach/leash/releases/tag/v0.1.0" rel="noopener">v0.1.0 preview</a></li>
+          <li><a href="https://github.com/gledach/leash#what-it-cannot-see" rel="noopener">What it cannot see</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">The shelf</p>
+        <ul class="foot-list">
+          <li><a href="/about">About gledach</a></li>
+          <li><a href="/">signal</a></li>
+          <li><a href="/signal-patterns">signal-patterns</a></li>
+          <li><a href="/whenrun">whenrun</a></li>
+          <li><a href="/phonehome">phonehome</a></li>
+          <li><a href="/recall">recall</a></li>
+          <li><a href="/talk">talk</a></li>
+          <li><a href="/snare">snare</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">Contact</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
+          <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p class="t-cap">MIT licensed. Nothing this tool observes leaves the machine it runs on.</p>
+      <p class="t-cap mono">if it ships to turso, it shipped</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
