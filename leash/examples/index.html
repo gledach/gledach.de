@@ -79,10 +79,16 @@
       <div>
           <p class="eyebrow">leash · slot 08 · examples</p>
           <h1 class="t-display">
-            Copy-paste recipes.<br>
-            <em class="quiet">Then see what the agent touched.</em>
+            Start the agent through leash.<br>
+            <em class="quiet">Attaching is the fallback.</em>
           </h1>
-          <p class="t-lg measure" style="margin-top: var(--s-24)">Copy-paste recipes for PowerShell. Attribution (<code>leash run</code>, <code>--attach</code>, <code>--pid</code>) needs an elevated window: right-click PowerShell → Run as administrator.</p>
+          <p class="t-lg measure">The most reliable way to watch an agent is to let leash start it:</p>
+          <div class="cmd" data-copy>
+<pre><code>leash run --path . -- claude
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the recommended leash run command">Copy</button>
+      </div>
+          <p class="t-lg measure">leash starts the agent itself, so there is nothing to pick from a process list. Use <code>--attach</code> or the window only as a fallback when the agent is already running inside an editor. Attribution (<code>leash run</code>, <code>--attach</code>, <code>--pid</code>) needs an elevated window: right-click PowerShell → Run as administrator.</p>
           <p class="t-lg measure">Agent flags change. These were checked in November 2026 against current CLI docs; if a flag errors, run the agent's own <code>--help</code> and keep the <code>leash run</code> wrapper the same.</p>
           <p class="t-lg measure">leash is read-only. "YOLO" / skip-permissions modes are exactly when you want it watching — it records what happened, it does not block the agent.</p>
           <div class="btn-row" style="margin-top: var(--s-24)">
@@ -97,9 +103,10 @@
 
   <section class="sec" id="commands">
     <div class="wrap">
+
       <h2 class="t-h-lg" id="ai-coding-agents">AI coding agents</h2>
       <h3 class="t-h-sm" style="margin-top: var(--s-32)">Claude Code (normal)</h3>
-      <p>Start Claude in this folder and attribute everything it and its children touch.</p>
+      <p>Recommended. Start Claude in this folder and attribute everything it and its children touch. Prefer this over attaching to a running editor.</p>
       <div class="cmd" data-copy>
 <pre><code>leash run --path . -- claude
 </code></pre>
@@ -148,9 +155,10 @@ leash run --path . -- aider --yes-always
 </code></pre>
         <button type="button" class="copy" aria-label="Copy the Aider commands">Copy</button>
       </div>
-      <h2 class="t-h-lg" id="attach-to-something-already-open">Attach to something already open</h2>
+      <h2 class="t-h-lg" id="attach-to-something-already-open-fallback">Attach to something already open (fallback)</h2>
+      <p>Prefer <code>leash run -- claude</code> when you can. Use these only when the agent is already running, for example inside a VS Code terminal.</p>
       <h3 class="t-h-sm" style="margin-top: var(--s-32)">Cursor, VS Code or Windsurf</h3>
-      <p>Attaches to the editor process and every descendant: terminals, extension hosts, and an agent such as Claude running in the integrated terminal. Use <code>leash ps</code> if you are not sure what is visible.</p>
+      <p>Attaches to the editor process and every descendant: terminals, extension hosts, and an agent such as Claude running in the integrated terminal. Use <code>leash ps</code> if you are not sure what is visible (rows include the folder, start time and a command-line tail, so several <code>node.exe</code> or <code>Code.exe</code> entries can be told apart).</p>
       <div class="cmd" data-copy>
 <pre><code>leash start --path . --attach cursor
 leash start --path . --attach vscode
