@@ -40,6 +40,7 @@ the same dashboard on 127.0.0.1:5180 against your own subject.
 | https://gledach.de/talk | talk | 06 |
 | https://gledach.de/snare | snare | 07 |
 | https://gledach.de/leash | leash | 08 |
+| https://gledach.de/leash/examples/ | leash examples | 08 |
 
 ## The shelf, in one table
 
@@ -648,6 +649,7 @@ connection. It is read-only: it never deletes, kills or blocks anything.
 Everything it observes stays on the machine.
 
 - Page: https://gledach.de/leash
+- Examples: https://gledach.de/leash/examples/
 - Repository: https://github.com/gledach/leash
 - What it cannot see: https://github.com/gledach/leash#what-it-cannot-see
 - Licence: MIT. Price: 0. Needs Windows 11. Administrator is needed for full file coverage. The published preview is unsigned.
@@ -662,12 +664,17 @@ Install:
     .\leash.exe open
 
 The same exe is the window and the command line. Opening it with no arguments
-shows a folder picker, Start, Stop, Open report, past sessions, Add to Start
-menu, and Restart as admin for full coverage. Passing any argument makes it a
+shows a folder picker, Start, Stop, Open report, Examples (opens this site),
+past sessions, Add to Start menu, and Restart as admin for full coverage.
+Copy-paste recipes, including Claude in YOLO mode, are at
+https://gledach.de/leash/examples/ and in `leash examples`. `leash ps` lists
+known editors and agents (image, window title and command line), so a
+Claude shim running as node.exe inside VS Code is visible. Passing any argument makes it a
 CLI. There is no runtime to install, and there is no gledach-leash command: the
 program is called leash.
 
-Commands: doctor, start --path ., stop, open, last, report --json. stop writes
+Commands: doctor, start --path ., run -- <command>, start --attach vscode (or cursor, claude, …),
+ps (alias list), examples, stop, open, last, report --json. stop writes
 report.html, report.md and report.json under %LOCALAPPDATA%\leash\sessions\<id>\
 and prints a short summary, not the full listing. open opens the HTML report
 in the browser. You can start a session in the window and stop it from the

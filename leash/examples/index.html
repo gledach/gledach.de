@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>leash examples · copy-paste recipes</title>
+<meta name="description" content="Copy-paste recipes for leash: run Claude, Codex, Gemini or Aider with attribution, attach to VS Code or Cursor, and open the report. Flags checked in November 2026; they may change.">
+<link rel="canonical" href="https://gledach.de/leash/examples/">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksandar Perisic">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gledach.de/leash/examples/">
+<meta property="og:site_name" content="gledach">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="leash examples · copy-paste recipes">
+<meta property="og:description" content="Copy-paste recipes for leash: Claude YOLO, Codex, Gemini, Aider, attach to VS Code or Cursor. Flags checked in November 2026; they may change.">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#recipes">Skip to the recipes</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <div class="brandbar">
+      <a class="brand" href="/" aria-label="gledach, the organisation behind these tools">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        gledach
+      </a>
+      <span class="brand-sep" aria-hidden="true"></span>
+      <a class="brand-tool" href="/leash">leash</a>
+      <details class="toolmenu">
+        <summary aria-label="The other tools on the gledach shelf">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        </summary>
+        <div class="toolmenu-panel">
+          <p class="toolmenu-head">The gledach shelf · 8 of 12 slots filled</p>
+          <ul class="toolmenu-list">
+            <li><a href="/"><b>signal <span class="tm-slot">slot 01</span></b><span>Competitive intelligence your agents can query</span></a></li>
+            <li><a href="/signal-patterns"><b>signal-patterns <span class="tm-slot">slot 02</span></b><span>How to build tools that watch the public web</span></a></li>
+            <li><a href="/whenrun"><b>whenrun <span class="tm-slot">slot 03</span></b><span>Run it when the power is cheap</span></a></li>
+            <li><a href="/phonehome"><b>phonehome <span class="tm-slot">slot 04</span></b><span>See what your devices talk to</span></a></li>
+            <li><a href="/recall"><b>recall <span class="tm-slot">slot 05</span></b><span>Tell me when something I own is recalled</span></a></li>
+            <li><a href="/talk"><b>talk <span class="tm-slot">slot 06</span></b><span>Which API hosts your coding agents connect to</span></a></li>
+            <li><a href="/snare"><b>snare <span class="tm-slot">slot 07</span></b><span>A startup hook that was not there yesterday</span></a></li>
+            <li><a href="/leash"><b>leash <span class="tm-slot">slot 08</span></b><span>What your coding agent changed outside the repo</span></a></li>
+          </ul>
+          <p class="toolmenu-foot">
+            <a href="/#shelf">Why these eight</a> · <a href="https://github.com/gledach" rel="noopener">All repositories</a>
+          </p>
+        </div>
+      </details>
+    </div>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="/leash/">Overview</a>
+      <a href="/leash/examples/" aria-current="page">Examples</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="/#shelf">The shelf</a>
+      <a class="btn btn-fill" href="https://github.com/gledach/leash" rel="noopener">Repository</a>
+    </div>
+  </div>
+</header>
+
+<main id="recipes">
+
+  <section class="hero sec sec-first">
+    <div class="wrap">
+      <p class="crumb"><a href="/">gledach</a> <span>/</span> <a href="/#shelf">the shelf</a> <span>/</span> <a href="/leash/">leash</a> <span>/ examples</span></p>
+      <div>
+          <p class="eyebrow">leash · slot 08 · examples</p>
+          <h1 class="t-display">
+            Copy-paste recipes.<br>
+            <em class="quiet">Then see what the agent touched.</em>
+          </h1>
+          <p class="t-lg measure" style="margin-top: var(--s-24)">Copy-paste recipes for PowerShell. Attribution (<code>leash run</code>, <code>--attach</code>, <code>--pid</code>) needs an elevated window: right-click PowerShell → Run as administrator.</p>
+          <p class="t-lg measure">Agent flags change. These were checked in November 2026 against current CLI docs; if a flag errors, run the agent's own <code>--help</code> and keep the <code>leash run</code> wrapper the same.</p>
+          <p class="t-lg measure">leash is read-only. "YOLO" / skip-permissions modes are exactly when you want it watching — it records what happened, it does not block the agent.</p>
+          <div class="btn-row" style="margin-top: var(--s-24)">
+            <a class="btn btn-fill" href="/leash/">
+              Back to leash <span class="arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/gledach/leash" rel="noopener">Repository</a>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="commands">
+    <div class="wrap">
+      <h2 class="t-h-lg" id="ai-coding-agents">AI coding agents</h2>
+      <h3 class="t-h-sm" style="margin-top: var(--s-32)">Claude Code (normal)</h3>
+      <p>Start Claude in this folder and attribute everything it and its children touch.</p>
+      <div class="cmd" data-copy>
+<pre><code>leash run --path . -- claude
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the Claude Code (normal) commands">Copy</button>
+      </div>
+      <h3 class="t-h-sm" style="margin-top: var(--s-32)">Claude Code (YOLO)</h3>
+      <p>Skip permission prompts. Official docs say this is for an isolated environment; leash does not add a sandbox or a block-list.</p>
+      <div class="cmd" data-copy>
+<pre><code>leash run --path . -- claude --dangerously-skip-permissions
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the Claude Code (YOLO) commands">Copy</button>
+      </div>
+      <h3 class="t-h-sm" style="margin-top: var(--s-32)">OpenAI Codex CLI (normal)</h3>
+      <p>Start Codex in this folder and attribute its process tree.</p>
+      <div class="cmd" data-copy>
+<pre><code>leash run --path . -- codex
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the OpenAI Codex CLI (normal) commands">Copy</button>
+      </div>
+      <h3 class="t-h-sm" style="margin-top: var(--s-32)">OpenAI Codex CLI (unattended / YOLO)</h3>
+      <p><code>--full-auto</code> was removed and now errors. Closest unattended workspace run: workspace-write sandbox, never ask for approval. Full bypass (no sandbox) is <code>--yolo</code> (same as <code>--dangerously-bypass-approvals-and-sandbox</code>). Official docs say yolo is for a hardened or isolated environment; leash does not provide one.</p>
+      <div class="cmd" data-copy>
+<pre><code>leash run --path . -- codex --sandbox workspace-write --ask-for-approval never
+leash run --path . -- codex --yolo
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the OpenAI Codex CLI (unattended / YOLO) commands">Copy</button>
+      </div>
+      <h3 class="t-h-sm" style="margin-top: var(--s-32)">Gemini CLI (normal)</h3>
+      <div class="cmd" data-copy>
+<pre><code>leash run --path . -- gemini
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the Gemini CLI (normal) commands">Copy</button>
+      </div>
+      <h3 class="t-h-sm" style="margin-top: var(--s-32)">Gemini CLI (YOLO)</h3>
+      <p>Prefer <code>--approval-mode=yolo</code>. <code>--yolo</code> / <code>-y</code> still work but are deprecated. Do not pass both.</p>
+      <div class="cmd" data-copy>
+<pre><code>leash run --path . -- gemini --approval-mode=yolo
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the Gemini CLI (YOLO) commands">Copy</button>
+      </div>
+      <h3 class="t-h-sm" style="margin-top: var(--s-32)">Aider</h3>
+      <p><code>--yes-always</code> is the current "don't ask" flag (<code>AIDER_YES_ALWAYS</code> also works). The older <code>--yes</code> is still accepted. Aider has no sandbox.</p>
+      <div class="cmd" data-copy>
+<pre><code>leash run --path . -- aider
+leash run --path . -- aider --yes-always
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the Aider commands">Copy</button>
+      </div>
+      <h2 class="t-h-lg" id="attach-to-something-already-open">Attach to something already open</h2>
+      <h3 class="t-h-sm" style="margin-top: var(--s-32)">Cursor, VS Code or Windsurf</h3>
+      <p>Attaches to the editor process and every descendant: terminals, extension hosts, and an agent such as Claude running in the integrated terminal. Use <code>leash ps</code> if you are not sure what is visible.</p>
+      <div class="cmd" data-copy>
+<pre><code>leash start --path . --attach cursor
+leash start --path . --attach vscode
+leash start --path . --attach windsurf
+<span class="c-cmt"># …work as usual…</span>
+leash stop
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the Cursor, VS Code or Windsurf commands">Copy</button>
+      </div>
+      <h3 class="t-h-sm" style="margin-top: var(--s-32)">A named agent, or a pid</h3>
+      <p><code>--attach claude</code> matches <code>claude.exe</code> or a <code>node.exe</code> whose command line points at <code>claude-code</code> (npm shims show up as <code>node.exe</code>). That attaches only that subtree, not the whole editor.</p>
+      <div class="cmd" data-copy>
+<pre><code>leash ps
+leash start --path . --attach claude
+leash start --path . --pid 1234
+leash stop
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the A named agent, or a pid commands">Copy</button>
+      </div>
+      <h2 class="t-h-lg" id="untrusted-commands">Untrusted commands</h2>
+      <h3 class="t-h-sm" style="margin-top: var(--s-32)">npm / pnpm install or a one-off tool</h3>
+      <div class="cmd" data-copy>
+<pre><code>leash run --path . -- pnpm install
+leash run --path . -- npm install
+leash run --path . -- npx some-tool
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the npm / pnpm install or a one-off tool commands">Copy</button>
+      </div>
+      <h3 class="t-h-sm" style="margin-top: var(--s-32)">Python script or pip</h3>
+      <div class="cmd" data-copy>
+<pre><code>leash run --path . -- python script.py
+leash run --path . -- pip install some-package
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the Python script or pip commands">Copy</button>
+      </div>
+      <h2 class="t-h-lg" id="system-wide-no-attribution">System-wide, no attribution</h2>
+      <p>Same behaviour as the v0.1 preview. Every change on the PC during the session is listed, including other apps. Works without Administrator (file coverage is then a folder scan, not the USN journal).</p>
+      <div class="cmd" data-copy>
+<pre><code>leash start --path .
+<span class="c-cmt"># …run whatever you like…</span>
+leash stop
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the System-wide, no attribution commands">Copy</button>
+      </div>
+      <h2 class="t-h-lg" id="open-the-report">Open the report</h2>
+      <div class="cmd" data-copy>
+<pre><code>leash open              # report.html in the browser
+leash open --md
+leash open --json
+leash open --folder     # session folder in Explorer
+leash last              # reprint the short summary
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the Open the report commands">Copy</button>
+      </div>
+      <h2 class="t-h-lg" id="troubleshooting">Troubleshooting</h2>
+      <p>The log is <code>%LOCALAPPDATA%\leash\leash.log</code>. Command-line reads that fail (often access denied when leash is not elevated) are written there rather than dropped silently. <code>leash ps</code> shows which editors and agents were detected, and why.</p>
+      <div class="cmd" data-copy>
+<pre><code>leash doctor
+leash --verbose stop
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the Troubleshooting commands">Copy</button>
+      </div>
+      <h2 class="t-h-lg" id="powershell-quoting-and-npm-shims">PowerShell quoting and npm shims</h2>
+      <p>Put <code>--</code> in front of the agent so its flags are not eaten by leash. If PowerShell itself is swallowing arguments, stop-parsing with <code>--%</code>: <code>claude</code>, <code>codex</code>, <code>gemini</code> and similar tools installed with npm are often <code>claude.cmd</code> shims, not <code>.exe</code> files. <code>leash run</code> resolves PATHEXT and launches <code>.cmd</code> / <code>.bat</code> through <code>cmd.exe /c</code>, and <code>.ps1</code> through PowerShell <code>-File</code>.</p>
+      <div class="cmd" data-copy>
+<pre><code>leash run --path . -- claude --dangerously-skip-permissions
+leash run --path . --% -- claude --dangerously-skip-permissions
+</code></pre>
+        <button type="button" class="copy" aria-label="Copy the PowerShell quoting and npm shims commands">Copy</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="eyebrow eyebrow-quiet">leash</p>
+        <ul class="foot-list">
+          <li><a href="/leash/">Overview</a></li>
+          <li><a href="/leash/examples/">Examples</a></li>
+          <li><a href="https://github.com/gledach/leash" rel="noopener">Repository</a></li>
+          <li><a href="https://github.com/gledach/leash/releases/tag/v0.1.0" rel="noopener">v0.1.0 preview</a></li>
+          <li><a href="https://github.com/gledach/leash#what-it-cannot-see" rel="noopener">What it cannot see</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">The shelf</p>
+        <ul class="foot-list">
+          <li><a href="/about">About gledach</a></li>
+          <li><a href="/">signal</a></li>
+          <li><a href="/signal-patterns">signal-patterns</a></li>
+          <li><a href="/whenrun">whenrun</a></li>
+          <li><a href="/phonehome">phonehome</a></li>
+          <li><a href="/recall">recall</a></li>
+          <li><a href="/talk">talk</a></li>
+          <li><a href="/snare">snare</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow eyebrow-quiet">Contact</p>
+        <ul class="foot-list">
+          <li><a href="https://github.com/gledach/requests/issues" rel="noopener">Request a tool</a></li>
+          <li><a href="https://www.linkedin.com/company/gledach/" rel="noopener">gledach on LinkedIn</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p class="t-cap">MIT licensed. Nothing this tool observes leaves the machine it runs on.</p>
+      <p class="t-cap mono">if it ships to turso, it shipped</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

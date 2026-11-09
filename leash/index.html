@@ -84,6 +84,7 @@
     </div>
     <nav class="nav-links" aria-label="Sections">
       <a href="#install">Set it up</a>
+      <a href="/leash/examples/">Examples</a>
       <a href="#record">What it records</a>
       <a href="#limits">What it cannot see</a>
     </nav>
@@ -116,6 +117,7 @@
             <a class="btn btn-fill" href="#install">
               Download the preview <span class="arrow" aria-hidden="true">&rarr;</span>
             </a>
+            <a class="btn btn-ghost" href="/leash/examples/">Examples</a>
             <a class="btn btn-ghost" href="https://github.com/gledach/leash" rel="noopener">Repository</a>
           </div>
           <p class="hero-meta">MIT licensed · no account · a single Windows exe · read only</p>
@@ -258,6 +260,22 @@
           <tr>
             <th scope="row"><span class="mono">leash report --json</span></th>
             <td>The JSON report on stdout. <code>--verbose</code> prints the full text in the terminal.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">leash run -- &lt;command&gt;</span></th>
+            <td>Start a session, run the command, then write the report. Elevated, changes are attributed to that process tree. See <a href="/leash/examples/">examples</a>.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">leash start --attach vscode</span></th>
+            <td>Attach to a running editor or agent (<code>vscode</code>, <code>cursor</code>, <code>claude</code>, …). Matches image, window title and command line.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">leash ps</span></th>
+            <td>List the editors and agents leash can see, with pid and why they matched. Alias: <code>leash list</code>.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="mono">leash examples</span></th>
+            <td>Copy-paste recipes. The same list is on this site at <a href="/leash/examples/">/leash/examples/</a>.</td>
           </tr>
         </tbody>
       </table>
@@ -488,6 +506,7 @@
       <div>
         <p class="eyebrow eyebrow-quiet">leash</p>
         <ul class="foot-list">
+          <li><a href="/leash/examples/">Examples</a></li>
           <li><a href="https://github.com/gledach/leash" rel="noopener">Repository</a></li>
           <li><a href="https://github.com/gledach/leash/releases/tag/v0.1.0" rel="noopener">v0.1.0 preview</a></li>
           <li><a href="https://github.com/gledach/leash#what-it-cannot-see" rel="noopener">What it cannot see</a></li>
