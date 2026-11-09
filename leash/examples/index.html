@@ -155,7 +155,7 @@ leash run --path . -- aider --yes-always
 </code></pre>
         <button type="button" class="copy" aria-label="Copy the Aider commands">Copy</button>
       </div>
-      <h2 class="t-h-lg" id="attach-to-something-already-open-fallback">Attach to something already open (fallback)</h2>
+      <h2 class="t-h-lg" style="margin-top: var(--s-80)" id="attach-to-something-already-open-fallback">Attach to something already open (fallback)</h2>
       <p>Prefer <code>leash run -- claude</code> when you can. Use these only when the agent is already running, for example inside a VS Code terminal.</p>
       <h3 class="t-h-sm" style="margin-top: var(--s-32)">Cursor, VS Code or Windsurf</h3>
       <p>Attaches to the editor process and every descendant: terminals, extension hosts, and an agent such as Claude running in the integrated terminal. Use <code>leash ps</code> if you are not sure what is visible (rows include the folder, start time and a command-line tail, so several <code>node.exe</code> or <code>Code.exe</code> entries can be told apart).</p>
@@ -178,7 +178,7 @@ leash stop
 </code></pre>
         <button type="button" class="copy" aria-label="Copy the A named agent, or a pid commands">Copy</button>
       </div>
-      <h2 class="t-h-lg" id="untrusted-commands">Untrusted commands</h2>
+      <h2 class="t-h-lg" style="margin-top: var(--s-80)" id="untrusted-commands">Untrusted commands</h2>
       <h3 class="t-h-sm" style="margin-top: var(--s-32)">npm / pnpm install or a one-off tool</h3>
       <div class="cmd" data-copy>
 <pre><code>leash run --path . -- pnpm install
@@ -194,7 +194,7 @@ leash run --path . -- pip install some-package
 </code></pre>
         <button type="button" class="copy" aria-label="Copy the Python script or pip commands">Copy</button>
       </div>
-      <h2 class="t-h-lg" id="system-wide-no-attribution">System-wide, no attribution</h2>
+      <h2 class="t-h-lg" style="margin-top: var(--s-80)" id="system-wide-no-attribution">System-wide, no attribution</h2>
       <p>Same behaviour as the v0.1 preview. Every change on the PC during the session is listed, including other apps. Works without Administrator (file coverage is then a folder scan, not the USN journal).</p>
       <div class="cmd" data-copy>
 <pre><code>leash start --path .
@@ -203,7 +203,7 @@ leash stop
 </code></pre>
         <button type="button" class="copy" aria-label="Copy the System-wide, no attribution commands">Copy</button>
       </div>
-      <h2 class="t-h-lg" id="open-the-report">Open the report</h2>
+      <h2 class="t-h-lg" style="margin-top: var(--s-80)" id="open-the-report">Open the report</h2>
       <div class="cmd" data-copy>
 <pre><code>leash open              # report.html in the browser
 leash open --md
@@ -213,7 +213,7 @@ leash last              # reprint the short summary
 </code></pre>
         <button type="button" class="copy" aria-label="Copy the Open the report commands">Copy</button>
       </div>
-      <h2 class="t-h-lg" id="troubleshooting">Troubleshooting</h2>
+      <h2 class="t-h-lg" style="margin-top: var(--s-80)" id="troubleshooting">Troubleshooting</h2>
       <p>The log is <code>%LOCALAPPDATA%\leash\leash.log</code>. Command-line reads that fail (often access denied when leash is not elevated) are written there rather than dropped silently. <code>leash ps</code> shows which editors and agents were detected, and why.</p>
       <div class="cmd" data-copy>
 <pre><code>leash doctor
@@ -221,7 +221,7 @@ leash --verbose stop
 </code></pre>
         <button type="button" class="copy" aria-label="Copy the Troubleshooting commands">Copy</button>
       </div>
-      <h2 class="t-h-lg" id="powershell-quoting-and-npm-shims">PowerShell quoting and npm shims</h2>
+      <h2 class="t-h-lg" style="margin-top: var(--s-80)" id="powershell-quoting-and-npm-shims">PowerShell quoting and npm shims</h2>
       <p>Put <code>--</code> in front of the agent so its flags are not eaten by leash. If PowerShell itself is swallowing arguments, stop-parsing with <code>--%</code>: <code>claude</code>, <code>codex</code>, <code>gemini</code> and similar tools installed with npm are often <code>claude.cmd</code> shims, not <code>.exe</code> files. <code>leash run</code> resolves PATHEXT and launches <code>.cmd</code> / <code>.bat</code> through <code>cmd.exe /c</code>, and <code>.ps1</code> through PowerShell <code>-File</code>.</p>
       <div class="cmd" data-copy>
 <pre><code>leash run --path . -- claude --dangerously-skip-permissions
